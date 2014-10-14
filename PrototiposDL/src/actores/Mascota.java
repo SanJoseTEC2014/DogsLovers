@@ -16,7 +16,7 @@ import java.util.LinkedList;
 public class Mascota {
 	
 	public static LinkedList<String> especies = new LinkedList<String>();
-	public static LinkedList<LinkedList<String>> razas = new LinkedList<LinkedList<String>>(); 
+	public static LinkedList<String[]> razas = new LinkedList<String[]>(); 
 	private static Integer totalChips = 0;
 	
 	private String nombre;
@@ -40,48 +40,22 @@ public class Mascota {
 	private Integer recompensa;
 	private String notasSecundarias;
 	
-	public Mascota(String pNombre, Integer pChipID, Integer pTelefonoDuenio, String pCorreoDuenio, Integer pIndiceEspecie, Integer pIndiceRaza,
+	public Mascota(String pNombre, Integer pTelefonoDuenio, String pCorreoDuenio, Integer pIndiceEspecie, Integer pIndiceRaza,
 				   String pLugarExtravio, Calendar pFechaExtravio, Integer pRecompensa, String pNotasSecundarias) {
 		nombre = pNombre;
-		chipID = pChipID;
+		chipID = ++totalChips;
 		telefonoDuenio = pTelefonoDuenio;
 		correoDuenio = pCorreoDuenio;
 		estado = "Perdido";
 		
 		especie = Mascota.especies.get(pIndiceEspecie);
-		raza = Mascota.razas.get(pIndiceEspecie).get(pIndiceRaza);
+		raza = Mascota.razas.get(pIndiceEspecie)[pIndiceRaza];
 		
 		lugarExtravio = pLugarExtravio;
 		fechaExtravio = pFechaExtravio;
 		
 		recompensa = pRecompensa;
 		notasSecundarias = pNotasSecundarias;
-	}
-
-	public static void main(String[] args) {
-		Mascota.especies.add("Perro");
-		
-		LinkedList<String> razasPerros = new LinkedList<String>();
-		
-		razasPerros.add("Otro");
-		razasPerros.add("Chihuahua");
-		razasPerros.add("Schnauzer");
-		razasPerros.add("Doberman");
-		razasPerros.add("Salchicha");
-		
-		Mascota.razas.add(razasPerros);
-		
-		Calendar fechaLucky = Calendar.getInstance();
-		fechaLucky.set(2014, 9, 26);
-		
-		
-		LinkedList<Mascota> prototipo = new LinkedList<Mascota>();
-		prototipo.add(new Mascota("Lucky", Mascota.totalChips++, 83511265, "bormo1218@gmail.com", 0, 1, "Heredia", fechaLucky, 50000, "Agradable."));
-		
-		for (Mascota i : prototipo){
-			System.out.println(i);
-		}
-		
 	}
 
 	public String 	getNombre() 								{		return nombre;						}
@@ -155,5 +129,7 @@ public class Mascota {
 		msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
 	}
+	
+	
 	
 }
