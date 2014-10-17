@@ -42,8 +42,9 @@ public class Principal {
 				
 		inicializarMascotas();
 		prototipo.add(new Mascota("Lucky", 83511265, "bormo1218@gmail.com", 0, 1, new Suceso("Heredia", 26, 9, 2014, "Fue horrible."), 50000, "Agradable."));
+		/*
 		for (Mascota i : prototipo){	System.out.println(i);		}
-		
+		*/
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

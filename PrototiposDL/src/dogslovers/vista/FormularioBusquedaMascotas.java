@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,15 +20,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
+import dogslovers.control.BuscadorMascotas;
 import dogslovers.modelo.Mascota;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 
 public class FormularioBusquedaMascotas extends JFrame {
 	
 	private static LinkedList<Mascota> listaOrigenMascotas;
 	
 	private final JLabel lblNewLabel = new JLabel("B\u00FAsqueda Mascotas Extraviadas");
-	private JTable table;
+	private JTable jMascotas;
 	private JTextField textNombre;
 	private JTextField textLugar;
 	private JTextField textChipID;
@@ -53,6 +60,30 @@ public class FormularioBusquedaMascotas extends JFrame {
 		marcoTitulo.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JButton btnBuscar = new JButton("Realizar B\u00FAsqueda");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LinkedList<String> terminos = new LinkedList<String>();
+				if (checkNombre.isSelected())	{ terminos.add(textNombre.getText()); } else { terminos.add(""); }
+				if (checkLugar.isSelected())	{ terminos.add(textLugar.getText()); } else { terminos.add(""); }
+				if (checkChipID.isSelected())	{ terminos.add(textChipID.getText()); } else { terminos.add(""); }
+				if (checkEspecie.isSelected())	{
+					terminos.add(Mascota.especies.get(comboEspecies.getSelectedIndex()));
+					if (checkRaza.isSelected()) {
+						terminos.add(Mascota.razas.get(comboEspecies.getSelectedIndex())[comboRazas.getSelectedIndex()]);
+					} else { terminos.add(""); } 
+				}
+				else {
+					terminos.add(""); terminos.add("");
+				}
+				
+				@SuppressWarnings("unchecked")
+				BuscadorMascotas finder = new BuscadorMascotas((LinkedList<Mascota>) listaOrigenMascotas.clone(), terminos);
+				// TODO NO despliega resultados.
+				DefaultTableModel muestra = new DefaultTableModel(finder.getVectorResultados(), finder.getVectorTitulosColumnas());
+				jMascotas.setModel(muestra);
+				SwingUtilities.updateComponentTreeUI(getContentPane());
+			}
+		});
 		marcoTitulo.add(btnBuscar, BorderLayout.EAST);
 		
 		JButton btnAyuda = new JButton("\u00A1Necesito Ayuda!");
@@ -69,7 +100,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 		checkNombre = new JCheckBox("Nombre");
 		checkNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (checkNombre.isSelected()) { textNombre.setEnabled(true); } else { textNombre.setEnabled(false); } 
+				if (checkNombre.isSelected()) { textNombre.setEnabled(true); } else { textNombre.setText(""); textNombre.setEnabled(false); } 
 			}
 		});
 		marcoOpciones.add(checkNombre);
@@ -82,7 +113,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 		checkLugar = new JCheckBox("Lugar Extrav\u00EDo");
 		checkLugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (checkLugar.isSelected()) { textLugar.setEnabled(true); } else { textLugar.setEnabled(false); } 
+				if (checkLugar.isSelected()) { textLugar.setEnabled(true); } else { textLugar.setText(""); textLugar.setEnabled(false); } 
 			}
 		});
 		marcoOpciones.add(checkLugar);
@@ -95,7 +126,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 		checkChipID = new JCheckBox("N\u00FAmero de Chip");
 		checkChipID.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (checkChipID.isSelected()) { textChipID.setEnabled(true); } else { textChipID.setEnabled(false); } 
+				if (checkChipID.isSelected()) { textChipID.setEnabled(true); } else { textChipID.setText(""); textChipID.setEnabled(false); } 
 			}
 		});
 		marcoOpciones.add(checkChipID);
@@ -128,8 +159,6 @@ public class FormularioBusquedaMascotas extends JFrame {
 		comboEspecies.setEnabled(false);
 		marcoOpciones.add(comboEspecies);
 		
-		//} else { comboEspecies.setEnabled(false); comboEspecies.setModel(new DefaultComboBoxModel<String>());}
-		
 		checkRaza = new JCheckBox("Raza");
 		checkRaza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,10 +179,14 @@ public class FormularioBusquedaMascotas extends JFrame {
 		marcoOpciones.add(comboRazas);
 		
 		JScrollPane scrollTabla = new JScrollPane();
-		marcoContenido.add(scrollTabla, BorderLayout.SOUTH);
+		scrollTabla.setViewportBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollTabla.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		marcoContenido.add(scrollTabla, BorderLayout.CENTER);
 		
-		table = new JTable();
-		scrollTabla.add(table);
+		jMascotas = new JTable();
+		jMascotas.setShowHorizontalLines(true);
+		jMascotas.setShowVerticalLines(true);
+		scrollTabla.add(jMascotas);
 		
 		JPanel marcoConfirmaciones = new JPanel();
 		getContentPane().add(marcoConfirmaciones, BorderLayout.SOUTH);
@@ -167,24 +200,4 @@ public class FormularioBusquedaMascotas extends JFrame {
 		
 	}
 	
-	LinkedList<Mascota> busqueda(String[] pTerminos){
-		LinkedList<Mascota> listaResultados = new LinkedList<Mascota>();
-		for (Mascota temp : listaOrigenMascotas){
-			boolean coincide = false;
-			for (int criterio = 0; criterio < 5; criterio++){
-				if (!coincide && pTerminos[criterio] != "") {
-					switch (criterio) {
-						case 0: coincide = temp.getNombre().contains(pTerminos[criterio]); break;
-						case 1: coincide = temp.getExtravio().getLugar().contains(pTerminos[criterio]); break;
-						case 2: coincide = temp.getChipID().toString().contains(pTerminos[criterio]); break;
-						case 3: coincide = temp.getEspecie().contains(pTerminos[criterio]); break;
-						case 4: coincide = temp.getRaza().contains(pTerminos[criterio]); break;
-					}
-				}
-			}
-			if (coincide) { listaResultados.add(temp); }
-		}
-		return listaResultados;
-	}
-
 }
