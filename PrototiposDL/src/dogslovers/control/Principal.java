@@ -30,6 +30,7 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		// Establece un look and feel metálico, si no lo encuentra, establece el look and feel del sistema operativo.
+		/*
 		try {
 			UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
@@ -39,7 +40,7 @@ public class Principal {
 				e2.printStackTrace();
 			}
 		}
-				
+		*/		
 		inicializarMascotas();
 		prototipo.add(new Mascota("Lucky", 83511265, "bormo1218@gmail.com", 0, 1, new Suceso("Heredia", 26, 9, 2014, "Fue horrible."), 50000, "Agradable."));
 		/*

@@ -1,25 +1,26 @@
 package dogslovers.control;
-
+import javax.swing.table.AbstractTableModel;
 import java.util.LinkedList;
-import java.util.Vector;
 
 import dogslovers.modelo.Mascota;
 
-public class BuscadorMascotas {
+public class BuscadorMascotas extends AbstractTableModel {
 	
-	LinkedList<Mascota> resultados;
-	LinkedList<String> terminos;
+	private static String[] titulos = {"Nombre Mascota", "Lugar de Extrav\u00EDo", "N\u00FAmero de Chip", "Especie", "Raza"};
+	private LinkedList<Mascota> resultados;
+	private LinkedList<String> terminos;
 	
 	public BuscadorMascotas(LinkedList<Mascota> pLista, LinkedList<String> pTerminos) {
 		resultados = pLista;
 		terminos = pTerminos;
 		buscar();
+		for (Mascota i : resultados) System.out.println(i);
 	}
 	
 	private void buscar(){
 		for (int criterio = 0; criterio < 5; criterio++) {
-			for (int temp = 0; temp < resultados.size(); temp++) {
-				if (terminos.get(criterio) != "") {
+			if (terminos.get(criterio) != "") {
+				for (int temp = 0; temp < resultados.size(); temp++) {
 					switch (criterio) {
 						case 0: if (!resultados.get(temp).getNombre().toLowerCase().contains(terminos.get(criterio).toLowerCase())) 				resultados.remove(temp);
 						break; 
@@ -37,31 +38,19 @@ public class BuscadorMascotas {
 		}
 	}
 	
-	public Vector<Vector<String>> getVectorResultados(){
-		Vector<Vector<String>> registros = new Vector<Vector<String>>();
-		registros.setSize(resultados.size()); 
-		for (int i = 0; i < resultados.size(); i++) {
-			Vector<String> campos = new Vector<String>();
-			campos.setSize(5);
-			campos.add(resultados.get(i).getNombre());
-			campos.add(resultados.get(i).getExtravio().getLugar());
-			campos.add(resultados.get(i).getChipID().toString());
-			campos.add(resultados.get(i).getEspecie());
-			campos.add(resultados.get(i).getRaza());
-			registros.add(campos);
+	public int getColumnCount() {	return 5;	}
+	public int getRowCount() 	{	return resultados.size();	}
+	public String getColumnName(int column) {	return titulos[column];	}
+	
+	public Object getValueAt(int rowIndex, int columnIndex) {
+			switch (columnIndex)
+			{
+				case 0: return resultados.get(rowIndex).getNombre();
+				case 1: return resultados.get(rowIndex).getExtravio().getLugar();
+				case 2: return resultados.get(rowIndex).getChipID().toString();
+				case 3: return resultados.get(rowIndex).getEspecie();
+				case 4: return resultados.get(rowIndex).getRaza();
+				default: return null;
+			}
 		}
-		return registros;
-	}
-	
-	public Vector<String> getVectorTitulosColumnas(){
-		Vector<String> titulos = new Vector<String>();
-		titulos.setSize(5);
-		titulos.add("Nombre Mascota");
-		titulos.add("Lugar de Extrav\u00EDo");
-		titulos.add("N\u00FAmero de Chip");
-		titulos.add("Especie");
-		titulos.add("Raza");
-		return titulos;
-	}
-	
 }

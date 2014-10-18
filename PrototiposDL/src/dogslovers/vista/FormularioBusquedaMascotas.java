@@ -75,12 +75,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 				else {
 					terminos.add(""); terminos.add("");
 				}
-				
-				@SuppressWarnings("unchecked")
-				BuscadorMascotas finder = new BuscadorMascotas((LinkedList<Mascota>) listaOrigenMascotas.clone(), terminos);
-				// TODO NO despliega resultados.
-				DefaultTableModel muestra = new DefaultTableModel(finder.getVectorResultados(), finder.getVectorTitulosColumnas());
-				jMascotas.setModel(muestra);
+				jMascotas.setModel(new BuscadorMascotas((LinkedList<Mascota>) listaOrigenMascotas.clone(), terminos));
 				SwingUtilities.updateComponentTreeUI(getContentPane());
 			}
 		});
@@ -92,6 +87,16 @@ public class FormularioBusquedaMascotas extends JFrame {
 		JPanel marcoContenido = new JPanel();
 		getContentPane().add(marcoContenido, BorderLayout.CENTER);
 		marcoContenido.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollTabla = new JScrollPane();
+		scrollTabla.setViewportBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollTabla.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		marcoContenido.add(scrollTabla, BorderLayout.CENTER);
+		
+		jMascotas = new JTable();
+		jMascotas.setShowHorizontalLines(true);
+		jMascotas.setShowVerticalLines(true);
+		scrollTabla.add(jMascotas);
 		
 		JPanel marcoOpciones = new JPanel();
 		marcoContenido.add(marcoOpciones, BorderLayout.NORTH);
@@ -177,16 +182,6 @@ public class FormularioBusquedaMascotas extends JFrame {
 		comboRazas = new JComboBox<String>();
 		comboRazas.setEnabled(false);
 		marcoOpciones.add(comboRazas);
-		
-		JScrollPane scrollTabla = new JScrollPane();
-		scrollTabla.setViewportBorder(UIManager.getBorder("TitledBorder.border"));
-		scrollTabla.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		marcoContenido.add(scrollTabla, BorderLayout.CENTER);
-		
-		jMascotas = new JTable();
-		jMascotas.setShowHorizontalLines(true);
-		jMascotas.setShowVerticalLines(true);
-		scrollTabla.add(jMascotas);
 		
 		JPanel marcoConfirmaciones = new JPanel();
 		getContentPane().add(marcoConfirmaciones, BorderLayout.SOUTH);
