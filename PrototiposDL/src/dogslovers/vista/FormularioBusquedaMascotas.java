@@ -82,6 +82,11 @@ public class FormularioBusquedaMascotas extends JFrame {
 		marcoTitulo.add(btnBuscar, BorderLayout.EAST);
 		
 		JButton btnAyuda = new JButton("\u00A1Necesito Ayuda!");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.print("kako :3");
+			}
+		});
 		marcoTitulo.add(btnAyuda, BorderLayout.WEST);
 		
 		JPanel marcoContenido = new JPanel();
