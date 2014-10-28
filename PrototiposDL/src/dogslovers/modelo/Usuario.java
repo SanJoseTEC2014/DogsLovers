@@ -11,7 +11,7 @@ public class Usuario {
 	private int cedula;
 	private String contrasenia;
 	private int telefono;
-	private int lapsoEmparejamiento;
+	private String lapsoEmparejamiento;
 	private int diasUltimoEmparejamiento;
 	//private ArrayList<Calificaciones> calificaciones;
 	private ArrayList<Integer> mascotasPerdidasIDs;
@@ -24,9 +24,25 @@ public class Usuario {
 	private boolean refugiante;
 	private boolean adoptante;
 	private boolean administrador;
-	//private CondicionesRefugio condicionesRef;
+	private CondicionesRefugio condicionesRef;
 	//private facebook cuentaFacebook;
 	//private twitter cuentaTwitter;
+	
+	public Usuario(String pNickname, String pNombre, String pApellidos, 
+			       Integer pCedula, String pContrasenia, Integer pTelefono, 
+			       String pLapsoEmparejamiento, boolean pRefugiante, 
+			       CondicionesRefugio pCondiciones, boolean pAdoptante) {
+		nickname = pNickname;
+		nombre = pNombre;
+		apellidos = pApellidos;
+		cedula = pCedula;
+		contrasenia = pContrasenia;
+		telefono = pTelefono;
+		lapsoEmparejamiento = pLapsoEmparejamiento;
+		refugiante = pRefugiante;
+		condicionesRef = pCondiciones;
+		adoptante = pAdoptante;
+	}
 	
 	public String getNickname() {
 		return nickname;
@@ -139,10 +155,7 @@ public class Usuario {
 	public static String[] getLapsos() {
 		return lapsos;
 	}
-
 	
-
-
 	
-
+	
 }
