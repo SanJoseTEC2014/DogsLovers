@@ -23,8 +23,8 @@ public class Principal {
 	public static ArrayList<Mascota> muertas;
 	public static ArrayList<Usuario> blanca;
 	public static ArrayList<Usuario> negra;
-	public static ArrayList<Organizacion> organizaciones;
-	public static ArrayList<Donacion> donaciones;
+	//public static ArrayList<Organizacion> organizaciones;
+	//public static ArrayList<Donacion> donaciones;
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");

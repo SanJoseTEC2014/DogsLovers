@@ -33,8 +33,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 
 	private static ArrayList<Mascota> listaOrigenMascotas;
 
-	private final JLabel lblNewLabel = new JLabel(
-			"B\u00FAsqueda Mascotas Extraviadas");
+	private final JLabel lblNewLabel = new JLabel("B\u00FAsqueda Mascotas Extraviadas");
 	private JTable jMascotas;
 	private JTextField textNombre;
 	private JTextField textLugar;
@@ -46,16 +45,25 @@ public class FormularioBusquedaMascotas extends JFrame {
 	private JCheckBox checkRaza;
 	private JComboBox<String> comboEspecies;
 	private JComboBox<String> comboRazas;
+	private JButton btnContraerVentana;
+	boolean pantallaOculta = true;
+	private JLabel txtMensajeEstado;
+	private JPanel panelTable;
+	private JScrollPane scrollPane;
 
 	public FormularioBusquedaMascotas(ArrayList<Mascota> perdidas) {
 		listaOrigenMascotas = perdidas;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 700);
+		setSize(500, 280);
 
 		JPanel marcoTitulo = new JPanel();
 		getContentPane().add(marcoTitulo, BorderLayout.NORTH);
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
+		
+		txtMensajeEstado = new JLabel("");
+		txtMensajeEstado.setHorizontalAlignment(SwingConstants.CENTER);
+		marcoTitulo.add(txtMensajeEstado, BorderLayout.CENTER);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		marcoTitulo.add(lblNewLabel, BorderLayout.NORTH);
@@ -63,6 +71,8 @@ public class FormularioBusquedaMascotas extends JFrame {
 		JButton btnBuscar = new JButton("Realizar B\u00FAsqueda");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
 				LinkedList<String> terminos = new LinkedList<String>();
 				if (checkNombre.isSelected()) {
 					terminos.add(textNombre.getText());
@@ -94,6 +104,24 @@ public class FormularioBusquedaMascotas extends JFrame {
 				}
 				jMascotas.setModel(new BuscadorMascotas(listaOrigenMascotas, terminos));
 				SwingUtilities.updateComponentTreeUI(getContentPane());
+				
+				if (pantallaOculta){
+					
+					try {
+					    Thread.sleep(1000);  //1000 milliseconds is one second.
+					} catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
+					
+					// Expande la ventana
+					for (int i = 0; i < 200; i++){
+					// Cada iteración expande la ventana 2 píxeles hasta un máximo de 400 píxeles estirados
+						setSize(500, getHeight()+2);
+					}
+					pantallaOculta = false;
+					txtMensajeEstado.setText("Resultados de la busqueda");
+				}
+				
 			}
 		});
 		marcoTitulo.add(btnBuscar, BorderLayout.EAST);
@@ -117,10 +145,8 @@ public class FormularioBusquedaMascotas extends JFrame {
 		marcoContenido.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollTabla = new JScrollPane();
-		scrollTabla.setViewportBorder(UIManager
-				.getBorder("TitledBorder.border"));
-		scrollTabla
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollTabla.setViewportBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollTabla.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		marcoContenido.add(scrollTabla, BorderLayout.CENTER);
 
 		jMascotas = new JTable();
@@ -128,6 +154,26 @@ public class FormularioBusquedaMascotas extends JFrame {
 		jMascotas.setShowVerticalLines(true);
 		scrollTabla.add(jMascotas);
 
+		btnContraerVentana = new JButton("Ocultar resultados");
+		btnContraerVentana.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!pantallaOculta){
+					txtMensajeEstado.setText("Ocultando...");
+					// Contrae la ventana un píxel a la vez
+					for (int i = 0; i < 400; i++){
+						setSize(500, getHeight()-1);
+					}
+					pantallaOculta = true;
+					txtMensajeEstado.setVisible(false);
+				}
+			}
+		});
+		marcoTitulo.add(btnContraerVentana, BorderLayout.SOUTH);
+		
+		marcoContenido = new JPanel();
+		getContentPane().add(marcoContenido, BorderLayout.CENTER);
+		marcoContenido.setLayout(new BorderLayout(0, 0));
+		
 		JPanel marcoOpciones = new JPanel();
 		marcoContenido.add(marcoOpciones, BorderLayout.NORTH);
 		marcoOpciones.setLayout(new GridLayout(5, 2, 0, 0));
