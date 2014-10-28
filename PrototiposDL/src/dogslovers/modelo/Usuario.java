@@ -155,7 +155,4 @@ public class Usuario {
 	public static String[] getLapsos() {
 		return lapsos;
 	}
-	
-	
-	
 }

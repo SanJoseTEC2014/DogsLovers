@@ -11,6 +11,7 @@ package dogslovers.modelo;
 
 import java.util.LinkedList;
 import dogslovers.modelo.Suceso;
+import dogslovers.modelo.CondicionesRefugio;
 
 public class Mascota {
 	
