@@ -41,6 +41,8 @@ public class BuscadorMascotas extends AbstractTableModel {
 				}
 			}
 		}
+		for (Mascota i : resultados) System.out.println(i);
+
 	}
 	
 	public int getColumnCount() {	return 5;	}
