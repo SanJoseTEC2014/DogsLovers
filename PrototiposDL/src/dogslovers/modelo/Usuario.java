@@ -155,4 +155,7 @@ public class Usuario {
 	public static String[] getLapsos() {
 		return lapsos;
 	}
+	public CondicionesRefugio getCondicionesRef() {
+		return condicionesRef;
+	}
 }
