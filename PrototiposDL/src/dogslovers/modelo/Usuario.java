@@ -80,10 +80,10 @@ public class Usuario {
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
-	public int getLapsoEmparejamiento() {
+	public String getLapsoEmparejamiento() {
 		return lapsoEmparejamiento;
 	}
-	public void setLapsoEmparejamiento(int lapsoEmparejamiento) {
+	public void setLapsoEmparejamiento(String lapsoEmparejamiento) {
 		this.lapsoEmparejamiento = lapsoEmparejamiento;
 	}
 	public int getDiasUltimoEmparejamiento() {
