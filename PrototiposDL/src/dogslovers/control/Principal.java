@@ -3,34 +3,43 @@ package dogslovers.control;
 import java.awt.EventQueue;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Suceso;
+import dogslovers.modelo.Usuario;
 import dogslovers.vista.FormularioBusquedaMascotas;
 
 public class Principal {
 
-	private static LinkedList<Mascota> prototipo;
+	public static ArrayList<Mascota> perdidas;
+	public static ArrayList<Mascota> encontradas;
+	public static ArrayList<Mascota> localizadas;
+	public static ArrayList<Mascota> refugiadas;
+	public static ArrayList<Mascota> adoptadas;
+	public static ArrayList<Mascota> muertas;
+	public static ArrayList<Usuario> blanca;
+	public static ArrayList<Usuario> negra;
+	public static ArrayList<Organizacion> organizaciones;
+	public static ArrayList<Donacion> donaciones;
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" } );
-		prototipo = new LinkedList<Mascota>();
 	}
 	
-	public static LinkedList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
-		Collections.sort(pLista, new ComparadorFechasRecientes());
-		return pLista;
-	}
+//	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
+//		Collections.sort(pLista, new ComparadorFechasRecientes());
+//		return pLista;
+//	}
 
 	public static void main(String[] args) {
 		
 		// Establece un look and feel metálico, si no lo encuentra, establece el look and feel del sistema operativo.
-		/*
+		
 		try {
 			UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
@@ -40,16 +49,12 @@ public class Principal {
 				e2.printStackTrace();
 			}
 		}
-		*/		
+		
 		inicializarMascotas();
-		prototipo.add(new Mascota("Lucky", 83511265, "bormo1218@gmail.com", 0, 1, new Suceso("Heredia", 26, 9, 2014, "Fue horrible."), 50000, "Agradable."));
-		/*
-		for (Mascota i : prototipo){	System.out.println(i);		}
-		*/
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(prototipo);
+					FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(perdidas);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
