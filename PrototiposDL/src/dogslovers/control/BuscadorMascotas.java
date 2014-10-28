@@ -10,14 +10,19 @@ public class BuscadorMascotas extends AbstractTableModel {
 	private LinkedList<Mascota> resultados;
 	private LinkedList<String> terminos;
 	
-	public BuscadorMascotas(LinkedList<Mascota> pLista, LinkedList<String> pTerminos) {
+//	public BuscadorMascotas(LinkedList<Mascota> pLista, LinkedList<String> pTerminos) {
+//		resultados = pLista;
+//		terminos = pTerminos;
+//		buscar();
+//		for (Mascota i : resultados) System.out.println(i);
+//	}
+	
+	//private void buscar(LinkedList<Mascota> pLista, LinkedList<String> pTerminos){
+	public BuscadorMascotas(LinkedList<Mascota> pLista, LinkedList<String> pTerminos){
+		
 		resultados = pLista;
 		terminos = pTerminos;
-		buscar();
-		for (Mascota i : resultados) System.out.println(i);
-	}
-	
-	private void buscar(){
+		
 		for (int criterio = 0; criterio < 5; criterio++) {
 			if (terminos.get(criterio) != "") {
 				for (int temp = 0; temp < resultados.size(); temp++) {
@@ -38,8 +43,8 @@ public class BuscadorMascotas extends AbstractTableModel {
 		}
 	}
 	
-	public int getColumnCount() {	return 5;	}
-	public int getRowCount() 	{	return resultados.size();	}
+	//public int getColumnCount() {	return 5;	}
+	//public int getRowCount() 	{	return resultados.size();	}
 	public String getColumnName(int column) {	return titulos[column];	}
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -53,4 +58,6 @@ public class BuscadorMascotas extends AbstractTableModel {
 				default: return null;
 			}
 		}
+	
+	public  LinkedList<Mascota> getResultadosDeLaBusqueda(){return resultados;}
 }
