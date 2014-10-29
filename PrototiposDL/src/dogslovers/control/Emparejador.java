@@ -2,6 +2,9 @@ package dogslovers.control;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
 import dogslovers.control.Principal;
 
@@ -10,13 +13,13 @@ public class Emparejador {
 
 	public static void rutinaMatch(Usuario pUsuario){
 	
-		switch (pUsuario.getLapso()){
+		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
 				emparejarBajoDemanda(pUsuario);
 			}
 			break;
 			case "semanal": {
-				if (pUsuario.getDiasTranscurridos() == 7){
+				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
 					emparejarBajoDemanda(pUsuario);
 				} else {
 					pUsuario.addDiasTranscurridos();
@@ -24,7 +27,7 @@ public class Emparejador {
 			}
 			break;
 			case "mensual": {
-				if (pUsuario.getDiasTranscurridos() == 30){
+				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
 					emparejarBajoDemanda(pUsuario);
 				} else {
 					pUsuario.addDiasTranscurridos();

@@ -55,7 +55,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 		listaOrigenMascotas = perdidas;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 280);
+		setSize(500, 300);
 
 		JPanel marcoTitulo = new JPanel();
 		getContentPane().add(marcoTitulo, BorderLayout.NORTH);

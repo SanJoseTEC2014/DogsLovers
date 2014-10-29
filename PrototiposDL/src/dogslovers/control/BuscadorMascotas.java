@@ -30,7 +30,7 @@ public class BuscadorMascotas extends AbstractTableModel {
 							resultados.remove(temp);
 						break;
 					case 1:
-						if (!resultados.get(temp).getExtravio().getLugar()
+						if (!resultados.get(temp).getPerdida().getLugar()
 								.toLowerCase()
 								.contains(terminos.get(criterio).toLowerCase()))
 							resultados.remove(temp);
@@ -71,7 +71,7 @@ public class BuscadorMascotas extends AbstractTableModel {
 		case 0:
 			return resultados.get(rowIndex).getNombre();
 		case 1:
-			return resultados.get(rowIndex).getExtravio().getLugar();
+			return resultados.get(rowIndex).getPerdida().getLugar();
 		case 2:
 			return resultados.get(rowIndex).getChipID().toString();
 		case 3:
