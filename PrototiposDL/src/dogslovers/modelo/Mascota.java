@@ -70,14 +70,6 @@ public class Mascota {
 		Mascota.totalChips = totalChips;
 	}
 
-	public Integer getChipID() {
-		return id;
-	}
-
-	public void setChipID(Integer id) {
-		this.id = id;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -296,7 +288,7 @@ public class Mascota {
 	
 	public String toString(){
 		String msg = "Nombre de la mascota: " + getNombre();
-		msg += "\nNumero ID en el chip: " + getChipID();
+		msg += "\nNumero ID en el chip: " + getNumeroChip();
 		msg += "\nEstado de la mascota: " + getEstado();
 		
 		msg += "\n\nEspecie de la mascota: " + getEspecie();

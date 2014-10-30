@@ -15,20 +15,23 @@ import dogslovers.vista.FormularioBusquedaMascotas;
 
 public class Principal {
 
-	public static ArrayList<Mascota> perdidas;
-	public static ArrayList<Mascota> encontradas;
-	public static ArrayList<Mascota> localizadas;
-	public static ArrayList<Mascota> refugiadas;
-	public static ArrayList<Mascota> adoptadas;
-	public static ArrayList<Mascota> muertas;
-	public static ArrayList<Usuario> blanca;
-	public static ArrayList<Usuario> negra;
-	//public static ArrayList<Organizacion> organizaciones;
-	//public static ArrayList<Donacion> donaciones;
+	public static ArrayList<Mascota> perdidas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> encontradas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> localizadas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> refugiadas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> adoptadas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> muertas = new ArrayList<Mascota>();
+	public static ArrayList<Usuario> blanca = new ArrayList<Usuario>();
+	public static ArrayList<Usuario> negra = new ArrayList<Usuario>();
+	//public static ArrayList<Organizacion> organizaciones = new ArrayList<Mascota>;
+	//public static ArrayList<Donacion> donaciones = new ArrayList<Mascota>;
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
-		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" } );
+		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
+		for(int i = 0; i < 20; i++) 
+		encontradas.add((new Mascota("Waffles", "Perro", "Otro", new Suceso("San José", 15, 5, 2013, "Se perdió chingo."), 500000000, "Mi perro es muy bonito y se perdió, entonces quiero"
+				+ " encontrarlo y doy mucha plata por él porque me gusta mucho y chao.")));
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -54,7 +57,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(perdidas);
+					System.out.println(encontradas.size());
+					FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(encontradas);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

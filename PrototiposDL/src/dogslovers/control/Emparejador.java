@@ -2,6 +2,7 @@ package dogslovers.control;
 
 import java.util.ArrayList;
 
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 
 import dogslovers.modelo.Usuario;
@@ -47,23 +48,19 @@ public class Emparejador {
 		// Empareja todas las mascotas reportadas como propias por pUsuario con todas
 		// las mascotas reportadas en el sistema como "encontradas" (sin dueño)
 		
-		ArrayList<Integer> idsPropias = pUsuario.getMascotasPropiasIDs();
-		ArrayList<ArrayList<Mascota>> matrizCoincidencias;
+		ArrayList<Mascota> coincidencias;
 
-			for (Integer id : idsPropias) {
-				matrizCoincidencias.add(getListaCoincidencias(Principal.getMascotasEncontradas(id)));
-			}
-
-			for (int lista = 0; lista < matrizCoincidencias.size(); lista++) {
+			for (int i = 0; i < Principal.encontradas.size(); i++) {
+				coincidencias = getListaCoincidencias(Principal.encontradas.get(i));
 				try {
-					Correo.enviarCoincidencias(matrizCoincidencias.get(lista), pUsuario.getCorreo());
-				} catch (ExcepcionCorreo ex) {
+					Correo.enviarCoincidencias(coincidencias, Principal.encontradas.get(i),  pUsuario);
+				} catch (MessagingException ex) {
 					JOptionPane.showMessageDialog(null, "Error",
 						"Error al enviar el correo con la lista de coincidencias de" +
-						"\nMascota: " + matrizCoincidencias.get(lista).getNombre() +
-						"\nDueño: " + matrizCoincidencias.get(lista).getNickDuenio() +
-						"\nPor favor, para obtener la lista de resultados sobre esta mascota,\n" +
-						"ejecute un emparejamiento bajo demanda.",
+						"\nMascota: " + Principal.encontradas.get(i).getNombre() +
+						"\nDueño: " + pUsuario.getNombre() +
+						"\nPor favor, para obtener la lista de resultados sobre esta mascota," +
+						"\nejecute un emparejamiento bajo demanda." +
 						"\nCausa del error: " + ex.getMessage(),
 					JOptionPane.WARNING_MESSAGE);
 				}
@@ -74,36 +71,46 @@ public class Emparejador {
 		
 		ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
 
-		for(Mascota mascota : encontradas){
-			if(perdidaAComparar.getChipID() == mascota.getChipID()){
+		for (Mascota mascota : Principal.encontradas) {
+			if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
 				coincidencias.add(mascota);
 			}
-			
-			else if(perdidaAComparar.getRaza().equals(mascota.getRaza()) && perdidaAComparar.getEspecie().equals(mascota.getEspecie()) &&
-				perdidaAComparar.getColor().equals(mascota.getColor())){
-					coincidencias.add(mascota);
 
+			else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
+					&& perdidaAComparar.getEspecie().equals(
+							mascota.getEspecie())
+					&& perdidaAComparar.getColor().equals(mascota.getColor())) {
+				coincidencias.add(mascota);
+
+			}
 		}
 		return coincidencias;
-	 }
-}
+	 
+	}
 
 	public static ArrayList<Usuario> getListaCoincidenciasCondiciones(Mascota pMascotaAComparar){
 		
 		ArrayList<Usuario> coincidenciasCondiciones = new ArrayList<Usuario>();
 
-		for(Usuario usuario : usuarios){
-			if(pMascotaAComparar.getEspecie().equals(usuario.getCondicionesRef.getEspecie() && pMascotaAComparar.getTamanio().equals			
-				(usuario.getCondicionesRef().getTamanio()) && pMascotaAComparar.getVacunada() == usuario.getCondicionesRef.getVacunada() &&
- 				pMascotaAComparar.getDiscapacitada() == usuario.getCondicionesRef.getDiscapacitada() && 
- 				pMascotaAComparar.getCastrada() == usuario.getCondicionesRef.getCastrada() && 
- 				pMascotaAComparar.getDesparacitada() == usuario.getCondicionesRef.getDesparacitad())){
+		for (Usuario usuario : Principal.blanca) {
+			if (pMascotaAComparar.getEspecie().equals(
+					usuario.getCondicionesRef().getEspecie())
+							&& pMascotaAComparar.getTamanio().equals(
+									usuario.getCondicionesRef().getTamanioMascota())
+							&& pMascotaAComparar.isVacunada() == usuario
+									.getCondicionesRef().isVacunada()
+							&& pMascotaAComparar.isDiscapacitada() == usuario
+									.getCondicionesRef().isDiscapacitada()
+							&& pMascotaAComparar.isCastrada() == usuario
+									.getCondicionesRef().isCastrada()
+							&& pMascotaAComparar.isDesparacitada() == usuario
+									.getCondicionesRef().isDesparacitada()) {
 				coincidenciasCondiciones.add(usuario);
-		          }
+			}
 		}
 
 		return coincidenciasCondiciones;
-}
+	}
 	
 }
 	

@@ -19,48 +19,44 @@ public class BuscadorMascotas extends AbstractTableModel {
 
 		resultados = pLista;
 		terminos = pTerminos;
-
-		for (int criterio = 0; criterio < 5; criterio++) {
-			if (terminos.get(criterio) != "") {
-				for (int temp = 0; temp < resultados.size(); temp++) {
-					switch (criterio) {
-					case 0:
-						if (!resultados.get(temp).getNombre().toLowerCase()
-								.contains(terminos.get(criterio).toLowerCase()))
-							resultados.remove(temp);
-						break;
-					case 1:
-						if (!resultados.get(temp).getPerdida().getLugar()
-								.toLowerCase()
-								.contains(terminos.get(criterio).toLowerCase()))
-							resultados.remove(temp);
-						break;
-					case 2:
-						if (!resultados.get(temp).getChipID().toString()
-								.contains(terminos.get(criterio).toLowerCase()))
-							resultados.remove(temp);
-						break;
-					case 3:
-						if (resultados.get(temp).getEspecie() != terminos.get(criterio))
-							resultados.remove(temp);
-						break;
-					case 4:
-						if (resultados.get(temp).getRaza() != terminos.get(criterio))
-							resultados.remove(temp);
-						break;
+		buscar();
+	}
+		
+		private void buscar () {
+			for (int criterio = 0; criterio < 5; criterio++) {
+				if (terminos.get(criterio) != "") {
+					for (int temp = 0; temp < resultados.size(); temp++) {
+						switch (criterio) {
+						case 0:
+							if (!resultados.get(temp).getNombre().toLowerCase()
+									.contains(terminos.get(criterio).toLowerCase()))
+								resultados.remove(temp);
+							break;
+						case 1:
+							if (!resultados.get(temp).getPerdida().getLugar()
+									.toLowerCase()
+									.contains(terminos.get(criterio).toLowerCase()))
+								resultados.remove(temp);
+							break;
+						case 2:
+							if (!resultados.get(temp).getNumeroChip().toString()
+									.contains(terminos.get(criterio).toLowerCase()))
+								resultados.remove(temp);
+							break;
+						case 3:
+							if (resultados.get(temp).getEspecie() != terminos.get(criterio))
+								resultados.remove(temp);
+							break;
+						case 4:
+							if (resultados.get(temp).getRaza() != terminos.get(criterio))
+								resultados.remove(temp);
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	public int getColumnCount() {
-		return 5;
-	}
-
-	public int getRowCount() {
-		return resultados.size();
-	}
 
 	public String getColumnName(int column) {
 		return titulos[column];
@@ -73,7 +69,7 @@ public class BuscadorMascotas extends AbstractTableModel {
 		case 1:
 			return resultados.get(rowIndex).getPerdida().getLugar();
 		case 2:
-			return resultados.get(rowIndex).getChipID().toString();
+			return resultados.get(rowIndex).getNumeroChip().toString();
 		case 3:
 			return resultados.get(rowIndex).getEspecie();
 		case 4:
@@ -83,7 +79,14 @@ public class BuscadorMascotas extends AbstractTableModel {
 		}
 	}
 
-	public ArrayList<Mascota> getResultados() {
-		return resultados;
+	@Override
+	public int getColumnCount() {
+		return 5;
+	}
+
+	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return resultados.size();
 	}
 }
