@@ -4,15 +4,20 @@ import java.util.ArrayList;
 
 public class Usuario {
 	
-	static final public String[] lapsos = {"diario", "semanal", "mensual"}; 
+	static final public String[] lapsos = {"diario", "semanal", "mensual"};
+	public static String[] getLapsos() {
+		return lapsos;
+	}
+	
 	private String nickname;
 	private String nombre;
 	private String apellidos;
-	private int cedula;
+	private Integer cedula;
 	private String contrasenia;
-	private int telefono;
+	private Integer telefono;
+	private String correo;
 	private String lapsoEmparejamiento;
-	private int diasUltimoEmparejamiento;
+	private Integer diasUltimoEmparejamiento;
 	//private ArrayList<Calificaciones> calificaciones;
 	private ArrayList<Integer> mascotasPerdidasIDs;
 	private ArrayList<Integer> mascotasEncontradasIDs;
@@ -25,7 +30,6 @@ public class Usuario {
 	private boolean adoptante;
 	private boolean administrador;
 	private CondicionesRefugio condicionesRef;
-	//private facebook cuentaFacebook;
 	//private twitter cuentaTwitter;
 	
 	public Usuario(String pNickname, String pNombre, String pApellidos, 
@@ -62,7 +66,7 @@ public class Usuario {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	public int getCedula() {
+	public Integer getCedula() {
 		return cedula;
 	}
 	public void setCedula(int cedula) {
@@ -74,19 +78,26 @@ public class Usuario {
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
-	public int getTelefono() {
+	public Integer getTelefono() {
 		return telefono;
 	}
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
 	public String getLapsoEmparejamiento() {
 		return lapsoEmparejamiento;
 	}
 	public void setLapsoEmparejamiento(String lapsoEmparejamiento) {
 		this.lapsoEmparejamiento = lapsoEmparejamiento;
 	}
-	public int getDiasUltimoEmparejamiento() {
+	public Integer getDiasUltimoEmparejamiento() {
 		return diasUltimoEmparejamiento;
 	}
 	public void setDiasUltimoEmparejamiento(int diasUltimoEmparejamiento) {
@@ -151,9 +162,6 @@ public class Usuario {
 	}
 	public void setAdministrador(boolean administrador) {
 		this.administrador = administrador;
-	}
-	public static String[] getLapsos() {
-		return lapsos;
 	}
 	public CondicionesRefugio getCondicionesRef() {
 		return condicionesRef;
