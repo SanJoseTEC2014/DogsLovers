@@ -1,6 +1,7 @@
 package dogslovers.control;
 
 import dogslovers.modelo.Usuario;
+import dogslovers.modelo.CondicionesRefugio;
 
 public class FabricaUsuarios {
 	private String nickname;

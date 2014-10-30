@@ -67,7 +67,7 @@ public class Principal {
 	private static class ComparadorFechasRecientes implements Comparator<Mascota>{
 		@Override
 		public int compare(Mascota arg0, Mascota arg1) {
-			if( arg0.getExtravio().getFecha().getTime().before( arg1.getExtravio().getFecha().getTime() ) ){
+			if( arg0.getPerdida().getFecha().getTime().before( arg1.getPerdida().getFecha().getTime() ) ){
 				return 1;
 	        } else {
 	            return -1;

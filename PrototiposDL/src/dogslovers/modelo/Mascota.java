@@ -270,20 +270,20 @@ public class Mascota {
 		this.notas = notas;
 	}
 	
-//	public Mascota(String pNombre, String pEspecie, String pRaza,
-//				   Suceso pExtravio, Integer pRecompensa, String pNotasSecundarias) {
-//		nombre = pNombre;
-//		chipID = ++totalChips;
-//		estado = "Perdido";
-//		
-//		especie = pEspecie;
-//		raza = pRaza;
-//		
-//		extravio = pExtravio;
-//		
-//		recompensa = pRecompensa;
-//		notasSecundarias = pNotasSecundarias;
-//	}
+	public Mascota(String pNombre, String pEspecie, String pRaza,
+				   Suceso pPerdida, Integer pRecompensa, String pNotas) {
+		nombre = pNombre;
+		numeroChip = ++totalChips;
+		estado = "Perdido";
+		
+		especie = pEspecie;
+		raza = pRaza;
+		
+		perdida = pPerdida;
+		
+		recompensa = pRecompensa;
+		notas = pNotas;
+	}
 
 	// / MAQUINA DE ESTADOS
 	public String getEstado() {

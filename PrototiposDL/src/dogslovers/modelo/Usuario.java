@@ -166,4 +166,18 @@ public class Usuario {
 	public CondicionesRefugio getCondicionesRef() {
 		return condicionesRef;
 	}
+	public void addDiasTranscurridos() {
+		diasUltimoEmparejamiento ++;
+		if (lapsoEmparejamiento.equals("SEMANAL")) {
+			if (diasUltimoEmparejamiento == 7) {
+				diasUltimoEmparejamiento = 0;
+			}
+		}
+		if (lapsoEmparejamiento.equals("MENSUAL")) {
+			if (diasUltimoEmparejamiento == 30) {
+				diasUltimoEmparejamiento = 0;
+			}
+		}
+	}
+	
 }
