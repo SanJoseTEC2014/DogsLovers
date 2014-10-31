@@ -140,19 +140,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 		});
 		marcoTitulo.add(btnAyuda, BorderLayout.WEST);
 
-		JPanel marcoContenido = new JPanel();
-		getContentPane().add(marcoContenido, BorderLayout.CENTER);
-		marcoContenido.setLayout(new BorderLayout(0, 0));
-
-		JScrollPane scrollTabla = new JScrollPane();
-		scrollTabla.setViewportBorder(UIManager.getBorder("TitledBorder.border"));
-		scrollTabla.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		marcoContenido.add(scrollTabla, BorderLayout.CENTER);
-
-		jMascotas = new JTable();
-		jMascotas.setShowHorizontalLines(true);
-		jMascotas.setShowVerticalLines(true);
-		scrollTabla.add(jMascotas);
+		JPanel marcoContenido;
 
 		btnContraerVentana = new JButton("Ocultar resultados");
 		btnContraerVentana.addActionListener(new ActionListener() {
@@ -278,6 +266,11 @@ public class FormularioBusquedaMascotas extends JFrame {
 		comboRazas = new JComboBox<String>();
 		comboRazas.setEnabled(false);
 		marcoOpciones.add(comboRazas);
+				
+						jMascotas = new JTable();
+						marcoContenido.add(jMascotas, BorderLayout.CENTER);
+						jMascotas.setShowHorizontalLines(true);
+						jMascotas.setShowVerticalLines(true);
 
 		JPanel marcoConfirmaciones = new JPanel();
 		getContentPane().add(marcoConfirmaciones, BorderLayout.SOUTH);
