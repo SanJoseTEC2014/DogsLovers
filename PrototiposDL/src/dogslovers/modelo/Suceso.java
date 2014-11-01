@@ -8,6 +8,7 @@ public class Suceso {
 	private String lugar;
 	private Calendar fecha;
 	private String descripcion;
+	private String nick;
 	
 	public Suceso(String pLugar, Integer pDia, Integer pMes, Integer pAnio, String pDescripcion) {
 		lugar = pLugar;
@@ -33,10 +34,15 @@ public class Suceso {
 		return descripcion;
 	}
 	
+	public String getNick() {
+		return nick;
+	}
+	
 	public String toString() {
 		String msg = "Lugar del suceso: " + getLugar();
 		msg += "\nFecha del suceso: " + getFechaString();
 		msg += "\nDescripción del suceso: " + getDescripcion();
+		msg += "\nUsuario reportante: " + getNick();
 		return msg;
 	}
 
