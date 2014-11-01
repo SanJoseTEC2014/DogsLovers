@@ -20,6 +20,7 @@ public class Principal {
 	public static ArrayList<Mascota> localizadas = new ArrayList<Mascota>();
 	public static ArrayList<Mascota> refugiadas = new ArrayList<Mascota>();
 	public static ArrayList<Mascota> adoptadas = new ArrayList<Mascota>();
+	public static ArrayList<Mascota> enAdopcion = new ArrayList<Mascota>();
 	public static ArrayList<Mascota> muertas = new ArrayList<Mascota>();
 	public static ArrayList<Usuario> blanca = new ArrayList<Usuario>();
 	public static ArrayList<Usuario> negra = new ArrayList<Usuario>();

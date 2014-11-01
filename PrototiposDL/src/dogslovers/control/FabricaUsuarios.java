@@ -67,8 +67,7 @@ public class FabricaUsuarios {
 	
 	public Usuario crearUsuario() {
 		return new Usuario(nickname, nombre, apellidos, cedula, contrasenia,
-				           telefono, lapsoEmparejamiento, refugiante, 
-				           condiciones, adoptante);
+				           telefono, lapsoEmparejamiento, refugiante, adoptante);
 	}
 }
 
