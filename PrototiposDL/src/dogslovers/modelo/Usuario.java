@@ -18,7 +18,7 @@ public class Usuario {
 	private String correo;
 	private String lapsoEmparejamiento;
 	private Integer diasUltimoEmparejamiento;
-	//private ArrayList<Calificaciones> calificaciones;
+	//private ArrayList<Calificacion> calificaciones;
 	private ArrayList<Integer> mascotasPerdidasIDs;
 	private ArrayList<Integer> mascotasEncontradasIDs;
 	private ArrayList<Integer> mascotasLocalizadasIDs;
@@ -34,8 +34,7 @@ public class Usuario {
 	
 	public Usuario(String pNickname, String pNombre, String pApellidos, 
 			       Integer pCedula, String pContrasenia, Integer pTelefono, 
-			       String pLapsoEmparejamiento, boolean pRefugiante, 
-			       CondicionesRefugio pCondiciones, boolean pAdoptante) {
+			       String pLapsoEmparejamiento, boolean pRefugiante, boolean pAdoptante) {
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
@@ -44,7 +43,6 @@ public class Usuario {
 		telefono = pTelefono;
 		lapsoEmparejamiento = pLapsoEmparejamiento;
 		refugiante = pRefugiante;
-		condicionesRef = pCondiciones;
 		adoptante = pAdoptante;
 	}
 	
@@ -163,8 +161,11 @@ public class Usuario {
 	public void setAdministrador(boolean administrador) {
 		this.administrador = administrador;
 	}
-	public CondicionesRefugio getCondicionesRef() {
+	public CondicionesRefugio getCondicionesRefugio() {
 		return condicionesRef;
+	}
+	public void setCondicionesRefugio(CondicionesRefugio pCondiciones) {
+		condicionesRef = pCondiciones;
 	}
 	public void addDiasTranscurridos() {
 		diasUltimoEmparejamiento ++;

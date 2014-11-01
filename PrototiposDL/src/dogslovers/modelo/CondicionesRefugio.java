@@ -1,7 +1,6 @@
 package dogslovers.modelo;
 
 public class CondicionesRefugio {
-	private String especie;
 	private String tamanioMascota;
 	private boolean necesitaAlimentos;
 	private boolean vacunada;
@@ -9,12 +8,6 @@ public class CondicionesRefugio {
 	private boolean castrada;
 	private boolean desparacitada;
 	
-	public String getEspecie() {
-		return especie;
-	}
-	public void setEspecie(String especie) {
-		this.especie = especie;
-	}
 	public String getTamanioMascota() {
 		return tamanioMascota;
 	}
@@ -38,9 +31,9 @@ public class CondicionesRefugio {
 		return necesitaAlimentos;
 	}
 	
-	public CondicionesRefugio(String pEspecie, String pTamanioMascota, boolean pNecesitaAlimentos,
-							  boolean pVacunada, boolean pDiscapacitada, boolean pCastrada, boolean pDesparacitada) {
-		especie = pEspecie;
+	public CondicionesRefugio(String pTamanioMascota,
+							  boolean pNecesitaAlimentos, boolean pVacunada,
+							  boolean pDiscapacitada, boolean pCastrada, boolean pDesparacitada) {
 		tamanioMascota = pTamanioMascota;
 		necesitaAlimentos = pNecesitaAlimentos;
 		vacunada = pVacunada;
