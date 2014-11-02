@@ -50,6 +50,7 @@ public class FormularioBusquedaMascotas extends JFrame {
 	private JLabel txtMensajeEstado;
 	private JPanel panelTable;
 	private JScrollPane scrollPane;
+	private JScrollPane scrollJTable;
 
 	public FormularioBusquedaMascotas(ArrayList<Mascota> perdidas) {
 		listaOrigenMascotas = perdidas;
@@ -267,8 +268,11 @@ public class FormularioBusquedaMascotas extends JFrame {
 		comboRazas.setEnabled(false);
 		marcoOpciones.add(comboRazas);
 				
+				scrollJTable = new JScrollPane();
+				marcoContenido.add(scrollJTable, BorderLayout.CENTER);
+				
 						jMascotas = new JTable();
-						marcoContenido.add(jMascotas, BorderLayout.CENTER);
+						scrollJTable.setViewportView(jMascotas);
 						jMascotas.setShowHorizontalLines(true);
 						jMascotas.setShowVerticalLines(true);
 

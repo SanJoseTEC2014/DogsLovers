@@ -30,8 +30,8 @@ public class Principal {
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
-		for(int i = 0; i < 20; i++) 
-		encontradas.add((new Mascota("Waffles", "Perro", "Otro", new Suceso("San José", 15, 5, 2013, "Se perdió chingo."), 500000000, "Mi perro es muy bonito y se perdió, entonces quiero"
+		for(int i = 0; i < 100; i++) 
+		encontradas.add((new Mascota("Wáffles", "Perro", "Otro", new Suceso("San José", 15, 5, 2013, "Se perdió chingo."), 500000000, "Mi perro es muy bonito y se perdió, entonces quiero"
 				+ " encontrarlo y doy mucha plata por él porque me gusta mucho y chao.")));
 	}
 	
