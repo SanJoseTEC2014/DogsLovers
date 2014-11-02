@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
 
+import javax.sound.sampled.Control;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import dogslovers.control.excepciones.UsuarioNoExisteException;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Suceso;
 import dogslovers.modelo.Usuario;
@@ -26,6 +28,8 @@ public class Principal {
 	public static ArrayList<Usuario> negra = new ArrayList<Usuario>();
 	//public static ArrayList<Organizacion> organizaciones = new ArrayList<Mascota>;
 	//public static ArrayList<Donacion> donaciones = new ArrayList<Mascota>;
+	public static double calificacionMinimaPermitida = 3; // el valor por defecto es 3 
+	
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
@@ -80,4 +84,51 @@ public class Principal {
 		}
 	}
 
+	public static double getMinimaCalificacionPermitida() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static boolean usuarioEnListaBlanca(String nickname) { // metodo se puede sustituir blanca.contains(usuario)
+		for (Usuario usuario : blanca ){
+			if (usuario.getNickname() == nickname) return true;
+		}
+		return false;
+	}
+
+	public static void transladarUsuarioListaNegra(Usuario usuario) {
+		negra.add(removeUsuarioListaBlanca(usuario));
+	}
+	
+	private static Usuario removeUsuarioListaBlanca(Usuario usuario) throws UsuarioNoExisteException {
+		if (blanca.remove(usuario)){
+			return usuario;
+		}
+		else {
+			throw new UsuarioNoExisteException("El usuario no existe en lista blanca");
+			} 
+	}
+
+	public static void transladarUsuarioListaBlanca(Usuario usuario) {
+		blanca.add(removeUsuarioListaNegra(usuario));
+	}
+
+	private static Usuario removeUsuarioListaNegra(Usuario usuario) {
+		if (negra.remove(usuario)){
+			return usuario;
+		}
+		else {
+			throw new UsuarioNoExisteException("El usuario no existe en lista negra");
+			} 
+	}
+
+	public static double getCalificacionMinimaPermitida() {
+		return calificacionMinimaPermitida;
+	}
+
+	public static void setCalificacionMinimaPermitida(double calificacionMinimaPermitida) {
+		Principal.calificacionMinimaPermitida = calificacionMinimaPermitida;
+	}
+
+	
 }
