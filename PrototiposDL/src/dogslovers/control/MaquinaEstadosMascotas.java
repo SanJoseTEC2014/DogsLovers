@@ -9,56 +9,73 @@ public class MaquinaEstadosMascotas {
 	
 	//Constantes que representan los eventos
 	
-	public static final int eventoPERDIDA = 1;
-	public static final int eventoENCUENTRO = 2;
-	public static final int eventoLOCALIZADA = 3;
-	public static final int eventoREFUGIO = 4;
-	public static final int eventoADOPCION = 5;
-	public static final int eventoMUERTE = 6;
-	public static final int eventoSOLICITUD_REFUGIO = 7;
-	public static final int eventoSOLICITUD_ADOPCION = 8;
-	public static final int eventoRECHAZO_SOLICITUD_REFUGIO = 9;
-	public static final int eventoRECHAZO_SOLICITUD_ADOPCION = 10;
-	public static final int eventoCONFIRMACION_ADOPCION = 11;
-	public static final int eventoCONFIRMACION_REFUGIO = 12;
-	public static final int eventoNOTIFICACION_DE_LOCALIZACION = 13;
-	public static final int eventoCONFIRMACION_LOCALIZADA = 14;
-	public static final int eventoRECHAZO_LOCALIZADA = 15;
+	public static final Integer eventoPERDIDA = 1;
+	public static final Integer eventoENCUENTRO = 2;
+	public static final Integer eventoLOCALIZADA = 3;
+	public static final Integer eventoREFUGIO = 4;
+	public static final Integer eventoADOPCION = 5;
+	public static final Integer eventoMUERTE = 6;
+	public static final Integer eventoSOLICITUD_REFUGIO = 7;
+	public static final Integer eventoSOLICITUD_ADOPCION = 8;
+	public static final Integer eventoRECHAZO_SOLICITUD_REFUGIO = 9;
+	public static final Integer eventoRECHAZO_SOLICITUD_ADOPCION = 10;
+	public static final Integer eventoCONFIRMACION_ADOPCION = 11;
+	public static final Integer eventoCONFIRMACION_REFUGIO = 12;
+	public static final Integer eventoNOTIFICACION_DE_LOCALIZACION = 13;
+	public static final Integer eventoCONFIRMACION_LOCALIZADA = 14;
+	public static final Integer eventoRECHAZO_LOCALIZADA = 15;
 	
 	//Constantes que representan los estados
 	
-	public static final int estadoPERDIDA = 1;
-	public static final int estadoENCONTRADA= 2;
-	public static final int estadoLOCALIZADA = 3;
-	public static final int estadoREFUGIADA = 4;
-	public static final int estadoADOPTADA = 5;
-	public static final int estadoMUERTA= 6;
-	public static final int estadoEN_ESPERA_DE_REFUGIO = 7;
-	public static final int estadoEN_ESPERA_DE_ADOPCION = 8;
-	public static final int estadoRECHAZADA_REFUGIADA = 9;
-	public static final int estadoRECHAZADA_ADOPTADA = 10;
-	public static final int estadoACEPTADA_ADOPTADA= 11;
-	public static final int estadoACEPTADA_REFUGIADA = 12;
-	public static final int estadoEN_ESPERA_DE_LOCALIZACION = 13;
-	public static final int estadoACEPTADA_LOCALIZADA = 14;
-	public static final int estadoRECHAZADA_LOCALIZADA = 15;
+	public static final Integer estadoPERDIDA = 1;
+	public static final Integer estadoENCONTRADA = 2;
+	public static final Integer estadoLOCALIZADA = 3;
+	public static final Integer estadoREFUGIADA = 4;
+	public static final Integer estadoADOPTADA = 5;
+	public static final Integer estadoMUERTA = 6;
+	public static final Integer estadoEN_ESPERA_DE_REFUGIO = 7;
+	public static final Integer estadoEN_ESPERA_DE_ADOPCION = 8;
+	public static final Integer estadoRECHAZADA_REFUGIADA = 9;
+	public static final Integer estadoRECHAZADA_ADOPTADA = 10;
+	public static final Integer estadoACEPTADA_ADOPTADA = 11;
+	public static final Integer estadoACEPTADA_REFUGIADA = 12;
+	public static final Integer estadoEN_ESPERA_DE_LOCALIZACION = 13;
+	public static final Integer estadoACEPTADA_LOCALIZADA = 14;
+	public static final Integer estadoRECHAZADA_LOCALIZADA = 15;
 	
-	//Atributo que representa el estado actual de la mascota
+	private static MaquinaEstadosMascotas instanciaSingleton;
 	
-	private int estado = estadoPERDIDA;
+	private Integer estadoActualMascota;
 	
-	public MaquinaEstadosMascotas(int estado){
-		this.estado = estado;
+	// El constructor de la clase es privado para que ningún otro objeto 
+	// fuera de la clase le invoque, sólo el método inicializarMaquina
+	private MaquinaEstadosMascotas(){
+	}
+		
+	// Evita referencias a null de la instancia Singleton
+	private static void inicializarMaquina(){
+		instanciaSingleton = new MaquinaEstadosMascotas();
 	}
 	
-	public int getEstado(){
-		return estado;
+	// Obtiene siempre la misma instancia de la Máquina
+	public static MaquinaEstadosMascotas getMaquina(){
+		if (instanciaSingleton == null){
+			inicializarMaquina();
+		}
+		return instanciaSingleton;
 	}
 	
-	//Metodo para disparar eventos(cambiar el estado de la mascota)
+	public void setEstadoActual(Integer pEstado){
+		estadoActualMascota = pEstado;
+	}
 	
+	public Integer getEstadoActual(){
+		return estadoActualMascota;
+	}
+	
+	// Método para disparar cambios de estado de la mascota
 	public void CapturarReporte(int evento, Suceso pSuceso){
-		switch(estado){
+		switch(estadoActualMascota){
 			case estadoPERDIDA:
 				reportarPerdida(evento);
 				break;
@@ -120,18 +137,16 @@ public class MaquinaEstadosMascotas {
 				break;
 			
 			default:
-				throw new EstadoNoExisteException("El estado no existe");
+				throw new EstadoNoExisteException("El estado no existe.");
 		}		
 	}
+
+	// Métodos que cambian el estado según el evento en el estado actual de la mascota.
+	
+
+
+
 }
-
-
-	//Metodos que cambian el estado según el evento en un estado particular.
-
-
-
-
-
 	
 
 
