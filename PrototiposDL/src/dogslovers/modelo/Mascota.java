@@ -10,14 +10,15 @@ package dogslovers.modelo;
  */
 
 import java.util.LinkedList;
-import dogslovers.modelo.Suceso;
-import dogslovers.modelo.CondicionesRefugio;
 
-public class Mascota {
+import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.modelo.Suceso;
+
+public class Mascota implements Cloneable {
 	
 	public static LinkedList<String> especies = new LinkedList<String>();
 	public static LinkedList<String[]> razas = new LinkedList<String[]>(); 
-	private static Integer totalChips = 0;
+	private static Integer totalIDsRegistradas = 0;
 	
 	private Integer id;
 	private String nombre;
@@ -33,10 +34,6 @@ public class Mascota {
 	private boolean discapacitada;
 	private String tamanio;
 	private String estado;
-	private String nickDuenio;
-	private String nickEncontrante;
-	private String nickRefugiante;
-	private String nickAdoptante;
 	private Suceso perdida;
 	private Suceso encuentro;
 	private Suceso localizacion;
@@ -45,6 +42,27 @@ public class Mascota {
 	private Suceso defuncion;
 	private Integer recompensa;
 	private String notas;
+	
+	public Mascota(String pNombre, String pEspecie, String pRaza,
+			   Suceso pSuceso, boolean perdida, Integer pRecompensa, String pNotas) {
+		id = ++totalIDsRegistradas;
+		nombre = pNombre;
+		especie = pEspecie;
+		raza = pRaza;
+		
+		if (perdida) {
+			this.perdida = pSuceso;
+			this.encuentro = null;
+			this.estado = MaquinaEstadosMascotas.estadoPERDIDA;
+		} else {
+			this.perdida = null;
+			this.encuentro = pSuceso;
+			this.estado = MaquinaEstadosMascotas.estadoENCONTRADA;
+		}
+		
+		recompensa = pRecompensa;
+		notas = pNotas;
+	}
 	
 	public static LinkedList<String> getEspecies() {
 		return especies;
@@ -63,11 +81,11 @@ public class Mascota {
 	}
 
 	public static Integer getTotalChips() {
-		return totalChips;
+		return totalIDsRegistradas;
 	}
 
 	public static void setTotalChips(Integer totalChips) {
-		Mascota.totalChips = totalChips;
+		Mascota.totalIDsRegistradas = totalChips;
 	}
 	
 	public Integer getID(){
@@ -170,38 +188,6 @@ public class Mascota {
 		this.tamanio = tamanio;
 	}
 
-	public String getNickDuenio() {
-		return nickDuenio;
-	}
-
-	public void setNickDuenio(String nickDuenio) {
-		this.nickDuenio = nickDuenio;
-	}
-
-	public String getNickEncontrante() {
-		return nickEncontrante;
-	}
-
-	public void setNickEncontrante(String nickEncontrante) {
-		this.nickEncontrante = nickEncontrante;
-	}
-
-	public String getNickRefugiante() {
-		return nickRefugiante;
-	}
-
-	public void setNickRefugiante(String nickRefugiante) {
-		this.nickRefugiante = nickRefugiante;
-	}
-
-	public String getNickAdoptante() {
-		return nickAdoptante;
-	}
-
-	public void setNickAdoptante(String nickAdoptante) {
-		this.nickAdoptante = nickAdoptante;
-	}
-
 	public Suceso getPerdida() {
 		return perdida;
 	}
@@ -266,21 +252,6 @@ public class Mascota {
 		this.notas = notas;
 	}
 	
-	public Mascota(String pNombre, String pEspecie, String pRaza,
-				   Suceso pPerdida, Integer pRecompensa, String pNotas) {
-		nombre = pNombre;
-		numeroChip = ++totalChips;
-		estado = "Perdido";
-		
-		especie = pEspecie;
-		raza = pRaza;
-		
-		perdida = pPerdida;
-		
-		recompensa = pRecompensa;
-		notas = pNotas;
-	}
-
 	// MAQUINA DE ESTADOS
 	public String getEstado() {
 		return estado;
@@ -298,12 +269,42 @@ public class Mascota {
 		msg += "\n\nEspecie de la mascota: " + getEspecie();
 		msg += "\nRaza de la mascota: " + getRaza();
 		
-		//msg += "\n\nEncuentro: " + encuentro.toString();
-		
 		msg += "\n\nMonto de recompensa: " + getRecompensa();
 		msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
 	}
 	
+	private Mascota(Integer pID, String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
+		id = pID;
+		nombre = pNombre;
+		especie = pEspecie;
+		raza = pRaza;
+		recompensa = pRecompensa;
+		notas = pNotas;
+	}
+
+	public Mascota clone(){
+		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa, notas);
+		  					//Constructor privado
+		  clone.setColor(color);
+		  clone.setEdad(edad);
+		  clone.setEstado(estado);
+		  clone.setNumeroChip(numeroChip);
+		  clone.setSexo(sexo);
+		  clone.setTamanio(tamanio);
+		  
+		  clone.setPerdida(perdida);
+		  clone.setEncuentro(encuentro);
+		  clone.setLocalizacion(localizacion);
+		  clone.setRefugio(refugio);
+		  clone.setAdopcion(adopcion);
+		  clone.setDefuncion(defuncion);
+		  
+		  clone.setCastrada(castrada);
+		  clone.setDesparacitada(desparacitada);
+		  clone.setDiscapacitada(discapacitada);
+		  clone.setVacunada(vacunada);
+		  return clone;
+	}
 	
 }

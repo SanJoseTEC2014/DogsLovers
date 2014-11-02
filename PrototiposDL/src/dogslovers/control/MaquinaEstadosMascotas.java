@@ -25,23 +25,22 @@ public class MaquinaEstadosMascotas {
 	public static final Integer eventoCONFIRMACION_LOCALIZADA = 14;
 	public static final Integer eventoRECHAZO_LOCALIZADA = 15;
 	
-	//Constantes que representan los estados
-	
-	public static final Integer estadoPERDIDA = 1;
-	public static final Integer estadoENCONTRADA = 2;
-	public static final Integer estadoLOCALIZADA = 3;
-	public static final Integer estadoREFUGIADA = 4;
-	public static final Integer estadoADOPTADA = 5;
-	public static final Integer estadoMUERTA = 6;
-	public static final Integer estadoEN_ESPERA_DE_REFUGIO = 7;
-	public static final Integer estadoEN_ESPERA_DE_ADOPCION = 8;
-	public static final Integer estadoRECHAZADA_REFUGIADA = 9;
-	public static final Integer estadoRECHAZADA_ADOPTADA = 10;
-	public static final Integer estadoACEPTADA_ADOPTADA = 11;
-	public static final Integer estadoACEPTADA_REFUGIADA = 12;
-	public static final Integer estadoEN_ESPERA_DE_LOCALIZACION = 13;
-	public static final Integer estadoACEPTADA_LOCALIZADA = 14;
-	public static final Integer estadoRECHAZADA_LOCALIZADA = 15;
+	// Constantes que representan los estados
+	public static final String estadoPERDIDA = "Perdida";
+	public static final String estadoENCONTRADA = "Encontrada";
+	public static final String estadoLOCALIZADA = "Localizada";
+	public static final String estadoREFUGIADA = "Refugiada";
+	public static final String estadoADOPTADA = "Adoptada";
+	public static final String estadoMUERTA = "Muerta";
+	public static final String estadoEN_ESPERA_DE_REFUGIO = "En espera de ser Refugiada";
+	public static final String estadoEN_ESPERA_DE_ADOPCION = "En espera de ser Adoptada";
+	public static final String estadoRECHAZADA_REFUGIADA = "Solicitud de Refugio Rechazada";
+	public static final String estadoRECHAZADA_ADOPTADA = "Solicitud de Adopción Rechazada";
+	public static final String estadoACEPTADA_REFUGIADA = "Solicitud de Refugio Aceptada";
+	public static final String estadoACEPTADA_ADOPTADA = "Solicitud de Adopción Aceptada";
+	public static final String estadoEN_ESPERA_DE_LOCALIZACION = "En espera de ser Localizada";
+	public static final String estadoACEPTADA_LOCALIZADA = "Confirmación de Localización Aprobada";
+	public static final String estadoRECHAZADA_LOCALIZADA = "Confirmación de Localización Rechazada";
 	
 	private static MaquinaEstadosMascotas instanciaSingleton;
 	

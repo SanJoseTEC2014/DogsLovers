@@ -303,17 +303,21 @@ public class Usuario {
 	}
 
 	public void addCalificacion(Calificacion Calificacion) {
-		this.calificaciones.add(Calificacion);
 		calcularPonderado(Calificacion);
+		this.calificaciones.add(Calificacion);
 	}
 	
 	private void calcularPonderado(Calificacion ultimaCalificacion){
-		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size()-1 + ultimaCalificacion.getEstrellas()) / calificaciones.size();
-		if (ponderadoCalificacion < Principal.calificacionMinimaPermitida && Principal.usuarioEnListaBlanca(nickname) ){
+		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size() + ultimaCalificacion.getEstrellas())
+								/ calificaciones.size() + 1; // +1 de la calificación que está agregando
+		
+		if (ponderadoCalificacion < Principal.getCalificacionMinimaPermitidaUsuarios()
+				&& Principal.isUsuarioEnListaBlanca(nickname))
+		{
 			Principal.transladarUsuarioListaNegra(this);
-		}
-		else if (Principal.negra.contains(this)){ 
-			Principal.transladarUsuarioListaBlanca(this);
+		} else
+			if (Principal.negra.contains(this)) {  
+				Principal.transladarUsuarioListaBlanca(this);
 		}
 	}
 	

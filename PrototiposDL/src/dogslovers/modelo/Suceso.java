@@ -10,10 +10,15 @@ public class Suceso {
 	private String descripcion;
 	private String nick;
 	
-	public Suceso(String pLugar, Integer pDia, Integer pMes, Integer pAnio, String pDescripcion) {
+	public Suceso(String pNick, String pLugar, Integer pDia, Integer pMes, Integer pAnio, String pDescripcion) {
+		nick = pNick;
 		lugar = pLugar;
 		fecha = Calendar.getInstance(); fecha.set(pAnio, pMes, pDia);
 		descripcion = pDescripcion;
+	}
+	
+	public String getNick() {
+		return nick;
 	}
 
 	public String getLugar() {
@@ -24,7 +29,6 @@ public class Suceso {
 		return fecha;
 	}
 	
-	
 	public String getFechaString() {
 		SimpleDateFormat mascara = new SimpleDateFormat("dd/MM/yy");
 		return mascara.format(fecha.getTime());
@@ -32,10 +36,6 @@ public class Suceso {
 
 	public String getDescripcion() {
 		return descripcion;
-	}
-	
-	public String getNick() {
-		return nick;
 	}
 	
 	public String toString() {
