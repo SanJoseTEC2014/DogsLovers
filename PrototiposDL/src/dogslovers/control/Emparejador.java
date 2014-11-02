@@ -25,18 +25,23 @@ import dogslovers.control.Principal;
 public class Emparejador {
 
 
-	public static void rutinaMatch(Usuario pUsuario, String pListaMascotas){
-		// Envia un emparejamiento de mascotas al usuario en el lapso de tiempo
-		// definido por este.
-
+	public static void rutinaMatch(Usuario pUsuario){
+		// Esta función es invocada cada vez que "transcurre un día". 
+		// La rutina de emparejamiento escoge la lista de mascotas perdidas de pUsuario.
+		// Se intenta enviar un correo al usuario en el lapso de tiempo definido por este.
+		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				emparejarBajoDemanda(pUsuario, pListaMascotas);
+				for (int ID : pUsuario.getMascotasPerdidasIDs()){
+					emparejarAutomatico(ID, pUsuario);
+				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					emparejarBajoDemanda(pUsuario, pListaMascotas);
+					for (int ID : pUsuario.getMascotasPerdidasIDs()){
+						emparejarAutomatico(ID, pUsuario);
+					}
 				} else {
 					pUsuario.addDiasTranscurridos();
 				}
@@ -44,7 +49,9 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					emparejarBajoDemanda(pUsuario, pListaMascotas);
+					for (int ID : pUsuario.getMascotasPerdidasIDs()){
+						emparejarAutomatico(ID, pUsuario);
+					}
 				} else {
 					pUsuario.addDiasTranscurridos();
 				}
@@ -57,161 +64,57 @@ public class Emparejador {
 			}
 		}
 	}
-
-	private static void emparejarBajoDemanda(Usuario pUsuario, String pListaEscogidaUsuario) {
 		
+	private static void emparejarAutomatico(Integer pIDMascota, Usuario pUsuario){
 		
+		ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
+		coincidencias = emparejarBajoDemanda(Principal.perdidas.get(pIDMascota));
+		try {
+            Correo.enviarCoincidencias(coincidencias, Principal.perdidas.get(pIDMascota),  pUsuario);
+        } catch (MessagingException ex) {
+            JOptionPane.showMessageDialog(null, "Error",
+                "Estimado Usuario " + pUsuario.getNombre() +
+            	"\nHubo un error al enviarle el correo con la lista de coincidencias para" +
+                "\nsu Mascota: " + Principal.perdidas.get(pIDMascota).getNombre() +
+                "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
+                "\nejecute un emparejamiento bajo demanda." +
+                "\nCausa del error: " + ex.getMessage(),
+            JOptionPane.WARNING_MESSAGE);
+        }
 		
-		ArrayList<Mascota> mascotasPorFiltrar;
-		ArrayList<Mascota> coincidencias;
+	}
 		
-		switch(pListaEscogidaUsuario){
-            case "encontradas":{
-
-                for (int i = 0; i < Principal.encontradas.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.encontradas.get(i), "encontradas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.encontradas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.encontradas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            case "perdidas":{
-
-                for (int i = 0; i < Principal.perdidas.size(); i++) {
-                    coincidencias =getListaCoincidencias(Principal.perdidas.get(i), "perdidas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.perdidas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.perdidas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            case "refugiadas":{
-            	
-                for (int i = 0; i < Principal.refugiadas.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.refugiadas.get(i), "refugiadas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.refugiadas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.refugiadas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            case "adoptadas":{
-
-                for (int i = 0; i < Principal.adoptadas.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.adoptadas.get(i), "adoptadas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.adoptadas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.adoptadas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-            
-            case "enAdopcion":{
-
-                for (int i = 0; i < Principal.enAdopcion.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.enAdopcion.get(i), "enAdopcion");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.enAdopcion.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.enAdopcion.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            case "localizadas":{
-
-                for (int i = 0; i < Principal.localizadas.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.localizadas.get(i), "localizadas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.localizadas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.localizadas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            case "muertas":{
-
-                for (int i = 0; i < Principal.muertas.size(); i++) {
-                    coincidencias = getListaCoincidencias(Principal.muertas.get(i), "muertas");
-                    try {
-                        Correo.enviarCoincidencias(coincidencias, Principal.muertas.get(i),  pUsuario);
-                    } catch (MessagingException ex) {
-                        JOptionPane.showMessageDialog(null, "Error",
-                            "Error al enviar el correo con la lista de coincidencias de" +
-                            "\nMascota: " + Principal.muertas.get(i).getNombre() +
-                            "\nDueño: " + pUsuario.getNombre() +
-                            "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
-                            "\nejecute un emparejamiento bajo demanda." +
-                            "\nCausa del error: " + ex.getMessage(),
-                        JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-            break;
-
-            default : {
+	private static ArrayList<Mascota> emparejarBajoDemanda(Mascota pMascotaEscogida) {
+		
+		// Empareja una mascota escogida por pUsuario con todas
+		// las mascotas reportadas en el sistema como:
+		// "encontradas", "perdidas", "refugiadas", "adoptadas", "localizadas" o "muertas",
+		// según el estado actual de la mascota.
+				
+		ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
+				
+		switch (pMascotaEscogida.getEstado()){
+			// En éste caso debería buscar en las tres listas.
+			case "PERDIDA":
+				coincidencias = getListaCoincidencias(pMascotaEscogida, "encontradas");
+				coincidencias.addAll(getListaCoincidencias(pMascotaEscogida, "adoptadas"));
+				coincidencias.addAll(getListaCoincidencias(pMascotaEscogida, "refugiadas"));
+				break;
+			// Se cumple igual en cualquiera de éstos casos. 
+			case "ENCONTRADA":
+			case "ADOPTABLE":
+			case "REFUGIADA":
+				coincidencias = getListaCoincidencias(pMascotaEscogida, "perdidas");
+				break;
+			default : {
 				JOptionPane.showMessageDialog(null, "Error inesperado",
 					"No se ha podido realizar el emparejamiento correspondiente.",
 				JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		
+		return coincidencias;
+		
     }
 
 	public static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
