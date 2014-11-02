@@ -2,7 +2,10 @@ package dogslovers.vista;
 
 import javax.swing.*;
 
+import dogslovers.control.Acceso;
 import dogslovers.control.Principal;
+import dogslovers.control.excepciones.ContraseniaIncorrectaException;
+import dogslovers.control.excepciones.UsuarioNoExisteException;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -81,40 +84,17 @@ public class VentanaInicioSesion extends JFrame {
 		marcoBotones.add(botonInicioSesion);
 		botonInicioSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				String password = new String(passwordTextBox.getPassword()); //obtiene el texto del pass
-				String usuario = nicknameTextBox.getText(); //obtiene el nombre de usuario
-				
-				if (usuario.equals("pitbull"))	labelUsuarioError.setText("OK");
-				else labelUsuarioError.setText("Nickname Incorrecto");
-			
-				if (password.equals("terrier"))	labelPasswordError.setText("OK");
-				else labelPasswordError.setText("Password Incorrecto");
-				
-				if (usuario.equals("admin") && password.equals("admin")) {
-					close();
-					/*
-					setVisible(false);
-					try {
-						// *************************************
-						// PRUEBAS
-						Cliente.cargarArchivo();
-						Libro.cargarArchivo();
-						Tiempo.setDiasValidezPrestamo(15);
-						Tiempo.setDiasToleranciaPrestamo(30);
-						// *************************************
-						
-						VentanaMenuPrincipal window = new VentanaMenuPrincipal();
-						window.setVisible(true);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "ERROR. No se encuentra la base de datos de libros.\n" + ex.getMessage());;
-					}
-					*/
-				}	
+				try {
+					Acceso.validarCredenciales(nicknameTextBox.getText(), passwordTextBox.getPassword().toString());
+					cerrarVentana();
+				} catch (UsuarioNoExisteException e) {
+					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
+					labelUsuarioError.setText(e.getMessage());
+				} catch (ContraseniaIncorrectaException e) {
+					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
+					labelPasswordError.setText(e.getMessage());
+				}
 			}
-
-			
-			
 		});
 		botonInicioSesion.setFont(new Font("Tahoma", Font.BOLD, 15));
 		botonInicioSesion.setOpaque(false);
@@ -128,7 +108,7 @@ public class VentanaInicioSesion extends JFrame {
 		setResizable(false);
 	}
 	
-	private void close() {
+	private void cerrarVentana() {
 		this.dispose();	
 	}
 	

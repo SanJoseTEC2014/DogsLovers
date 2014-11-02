@@ -66,8 +66,9 @@ public class Principal {
 				try {
 					System.out.println(encontradas.size());
 					VentanaInicioSesion window = new VentanaInicioSesion();
-					// FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(encontradas);
 					window.setVisible(true);
+					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas(encontradas);
+					window2.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

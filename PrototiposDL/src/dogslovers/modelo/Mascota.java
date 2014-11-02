@@ -19,10 +19,6 @@ public class Mascota {
 	public static LinkedList<String[]> razas = new LinkedList<String[]>(); 
 	private static Integer totalChips = 0;
 	
-	public static LinkedList<String> getEspecies() {
-		return especies;
-	}
-
 	private Integer id;
 	private String nombre;
 	private Integer numeroChip;
@@ -50,6 +46,10 @@ public class Mascota {
 	private Integer recompensa;
 	private String notas;
 	
+	public static LinkedList<String> getEspecies() {
+		return especies;
+	}
+
 	public static void setEspecies(LinkedList<String> especies) {
 		Mascota.especies = especies;
 	}
@@ -68,6 +68,10 @@ public class Mascota {
 
 	public static void setTotalChips(Integer totalChips) {
 		Mascota.totalChips = totalChips;
+	}
+	
+	public Integer getID(){
+		return id;
 	}
 
 	public String getNombre() {
@@ -277,7 +281,7 @@ public class Mascota {
 		notas = pNotas;
 	}
 
-	// / MAQUINA DE ESTADOS
+	// MAQUINA DE ESTADOS
 	public String getEstado() {
 		return estado;
 	}
@@ -299,5 +303,7 @@ public class Mascota {
 		msg += "\n\nMonto de recompensa: " + getRecompensa();
 		msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
-	} 
+	}
+	
+	
 }

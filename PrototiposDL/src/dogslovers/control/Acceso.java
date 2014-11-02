@@ -23,7 +23,7 @@ public class Acceso {
 		return superUsuario;
 	}
 	
-	public static boolean validarCredenciales(String pNickname, String pContrasenia) throws UsuarioNoExisteException, ContraseniaIncorrectaException{
+	public static void validarCredenciales(String pNickname, String pContrasenia) throws UsuarioNoExisteException, ContraseniaIncorrectaException{
 		if (pNickname == getSuperUsuario().getNickname()){
 			if (pContrasenia == getSuperUsuario().getContrasenia()) {
 				usuarioActivo = getSuperUsuario();
@@ -35,14 +35,16 @@ public class Acceso {
 			Usuario usuarioPorAcceder = validarUsuarioRegistrado(pNickname);
 			if (usuarioPorAcceder.getContrasenia() != pContrasenia){
 				throw new ContraseniaIncorrectaException("Contraseña incorrecta.");
-			}
-			if (usuarioPorAcceder.isAdministrador()){
-				setModoAdministrador(true);
 			} else {
-				setModoAdministrador(false);
+				usuarioActivo = usuarioPorAcceder;
+				if (usuarioPorAcceder.isAdministrador()){
+					setModoAdministrador(true);
+				} else {
+					setModoAdministrador(false);
+				}
+				
 			}
 		}
-		return true;
 	}
 	
 	private static Usuario validarUsuarioRegistrado(String pNickname) throws UsuarioNoExisteException {
@@ -76,10 +78,6 @@ public class Acceso {
 	
 	public static Usuario getUsuarioActivo(){
 		return usuarioActivo;
-	}
-	
-	public static void setUsuarioActivo(String pNickname, String pContrasenia){
-		validarCredenciales(pNickname, pContrasenia);
 	}
 	
 }

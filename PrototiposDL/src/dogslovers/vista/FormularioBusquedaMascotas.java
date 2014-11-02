@@ -31,8 +31,6 @@ import javax.swing.UIManager;
 
 public class FormularioBusquedaMascotas extends JFrame {
 
-	private static ArrayList<Mascota> listaOrigenMascotas;
-
 	private final JLabel lblNewLabel = new JLabel("B\u00FAsqueda Mascotas Extraviadas");
 	private JTable jMascotas;
 	private JTextField textNombre;
@@ -51,6 +49,8 @@ public class FormularioBusquedaMascotas extends JFrame {
 	private JPanel panelTable;
 	private JScrollPane scrollPane;
 	private JScrollPane scrollJTable;
+	
+	private ArrayList<Mascota> listaOrigenMascotas;
 
 	public FormularioBusquedaMascotas(ArrayList<Mascota> perdidas) {
 		listaOrigenMascotas = perdidas;
