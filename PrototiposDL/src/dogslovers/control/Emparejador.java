@@ -58,14 +58,14 @@ public class Emparejador {
 		}
 	}
 
-	private static void emparejarBajoDemanda(Usuario pUsuario, String pListaMascotas) {
-		// Empareja todas las mascotas reportadas como propias por pUsuario con todas
-		// las mascotas reportadas en el sistema como: "encontradas", "perdidas",
-		// "refugiadas", "adoptadas", "localizadas" o "muertas".
+	private static void emparejarBajoDemanda(Usuario pUsuario, String pListaEscogidaUsuario) {
 		
+		
+		
+		ArrayList<Mascota> mascotasPorFiltrar;
 		ArrayList<Mascota> coincidencias;
-
-		switch(pListaMascotas){
+		
+		switch(pListaEscogidaUsuario){
             case "encontradas":{
 
                 for (int i = 0; i < Principal.encontradas.size(); i++) {
@@ -214,148 +214,72 @@ public class Emparejador {
 		}
     }
 
-	public static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pEstadoMascota ){
-		// Busca las posibles coincidencias con respecto a la mascota reportada, con las mascotas
-		// que estén reportadas como : "encontradas", "perdidas","refugiadas", "adoptadas", "adoptables",
+	public static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
+		// Empareja una de las mascotas reportadas por pUsuario,
+		// con las mascotas que estén reportadas (a nivel de sistema)
+		// como : "encontradas", "perdidas","refugiadas", "adoptadas", "adoptables",
 		// "localizadas" o "muertas".
 		
-		 ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
+		 ArrayList<Mascota> mascotasPorFiltrar = new ArrayList<Mascota>();
 		 ArrayList<Mascota> resultados = new ArrayList<Mascota>();
 		
-		 switch(pEstadoMascota){
-			case "encontradas":{
-				for (Mascota mascota : Principal.encontradas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-					}
+		// Resumen del emparejamiento
+			switch (pListaMascotasDondeBuscar) {
+				case "encontradas": {
+					mascotasPorFiltrar = Principal.encontradas;
 				}
-				resultados = coincidencias;
-				break;
-			
-			}
-			
-			case "perdidas":{
-				for (Mascota mascota : Principal.perdidas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
-				}
-				resultados =  coincidencias;
-				break;
-			  
-			}
-			
-			case "refugiadas":{
-				for (Mascota mascota : Principal.refugiadas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
-				}
-				resultados =  coincidencias;
-				break;
-			}
-			
-			case "adoptadas":{
-				for (Mascota mascota : Principal.adoptadas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
-				}
-				resultados = coincidencias;
-				break;
-			}
-			
-			case "enAdopcion":{
-				for (Mascota mascota : Principal.enAdopcion) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
-				}
-				resultados = coincidencias;
-				break;
-			}
+					break;
 		
-			case "localizadas":{
-				for (Mascota mascota : Principal.localizadas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
+				case "perdidas": {
+					mascotasPorFiltrar = Principal.perdidas;
 				}
-				resultados = coincidencias;
-				break;
+					break;
+		
+				case "refugiadas": {
+					mascotasPorFiltrar = Principal.refugiadas;
+				}
+					break;
+		
+				case "adoptadas": {
+					mascotasPorFiltrar = Principal.adoptadas;
+				}
+					break;
+		
+				case "enAdopcion": {
+					mascotasPorFiltrar = Principal.enAdopcion;
+				}
+					break;
+		
+				case "localizadas": {
+					mascotasPorFiltrar = Principal.localizadas;
+				}
+					break;
+		
+				case "muertas": {
+					mascotasPorFiltrar = Principal.muertas;
+				}
+					break;
+		
+				default: {
+				JOptionPane.showMessageDialog(null, "Error inesperado",
+						"No se han encontrado coincidencias.",
+					JOptionPane.ERROR_MESSAGE);	
+				}
 			}
 			
-			case"muertas":{
-				for (Mascota mascota : Principal.muertas) {
-					if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
-						coincidencias.add(mascota);
-					}
-
-					else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
-							&& perdidaAComparar.getEspecie().equals(
-									mascota.getEspecie())
-							&& perdidaAComparar.getColor().equals(mascota.getColor())) {
-						coincidencias.add(mascota);
-
-					}
+			for (Mascota mascota : mascotasPorFiltrar) {
+				if (perdidaAComparar.getNumeroChip() == mascota.getNumeroChip()) {
+					resultados.add(mascota);
 				}
-				resultados = coincidencias;
-				break;
+				else if (perdidaAComparar.getRaza().equals(mascota.getRaza())
+						&& perdidaAComparar.getEspecie().equals(
+								mascota.getEspecie())
+						&& perdidaAComparar.getColor().equals(mascota.getColor())) {
+					resultados.add(mascota);
+				}
 			}
 			
-			default:{
-			JOptionPane.showMessageDialog(null, "Error inesperado",
-					"No se han encontrado coincidencias.",
-				JOptionPane.ERROR_MESSAGE);	
-			}
-		}
-		return resultados;
+			return resultados;
 	}
 	
 	public static ArrayList<Usuario> getListaCoincidenciasCondiciones(Mascota pMascotaAComparar){

@@ -86,7 +86,6 @@ public class BuscadorMascotas extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return resultados.size();
 	}
 }
