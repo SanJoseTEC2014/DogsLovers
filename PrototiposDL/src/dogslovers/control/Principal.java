@@ -1,9 +1,7 @@
 package dogslovers.control;
 
-import java.awt.EventQueue;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.*;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -12,6 +10,7 @@ import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Suceso;
 import dogslovers.modelo.Usuario;
 import dogslovers.vista.FormularioBusquedaMascotas;
+import dogslovers.vista.VentanaInicioSesion;
 
 public class Principal {
 
@@ -26,6 +25,9 @@ public class Principal {
 	public static ArrayList<Usuario> negra = new ArrayList<Usuario>();
 	//public static ArrayList<Organizacion> organizaciones = new ArrayList<Mascota>;
 	//public static ArrayList<Donacion> donaciones = new ArrayList<Mascota>;
+	
+	public static final Color fondoVentanas = new Color(30, 144, 255);
+	public static final Color fondoMarcosVentanas = new Color(144, 238, 144);
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
@@ -59,7 +61,8 @@ public class Principal {
 			public void run() {
 				try {
 					System.out.println(encontradas.size());
-					FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(encontradas);
+					VentanaInicioSesion window = new VentanaInicioSesion();
+					// FormularioBusquedaMascotas window = new FormularioBusquedaMascotas(encontradas);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
