@@ -31,8 +31,9 @@ public class Principal {
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
 		for(int i = 0; i < 100; i++) 
-		encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
+			encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
 						"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao."));
+		// System.out.println(encontradas.size()); // Validación de inserción de las 100 Mascota
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -58,7 +59,6 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					System.out.println(encontradas.size());
 					VentanaInicioSesion window = new VentanaInicioSesion();
 					window.setVisible(true);
 					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas(encontradas);

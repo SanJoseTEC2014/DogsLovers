@@ -263,14 +263,14 @@ public class Mascota implements Cloneable {
 	
 	public String toString(){
 		String msg = "Nombre de la mascota: " + getNombre();
-		msg += "\nNumero ID en el chip: " + getNumeroChip();
-		msg += "\nEstado de la mascota: " + getEstado();
+		msg += "\nID: " + getID();
+		msg += " Estado: " + getEstado();
 		
-		msg += "\n\nEspecie de la mascota: " + getEspecie();
-		msg += "\nRaza de la mascota: " + getRaza();
+		msg += "\nEspecie: " + getEspecie();
+		msg += "  Raza: " + getRaza();
 		
-		msg += "\n\nMonto de recompensa: " + getRecompensa();
-		msg += "\nNotas Secundarias: " + getNotasSecundarias();
+		msg += "\nMonto de recompensa: " + getRecompensa() + "\n";
+		// msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
 	}
 	

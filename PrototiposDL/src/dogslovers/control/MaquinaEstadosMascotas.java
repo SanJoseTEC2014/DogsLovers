@@ -1,30 +1,13 @@
 package dogslovers.control;
 
+import javax.swing.JOptionPane;
+
 import dogslovers.control.excepciones.EstadoNoExisteException;
 import dogslovers.modelo.Suceso;
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
 
 public class MaquinaEstadosMascotas {
-	
-	//Constantes que representan los eventos
-	
-	public static final Integer eventoPERDIDA = 1;
-	public static final Integer eventoENCUENTRO = 2;
-	public static final Integer eventoLOCALIZADA = 3;
-	public static final Integer eventoREFUGIO = 4;
-	public static final Integer eventoADOPCION = 5;
-	public static final Integer eventoMUERTE = 6;
-	public static final Integer eventoSOLICITUD_REFUGIO = 7;
-	public static final Integer eventoSOLICITUD_ADOPCION = 8;
-	public static final Integer eventoRECHAZO_SOLICITUD_REFUGIO = 9;
-	public static final Integer eventoRECHAZO_SOLICITUD_ADOPCION = 10;
-	public static final Integer eventoCONFIRMACION_ADOPCION = 11;
-	public static final Integer eventoCONFIRMACION_REFUGIO = 12;
-	public static final Integer eventoNOTIFICACION_DE_LOCALIZACION = 13;
-	public static final Integer eventoCONFIRMACION_LOCALIZADA = 14;
-	public static final Integer eventoRECHAZO_LOCALIZADA = 15;
-	
 	// Constantes que representan los estados
 	public static final String estadoPERDIDA = "Perdida";
 	public static final String estadoENCONTRADA = "Encontrada";
@@ -38,13 +21,28 @@ public class MaquinaEstadosMascotas {
 	public static final String estadoRECHAZADA_ADOPTADA = "Solicitud de Adopción Rechazada";
 	public static final String estadoACEPTADA_REFUGIADA = "Solicitud de Refugio Aceptada";
 	public static final String estadoACEPTADA_ADOPTADA = "Solicitud de Adopción Aceptada";
-	public static final String estadoEN_ESPERA_DE_LOCALIZACION = "En espera de ser Localizada";
-	public static final String estadoACEPTADA_LOCALIZADA = "Confirmación de Localización Aprobada";
-	public static final String estadoRECHAZADA_LOCALIZADA = "Confirmación de Localización Rechazada";
+	public static final String estadoEN_ESPERA_CONFIRMACION_LOCALIZADA = "En espera de Confirmación de haber sido Localizada";
+	
+	//Constantes que representan los eventos
+	public static final int eventoPERDIDA = 1;
+	public static final int eventoENCUENTRO = 2;
+	public static final int eventoLOCALIZADA = 3;
+	public static final int eventoREFUGIO = 4;
+	public static final int eventoADOPCION = 5;
+	public static final int eventoMUERTE = 6;
+	public static final int eventoSOLICITUD_REFUGIO = 7;
+	public static final int eventoSOLICITUD_ADOPCION = 8;
+	public static final int eventoRECHAZO_SOLICITUD_REFUGIO = 9;
+	public static final int eventoRECHAZO_SOLICITUD_ADOPCION = 10;
+	public static final int eventoCONFIRMACION_REFUGIO = 11;
+	public static final int eventoCONFIRMACION_ADOPCION = 12;
+	public static final int eventoNOTIFICACION_DE_LOCALIZACION = 13;
+	public static final int eventoCONFIRMACION_LOCALIZADA = 14;
+	public static final int eventoRECHAZO_LOCALIZADA = 15;
 	
 	private static MaquinaEstadosMascotas instanciaSingleton;
 	
-	private Integer estadoActualMascota;
+	private String estadoActualMascota;
 	
 	// El constructor de la clase es privado para que ningún otro objeto 
 	// fuera de la clase le invoque, sólo el método inicializarMaquina
@@ -64,75 +62,76 @@ public class MaquinaEstadosMascotas {
 		return instanciaSingleton;
 	}
 	
-	public void setEstadoActual(Integer pEstado){
+	public void setEstadoActual(String pEstado){
 		estadoActualMascota = pEstado;
 	}
 	
-	public Integer getEstadoActual(){
+	public String getEstadoActual(){
 		return estadoActualMascota;
 	}
 	
 	// Método para disparar cambios de estado de la mascota
-	public void CapturarReporte(int evento, Suceso pSuceso){
-		switch(estadoActualMascota){
-			case estadoPERDIDA:
-				reportarPerdida(evento);
+	public void capturarReporte(int pEvento, Suceso pSuceso){
+		switch(pEvento)
+		{
+			case eventoPERDIDA:
+				reportarPerdida(pSuceso);
 				break;
 				
-			case estadoENCONTRADA:
-				reportarEncuentro(evento);
+			case eventoENCUENTRO:
+				reportarEncuentro(pSuceso);
+				break;
+						
+			case eventoLOCALIZADA:
+				reportarLocalizacion(pSuceso);
 				break;
 			
-			case estadoLOCALIZADA:
-				reportarLocalizacion(evento);
+			case eventoREFUGIO:
+				reportarRefugio(pSuceso);
 				break;
 			
-			case estadoREFUGIADA:
-				reportarRefugio(evento);
+			case eventoADOPCION:
+				reportarAdopcion(pSuceso);
 				break;
 			
-			case estadoADOPTADA:
-				reportarAdopcion(evento);
-				break;
-			
-			case estadoMUERTA:
-				reportarMuerte(evento);
+			case eventoMUERTE:
+				reportarMuerte(pSuceso);
 				break;
 				
-			case estadoEN_ESPERA_DE_REFUGIO:
-				reportarSolicitudRefugio(evento);
+			case eventoSOLICITUD_REFUGIO:
+				reportarSolicitudRefugio(pSuceso);
 				break;
 				
-			case estadoEN_ESPERA_DE_ADOPCION :
-				reportarSolicitudAdopcion(evento);
+			case eventoSOLICITUD_ADOPCION :
+				reportarSolicitudAdopcion(pSuceso);
 				break;
 				
-			case estadoRECHAZADA_REFUGIADA:
-				reportarRechazoSolicitudRefugio(evento);
+			case eventoRECHAZO_SOLICITUD_REFUGIO:
+				reportarRechazoSolicitudRefugio(pSuceso);
 				break;
 				
-			case estadoRECHAZADA_ADOPTADA:
-				reportarRechazoSolicitudAdopcion(evento);
+			case eventoRECHAZO_SOLICITUD_ADOPCION:
+				reportarRechazoSolicitudAdopcion(pSuceso);
 				break;
 				
-			case estadoACEPTADA_ADOPTADA:
-				reportarConfirmacionAdopcion(evento);
+			case eventoCONFIRMACION_ADOPCION:
+				reportarConfirmacionSolicitudAdopcion(pSuceso);
 				break;
 			
-			case estadoACEPTADA_REFUGIADA:
-				reportarConfirmacionRefugio(evento);
+			case eventoCONFIRMACION_REFUGIO:
+				reportarConfirmacionSolicitudRefugio(pSuceso);
 				break;
 				
-			case  estadoEN_ESPERA_DE_LOCALIZACION :
-				reportarRechazoLocalizada(evento);
+			case eventoNOTIFICACION_DE_LOCALIZACION:
+				reportarNotificacionLocalizada(pSuceso);
 				break;
 			
-			case estadoACEPTADA_LOCALIZADA:
-				reportarConfirmacionLocalizada(evento);
+			case eventoCONFIRMACION_LOCALIZADA:
+				reportarConfirmacionLocalizada(pSuceso);
 				break;
 			
-			case  estadoRECHAZADA_LOCALIZADA :
-				reportarRechazoLocalizada(evento);
+			case eventoRECHAZO_LOCALIZADA :
+				reportarRechazoLocalizada(pSuceso);
 				break;
 			
 			default:
@@ -141,7 +140,94 @@ public class MaquinaEstadosMascotas {
 	}
 
 	// Métodos que cambian el estado según el evento en el estado actual de la mascota.
-	
+	private void reportarPerdida(Suceso pSuceso){
+		// TODO Auto-generated method stub
+	}
+
+	private void reportarEncuentro(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarLocalizacion(Suceso pSuceso) {
+		switch (estadoActualMascota) {
+			case estadoPERDIDA:
+			case estadoENCONTRADA:
+				estadoActualMascota = estadoEN_ESPERA_CONFIRMACION_LOCALIZADA;
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+													"\nCaso no contemplado en el diseño.");
+				break;
+		}
+	}
+
+	private void reportarRefugio(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarAdopcion(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarMuerte(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarSolicitudRefugio(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarSolicitudAdopcion(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarRechazoSolicitudRefugio(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarRechazoSolicitudAdopcion(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarConfirmacionSolicitudRefugio(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarConfirmacionSolicitudAdopcion(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarNotificacionLocalizada(Suceso pSuceso) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void reportarConfirmacionLocalizada(Suceso pSuceso) {
+		
+		
+	}
+
+	private void reportarRechazoLocalizada(Suceso pSuceso) {
+		switch (estadoActualMascota) {
+			case estadoEN_ESPERA_CONFIRMACION_LOCALIZADA:
+				if (pSuceso != null){}
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+													"\nCaso no contemplado en el diseño.");
+				break;
+		}
+	}
 
 
 
