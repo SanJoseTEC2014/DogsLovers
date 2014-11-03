@@ -112,7 +112,8 @@ public class VentanaRegistroUsuarios extends JFrame {
 		botonLeerCondicionesUso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(getContentPane(),
-					"Lea los siguientes terminos antes de registrarse",
+					"Lea los siguientes terminos antes de registrarse"+"\n"+
+					"1- Este no es un sistema para dar en adopción una mascota",
 					"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});

@@ -10,6 +10,7 @@ import dogslovers.control.excepciones.UsuarioNoExisteException;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class VentanaInicioSesion extends JFrame {
 	
 	// Atributos
@@ -102,6 +103,13 @@ public class VentanaInicioSesion extends JFrame {
 		botonInicioSesion.setOpaque(false);
 		
 		botonRegistrarNuevoUsuario = new JButton("Registrar Nuevo Usuario");
+		botonRegistrarNuevoUsuario.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			VentanaRegistroUsuarios window = new VentanaRegistroUsuarios();
+			window.setVisible(true);	
+		}
+	});
+		
 		marcoBotones.add(botonRegistrarNuevoUsuario);
 		botonRegistrarNuevoUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
 		botonRegistrarNuevoUsuario.setOpaque(false);
