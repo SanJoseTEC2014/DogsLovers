@@ -41,8 +41,6 @@ public class Usuario {
 	private CondicionesRefugio condicionesRef;
 	private double ponderadoCalificacion;
 
-	// private twitter cuentaTwitter;
-
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
 			Integer pTelefono, String pLapsoEmparejamiento) {
 		nickname = pNickname;

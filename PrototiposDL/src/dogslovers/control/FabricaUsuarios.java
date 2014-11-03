@@ -14,8 +14,6 @@ public class FabricaUsuarios {
 	private boolean refugiante;
 	private CondicionesRefugio condiciones;
 	private boolean adoptante;
-//	private CuentaFacebook facebook;
-//	private CuentaTwitter twitter;	
 	
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
@@ -56,14 +54,6 @@ public class FabricaUsuarios {
 	public void setAdoptante(boolean adoptante) {
 		this.adoptante = adoptante;
 	}
-	
-//	public void setFacebook(CuentaFacebook facebook) {
-//		this.facebook = facebook;
-//	}
-	
-//	public void setTwitter(CuentaTwitter twitter) {
-//		this.twitter = twitter;
-//	}
 	
 	public Usuario crearUsuario() {
 		return new Usuario(nickname, nombre, apellidos, cedula, contrasenia,
