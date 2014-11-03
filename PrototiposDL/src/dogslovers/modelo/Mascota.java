@@ -1,4 +1,5 @@
 package dogslovers.modelo;
+
 /**	Prototipo de la clase Mascota
  *	Fecha de creación: 03/10/2014
  * 
@@ -15,11 +16,11 @@ import dogslovers.control.MaquinaEstadosMascotas;
 import dogslovers.modelo.Suceso;
 
 public class Mascota implements Cloneable {
-	
+
 	public static LinkedList<String> especies = new LinkedList<String>();
-	public static LinkedList<String[]> razas = new LinkedList<String[]>(); 
+	public static LinkedList<String[]> razas = new LinkedList<String[]>();
 	private static Integer totalIDsRegistradas = 0;
-	
+
 	private Integer id;
 	private String nombre;
 	private Integer numeroChip;
@@ -42,14 +43,14 @@ public class Mascota implements Cloneable {
 	private Suceso defuncion;
 	private Integer recompensa;
 	private String notas;
-	
-	public Mascota(String pNombre, String pEspecie, String pRaza,
-			   Suceso pSuceso, boolean perdida, Integer pRecompensa, String pNotas) {
+
+	public Mascota(String pNombre, String pEspecie, String pRaza, Suceso pSuceso, boolean perdida, Integer pRecompensa,
+			String pNotas) {
 		id = ++totalIDsRegistradas;
 		nombre = pNombre;
 		especie = pEspecie;
 		raza = pRaza;
-		
+
 		if (perdida) {
 			this.perdida = pSuceso;
 			this.encuentro = null;
@@ -59,11 +60,11 @@ public class Mascota implements Cloneable {
 			this.encuentro = pSuceso;
 			this.estado = MaquinaEstadosMascotas.estadoENCONTRADA;
 		}
-		
+
 		recompensa = pRecompensa;
 		notas = pNotas;
 	}
-	
+
 	public static LinkedList<String> getEspecies() {
 		return especies;
 	}
@@ -87,8 +88,8 @@ public class Mascota implements Cloneable {
 	public static void setTotalChips(Integer totalChips) {
 		Mascota.totalIDsRegistradas = totalChips;
 	}
-	
-	public Integer getID(){
+
+	public Integer getID() {
 		return id;
 	}
 
@@ -251,7 +252,7 @@ public class Mascota implements Cloneable {
 	public void setNotasSecundarias(String notas) {
 		this.notas = notas;
 	}
-	
+
 	// MAQUINA DE ESTADOS
 	public String getEstado() {
 		return estado;
@@ -260,20 +261,20 @@ public class Mascota implements Cloneable {
 	public void setEstado(String pEstado) {
 		estado = pEstado;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		String msg = "Nombre de la mascota: " + getNombre();
 		msg += "\nID: " + getID();
 		msg += " Estado: " + getEstado();
-		
+
 		msg += "\nEspecie: " + getEspecie();
 		msg += "  Raza: " + getRaza();
-		
+
 		msg += "\nMonto de recompensa: " + getRecompensa() + "\n";
 		// msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
 	}
-	
+
 	private Mascota(Integer pID, String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
 		id = pID;
 		nombre = pNombre;
@@ -283,28 +284,14 @@ public class Mascota implements Cloneable {
 		notas = pNotas;
 	}
 
-	public Mascota clone(){
-		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa, notas);
-		  					//Constructor privado
-		  clone.setColor(color);
-		  clone.setEdad(edad);
-		  clone.setEstado(estado);
-		  clone.setNumeroChip(numeroChip);
-		  clone.setSexo(sexo);
-		  clone.setTamanio(tamanio);
-		  
-		  clone.setPerdida(perdida);
-		  clone.setEncuentro(encuentro);
-		  clone.setLocalizacion(localizacion);
-		  clone.setRefugio(refugio);
-		  clone.setAdopcion(adopcion);
-		  clone.setDefuncion(defuncion);
-		  
-		  clone.setCastrada(castrada);
-		  clone.setDesparacitada(desparacitada);
-		  clone.setDiscapacitada(discapacitada);
-		  clone.setVacunada(vacunada);
-		  return clone;
+	public Mascota clone() {
+		Object obj = null;
+		try {
+			obj = super.clone();
+		} catch (CloneNotSupportedException ex) {
+			System.out.println(" no se puede duplicar");
+		}
+		return (Mascota) obj;
 	}
-	
+
 }
