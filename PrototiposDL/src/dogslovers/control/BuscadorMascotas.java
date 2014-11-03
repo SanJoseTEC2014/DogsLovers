@@ -44,6 +44,18 @@ public class BuscadorMascotas extends AbstractTableModel {
 			String criterio = terminos.get(numeroTermino);
 			if (criterio != "") {
 				for (Mascota porFiltrar : entrada) {
+					
+					// Verificación de los resultados de una búsqueda
+					/*
+					String debugmsg = nombreCoincide(porFiltrar, criterio) ? "true " : "false ";
+					debugmsg += lugarEncuentroCoincide(porFiltrar, criterio) ? "true " : "false ";
+					debugmsg += lugarPerdidaCoincide(porFiltrar, criterio) ? "true " : "false ";
+					debugmsg += numeroChipCoincide(porFiltrar, criterio) ? "true " : "false ";
+					debugmsg += especieCoincide(porFiltrar, criterio) ? "true " : "false ";
+					debugmsg += razaCoincide(porFiltrar, criterio) ? "true " : "false ";
+					System.out.println(debugmsg);
+					*/
+					
 					switch (numeroTermino){
 						case 0: {
 							if (nombreCoincide(porFiltrar, criterio)){
@@ -79,6 +91,7 @@ public class BuscadorMascotas extends AbstractTableModel {
 				}
 			}
 		}
+		
 	}
 	
 	private boolean nombreCoincide(Mascota pMascota, String pCriterio){
@@ -86,11 +99,17 @@ public class BuscadorMascotas extends AbstractTableModel {
 	}
 	
 	private boolean lugarPerdidaCoincide(Mascota pMascota, String pCriterio){
-		return pMascota.getPerdida().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+		if (pMascota.getPerdida() != null) {
+			return pMascota.getPerdida().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+		}
+		return false;
 	}
 	
 	private boolean lugarEncuentroCoincide(Mascota pMascota, String pCriterio){
-		return pMascota.getEncuentro().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+		if (pMascota.getEncuentro() != null) {
+			return pMascota.getEncuentro().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+		}
+		return false;
 	}
 	
 	// Se asume que el criterio es un Integer validado desde la ventana
