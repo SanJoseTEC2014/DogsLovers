@@ -111,7 +111,6 @@ public class VentanaDetallesMascota extends JFrame {
 		panel.add(lblTamao);
 		
 		JPanel panel_1 = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Editar detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 404, 504, 55);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 5, 0, -60));
@@ -140,7 +139,6 @@ public class VentanaDetallesMascota extends JFrame {
 		getContentPane().add(btnCancelar);
 		
 		JPanel panel_2 = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Editar detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_2.setBounds(10, 325, 504, 55);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 4, 0, -60));
