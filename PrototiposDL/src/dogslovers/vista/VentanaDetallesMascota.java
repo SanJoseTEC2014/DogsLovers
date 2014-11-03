@@ -82,7 +82,7 @@ public class VentanaDetallesMascota extends JFrame {
 		JLabel lblNmeroDelChip = new JLabel("N\u00FAmero del Chip");
 		panel.add(lblNmeroDelChip);
 
-		campoNumChip = new JTextField(mascota.getNumeroChip());
+		//campoNumChip = new JTextField(mascota.getNumeroChip());
 		panel.add(campoNumChip);
 		if (orden == "MostrarDetalles") { campoNumChip.setEditable(false); }
 		else campoNombre.setEditable(true);
