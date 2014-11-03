@@ -63,6 +63,8 @@ public class Principal {
 					window.setVisible(true);
 					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
 					window2.setVisible(true);
+					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
+					window3.setVisible(true);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
