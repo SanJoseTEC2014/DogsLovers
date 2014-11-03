@@ -13,7 +13,7 @@ public class Acceso {
 	
 	// Aplicación de Singleton para el superUsuario
 	private static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 0000000000, "terrier", 25505033, "DIARIO", false, true);
+		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 0000000000, "terrier", 25505033, "DIARIO");
 		superUsuario.setAdministrador(true);
 	}
 	public static Usuario getSuperUsuario(){

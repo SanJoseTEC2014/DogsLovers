@@ -19,145 +19,181 @@ import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
 import java.awt.FlowLayout;
+import java.awt.Color;
+
+import javax.swing.border.LineBorder;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.UIManager;
+import javax.swing.JList;
+
+import dogslovers.modelo.Mascota;
 
 public class VentanaDetallesMascota extends JFrame {
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	public VentanaDetallesMascota() {
+	private JTextField campoNombre;
+	private JTextField campoNumChip;
+	private JTextField campoColor;
+	private JCheckBox checkBox;
+	private JCheckBox checkBox_1;
+	private JCheckBox checkBox_2;
+	private JCheckBox checkBox_3;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnNewRadioButton_2;
+	private JRadioButton rdbtnNewRadioButton_4;
+	private JRadioButton rdbtnNewRadioButton_3;
+	private JRadioButton rdbtnNewRadioButton;
+
+	public VentanaDetallesMascota(Mascota mascota, String orden) {
+
 		getContentPane().setLayout(null);
-		
-		JLabel lblEstadoActual = new JLabel("Estado Actual");
-		lblEstadoActual.setFont(lblEstadoActual.getFont().deriveFont(lblEstadoActual.getFont().getStyle() | Font.BOLD));
-		lblEstadoActual.setBounds(225, 383, 90, 23);
-		getContentPane().add(lblEstadoActual);
-		
-		JLabel lblInformacinFsica = new JLabel("Informaci\u00F3n F\u00EDsica-Veterinaria");
-		lblInformacinFsica.setFont(lblInformacinFsica.getFont().deriveFont(lblInformacinFsica.getFont().getStyle() | Font.BOLD));
-		lblInformacinFsica.setBounds(187, 306, 181, 23);
-		getContentPane().add(lblInformacinFsica);
-		
 		JLabel lblDetallesMascota = new JLabel("Detalles Mascota");
 		lblDetallesMascota.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDetallesMascota.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDetallesMascota.setBounds(187, 6, 152, 25);
+		lblDetallesMascota.setBounds(30, 11, 152, 25);
 		getContentPane().add(lblDetallesMascota);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Editar detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 65, 495, 230);
+		panel.setBounds(206, 51, 308, 240);
 		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(0, 4, 20, 50));
-		
-		textField_1 = new JTextField();
-		panel.add(textField_1);
-		textField_1.setColumns(10);
-		
+		panel.setLayout(new GridLayout(8, 2, 10, 5));
+
 		JLabel lblNombre = new JLabel("Nombre");
 		panel.add(lblNombre);
-		
-		textField_2 = new JTextField();
-		panel.add(textField_2);
-		textField_2.setColumns(10);
-		
+
+		campoNombre = new JTextField(mascota.getNombre());
+		panel.add(campoNombre);
+		if (orden == "MostrarDetalles") { campoNombre.setEditable(false); }
+		else campoNombre.setEditable(true);
+		campoNombre.setColumns(10);
+
 		JLabel lblNmeroDelChip = new JLabel("N\u00FAmero del Chip");
 		panel.add(lblNmeroDelChip);
-		
-		textField_3 = new JTextField();
-		panel.add(textField_3);
-		textField_3.setColumns(10);
-		
-		JLabel lblEspecie = new JLabel("Especie");
-		panel.add(lblEspecie);
-		
-		textField_4 = new JTextField();
-		panel.add(textField_4);
-		textField_4.setColumns(10);
-		
-		JLabel lblRaza = new JLabel("Raza");
-		panel.add(lblRaza);
-		
-		textField_5 = new JTextField();
-		panel.add(textField_5);
-		textField_5.setColumns(10);
-		
+
+		campoNumChip = new JTextField(mascota.getNumeroChip());
+		panel.add(campoNumChip);
+		if (orden == "MostrarDetalles") { campoNumChip.setEditable(false); }
+		else campoNombre.setEditable(true);
+		campoNumChip.setColumns(10);
+
 		JLabel lblColor = new JLabel("Color");
 		panel.add(lblColor);
-		
-		textField_6 = new JTextField();
-		panel.add(textField_6);
-		textField_6.setColumns(10);
-		
+
+		campoColor = new JTextField(mascota.getColor());
+		panel.add(campoColor);
+		if (orden == "MostrarDetalles") { campoColor.setEditable(false); }
+		else campoColor.setEditable(true);
+		campoColor.setColumns(10);
+
+		JLabel lblEspecie = new JLabel("Especie");
+		panel.add(lblEspecie);
+
+		JList listaEspecie = new JList();
+		panel.add(listaEspecie);
+		if (orden == "MostrarDetalles") {listaEspecie.setToolTipText(mascota.getEspecie());}
+		else listaEspecie.setModel(Principal.);
+		JLabel lblRaza = new JLabel("Raza");
+		panel.add(lblRaza);
+
+		JList listaRaza = new JList();
+		panel.add(listaRaza);
+
 		JLabel lblEdad = new JLabel("Edad");
 		panel.add(lblEdad);
-		
-		textField_7 = new JTextField();
-		panel.add(textField_7);
-		textField_7.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Sexo");
-		panel.add(lblNewLabel_1);
-		
-		textField_8 = new JTextField();
-		panel.add(textField_8);
-		textField_8.setColumns(10);
-		
+
+		JList listaEdad = new JList();
+		panel.add(listaEdad);
+
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
 		panel.add(lblTamao);
-		
+
+		JList listaTamaño = new JList();
+		panel.add(listaTamaño);
+
+		JLabel lblNewLabel_1 = new JLabel("Sexo");
+		panel.add(lblNewLabel_1);
+
+		JList listaSexo = new JList();
+		panel.add(listaSexo);
+
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 404, 504, 55);
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Estado Actual",
+				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBounds(10, 361, 504, 46);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 5, 0, -60));
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Perdida");
+
+		rdbtnNewRadioButton_1 = new JRadioButton("Perdida");
 		panel_1.add(rdbtnNewRadioButton_1);
-		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Encontrada");
+
+		rdbtnNewRadioButton_2 = new JRadioButton("Encontrada");
 		panel_1.add(rdbtnNewRadioButton_2);
-		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Localizada");
+
+		rdbtnNewRadioButton_4 = new JRadioButton("Localizada");
 		panel_1.add(rdbtnNewRadioButton_4);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Refugiada");
-		panel_1.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Adoptada");
+
+		rdbtnNewRadioButton_3 = new JRadioButton("Adoptada");
 		panel_1.add(rdbtnNewRadioButton_3);
-		
+
+		rdbtnNewRadioButton = new JRadioButton("Refugiada");
+		panel_1.add(rdbtnNewRadioButton);
+
 		JButton btnGuardarCambios = new JButton("Guardar Cambios");
-		btnGuardarCambios.setBounds(272, 470, 115, 23);
+		btnGuardarCambios.setBounds(399, 418, 115, 23);
 		getContentPane().add(btnGuardarCambios);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(105, 470, 115, 23);
+		btnCancelar.setBounds(274, 418, 115, 23);
 		getContentPane().add(btnCancelar);
-		
+
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 325, 504, 55);
+		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Informacion Fisica-Veterinaria", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBounds(10, 302, 505, 46);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 4, 0, -60));
-		
-		JCheckBox checkBox = new JCheckBox("Vacunada");
+
+		checkBox = new JCheckBox("Vacunada");
 		panel_2.add(checkBox);
-		
-		JCheckBox checkBox_1 = new JCheckBox("Castrada");
+
+		checkBox_1 = new JCheckBox("Castrada");
 		panel_2.add(checkBox_1);
-		
-		JCheckBox checkBox_2 = new JCheckBox("Desparacitada");
+
+		checkBox_2 = new JCheckBox("Desparacitada");
 		panel_2.add(checkBox_2);
-		
-		JCheckBox checkBox_3 = new JCheckBox("Discapacitada");
+
+		checkBox_3 = new JCheckBox("Discapacitada");
 		panel_2.add(checkBox_3);
-		
+
 		JLabel lblInformacinPrincipal = new JLabel("Informaci\u00F3n Principal");
-		lblInformacinPrincipal.setFont(lblInformacinPrincipal.getFont().deriveFont(lblInformacinPrincipal.getFont().getStyle() | Font.BOLD));
-		lblInformacinPrincipal.setBounds(197, 31, 134, 23);
+		lblInformacinPrincipal.setFont(lblInformacinPrincipal.getFont().deriveFont(
+				lblInformacinPrincipal.getFont().getStyle() | Font.BOLD));
+		lblInformacinPrincipal.setBounds(298, 26, 134, 23);
 		getContentPane().add(lblInformacinPrincipal);
+
+		JLabel lblFotoMascota = new JLabel("FOTO MASCOTA");
+		lblFotoMascota.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		lblFotoMascota.setBackground(Color.GREEN);
+		lblFotoMascota.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotoMascota.setBounds(10, 51, 186, 240);
+		getContentPane().add(lblFotoMascota);
+
+		JButton btnSoyDueoDe = new JButton("\u00A1Soy el due\u00F1o de esta mascota!");
+		btnSoyDueoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnSoyDueoDe.setBounds(10, 418, 186, 23);
+		getContentPane().add(btnSoyDueoDe);
+
+		JButton btnVerMsFotos = new JButton("Ver m\u00E1s fotos");
+		btnVerMsFotos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVerMsFotos.setBounds(46, 274, 115, 17);
+		getContentPane().add(btnVerMsFotos);
 	}
 }
