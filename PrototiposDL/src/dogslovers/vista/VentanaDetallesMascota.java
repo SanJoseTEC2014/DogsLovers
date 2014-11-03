@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Font;
 
+import javax.swing.DefaultListModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
@@ -31,6 +32,9 @@ import javax.swing.JList;
 
 import dogslovers.modelo.Mascota;
 
+import javax.swing.ListSelectionModel;
+import javax.swing.ButtonGroup;
+
 public class VentanaDetallesMascota extends JFrame {
 	private JTextField campoNombre;
 	private JTextField campoNumChip;
@@ -44,6 +48,12 @@ public class VentanaDetallesMascota extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_4;
 	private JRadioButton rdbtnNewRadioButton_3;
 	private JRadioButton rdbtnNewRadioButton;
+	private JList<String> listaEspecie;
+	private JList<String> listaRaza;
+	private JList<String> listaEdad;
+	private JList<String> listaTamaño;
+	private JList<String> listaSexo;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public VentanaDetallesMascota(Mascota mascota, String orden) {
 
@@ -86,37 +96,63 @@ public class VentanaDetallesMascota extends JFrame {
 		if (orden == "MostrarDetalles") { campoColor.setEditable(false); }
 		else campoColor.setEditable(true);
 		campoColor.setColumns(10);
-
+		
 		JLabel lblEspecie = new JLabel("Especie");
 		panel.add(lblEspecie);
-
-		JList listaEspecie = new JList();
+		
+		
+		listaEspecie = new JList<String>();
+		listaEspecie.setToolTipText("");
+		listaEspecie.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panel.add(listaEspecie);
-		if (orden == "MostrarDetalles") {listaEspecie.setToolTipText(mascota.getEspecie());}
-		else listaEspecie.setModel(Principal.);
+		if (orden == "MostrarDetalles") { 
+			listaEspecie.setToolTipText(mascota.getEspecie()); 
+		}
+		else listaEspecie.setModel(mascota.getModeloEspecies());
+		
+		
+//		else listaEspecie.setModel(Principal.);
 		JLabel lblRaza = new JLabel("Raza");
 		panel.add(lblRaza);
 
-		JList listaRaza = new JList();
+		listaRaza = new JList<String>();
 		panel.add(listaRaza);
+		if (orden == "MostrarDetalles") { 
+			listaRaza.setToolTipText(mascota.getRaza()); 
+		}
+		else listaRaza.setModel(mascota.getModeloRazas());
+		
 
 		JLabel lblEdad = new JLabel("Edad");
 		panel.add(lblEdad);
 
-		JList listaEdad = new JList();
+		listaEdad = new JList<String>();
 		panel.add(listaEdad);
+		if (orden == "MostrarDetalles") { 
+			listaEdad.setToolTipText(mascota.getEdad()); 
+		}
+		else listaEdad.setModel(mascota.getModeloEdades());
+		
+		
 
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
 		panel.add(lblTamao);
 
-		JList listaTamaño = new JList();
+		listaTamaño = new JList<String>();
 		panel.add(listaTamaño);
+		if (orden == "MostrarDetalles") { 
+			listaTamaño.setToolTipText(mascota.getTamanio()); 
+		}
+		else listaTamaño.setModel(mascota.getModeloEdades());
 
 		JLabel lblNewLabel_1 = new JLabel("Sexo");
 		panel.add(lblNewLabel_1);
 
-		JList listaSexo = new JList();
+		listaSexo = new JList<String>();
 		panel.add(listaSexo);
+		
+
+		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Estado Actual",
@@ -126,18 +162,23 @@ public class VentanaDetallesMascota extends JFrame {
 		panel_1.setLayout(new GridLayout(0, 5, 0, -60));
 
 		rdbtnNewRadioButton_1 = new JRadioButton("Perdida");
+		buttonGroup.add(rdbtnNewRadioButton_1);
 		panel_1.add(rdbtnNewRadioButton_1);
 
 		rdbtnNewRadioButton_2 = new JRadioButton("Encontrada");
+		buttonGroup.add(rdbtnNewRadioButton_2);
 		panel_1.add(rdbtnNewRadioButton_2);
 
 		rdbtnNewRadioButton_4 = new JRadioButton("Localizada");
+		buttonGroup.add(rdbtnNewRadioButton_4);
 		panel_1.add(rdbtnNewRadioButton_4);
 
 		rdbtnNewRadioButton_3 = new JRadioButton("Adoptada");
+		buttonGroup.add(rdbtnNewRadioButton_3);
 		panel_1.add(rdbtnNewRadioButton_3);
 
 		rdbtnNewRadioButton = new JRadioButton("Refugiada");
+		buttonGroup.add(rdbtnNewRadioButton);
 		panel_1.add(rdbtnNewRadioButton);
 
 		JButton btnGuardarCambios = new JButton("Guardar Cambios");
@@ -154,18 +195,44 @@ public class VentanaDetallesMascota extends JFrame {
 		panel_2.setBounds(10, 302, 505, 46);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 4, 0, -60));
-
+		
 		checkBox = new JCheckBox("Vacunada");
 		panel_2.add(checkBox);
-
+		if (orden == "MostrarDetalles"){
+			checkBox.setSelected(mascota.isVacunada());
+		}
+		else{
+			checkBox.setSelected(mascota.isVacunada());
+			
+		}
+			
 		checkBox_1 = new JCheckBox("Castrada");
 		panel_2.add(checkBox_1);
+		if (orden == "MostrarDetalles"){
+			checkBox_1.setSelected(mascota.isCastrada());
+		}
+		else{
+			checkBox_1.setSelected(mascota.isCastrada());
+		}
 
 		checkBox_2 = new JCheckBox("Desparacitada");
 		panel_2.add(checkBox_2);
+		if (orden == "MostrarDetalles"){
+			checkBox_2.setSelected(mascota.isDesparacitada());
+		}
+		else{
+			checkBox_2.setSelected(mascota.isDesparacitada());
+		}
 
 		checkBox_3 = new JCheckBox("Discapacitada");
 		panel_2.add(checkBox_3);
+		if (orden == "MostrarDetalles"){
+			checkBox_3.setSelected(mascota.isDiscapacitada());
+		}
+		else{
+			checkBox_3.setSelected(mascota.isDiscapacitada());
+		}
+		
 
 		JLabel lblInformacinPrincipal = new JLabel("Informaci\u00F3n Principal");
 		lblInformacinPrincipal.setFont(lblInformacinPrincipal.getFont().deriveFont(

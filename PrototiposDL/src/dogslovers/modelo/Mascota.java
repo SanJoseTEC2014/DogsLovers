@@ -12,11 +12,15 @@ package dogslovers.modelo;
 
 import java.util.LinkedList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+
 import dogslovers.control.MaquinaEstadosMascotas;
 import dogslovers.modelo.Suceso;
 
 public class Mascota {
 
+	public static final LinkedList<String> edades = new LinkedList<String>();;
 	public static LinkedList<String> especies = new LinkedList<String>();
 	public static LinkedList<String[]> razas = new LinkedList<String[]>();
 	private static Integer totalIDsRegistradas = 0;
@@ -24,7 +28,7 @@ public class Mascota {
 	private Integer id;
 	private String nombre;
 	private Integer numeroChip;
-	private String especie;
+	private static  String especie;
 	private String raza;
 	private String color;
 	private String edad;
@@ -165,7 +169,7 @@ public class Mascota {
 		this.vacunada = vacunada;
 	}
 
-	public boolean isDesparacitada() {
+	public boolean isDesparacitada(){
 		return desparacitada;
 	}
 
@@ -306,6 +310,34 @@ public class Mascota {
 		  clone.setDiscapacitada(discapacitada);
 		  clone.setVacunada(vacunada);
 		  return clone;
+	}
+
+	public static ListModel getModeloEspecies() {
+		
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for(int i = 1; i<especies.size(); i++){
+		        modelo.addElement(especies.get(i));
+		}
+		return modelo;
+	}
+	
+	public static ListModel getModeloRazas() {
+		
+		int indicePosRazas = especies.indexOf(especie);
+		
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for(int i = 1; i<razas.get(indicePosRazas).length; i++){
+		        modelo.addElement(razas.get(indicePosRazas)[i]);
+		}
+		return modelo;
+	}
+
+	public ListModel getModeloEdades() {
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
+		for(int i = 1; i<edades.size(); i++){
+		        modelo.addElement(edades.get(i));
+		}
+		return modelo;
 	}
 	
 }

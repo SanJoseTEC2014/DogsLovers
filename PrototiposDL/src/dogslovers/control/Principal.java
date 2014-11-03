@@ -33,7 +33,8 @@ public class Principal {
 		for(int i = 0; i < 100; i++) 
 			encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
 						"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao."));
-		
+		VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), "verDetalles");
+		ventana.setVisible(true);
 		// Validación de inserción de las 100 Mascota
 		// System.out.println(encontradas.size());
 		
