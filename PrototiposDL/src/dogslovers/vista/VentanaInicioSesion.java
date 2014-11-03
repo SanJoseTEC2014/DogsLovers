@@ -3,12 +3,14 @@ package dogslovers.vista;
 import javax.swing.*;
 
 import dogslovers.control.Acceso;
+import dogslovers.control.Imagenes;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.ContraseniaIncorrectaException;
 import dogslovers.control.excepciones.UsuarioNoExisteException;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 
 public class VentanaInicioSesion extends JFrame {
@@ -29,13 +31,6 @@ public class VentanaInicioSesion extends JFrame {
 
 	public VentanaInicioSesion() {
 		setResizable(false);
-		String directorioProyecto = System.getProperty("user.dir");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(directorioProyecto + "\\src\\icono.png"));
-		try { 					// Establece en la ventana el LOOK AND FEEL del sistema operativo:
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
 		setTitle("Inicio");
 		
 		setSize(140,139);
@@ -44,7 +39,12 @@ public class VentanaInicioSesion extends JFrame {
 		setBackground(Principal.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		imagenLogotipo = new ImageIcon(VentanaInicioSesion.class.getResource("/dogslovers/recursos/paws_logo.png"));
+		try {
+			imagenLogotipo = new ImageIcon(Imagenes.getLogo());
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(getContentPane(), e1.getMessage(),
+				"Error inesperado del sistema.", JOptionPane.ERROR_MESSAGE);
+		}
 		
 		labelLogotipo = new JLabel("");
 		labelLogotipo.setIcon(imagenLogotipo);
@@ -107,8 +107,8 @@ public class VentanaInicioSesion extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			VentanaRegistroUsuarios window = new VentanaRegistroUsuarios();
 			window.setVisible(true);	
-		}
-	});
+			}
+		});
 		
 		marcoBotones.add(botonRegistrarNuevoUsuario);
 		botonRegistrarNuevoUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -118,7 +118,7 @@ public class VentanaInicioSesion extends JFrame {
 	}
 	
 	private void cerrarVentana() {
-		this.dispose();	
+		setVisible(false);
 	}
 	
 }

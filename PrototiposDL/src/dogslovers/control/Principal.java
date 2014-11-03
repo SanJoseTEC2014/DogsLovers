@@ -1,8 +1,12 @@
 package dogslovers.control;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+
 import javax.swing.*;
+
 import dogslovers.control.excepciones.*;
 import dogslovers.modelo.*;
 import dogslovers.vista.*;
@@ -26,6 +30,9 @@ public class Principal {
 	
 	public static final Color fondoVentanas = new Color(30, 144, 255);
 	public static final Color fondoMarcosVentanas = new Color(144, 238, 144);
+	public static final String directorioProyecto = System.getProperty("user.dir");
+	private static final File archivoFuenteHuellas = new File(directorioProyecto + "\\src\\dogslovers\\recursos\\ennobled pet.ttf");
+	public static Font fuenteTitulosVentanas;
 	
 	public static void inicializarMascotas() {
 		Mascota.especies.add("Perro");
@@ -39,7 +46,7 @@ public class Principal {
 		// System.out.println(encontradas.size());
 		
 		// Prueba del clón 
-		// System.out.println(encontradas.get(0).clone().toString());
+		System.out.println(encontradas.get(0).clone().toString());
 		
 		// Demostración del clonado
 		// System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
@@ -50,10 +57,24 @@ public class Principal {
 //		return pLista;
 //	}
 
+	public static Font getFuentePaws() throws FontFormatException, IOException {
+		return Font.createFont(Font.TRUETYPE_FONT, archivoFuenteHuellas);
+		// Se usa de la siguiente manera:
+		// label.setFont(getFuentePaws().deriveFont(50f));
+	}
+	
 	public static void main(String[] args) {
 		
-		// Establece un look and feel metálico, si no lo encuentra, establece el look and feel del sistema operativo.
+		// Intenta cargar la fuente "Ennobled Pet" para usarla de título en las ventanas.
+		try {
+			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(getFuentePaws());
+			fuenteTitulosVentanas = getFuentePaws();
+		} catch (FontFormatException | IOException ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage(), ex.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
+			fuenteTitulosVentanas = new Font("Segoe UI Light", Font.PLAIN, 30);
+		}
 		
+		// Establece un look and feel metálico, si no lo encuentra, establece el look and feel del sistema operativo.
 		try {
 			UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
@@ -74,6 +95,11 @@ public class Principal {
 					window2.setVisible(true);*/
 					/*VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);*/
+					
+					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
+					window2.obtenerDatosIniciales(new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal"));
+					window2.setModoEdicion(false);
+					window2.setVisible(true);
 					
 				} catch (Exception e) {
 					e.printStackTrace();

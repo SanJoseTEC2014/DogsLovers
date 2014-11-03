@@ -14,3 +14,4 @@
 hs_err_pid*
 *.classpath
 PrototiposDL/.classpath
+*.db

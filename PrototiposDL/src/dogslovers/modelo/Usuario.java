@@ -1,22 +1,15 @@
 package dogslovers.modelo;
 
-import java.awt.TrayIcon;
-import java.awt.TrayIcon.MessageType;
-import java.util.ArrayList;
+import java.math.*;
+import java.text.*;
+import java.util.*;
 
-import javax.swing.JOptionPane;
-
-import dogslovers.control.Acceso;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.IDMascotaNoEncontradaException;
 
 public class Usuario {
 
-	static final public String[] lapsos = { "diario", "semanal", "mensual" };
-
-	public static String[] getLapsos() {
-		return lapsos;
-	}
+	public static final List<String> lapsos = Arrays.asList("Diario", "Semanal", "Mensual");
 
 	private String nickname;
 	private String nombre;
@@ -42,13 +35,14 @@ public class Usuario {
 	private double ponderadoCalificacion;
 
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
-			Integer pTelefono, String pLapsoEmparejamiento) {
+			Integer pTelefono, String pCorreo, String pLapsoEmparejamiento) {
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
 		cedula = pCedula;
 		contrasenia = pContrasenia;
 		telefono = pTelefono;
+		correo = pCorreo;
 		lapsoEmparejamiento = pLapsoEmparejamiento;
 		refugiante = false; // se instancian las personas como NO refugiantes
 		administrador = false;
@@ -300,12 +294,18 @@ public class Usuario {
 		return calificaciones;
 	}
 
-	public void addCalificacion(Calificacion Calificacion) {
-		calcularPonderado(Calificacion);
-		this.calificaciones.add(Calificacion);
+	public void addCalificacion(Calificacion pCalificacion) {
+		actualizarPonderado(pCalificacion);
+		this.calificaciones.add(pCalificacion);
 	}
 	
-	private void calcularPonderado(Calificacion ultimaCalificacion){
+	public String getPonderadoCalificacion(){
+		DecimalFormat redondeo = new DecimalFormat("#.#");
+		redondeo.setRoundingMode(RoundingMode.HALF_DOWN);
+		return redondeo.format(ponderadoCalificacion);
+	}
+	
+	private void actualizarPonderado(Calificacion ultimaCalificacion){
 		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size() + ultimaCalificacion.getEstrellas())
 								/ calificaciones.size() + 1; // +1 de la calificación que está agregando
 		
