@@ -14,11 +14,17 @@ public class BuscadorMascotas extends AbstractTableModel {
 	private ArrayList<Mascota> resultados;
 	private LinkedList<String> terminos;
 
-	public BuscadorMascotas(ArrayList<Mascota> pLista, LinkedList<String> pTerminos) {
+	public BuscadorMascotas(LinkedList<String> pTerminos, boolean[] listasABuscar) {
 		
-		// TODO Es necesario parametrizar desde cúal lista quiere filtrar los resultados
-		// TODO También aplica para las líneas 49 y 85.
-		resultados = pLista;
+		if (listasABuscar[0] == true) {resultados = Principal.getCopiaTodasLasListas();}
+		else{
+			if (listasABuscar[1] == true) {resultados.addAll(Principal.getCopiaMascotasEncontradas());}
+			if (listasABuscar[2] == true) {resultados.addAll(Principal.getCopiaMascotasPerdidas());}
+			if (listasABuscar[3] == true) {resultados.addAll(Principal.getCopiaMascotasAdoptadas());}
+			if (listasABuscar[4] == true) {resultados.addAll(Principal.getCopiaMascotasEnAdopcion());}
+			if (listasABuscar[5] == true) {resultados.addAll(Principal.getCopiaMascotasRefugiadas());}
+			}
+		
 		terminos = pTerminos;
 		// Aquí antes de aplicar el algoritmo de búsqueda, se obtienen todas las Mascotas
 		/*
@@ -36,6 +42,7 @@ public class BuscadorMascotas extends AbstractTableModel {
 	}
 		
 	private void buscar () {
+		
 		for (int criterio = 0; criterio < 5; criterio++) {
 			if (terminos.get(criterio) != "") {
 				for (int temp = 0; temp < resultados.size(); temp++) {
@@ -99,6 +106,10 @@ public class BuscadorMascotas extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
+		return resultados.size();
+	}
+	
+	public int getCantidadDeResultados(){
 		return resultados.size();
 	}
 }

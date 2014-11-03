@@ -61,7 +61,7 @@ public class Principal {
 				try {
 					VentanaInicioSesion window = new VentanaInicioSesion();
 					window.setVisible(true);
-					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas(encontradas);
+					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
 					window2.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -132,6 +132,57 @@ public class Principal {
 	public static void setCalificacionMinimaPermitidaUsuarios(double calificacionMinimaPermitida) {
 		Principal.calificacionMinimaPermitidaUsuarios = calificacionMinimaPermitida;
 	}
+	
+
+	
+	public static ArrayList<Mascota> getCopiaMascotasPerdidas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : perdidas) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasEncontradas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : encontradas) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasLocalizadas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : localizadas) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasRefugiadas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : refugiadas) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasAdoptadas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : adoptadas) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasEnAdopcion(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : enAdopcion) copia.add(mascota.clone());
+	    return copia;
+	}
+	public static ArrayList<Mascota> getCopiaMascotasMuertas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    for(Mascota mascota : muertas) copia.add(mascota.clone());
+	    return copia;
+	}
+	
+	public static ArrayList<Mascota> getCopiaTodasLasListas(){
+		ArrayList<Mascota> copia = new ArrayList<Mascota>();
+	    
+		copia.addAll(getCopiaMascotasEncontradas());
+	    copia.addAll(getCopiaMascotasPerdidas());    
+		copia.addAll(getCopiaMascotasAdoptadas());
+	    copia.addAll(getCopiaMascotasEnAdopcion());
+	    copia.addAll(getCopiaMascotasRefugiadas());
+	    
+	    return copia;
+	}
+	
 
 	
 }
