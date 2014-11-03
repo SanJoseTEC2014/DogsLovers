@@ -27,6 +27,7 @@ public class VentanaInicioSesion extends JFrame {
 	private ImageIcon imagenLogotipo;
 
 	public VentanaInicioSesion() {
+		setResizable(false);
 		String directorioProyecto = System.getProperty("user.dir");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(directorioProyecto + "\\src\\icono.png"));
 		try { 					// Establece en la ventana el LOOK AND FEEL del sistema operativo:
@@ -36,6 +37,7 @@ public class VentanaInicioSesion extends JFrame {
 		}
 		setTitle("Inicio");
 		
+		setSize(140,139);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(new Color(30, 144, 255));
 		setBackground(Principal.fondoVentanas);
@@ -105,7 +107,6 @@ public class VentanaInicioSesion extends JFrame {
 		botonRegistrarNuevoUsuario.setOpaque(false);
 		
 		setSize(imagenLogotipo.getIconWidth(), imagenLogotipo.getIconHeight() * 2);
-		setResizable(false);
 	}
 	
 	private void cerrarVentana() {
