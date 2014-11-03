@@ -4,8 +4,7 @@ import javax.swing.JOptionPane;
 
 import dogslovers.control.excepciones.EstadoNoExisteException;
 import dogslovers.modelo.Suceso;
-import dogslovers.modelo.Usuario;
-import dogslovers.modelo.Mascota;
+
 
 public class MaquinaEstadosMascotas {
 	// Constantes que representan los estados
@@ -14,6 +13,7 @@ public class MaquinaEstadosMascotas {
 	public static final String estadoLOCALIZADA = "Localizada";
 	public static final String estadoREFUGIADA = "Refugiada";
 	public static final String estadoADOPTADA = "Adoptada";
+	public static final String estadoADOPTABLE = "Adoptable";
 	public static final String estadoMUERTA = "Muerta";
 	public static final String estadoEN_ESPERA_DE_REFUGIO = "En espera de ser Refugiada";
 	public static final String estadoEN_ESPERA_DE_ADOPCION = "En espera de ser Adoptada";
@@ -29,14 +29,14 @@ public class MaquinaEstadosMascotas {
 	public static final int eventoLOCALIZADA = 3;
 	public static final int eventoREFUGIO = 4;
 	public static final int eventoADOPCION = 5;
-	public static final int eventoMUERTE = 6;
-	public static final int eventoSOLICITUD_REFUGIO = 7;
-	public static final int eventoSOLICITUD_ADOPCION = 8;
-	public static final int eventoRECHAZO_SOLICITUD_REFUGIO = 9;
-	public static final int eventoRECHAZO_SOLICITUD_ADOPCION = 10;
-	public static final int eventoCONFIRMACION_REFUGIO = 11;
-	public static final int eventoCONFIRMACION_ADOPCION = 12;
-	public static final int eventoNOTIFICACION_DE_LOCALIZACION = 13;
+	public static final int eventoENADOPCION = 6;
+	public static final int eventoMUERTE = 7;
+	public static final int eventoSOLICITUD_REFUGIO = 8;
+	public static final int eventoSOLICITUD_ADOPCION = 9;
+	public static final int eventoRECHAZO_SOLICITUD_REFUGIO = 10;
+	public static final int eventoRECHAZO_SOLICITUD_ADOPCION = 11;
+	public static final int eventoCONFIRMACION_REFUGIO = 12;
+	public static final int eventoCONFIRMACION_ADOPCION = 13;
 	public static final int eventoCONFIRMACION_LOCALIZADA = 14;
 	public static final int eventoRECHAZO_LOCALIZADA = 15;
 	
@@ -93,6 +93,10 @@ public class MaquinaEstadosMascotas {
 			case eventoADOPCION:
 				reportarAdopcion(pSuceso);
 				break;
+				
+			case eventoENADOPCION:
+				reportarEnAdopcion(pSuceso);
+				break;
 			
 			case eventoMUERTE:
 				reportarMuerte(pSuceso);
@@ -121,10 +125,6 @@ public class MaquinaEstadosMascotas {
 			case eventoCONFIRMACION_REFUGIO:
 				reportarConfirmacionSolicitudRefugio(pSuceso);
 				break;
-				
-			case eventoNOTIFICACION_DE_LOCALIZACION:
-				reportarNotificacionLocalizada(pSuceso);
-				break;
 			
 			case eventoCONFIRMACION_LOCALIZADA:
 				reportarConfirmacionLocalizada(pSuceso);
@@ -135,96 +135,188 @@ public class MaquinaEstadosMascotas {
 				break;
 			
 			default:
-				throw new EstadoNoExisteException("El estado no existe.");
+				throw new EstadoNoExisteException("El evento no existe.");
 		}		
 	}
 
 	// Métodos que cambian el estado según el evento en el estado actual de la mascota.
 	private void reportarPerdida(Suceso pSuceso){
-		// TODO Auto-generated method stub
+		estadoActualMascota = estadoPERDIDA;	
 	}
 
 	private void reportarEncuentro(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
+		estadoActualMascota = estadoENCONTRADA;	
 	}
 
 	private void reportarLocalizacion(Suceso pSuceso) {
 		switch (estadoActualMascota) {
 			case estadoPERDIDA:
+				estadoActualMascota = estadoLOCALIZADA;
+				break;
 			case estadoENCONTRADA:
 				estadoActualMascota = estadoEN_ESPERA_CONFIRMACION_LOCALIZADA;
 				break;
 			default:
 				JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
-													"\nCaso no contemplado en el diseño.");
+				"\nCaso no contemplado en el diseño.");
 				break;
 		}
 	}
 
 	private void reportarRefugio(Suceso pSuceso) {
-		// TODO Auto-generated method stub
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoEN_ESPERA_DE_REFUGIO;
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;
 		
 	}
-
+}
 	private void reportarAdopcion(Suceso pSuceso) {
-		// TODO Auto-generated method stub
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoEN_ESPERA_DE_ADOPCION;
+			break;
+		case estadoREFUGIADA:
+			estadoActualMascota = estadoEN_ESPERA_DE_ADOPCION;
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;		
+	  }
+	}
+	
+	private void reportarEnAdopcion(Suceso pSuceso){
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoADOPTABLE;
 		
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;	
+		}
 	}
 
 	private void reportarMuerte(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoMUERTA;
+			break;
+		case estadoADOPTADA:
+			estadoActualMascota = estadoMUERTA;
+			break;
+		case estadoREFUGIADA:
+			estadoActualMascota = estadoMUERTA;
+			break;
+			
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;		
+	  }	
 	}
 
 	private void reportarSolicitudRefugio(Suceso pSuceso) {
-		// TODO Auto-generated method stub
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoEN_ESPERA_DE_REFUGIO;
+			break;
 		
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;	
+		}	
 	}
 
 	private void reportarSolicitudAdopcion(Suceso pSuceso) {
-		// TODO Auto-generated method stub
+		switch (estadoActualMascota) {
+		case estadoENCONTRADA:
+			estadoActualMascota = estadoEN_ESPERA_DE_ADOPCION;
+			break;
 		
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;	
+		}		
 	}
 
 	private void reportarRechazoSolicitudRefugio(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
-	}
+		switch (estadoActualMascota) {
+		case  estadoEN_ESPERA_DE_REFUGIO:
+			estadoActualMascota = estadoENCONTRADA;
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;
+	}	
+}
 
 	private void reportarRechazoSolicitudAdopcion(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
-	}
+		switch (estadoActualMascota) {
+		case  estadoEN_ESPERA_DE_ADOPCION:
+			estadoActualMascota = estadoADOPTABLE;
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;
+	}		
+}
 
 	private void reportarConfirmacionSolicitudRefugio(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
+		switch (estadoActualMascota) {
+		case estadoEN_ESPERA_DE_REFUGIO:
+			estadoActualMascota = estadoREFUGIADA;
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;		
+	  }
 	}
 
 	private void reportarConfirmacionSolicitudAdopcion(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
+		switch (estadoActualMascota) {
+		case estadoEN_ESPERA_DE_ADOPCION:
+			estadoActualMascota = estadoADOPTADA;
+			break;
+			
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;		
+	  }
+			
 	}
-
-	private void reportarNotificacionLocalizada(Suceso pSuceso) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void reportarConfirmacionLocalizada(Suceso pSuceso) {
-		
-		
+		switch (estadoActualMascota) {
+		case estadoEN_ESPERA_CONFIRMACION_LOCALIZADA:
+			estadoActualMascota = estadoLOCALIZADA;
+			break;
+			
+		default:
+			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
+			"\nCaso no contemplado en el diseño.");
+			break;		
+	  }
 	}
 
 	private void reportarRechazoLocalizada(Suceso pSuceso) {
 		switch (estadoActualMascota) {
 			case estadoEN_ESPERA_CONFIRMACION_LOCALIZADA:
-				if (pSuceso != null){}
+				estadoActualMascota = estadoENCONTRADA; 
 				break;
 			default:
 				JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
-													"\nCaso no contemplado en el diseño.");
+				"\nCaso no contemplado en el diseño.");
 				break;
 		}
 	}
