@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import dogslovers.control.MaquinaEstadosMascotas;
 import dogslovers.modelo.Suceso;
 
-public class Mascota implements Cloneable {
+public class Mascota {
 
 	public static LinkedList<String> especies = new LinkedList<String>();
 	public static LinkedList<String[]> razas = new LinkedList<String[]>();
@@ -275,6 +275,7 @@ public class Mascota implements Cloneable {
 		return msg;
 	}
 
+	// Constructor invocado únicamente por el método .clone()
 	private Mascota(Integer pID, String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
 		id = pID;
 		nombre = pNombre;
@@ -283,15 +284,28 @@ public class Mascota implements Cloneable {
 		recompensa = pRecompensa;
 		notas = pNotas;
 	}
-
+	
 	public Mascota clone() {
-		Object obj = null;
-		try {
-			obj = super.clone();
-		} catch (CloneNotSupportedException ex) {
-			System.out.println(" no se puede duplicar");
-		}
-		return (Mascota) obj;
+		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa, notas);
+		  clone.setColor(color);
+		  clone.setEdad(edad);
+		  clone.setEstado(estado);
+		  clone.setNumeroChip(numeroChip);
+		  clone.setSexo(sexo);
+		  clone.setTamanio(tamanio);
+		  
+		  clone.setPerdida(perdida);
+		  clone.setEncuentro(encuentro);
+		  clone.setLocalizacion(localizacion);
+		  clone.setRefugio(refugio);
+		  clone.setAdopcion(adopcion);
+		  clone.setDefuncion(defuncion);
+		  
+		  clone.setCastrada(castrada);
+		  clone.setDesparacitada(desparacitada);
+		  clone.setDiscapacitada(discapacitada);
+		  clone.setVacunada(vacunada);
+		  return clone;
 	}
-
+	
 }

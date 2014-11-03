@@ -9,74 +9,102 @@ import dogslovers.modelo.Mascota;
 
 public class BuscadorMascotas extends AbstractTableModel {
 
-	private static String[] titulos = {"ID", "Nombre Mascota",
-			"Lugar de Encuentro", "Especie", "Raza" };
+	private String[] titulos = {"ID", "Nombre Mascota", "Lugar de Encuentro", "Especie", "Raza" };
+	private ArrayList<Mascota> entrada;
 	private ArrayList<Mascota> resultados;
 	private LinkedList<String> terminos;
 
 	public BuscadorMascotas(LinkedList<String> pTerminos, boolean[] listasABuscar) {
 		
-		if (listasABuscar[0] == true) {resultados = Principal.getCopiaTodasLasListas();}
-		else{
-			if (listasABuscar[1] == true) {resultados.addAll(Principal.getCopiaMascotasEncontradas());}
-			if (listasABuscar[2] == true) {resultados.addAll(Principal.getCopiaMascotasPerdidas());}
-			if (listasABuscar[3] == true) {resultados.addAll(Principal.getCopiaMascotasAdoptadas());}
-			if (listasABuscar[4] == true) {resultados.addAll(Principal.getCopiaMascotasEnAdopcion());}
-			if (listasABuscar[5] == true) {resultados.addAll(Principal.getCopiaMascotasRefugiadas());}
-			}
+		entrada = new ArrayList<Mascota>();
 		
+		if (listasABuscar[0] == true) {
+			entrada.addAll(Principal.getCopiaMascotasEncontradas());
+		}
+		if (listasABuscar[1] == true) {
+			entrada.addAll(Principal.getCopiaMascotasPerdidas());
+		}
+		if (listasABuscar[2] == true) {
+			entrada.addAll(Principal.getCopiaMascotasAdoptadas());
+		}
+		if (listasABuscar[3] == true) {
+			entrada.addAll(Principal.getCopiaMascotasEnAdopcion());
+		}
+		if (listasABuscar[4] == true) {
+			entrada.addAll(Principal.getCopiaMascotasRefugiadas());
+		}
+		
+		resultados = new ArrayList<Mascota>();
 		terminos = pTerminos;
-		// Aquí antes de aplicar el algoritmo de búsqueda, se obtienen todas las Mascotas
-		/*
-		for (Mascota x : resultados){
-			System.out.println(x);
-		}
-		*/
 		buscar();
-		// Aquí después de aplicarlo, quedan sólamente las mascotas de ID par.
-		/*
-		for (Mascota x : resultados){
-			System.out.println(x);
-		}
-		*/
 	}
 		
 	private void buscar () {
-		
-		for (int criterio = 0; criterio < 5; criterio++) {
-			if (terminos.get(criterio) != "") {
-				for (int temp = 0; temp < resultados.size(); temp++) {
-					switch (criterio) {
-						case 0:
-							if (!resultados.get(temp).getNombre().toLowerCase()
-									.contains(terminos.get(criterio).toLowerCase()))
-								resultados.remove(temp);
-							break;
-						case 1:
-							if (!resultados.get(temp).getEncuentro().getLugar()
-									.toLowerCase()
-									.contains(terminos.get(criterio).toLowerCase()))
-								resultados.remove(temp);
-							break;
-						case 2:
-							if (!resultados.get(temp).getNumeroChip().toString()
-									.contains(terminos.get(criterio).toLowerCase()))
-								resultados.remove(temp);
-							break;
-						case 3:
-							if (resultados.get(temp).getEspecie() != terminos.get(criterio))
-								resultados.remove(temp);
-							break;
-						case 4:
-							if (resultados.get(temp).getRaza() != terminos.get(criterio))
-								resultados.remove(temp);
-							break;
+		for (int numeroTermino = 0; numeroTermino < terminos.size(); numeroTermino++){
+			String criterio = terminos.get(numeroTermino);
+			if (criterio != "") {
+				for (Mascota porFiltrar : entrada) {
+					switch (numeroTermino){
+						case 0: {
+							if (nombreCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 1: {
+							if (lugarEncuentroCoincide(porFiltrar, criterio) || lugarPerdidaCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 2: {
+							if (numeroChipCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 3: {
+							if (especieCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 4: {
+							if (razaCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
 					}
 				}
 			}
 		}
 	}
-
+	
+	private boolean nombreCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getNombre().toLowerCase().contains(pCriterio.toLowerCase());
+	}
+	
+	private boolean lugarPerdidaCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getPerdida().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+	}
+	
+	private boolean lugarEncuentroCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getEncuentro().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+	}
+	
+	// Se asume que el criterio es un Integer validado desde la ventana
+	private boolean numeroChipCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getNumeroChip() == Integer.getInteger(pCriterio);
+	}
+	
+	private boolean especieCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getEspecie() == pCriterio;
+	}
+	
+	private boolean razaCoincide(Mascota pMascota, String pCriterio){
+		return pMascota.getRaza() == pCriterio;
+	}
 
 	public String getColumnName(int column) {
 		return titulos[column];

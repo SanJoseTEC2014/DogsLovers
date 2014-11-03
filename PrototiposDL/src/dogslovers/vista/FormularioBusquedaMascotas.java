@@ -1,91 +1,62 @@
 package dogslovers.vista;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import dogslovers.control.BuscadorMascotas;
 import dogslovers.modelo.Mascota;
 
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-import javax.swing.JPopupMenu;
-
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JProgressBar;
+import javax.swing.border.*;
 
 public class FormularioBusquedaMascotas extends JFrame {
 
-	private final JLabel lblNewLabel = new JLabel("B\u00FAsqueda Mascotas Extraviadas");
-	private JTable jMascotas;
-	private JTextField textNombre;
-	private JTextField textLugar;
-	private JTextField textChipID;
-	private JCheckBox checkNombre;
-	private JCheckBox checkLugar;
-	private JCheckBox checkChipID;
-	private JCheckBox checkEspecie;
-	private JCheckBox checkRaza;
-	private JComboBox<String> comboEspecies;
-	private JComboBox<String> comboRazas;
-	private JButton btnContraerVentana;
-	boolean pantallaOculta = true;
-	private JPanel panelTable;
-	private JScrollPane scrollPane;
-	private JScrollPane scrollJTable;
+	private static final Integer anchoVentana = 500;
+	private static final Integer altoVentanaContraida = 380;
+	boolean ventanaContraida;
 
-	private ArrayList<Mascota> listaOrigenMascotas;
-	private JLabel lblNewLabel_1;
-	private JMenuBar menuBar;
-	private JMenu mnMenu;
-	private JCheckBox checkMascotasEncontradas;
-	private JCheckBox checkMascotasAdoptadas;
-	private JCheckBox checkMascotasEnRefugio;
-	private JCheckBox checkMascotasEnAdopcion;
-	private JCheckBox checkMascotasPerdidas;
-
-	private boolean[] listasSeleccionadas = { true, false, false, false, false, false };
-	private JCheckBox checkTodasLasListas;
-	private JProgressBar progressBar;
-
-	// listas seleccionadas para busqueda todas(las listas) //perdidas //
-	// encontradas// adoptadas// en adopcion// en refugio//
-
+	private JPanel marcoTitulo;
+		private final JLabel labelTitulo = new JLabel("B\u00FAsqueda Mascotas");
+		private JButton btnAyuda;
+		private JProgressBar progressBar;
+		private JButton btnBuscar;
+	private JPanel marcoContenido;
+		private JPanel marcoParametros;
+			private JPanel marcoCampos;
+				private JCheckBox checkNombre;
+				private JTextField textNombre;
+				private JCheckBox checkLugar;
+				private JTextField textLugar;
+				private JCheckBox checkNumeroChip;
+				private JTextField textNumeroChip;
+				private JCheckBox checkEspecie;
+				private JComboBox<String> comboEspecies;
+				private JCheckBox checkRaza;
+				private JComboBox<String> comboRazas;
+			private JPanel marcoListas;
+				private JCheckBox checkMascotasEncontradas;
+				private JCheckBox checkMascotasAdoptadas;
+				private JCheckBox checkMascotasEnRefugio;
+				private JCheckBox checkMascotasEnAdopcion;
+				private JCheckBox checkMascotasPerdidas;
+				private boolean[] listasSeleccionadas;
+		private JScrollPane marcoResultados;
+			private JTable tablaResultados;
+			private JButton btnContraerVentana;
+	private JPanel marcoOperaciones;
+		private JButton btnVerDetalles;
+	
+		
 	public FormularioBusquedaMascotas() {
 		setName("barraCarga");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 290);
+		setSize(anchoVentana, altoVentanaContraida);
+		ventanaContraida = true;
 
-		JPanel marcoTitulo = new JPanel();
+		marcoTitulo = new JPanel();
 		getContentPane().add(marcoTitulo, BorderLayout.NORTH);
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
 
@@ -93,11 +64,14 @@ public class FormularioBusquedaMascotas extends JFrame {
 		marcoTitulo.add(progressBar, BorderLayout.CENTER);
 		progressBar.setStringPainted(true);
 		progressBar.setString("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		marcoTitulo.add(lblNewLabel, BorderLayout.NORTH);
-
-		JButton btnBuscar = new JButton("Realizar B\u00FAsqueda");
+		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTitulo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		marcoTitulo.add(labelTitulo, BorderLayout.NORTH);
+		
+		listasSeleccionadas = new boolean[]{ false, false, false, false, false };
+									   // Perdidas, Encontradas, Adoptadas, Adoptables, Refugiadas
+		
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -112,15 +86,16 @@ public class FormularioBusquedaMascotas extends JFrame {
 				} else {
 					terminos.add("");
 				}
-				if (checkChipID.isSelected()) {
-					terminos.add(textChipID.getText());
+				if (checkNumeroChip.isSelected()) {
+					// TODO Validar que lo que esté escrito en el textChip
+					terminos.add(textNumeroChip.getText());
 				} else {
 					terminos.add("");
 				}
 				if (checkEspecie.isSelected()) {
-					terminos.add(Mascota.especies.get(comboEspecies.getSelectedIndex()));
+					terminos.add((String) comboEspecies.getSelectedItem());
 					if (checkRaza.isSelected()) {
-						terminos.add(Mascota.razas.get(comboEspecies.getSelectedIndex())[comboRazas.getSelectedIndex()]);
+						terminos.add((String) comboRazas.getSelectedItem());
 					} else {
 						terminos.add("");
 					}
@@ -129,53 +104,30 @@ public class FormularioBusquedaMascotas extends JFrame {
 					terminos.add("");
 					terminos.add("");
 				}
-
-				if (checkTodasLasListas.isSelected())
-					listasSeleccionadas[0] = true;
-				else
-					listasSeleccionadas[0] = false;
-
-				if (checkMascotasEncontradas.isSelected())
-					listasSeleccionadas[1] = true;
-				else
-					listasSeleccionadas[1] = false;
-
-				if (checkMascotasPerdidas.isSelected())
-					listasSeleccionadas[2] = true;
-				else
-					listasSeleccionadas[2] = false;
-
-				if (checkMascotasAdoptadas.isSelected())
-					listasSeleccionadas[3] = true;
-				else
-					listasSeleccionadas[3] = false;
-
-				if (checkMascotasEnAdopcion.isSelected())
-					listasSeleccionadas[4] = true;
-				else
-					listasSeleccionadas[4] = false;
-
-				if (checkMascotasEnRefugio.isSelected())
-					listasSeleccionadas[5] = true;
-				else
-					listasSeleccionadas[5] = false;
+				
+				listasSeleccionadas[0] = checkMascotasEncontradas.isSelected();
+				listasSeleccionadas[1] = checkMascotasPerdidas.isSelected();
+				listasSeleccionadas[2] = checkMascotasAdoptadas.isSelected();
+				listasSeleccionadas[3] = checkMascotasEnAdopcion.isSelected();
+				listasSeleccionadas[4] = checkMascotasEnRefugio.isSelected();
 
 				if (algunaListaSeleccionada(listasSeleccionadas)) {
 					BuscadorMascotas Modelo = new BuscadorMascotas(terminos, listasSeleccionadas);
-					jMascotas.setModel(Modelo);
-					jMascotas.setVisible(true);
+					tablaResultados.setModel(Modelo);
+					tablaResultados.setVisible(true);
 					progressBar.setMaximum(Modelo.getCantidadDeResultados());
 
-					if (pantallaOculta) {
+					if (ventanaContraida) {
+						// Se intenta hacer procesamiento en paralelo...
 						actualizarBarraProgreso(Modelo.getCantidadDeResultados());
 
 						// Expande la ventana
 						for (int i = 0; i < 200; i++) {
 							// Cada iteración expande la ventana 2 píxeles hasta
 							// un máximo de 400 píxeles estirados
-							setSize(500, getHeight() + 2);
+							setSize(anchoVentana, getHeight() + 2);
 						}
-						pantallaOculta = false;
+						ventanaContraida = false;
 					}
 				} else {
 					progressBar.setString("No se ha seleccionado ninguna lista");
@@ -197,20 +149,16 @@ public class FormularioBusquedaMascotas extends JFrame {
 			}
 
 			private boolean algunaListaSeleccionada(boolean[] listasSeleccionadas) {
-				boolean unaListaSeleccionada = false;
-				for (int i = 0; i < listasSeleccionadas.length; i++) {
-					if (listasSeleccionadas[i]) {
-						unaListaSeleccionada = true;
-						break;
-					}
+				for (boolean x : listasSeleccionadas) {
+					if(x) return true;
 				}
-				return unaListaSeleccionada;
+				return false;
 			}
 
 		});
 		marcoTitulo.add(btnBuscar, BorderLayout.EAST);
 
-		JButton btnAyuda = new JButton("\u00A1Necesito Ayuda!");
+		btnAyuda = new JButton("\u00A1Necesito Ayuda!");
 		btnAyuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -224,184 +172,175 @@ public class FormularioBusquedaMascotas extends JFrame {
 		});
 		marcoTitulo.add(btnAyuda, BorderLayout.WEST);
 
-		JPanel marcoContenido;
-
-		btnContraerVentana = new JButton("Ocultar resultados");
-		btnContraerVentana.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (!pantallaOculta) {
-					// Contrae la ventana un píxel a la vez
-					for (int i = 0; i < 400; i++) {
-						setSize(500, getHeight() - 1);
-					}
-					pantallaOculta = true;
-					jMascotas.setVisible(false);
-					progressBar.setValue(0);
-					progressBar.setString("");
-
-				}
-			}
-		});
-		marcoTitulo.add(btnContraerVentana, BorderLayout.SOUTH);
-
 		marcoContenido = new JPanel();
-		getContentPane().add(marcoContenido, BorderLayout.CENTER);
 		marcoContenido.setLayout(new BorderLayout(0, 0));
+		getContentPane().add(marcoContenido, BorderLayout.CENTER);
+		
+				marcoParametros = new JPanel();
+				marcoParametros.setLayout(new BorderLayout(0, 0));
+				marcoContenido.add(marcoParametros, BorderLayout.NORTH);
+		
+						marcoCampos = new JPanel();
+						marcoCampos.setBorder(null);
+						marcoCampos.setLayout(new GridLayout(6, 2, 0, 0));
+						marcoParametros.add(marcoCampos, BorderLayout.NORTH);
+				
+								checkNombre = new JCheckBox("Nombre");
+								checkNombre.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if (checkNombre.isSelected()) {
+											textNombre.setEnabled(true);
+										} else {
+											textNombre.setText("");
+											textNombre.setEnabled(false);
+										}
+									}
+								});
+								marcoCampos.add(checkNombre);
+						
+								textNombre = new JTextField();
+								textNombre.setEnabled(false);
+								textNombre.setColumns(10);
+								marcoCampos.add(textNombre);
+						
+								checkLugar = new JCheckBox("Lugar P\u00E9rdida / Encuentro");
+								checkLugar.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if (checkLugar.isSelected()) {
+											textLugar.setEnabled(true);
+										} else {
+											textLugar.setText("");
+											textLugar.setEnabled(false);
+										}
+									}
+								});
+								marcoCampos.add(checkLugar);
+						
+								textLugar = new JTextField();
+								textLugar.setEnabled(false);
+								textLugar.setColumns(10);
+								marcoCampos.add(textLugar);
+						
+								checkNumeroChip = new JCheckBox("N\u00FAmero de Chip");
+								checkNumeroChip.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if (checkNumeroChip.isSelected()) {
+											textNumeroChip.setEnabled(true);
+										} else {
+											textNumeroChip.setText("");
+											textNumeroChip.setEnabled(false);
+										}
+									}
+								});
+								marcoCampos.add(checkNumeroChip);
+						
+								textNumeroChip = new JTextField();
+								textNumeroChip.setEnabled(false);
+								textNumeroChip.setColumns(10);
+								marcoCampos.add(textNumeroChip);
+						
+								checkEspecie = new JCheckBox("Especie");
+								checkEspecie.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if (checkEspecie.isSelected()) {
+											comboEspecies.setEnabled(true);
+											checkRaza.setEnabled(true);
+											comboEspecies.setModel(new DefaultComboBoxModel<String>(Mascota.especies
+													.toArray(new String[Mascota.especies.size()])));
+										} else {
+											comboEspecies.setEnabled(false);
+											comboEspecies.setModel(new DefaultComboBoxModel<String>());
+											checkRaza.setSelected(false);
+											checkRaza.setEnabled(false);
+											comboRazas.setModel(new DefaultComboBoxModel<String>());
+										}
+										comboRazas.setEnabled(false);
+									}
+								});
+								marcoCampos.add(checkEspecie);
+						
+								comboEspecies = new JComboBox<String>();
+								comboEspecies.setEnabled(false);
+								marcoCampos.add(comboEspecies);
+						
+								checkRaza = new JCheckBox("Raza");
+								checkRaza.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										if (checkRaza.isSelected()) {
+											comboRazas.setEnabled(true);
+											comboRazas.setModel(new DefaultComboBoxModel<String>(Mascota.razas.get(comboEspecies
+													.getSelectedIndex())));
+										} else {
+											comboRazas.setModel(new DefaultComboBoxModel<String>());
+											comboRazas.setEnabled(false);
+										}
+									}
+								});
+								checkRaza.setEnabled(false);
+								marcoCampos.add(checkRaza);
+						
+								comboRazas = new JComboBox<String>();
+								comboRazas.setEnabled(false);
+								marcoCampos.add(comboRazas);
+						
+						marcoListas = new JPanel();
+						marcoListas.setBorder(new TitledBorder(null, "\u00BFD\u00F3nde desea buscar?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+						FlowLayout flowLayout = (FlowLayout) marcoListas.getLayout();
+						flowLayout.setAlignment(FlowLayout.LEFT);
+						marcoParametros.add(marcoListas, BorderLayout.SOUTH);
+				
+								checkMascotasPerdidas = new JCheckBox("Perdidas");
+								marcoListas.add(checkMascotasPerdidas);
+								
+								checkMascotasEncontradas = new JCheckBox("Encontradas");
+								checkMascotasEncontradas.setSelected(true);
+								marcoListas.add(checkMascotasEncontradas);
+								
+								checkMascotasAdoptadas = new JCheckBox("Adoptadas");
+								checkMascotasAdoptadas.setSelected(true);
+								marcoListas.add(checkMascotasAdoptadas);
+											
+								checkMascotasEnAdopcion = new JCheckBox("En Adopción");
+								marcoListas.add(checkMascotasEnAdopcion);
+								checkMascotasEnAdopcion.setSelected(true);
+													
+								checkMascotasEnRefugio = new JCheckBox("Refugiadas");
+								checkMascotasEnRefugio.setSelected(true);
+								marcoListas.add(checkMascotasEnRefugio);
+						
+				marcoResultados = new JScrollPane();
+				marcoContenido.add(marcoResultados, BorderLayout.CENTER);
+			
+						tablaResultados = new JTable();
+						tablaResultados.setShowHorizontalLines(true);
+						tablaResultados.setShowVerticalLines(true);
+						marcoResultados.setViewportView(tablaResultados);
+				
+				btnContraerVentana = new JButton("Ocultar Resultados");
+				btnContraerVentana.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (!ventanaContraida) {
+							// Contrae la ventana un píxel a la vez
+							for (int i = 0; i < 400; i++) {
+								setSize(anchoVentana, getHeight() - 1);
+							}
+							ventanaContraida = true;
+							tablaResultados.setVisible(false);
+							progressBar.setValue(0);
+							progressBar.setString("");
+		
+						}
+					}
+				});
+				btnContraerVentana.setEnabled(false);
+				marcoContenido.add(btnContraerVentana, BorderLayout.SOUTH);
 
-		JPanel marcoOpciones = new JPanel();
-		marcoContenido.add(marcoOpciones, BorderLayout.NORTH);
-		marcoOpciones.setLayout(new GridLayout(6, 2, 0, 0));
+		marcoOperaciones = new JPanel();
+		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
+		marcoOperaciones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		checkNombre = new JCheckBox("Nombre");
-		checkNombre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (checkNombre.isSelected()) {
-					textNombre.setEnabled(true);
-				} else {
-					textNombre.setText("");
-					textNombre.setEnabled(false);
-				}
-			}
-		});
-		marcoOpciones.add(checkNombre);
-
-		textNombre = new JTextField();
-		textNombre.setEnabled(false);
-		marcoOpciones.add(textNombre);
-		textNombre.setColumns(10);
-
-		checkLugar = new JCheckBox("Lugar Extrav\u00EDo");
-		checkLugar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (checkLugar.isSelected()) {
-					textLugar.setEnabled(true);
-				} else {
-					textLugar.setText("");
-					textLugar.setEnabled(false);
-				}
-			}
-		});
-		marcoOpciones.add(checkLugar);
-
-		textLugar = new JTextField();
-		textLugar.setEnabled(false);
-		marcoOpciones.add(textLugar);
-		textLugar.setColumns(10);
-
-		checkChipID = new JCheckBox("N\u00FAmero de Chip");
-		checkChipID.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (checkChipID.isSelected()) {
-					textChipID.setEnabled(true);
-				} else {
-					textChipID.setText("");
-					textChipID.setEnabled(false);
-				}
-			}
-		});
-		marcoOpciones.add(checkChipID);
-
-		textChipID = new JTextField();
-		textChipID.setEnabled(false);
-		marcoOpciones.add(textChipID);
-		textChipID.setColumns(10);
-
-		checkEspecie = new JCheckBox("Especie");
-		checkEspecie.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (checkEspecie.isSelected()) {
-					comboEspecies.setEnabled(true);
-					checkRaza.setEnabled(true);
-					comboEspecies.setModel(new DefaultComboBoxModel<String>(Mascota.especies
-							.toArray(new String[Mascota.especies.size()])));
-				} else {
-					comboEspecies.setEnabled(false);
-					comboEspecies.setModel(new DefaultComboBoxModel<String>());
-					checkRaza.setSelected(false);
-					checkRaza.setEnabled(false);
-					comboRazas.setModel(new DefaultComboBoxModel<String>());
-				}
-				comboRazas.setEnabled(false);
-			}
-		});
-		marcoOpciones.add(checkEspecie);
-
-		comboEspecies = new JComboBox<String>();
-		comboEspecies.setEnabled(false);
-		marcoOpciones.add(comboEspecies);
-
-		checkRaza = new JCheckBox("Raza");
-		checkRaza.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (checkRaza.isSelected()) {
-					comboRazas.setEnabled(true);
-					comboRazas.setModel(new DefaultComboBoxModel<String>(Mascota.razas.get(comboEspecies
-							.getSelectedIndex())));
-				} else {
-					comboRazas.setModel(new DefaultComboBoxModel<String>());
-					comboRazas.setEnabled(false);
-				}
-			}
-		});
-		checkRaza.setEnabled(false);
-		marcoOpciones.add(checkRaza);
-
-		comboRazas = new JComboBox<String>();
-		comboRazas.setEnabled(false);
-		marcoOpciones.add(comboRazas);
-
-		lblNewLabel_1 = new JLabel("Buscar en:");
-		lblNewLabel_1.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		marcoOpciones.add(lblNewLabel_1);
-
-		menuBar = new JMenuBar();
-		menuBar.setAlignmentX(Component.LEFT_ALIGNMENT);
-		marcoOpciones.add(menuBar);
-
-		mnMenu = new JMenu("Menu seleccion");
-		mnMenu.setHorizontalTextPosition(SwingConstants.CENTER);
-		mnMenu.setBorderPainted(true);
-		mnMenu.setBorder(UIManager.getBorder("CheckBoxMenuItem.border"));
-		mnMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		mnMenu.setFocusPainted(true);
-		mnMenu.setDelay(100);
-		mnMenu.setAutoscrolls(true);
-		menuBar.add(mnMenu);
-
-		checkTodasLasListas = new JCheckBox("TODAS");
-		checkTodasLasListas.setSelected(true);
-		mnMenu.add(checkTodasLasListas);
-
-		checkMascotasEncontradas = new JCheckBox("Mascotas encontradas");
-		mnMenu.add(checkMascotasEncontradas);
-
-		checkMascotasPerdidas = new JCheckBox("Mascotas perdidas");
-		mnMenu.add(checkMascotasPerdidas);
-
-		checkMascotasAdoptadas = new JCheckBox("Mascotas adoptadas");
-		mnMenu.add(checkMascotasAdoptadas);
-
-		checkMascotasEnAdopcion = new JCheckBox("Mascotas en adopcion");
-		mnMenu.add(checkMascotasEnAdopcion);
-
-		checkMascotasEnRefugio = new JCheckBox("Mascotas en refugio");
-		mnMenu.add(checkMascotasEnRefugio);
-
-		scrollJTable = new JScrollPane();
-		marcoContenido.add(scrollJTable, BorderLayout.CENTER);
-
-		jMascotas = new JTable();
-		scrollJTable.setViewportView(jMascotas);
-		jMascotas.setShowHorizontalLines(true);
-		jMascotas.setShowVerticalLines(true);
-
-		JPanel marcoConfirmaciones = new JPanel();
-		getContentPane().add(marcoConfirmaciones, BorderLayout.SOUTH);
-		marcoConfirmaciones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JButton btnVerDetalles = new JButton("Ver Detalles");
-		marcoConfirmaciones.add(btnVerDetalles);
+		btnVerDetalles = new JButton("Ver Detalles");
+		marcoOperaciones.add(btnVerDetalles);
 
 	}
 }

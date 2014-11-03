@@ -33,7 +33,15 @@ public class Principal {
 		for(int i = 0; i < 100; i++) 
 			encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
 						"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao."));
-		// System.out.println(encontradas.size()); // Validación de inserción de las 100 Mascota
+		
+		// Validación de inserción de las 100 Mascota
+		// System.out.println(encontradas.size());
+		
+		// Prueba del clón 
+		// System.out.println(encontradas.get(0).clone().toString());
+		
+		// Demostración del clonado
+		// System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -140,7 +148,7 @@ public class Principal {
 	
 	public static ArrayList<Mascota> getCopiaMascotasPerdidas(){
 		ArrayList<Mascota> copia = new ArrayList<Mascota>();
-	    for(Mascota mascota : perdidas) copia.add(mascota.clone());
+	    for (Mascota mascota : perdidas) copia.add(mascota.clone());
 	    return copia;
 	}
 	public static ArrayList<Mascota> getCopiaMascotasEncontradas(){
@@ -173,19 +181,5 @@ public class Principal {
 	    for(Mascota mascota : muertas) copia.add(mascota.clone());
 	    return copia;
 	}
-	
-	public static ArrayList<Mascota> getCopiaTodasLasListas(){
-		ArrayList<Mascota> copia = new ArrayList<Mascota>();
-	    
-		copia.addAll(getCopiaMascotasEncontradas());
-	    copia.addAll(getCopiaMascotasPerdidas());    
-		copia.addAll(getCopiaMascotasAdoptadas());
-	    copia.addAll(getCopiaMascotasEnAdopcion());
-	    copia.addAll(getCopiaMascotasRefugiadas());
-	    
-	    return copia;
-	}
-	
-
 	
 }
