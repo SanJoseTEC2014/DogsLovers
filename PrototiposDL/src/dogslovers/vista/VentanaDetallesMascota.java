@@ -1,39 +1,14 @@
 package dogslovers.vista;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-
-import javax.swing.DefaultListModel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import java.awt.FlowLayout;
-import java.awt.Color;
-
-import javax.swing.border.LineBorder;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.UIManager;
-import javax.swing.JList;
-
 import dogslovers.modelo.Mascota;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.ButtonGroup;
 
 public class VentanaDetallesMascota extends JFrame {
 	private JTextField campoNombre;
@@ -55,8 +30,9 @@ public class VentanaDetallesMascota extends JFrame {
 	private JList<String> listaSexo;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
-	public VentanaDetallesMascota(Mascota mascota, String orden) {
+	public VentanaDetallesMascota(Mascota mascota, boolean editable) {
 
+		setSize(540,490);
 		getContentPane().setLayout(null);
 		JLabel lblDetallesMascota = new JLabel("Detalles Mascota");
 		lblDetallesMascota.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,24 +44,27 @@ public class VentanaDetallesMascota extends JFrame {
 		panel.setBorder(new TitledBorder(null, "Editar detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(206, 51, 308, 240);
 		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(8, 2, 10, 5));
+		panel.setLayout(new GridLayout(8, 2, 5, 2));
 
 		JLabel lblNombre = new JLabel("Nombre");
 		panel.add(lblNombre);
 
 		campoNombre = new JTextField(mascota.getNombre());
 		panel.add(campoNombre);
-		if (orden == "MostrarDetalles") { campoNombre.setEditable(false); }
-		else campoNombre.setEditable(true);
+		if (editable) { campoNombre.setEditable(true); }
+		else {campoNombre.setEditable(false);}
 		campoNombre.setColumns(10);
 
 		JLabel lblNmeroDelChip = new JLabel("N\u00FAmero del Chip");
 		panel.add(lblNmeroDelChip);
 
-		//campoNumChip = new JTextField(mascota.getNumeroChip());
+
+		campoNumChip = mascota.getNumeroChip() == null? new JTextField() : new JTextField( mascota.getNumeroChip());
+		
+
 		panel.add(campoNumChip);
-		if (orden == "MostrarDetalles") { campoNumChip.setEditable(false); }
-		else campoNombre.setEditable(true);
+		if (editable) {campoNombre.setEditable(true);  }
+		else campoNumChip.setEditable(false);
 		campoNumChip.setColumns(10);
 
 		JLabel lblColor = new JLabel("Color");
@@ -93,63 +72,92 @@ public class VentanaDetallesMascota extends JFrame {
 
 		campoColor = new JTextField(mascota.getColor());
 		panel.add(campoColor);
-		if (orden == "MostrarDetalles") { campoColor.setEditable(false); }
-		else campoColor.setEditable(true);
+		if (editable) { campoColor.setEditable(true); }
+		else campoColor.setEditable(false);
 		campoColor.setColumns(10);
 		
 		JLabel lblEspecie = new JLabel("Especie");
 		panel.add(lblEspecie);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
 		
 		listaEspecie = new JList<String>();
+		scrollPane.setViewportView(listaEspecie);
+		listaEspecie.setVisibleRowCount(10);
 		listaEspecie.setToolTipText("");
 		listaEspecie.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel.add(listaEspecie);
-		if (orden == "MostrarDetalles") { 
-			listaEspecie.setToolTipText(mascota.getEspecie()); 
+		if (editable) { 
+			listaEspecie.setModel(mascota.getModeloEspecies());
+			
 		}
-		else listaEspecie.setModel(mascota.getModeloEspecies());
+		else listaEspecie.setToolTipText(mascota.getEspecie()); 
 		
-		
-//		else listaEspecie.setModel(Principal.);
 		JLabel lblRaza = new JLabel("Raza");
 		panel.add(lblRaza);
-
-		listaRaza = new JList<String>();
-		panel.add(listaRaza);
-		if (orden == "MostrarDetalles") { 
-			listaRaza.setToolTipText(mascota.getRaza()); 
+										
+										
+										JScrollPane scrollPane_1 = new JScrollPane();
+										scrollPane_1.setOpaque(false);
+										panel.add(scrollPane_1);
+											
+								
+										listaRaza = new JList<String>();
+										scrollPane_1.setViewportView(listaRaza);
+										listaRaza.setVisibleRowCount(10);
+										listaRaza.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		if (editable) { 
+			listaRaza.setModel(mascota.getModeloRazas());
 		}
-		else listaRaza.setModel(mascota.getModeloRazas());
+		else listaRaza.setToolTipText(mascota.getRaza()); 
+
 		
 
 		JLabel lblEdad = new JLabel("Edad");
 		panel.add(lblEdad);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		panel.add(scrollPane_2);
 
 		listaEdad = new JList<String>();
-		panel.add(listaEdad);
-		if (orden == "MostrarDetalles") { 
-			listaEdad.setToolTipText(mascota.getEdad()); 
+		scrollPane_2.setViewportView(listaEdad);
+		listaEdad.setVisibleRowCount(4);
+		listaEdad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		if (editable) { 
+			listaEdad.setModel(mascota.getModeloEdades());
+			
 		}
-		else listaEdad.setModel(mascota.getModeloEdades());
+		else listaEdad.setToolTipText(mascota.getEdad()); 
 		
 		
 
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
 		panel.add(lblTamao);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		panel.add(scrollPane_3);
 
 		listaTamaño = new JList<String>();
-		panel.add(listaTamaño);
-		if (orden == "MostrarDetalles") { 
-			listaTamaño.setToolTipText(mascota.getTamanio()); 
+		scrollPane_3.setViewportView(listaTamaño);
+		listaTamaño.setVisibleRowCount(3);
+		listaTamaño.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		if (editable) { 
+			listaTamaño.setModel(mascota.getModeloEdades());
+			
 		}
-		else listaTamaño.setModel(mascota.getModeloEdades());
+		else listaTamaño.setToolTipText(mascota.getTamanio()); 
 
 		JLabel lblNewLabel_1 = new JLabel("Sexo");
 		panel.add(lblNewLabel_1);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		panel.add(scrollPane_4);
 
 		listaSexo = new JList<String>();
-		panel.add(listaSexo);
+		scrollPane_4.setViewportView(listaSexo);
+		listaSexo.setVisibleRowCount(2);
+		listaSexo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 
 		
@@ -198,40 +206,25 @@ public class VentanaDetallesMascota extends JFrame {
 		
 		checkBox = new JCheckBox("Vacunada");
 		panel_2.add(checkBox);
-		if (orden == "MostrarDetalles"){
-			checkBox.setSelected(mascota.isVacunada());
-		}
-		else{
-			checkBox.setSelected(mascota.isVacunada());
-			
-		}
+		checkBox.setSelected(mascota.isVacunada());
+		checkBox.setEnabled(editable);
+		
 			
 		checkBox_1 = new JCheckBox("Castrada");
 		panel_2.add(checkBox_1);
-		if (orden == "MostrarDetalles"){
-			checkBox_1.setSelected(mascota.isCastrada());
-		}
-		else{
-			checkBox_1.setSelected(mascota.isCastrada());
-		}
+		checkBox_1.setSelected(mascota.isCastrada());
+		checkBox_1.setEnabled(editable);
+		
 
 		checkBox_2 = new JCheckBox("Desparacitada");
 		panel_2.add(checkBox_2);
-		if (orden == "MostrarDetalles"){
-			checkBox_2.setSelected(mascota.isDesparacitada());
-		}
-		else{
-			checkBox_2.setSelected(mascota.isDesparacitada());
-		}
+		checkBox_2.setSelected(mascota.isDesparacitada());
+		checkBox_2.setEnabled(editable);
 
 		checkBox_3 = new JCheckBox("Discapacitada");
 		panel_2.add(checkBox_3);
-		if (orden == "MostrarDetalles"){
-			checkBox_3.setSelected(mascota.isDiscapacitada());
-		}
-		else{
-			checkBox_3.setSelected(mascota.isDiscapacitada());
-		}
+		checkBox_3.setSelected(mascota.isDiscapacitada());
+		checkBox_3.setEnabled(editable);
 		
 
 		JLabel lblInformacinPrincipal = new JLabel("Informaci\u00F3n Principal");

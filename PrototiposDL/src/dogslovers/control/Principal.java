@@ -106,7 +106,9 @@ public class Principal {
 					window2.setModoEdicion(false);
 					window2.setVisible(true);
 					 * 
-					 */					
+					 */			
+					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), false);
+					ventana.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
