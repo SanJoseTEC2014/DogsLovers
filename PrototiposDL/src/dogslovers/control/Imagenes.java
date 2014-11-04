@@ -5,14 +5,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
-import dogslovers.vista.VentanaInicioSesion;
 
 public class Imagenes {
 	
