@@ -34,233 +34,286 @@ import dogslovers.modelo.Mascota;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.ButtonGroup;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JComboBox;
+import javax.swing.JSplitPane;
 
 public class VentanaDetallesMascota extends JFrame {
-	private JTextField campoNombre;
 	private JTextField campoNumChip;
 	private JTextField campoColor;
-	private JCheckBox checkBox;
-	private JCheckBox checkBox_1;
-	private JCheckBox checkBox_2;
-	private JCheckBox checkBox_3;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
-	private JRadioButton rdbtnNewRadioButton_4;
-	private JRadioButton rdbtnNewRadioButton_3;
-	private JRadioButton rdbtnNewRadioButton;
-	private JList<String> listaEspecie;
-	private JList<String> listaRaza;
-	private JList<String> listaEdad;
-	private JList<String> listaTamaño;
-	private JList<String> listaSexo;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JCheckBox checkVacunada;
+	private JCheckBox checkCastrada;
+	private JCheckBox checkDesparacitada;
+	private JCheckBox checkDiscapacitada;
+	private JRadioButton radioPerdida;
+	private JRadioButton radioEncontrada;
+	private JRadioButton radioLocalizada;
+	private JRadioButton radioAdoptada;
+	private JRadioButton radioRefugiada;
+	private JComboBox comboEspecie;
+	private JComboBox comboRaza;
+	private JComboBox comboEdad;
+	private JComboBox comboTamanio;
+	private JComboBox comboSexo;
+	private final ButtonGroup buttonGroupEstados = new ButtonGroup();
+	private JTextField campoNumeroChip;
+	private JPanel marcoCentro;
+	private JPanel marcoFoto;
+	private JLabel labelDetalles;
+	private JLabel labelFotoMascota;
+	private JButton botonVerMasFotos;
+	private JPanel marcoInformacionPrincipal;
+	private JLabel labelNombre;
+	private JTextField campoNombre;
+	private JLabel labelNumeroChip;
+	private JLabel labelColor;
+	private JLabel lblEspecie;
+	private JLabel labelRaza;
+	private JLabel labelEdad;
+	private JLabel labelTamanio;
+	private JLabel labelSexo;
+	private JPanel marcoInferior;
+	private JPanel marcoRadios;
+	private JPanel marcoChecks;
+	private JPanel marcoOperaciones;
+	private JButton botonSoyDuenio;
+	private JPanel marcoOperacionesBasicas;
+	private JButton botonCancelar;
+	private JButton botonGuardarCambios;
 
 	public VentanaDetallesMascota(Mascota mascota, String orden) {
-
-		getContentPane().setLayout(null);
-		JLabel lblDetallesMascota = new JLabel("Detalles Mascota");
-		lblDetallesMascota.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDetallesMascota.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDetallesMascota.setBounds(30, 11, 152, 25);
-		getContentPane().add(lblDetallesMascota);
-
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Editar detalles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(206, 51, 308, 240);
-		getContentPane().add(panel);
-		panel.setLayout(new GridLayout(8, 2, 10, 5));
-
-		JLabel lblNombre = new JLabel("Nombre");
-		panel.add(lblNombre);
-
-		campoNombre = new JTextField(mascota.getNombre());
-		panel.add(campoNombre);
-		if (orden == "MostrarDetalles") { campoNombre.setEditable(false); }
-		else campoNombre.setEditable(true);
-		campoNombre.setColumns(10);
-
-		JLabel lblNmeroDelChip = new JLabel("N\u00FAmero del Chip");
-		panel.add(lblNmeroDelChip);
-
-		//campoNumChip = new JTextField(mascota.getNumeroChip());
-		panel.add(campoNumChip);
-		if (orden == "MostrarDetalles") { campoNumChip.setEditable(false); }
-		else campoNombre.setEditable(true);
+		getContentPane().setLayout(new BorderLayout(20, 10));
+		
+		marcoCentro = new JPanel();
+		marcoCentro.setOpaque(false);
+		getContentPane().add(marcoCentro, BorderLayout.CENTER);
+		marcoCentro.setLayout(new BorderLayout(10, 10));
+		
+		marcoFoto = new JPanel();
+		marcoFoto.setOpaque(false);
+		marcoCentro.add(marcoFoto, BorderLayout.CENTER);
+		marcoFoto.setLayout(new BorderLayout(10, 10));
+		labelDetalles = new JLabel("Detalles Mascota");
+		marcoFoto.add(labelDetalles, BorderLayout.NORTH);
+		labelDetalles.setHorizontalAlignment(SwingConstants.CENTER);
+		labelDetalles.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		
+				labelFotoMascota = new JLabel("FOTO MASCOTA");
+				marcoFoto.add(labelFotoMascota, BorderLayout.CENTER);
+				labelFotoMascota.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
+						null));
+				labelFotoMascota.setBackground(Color.GREEN);
+				labelFotoMascota.setHorizontalAlignment(SwingConstants.CENTER);
+				
+						botonVerMasFotos = new JButton("Ver m\u00E1s fotos");
+						botonVerMasFotos.setOpaque(false);
+						marcoFoto.add(botonVerMasFotos, BorderLayout.SOUTH);
+						
+								marcoInformacionPrincipal = new JPanel();
+								marcoInformacionPrincipal.setOpaque(false);
+								marcoCentro.add(marcoInformacionPrincipal, BorderLayout.EAST);
+								marcoInformacionPrincipal.setBorder(new TitledBorder(UIManager
+										.getBorder("TitledBorder.border"),
+										"Informaci\u00F3n Principal", TitledBorder.LEADING,
+										TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 11), new Color(
+												0, 0, 0)));
+								marcoInformacionPrincipal.setLayout(new GridLayout(8, 2, 0, 10));
+								
+										labelNombre = new JLabel("Nombre");
+										marcoInformacionPrincipal.add(labelNombre);
+										
+												campoNombre = new JTextField(mascota.getNombre());
+												marcoInformacionPrincipal.add(campoNombre);
+												campoNombre.setColumns(12);
+												
+														labelNumeroChip = new JLabel("N\u00FAmero del Chip");
+														marcoInformacionPrincipal.add(labelNumeroChip);
+														
+																// campoNumChip = new JTextField(mascota.getNumeroChip());
+																marcoInformacionPrincipal.add(campoNumChip);
+																
+																		campoNumeroChip = new JTextField((String) null);
+																		campoNumeroChip.setColumns(12);
+																		marcoInformacionPrincipal.add(campoNumeroChip);
+																		
+																				labelColor = new JLabel("Color");
+																				marcoInformacionPrincipal.add(labelColor);
+																				
+																						campoColor = new JTextField(mascota.getColor());
+																						marcoInformacionPrincipal.add(campoColor);
+																						campoColor.setColumns(12);
+																						
+																								lblEspecie = new JLabel("Especie");
+																								marcoInformacionPrincipal.add(lblEspecie);
+																								
+																										comboEspecie = new JComboBox();
+																										comboEspecie.setToolTipText("");
+																										marcoInformacionPrincipal.add(comboEspecie);
+																										
+																												// else listaEspecie.setModel(Principal.);
+																												labelRaza = new JLabel("Raza");
+																												marcoInformacionPrincipal.add(labelRaza);
+																												
+																														comboRaza = new JComboBox();
+																														marcoInformacionPrincipal.add(comboRaza);
+																														
+																																labelEdad = new JLabel("Edad");
+																																marcoInformacionPrincipal.add(labelEdad);
+																																
+																																		comboEdad = new JComboBox();
+																																		marcoInformacionPrincipal.add(comboEdad);
+																																		
+																																				labelTamanio = new JLabel("Tama\u00F1o");
+																																				marcoInformacionPrincipal.add(labelTamanio);
+																																				
+																																						comboTamanio = new JComboBox();
+																																						marcoInformacionPrincipal.add(comboTamanio);
+																																						
+																																								labelSexo = new JLabel("Sexo");
+																																								marcoInformacionPrincipal.add(labelSexo);
+																																								
+																																										comboSexo = new JComboBox();
+																																										marcoInformacionPrincipal.add(comboSexo);
+																																										botonVerMasFotos.addActionListener(new ActionListener() {
+																																											public void actionPerformed(ActionEvent e) {
+																																											}
+																																										});
+		
+		marcoInferior = new JPanel();
+		marcoInferior.setOpaque(false);
+		getContentPane().add(marcoInferior, BorderLayout.SOUTH);
+		marcoInferior.setLayout(new BorderLayout(10, 10));
+		
+				marcoRadios = new JPanel();
+				marcoRadios.setOpaque(false);
+				marcoInferior.add(marcoRadios, BorderLayout.NORTH);
+				marcoRadios.setBorder(new TitledBorder(UIManager
+						.getBorder("TitledBorder.border"), "Estado Actual",
+						TitledBorder.LEFT, TitledBorder.TOP,
+						new Font("Tahoma", Font.BOLD, 11), new Color(0, 0, 0)));
+				marcoRadios.setLayout(new GridLayout(0, 5, 20, 20));
+				
+						radioPerdida = new JRadioButton("Perdida");
+						buttonGroupEstados.add(radioPerdida);
+						marcoRadios.add(radioPerdida);
+						
+								radioEncontrada = new JRadioButton("Encontrada");
+								buttonGroupEstados.add(radioEncontrada);
+								marcoRadios.add(radioEncontrada);
+								
+										radioLocalizada = new JRadioButton("Localizada");
+										buttonGroupEstados.add(radioLocalizada);
+										marcoRadios.add(radioLocalizada);
+										
+												radioAdoptada = new JRadioButton("Adoptada");
+												buttonGroupEstados.add(radioAdoptada);
+												marcoRadios.add(radioAdoptada);
+												
+														radioRefugiada = new JRadioButton("Refugiada");
+														buttonGroupEstados.add(radioRefugiada);
+														marcoRadios.add(radioRefugiada);
+														
+																marcoChecks = new JPanel();
+																marcoChecks.setOpaque(false);
+																marcoInferior.add(marcoChecks, BorderLayout.CENTER);
+																marcoChecks.setBorder(new TitledBorder(UIManager
+																		.getBorder("TitledBorder.border"),
+																		"Información Física & Veterinaria", TitledBorder.LEFT,
+																		TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 11), new Color(0, 0, 0)));
+																marcoChecks.setLayout(new GridLayout(0, 4, 20, 20));
+																
+																		checkVacunada = new JCheckBox("Vacunada");
+																		marcoChecks.add(checkVacunada);
+																		
+																				checkCastrada = new JCheckBox("Castrada");
+																				marcoChecks.add(checkCastrada);
+																				
+																						checkDesparacitada = new JCheckBox("Desparacitada");
+																						marcoChecks.add(checkDesparacitada);
+																						
+																								checkDiscapacitada = new JCheckBox("Discapacitada");
+																								marcoChecks.add(checkDiscapacitada);
+																								
+																										marcoOperaciones = new JPanel();
+																										marcoOperaciones.setOpaque(false);
+																										marcoInferior.add(marcoOperaciones, BorderLayout.SOUTH);
+																										marcoOperaciones.setLayout(new BorderLayout(10, 10));
+																										
+																												botonSoyDuenio = new JButton(
+																														"\u00A1Soy el due\u00F1o de esta mascota!");
+																												botonSoyDuenio.setOpaque(false);
+																												marcoOperaciones.add(botonSoyDuenio, BorderLayout.WEST);
+																												botonSoyDuenio.addActionListener(new ActionListener() {
+																													public void actionPerformed(ActionEvent arg0) {
+																													}
+																												});
+																												
+																														marcoOperacionesBasicas = new JPanel();
+																														marcoOperacionesBasicas.setOpaque(false);
+																														FlowLayout fl_marcoOperacionesBasicas = (FlowLayout) marcoOperacionesBasicas.getLayout();
+																														fl_marcoOperacionesBasicas.setVgap(0);
+																														fl_marcoOperacionesBasicas.setHgap(10);
+																														marcoOperaciones.add(marcoOperacionesBasicas, BorderLayout.EAST);
+																														
+																																botonCancelar = new JButton("Cancelar");
+																																botonCancelar.setOpaque(false);
+																																marcoOperacionesBasicas.add(botonCancelar);
+																																
+																																		botonGuardarCambios = new JButton("Guardar Cambios");
+																																		botonGuardarCambios.setOpaque(false);
+																																		marcoOperacionesBasicas.add(botonGuardarCambios);
+		if (orden == "MostrarDetalles") {
+			campoNombre.setEditable(false);
+		} else
+			campoNombre.setEditable(true);
+		if (orden == "MostrarDetalles") {
+			campoNumChip.setEditable(false);
+		} else
+			campoNombre.setEditable(true);
 		campoNumChip.setColumns(10);
+		if (orden == "MostrarDetalles") {
+			campoColor.setEditable(false);
+		} else
+			campoColor.setEditable(true);
+		if (orden == "MostrarDetalles") {
+			comboEspecie.setToolTipText(mascota.getEspecie());
+		} else
+			comboEspecie.setModel(mascota.getModeloEspecies());
+		if (orden == "MostrarDetalles") {
+			comboRaza.setToolTipText(mascota.getRaza());
+		} else
+			comboRaza.setModel(mascota.getModeloRazas());
+		if (orden == "MostrarDetalles") {
+			comboEdad.setToolTipText(mascota.getEdad());
+		} else
+			comboEdad.setModel(mascota.getModeloEdades());
+		if (orden == "MostrarDetalles") {
+			comboTamanio.setToolTipText(mascota.getTamanio());
+		} else
+			comboTamanio.setModel(mascota.getModeloEdades());
+		if (orden == "MostrarDetalles") {
+			checkVacunada.setSelected(mascota.isVacunada());
+		} else {
+			checkVacunada.setSelected(mascota.isVacunada());
 
-		JLabel lblColor = new JLabel("Color");
-		panel.add(lblColor);
-
-		campoColor = new JTextField(mascota.getColor());
-		panel.add(campoColor);
-		if (orden == "MostrarDetalles") { campoColor.setEditable(false); }
-		else campoColor.setEditable(true);
-		campoColor.setColumns(10);
-		
-		JLabel lblEspecie = new JLabel("Especie");
-		panel.add(lblEspecie);
-		
-		
-		listaEspecie = new JList<String>();
-		listaEspecie.setToolTipText("");
-		listaEspecie.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel.add(listaEspecie);
-		if (orden == "MostrarDetalles") { 
-			listaEspecie.setToolTipText(mascota.getEspecie()); 
 		}
-		else listaEspecie.setModel(mascota.getModeloEspecies());
-		
-		
-//		else listaEspecie.setModel(Principal.);
-		JLabel lblRaza = new JLabel("Raza");
-		panel.add(lblRaza);
-
-		listaRaza = new JList<String>();
-		panel.add(listaRaza);
-		if (orden == "MostrarDetalles") { 
-			listaRaza.setToolTipText(mascota.getRaza()); 
+		if (orden == "MostrarDetalles") {
+			checkCastrada.setSelected(mascota.isCastrada());
+		} else {
+			checkCastrada.setSelected(mascota.isCastrada());
 		}
-		else listaRaza.setModel(mascota.getModeloRazas());
-		
-
-		JLabel lblEdad = new JLabel("Edad");
-		panel.add(lblEdad);
-
-		listaEdad = new JList<String>();
-		panel.add(listaEdad);
-		if (orden == "MostrarDetalles") { 
-			listaEdad.setToolTipText(mascota.getEdad()); 
+		if (orden == "MostrarDetalles") {
+			checkDesparacitada.setSelected(mascota.isDesparacitada());
+		} else {
+			checkDesparacitada.setSelected(mascota.isDesparacitada());
 		}
-		else listaEdad.setModel(mascota.getModeloEdades());
-		
-		
-
-		JLabel lblTamao = new JLabel("Tama\u00F1o");
-		panel.add(lblTamao);
-
-		listaTamaño = new JList<String>();
-		panel.add(listaTamaño);
-		if (orden == "MostrarDetalles") { 
-			listaTamaño.setToolTipText(mascota.getTamanio()); 
+		if (orden == "MostrarDetalles") {
+			checkDiscapacitada.setSelected(mascota.isDiscapacitada());
+		} else {
+			checkDiscapacitada.setSelected(mascota.isDiscapacitada());
 		}
-		else listaTamaño.setModel(mascota.getModeloEdades());
-
-		JLabel lblNewLabel_1 = new JLabel("Sexo");
-		panel.add(lblNewLabel_1);
-
-		listaSexo = new JList<String>();
-		panel.add(listaSexo);
-		
-
-		
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Estado Actual",
-				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 361, 504, 46);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 5, 0, -60));
-
-		rdbtnNewRadioButton_1 = new JRadioButton("Perdida");
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		panel_1.add(rdbtnNewRadioButton_1);
-
-		rdbtnNewRadioButton_2 = new JRadioButton("Encontrada");
-		buttonGroup.add(rdbtnNewRadioButton_2);
-		panel_1.add(rdbtnNewRadioButton_2);
-
-		rdbtnNewRadioButton_4 = new JRadioButton("Localizada");
-		buttonGroup.add(rdbtnNewRadioButton_4);
-		panel_1.add(rdbtnNewRadioButton_4);
-
-		rdbtnNewRadioButton_3 = new JRadioButton("Adoptada");
-		buttonGroup.add(rdbtnNewRadioButton_3);
-		panel_1.add(rdbtnNewRadioButton_3);
-
-		rdbtnNewRadioButton = new JRadioButton("Refugiada");
-		buttonGroup.add(rdbtnNewRadioButton);
-		panel_1.add(rdbtnNewRadioButton);
-
-		JButton btnGuardarCambios = new JButton("Guardar Cambios");
-		btnGuardarCambios.setBounds(399, 418, 115, 23);
-		getContentPane().add(btnGuardarCambios);
-
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(274, 418, 115, 23);
-		getContentPane().add(btnCancelar);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-				"Informacion Fisica-Veterinaria", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_2.setBounds(10, 302, 505, 46);
-		getContentPane().add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 4, 0, -60));
-		
-		checkBox = new JCheckBox("Vacunada");
-		panel_2.add(checkBox);
-		if (orden == "MostrarDetalles"){
-			checkBox.setSelected(mascota.isVacunada());
-		}
-		else{
-			checkBox.setSelected(mascota.isVacunada());
-			
-		}
-			
-		checkBox_1 = new JCheckBox("Castrada");
-		panel_2.add(checkBox_1);
-		if (orden == "MostrarDetalles"){
-			checkBox_1.setSelected(mascota.isCastrada());
-		}
-		else{
-			checkBox_1.setSelected(mascota.isCastrada());
-		}
-
-		checkBox_2 = new JCheckBox("Desparacitada");
-		panel_2.add(checkBox_2);
-		if (orden == "MostrarDetalles"){
-			checkBox_2.setSelected(mascota.isDesparacitada());
-		}
-		else{
-			checkBox_2.setSelected(mascota.isDesparacitada());
-		}
-
-		checkBox_3 = new JCheckBox("Discapacitada");
-		panel_2.add(checkBox_3);
-		if (orden == "MostrarDetalles"){
-			checkBox_3.setSelected(mascota.isDiscapacitada());
-		}
-		else{
-			checkBox_3.setSelected(mascota.isDiscapacitada());
-		}
-		
-
-		JLabel lblInformacinPrincipal = new JLabel("Informaci\u00F3n Principal");
-		lblInformacinPrincipal.setFont(lblInformacinPrincipal.getFont().deriveFont(
-				lblInformacinPrincipal.getFont().getStyle() | Font.BOLD));
-		lblInformacinPrincipal.setBounds(298, 26, 134, 23);
-		getContentPane().add(lblInformacinPrincipal);
-
-		JLabel lblFotoMascota = new JLabel("FOTO MASCOTA");
-		lblFotoMascota.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		lblFotoMascota.setBackground(Color.GREEN);
-		lblFotoMascota.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFotoMascota.setBounds(10, 51, 186, 240);
-		getContentPane().add(lblFotoMascota);
-
-		JButton btnSoyDueoDe = new JButton("\u00A1Soy el due\u00F1o de esta mascota!");
-		btnSoyDueoDe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnSoyDueoDe.setBounds(10, 418, 186, 23);
-		getContentPane().add(btnSoyDueoDe);
-
-		JButton btnVerMsFotos = new JButton("Ver m\u00E1s fotos");
-		btnVerMsFotos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnVerMsFotos.setBounds(46, 274, 115, 17);
-		getContentPane().add(btnVerMsFotos);
 	}
 }
