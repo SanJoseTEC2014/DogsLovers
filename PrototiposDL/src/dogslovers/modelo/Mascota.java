@@ -12,6 +12,7 @@ package dogslovers.modelo;
 
 import java.util.LinkedList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -28,7 +29,7 @@ public class Mascota {
 	private Integer id;
 	private String nombre;
 	private Integer numeroChip;
-	private static  String especie;
+	private String especie;
 	private String raza;
 	private String color;
 	private String edad;
@@ -312,32 +313,18 @@ public class Mascota {
 		  return clone;
 	}
 
-	public static ListModel getModeloEspecies() {
-		
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for(int i = 1; i<especies.size(); i++){
-		        modelo.addElement(especies.get(i));
-		}
-		return modelo;
+	public static DefaultComboBoxModel<String> getModeloEspecies() {
+		return new DefaultComboBoxModel<String>((String[]) especies.toArray());
 	}
 	
-	public static ListModel getModeloRazas() {
-		
-		int indicePosRazas = especies.indexOf(especie);
-		
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for(int i = 1; i<razas.get(indicePosRazas).length; i++){
-		        modelo.addElement(razas.get(indicePosRazas)[i]);
-		}
-		return modelo;
+	// Recibe la especie seleccionada en el JComboBox para que éste pueda refrescarse
+	// cuando se está editando la especie de una Mascota.
+	public static DefaultComboBoxModel<String> getModeloRazas(String pEspecie) {
+		  return new DefaultComboBoxModel<String>(razas.get(especies.indexOf(pEspecie)));
 	}
-
-	public ListModel getModeloEdades() {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for(int i = 1; i<edades.size(); i++){
-		        modelo.addElement(edades.get(i));
-		}
-		return modelo;
+	
+	public DefaultComboBoxModel<String> getModeloEdades() {
+		  return new DefaultComboBoxModel<String>((String[]) edades.toArray());
 	}
 	
 }

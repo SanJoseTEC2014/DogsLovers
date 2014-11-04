@@ -95,8 +95,7 @@ public class Principal {
 					 * 
 					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
 					window2.setVisible(true);
-					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
-					window3.setVisible(true);
+					
 					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), "verDetalles");
 					ventana.setVisible(true);
 					VentanaRegistroMascotas window5 = new VentanaRegistroMascotas();
@@ -109,6 +108,9 @@ public class Principal {
 					 */			
 					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), false);
 					ventana.setVisible(true);
+					
+					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
+					window3.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
