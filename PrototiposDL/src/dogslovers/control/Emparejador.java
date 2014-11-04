@@ -32,15 +32,15 @@ public class Emparejador {
 		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				for (int ID : pUsuario.getMascotasPerdidasIDs()){
-					emparejarAutomatico(ID, pUsuario);
+				for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+					emparejarAutomatico(mascota, pUsuario);
 				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					for (int ID : pUsuario.getMascotasPerdidasIDs()){
-						emparejarAutomatico(ID, pUsuario);
+					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
 					pUsuario.addDiasTranscurridos();
@@ -49,8 +49,8 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					for (int ID : pUsuario.getMascotasPerdidasIDs()){
-						emparejarAutomatico(ID, pUsuario);
+					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
 					pUsuario.addDiasTranscurridos();
@@ -65,17 +65,17 @@ public class Emparejador {
 		}
 	}
 		
-	private static void emparejarAutomatico(Integer pIDMascota, Usuario pUsuario){
+	private static void emparejarAutomatico(Mascota pMascota, Usuario pUsuario){
 		
 		ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
-		coincidencias = emparejarBajoDemanda(Principal.perdidas.get(pIDMascota));
+		coincidencias = emparejarBajoDemanda(pMascota);
 		try {
-            Correo.enviarCoincidencias(coincidencias, Principal.perdidas.get(pIDMascota),  pUsuario);
+            Correo.enviarCoincidencias(coincidencias, pMascota,  pUsuario);
         } catch (MessagingException ex) {
             JOptionPane.showMessageDialog(null, "Error",
                 "Estimado Usuario " + pUsuario.getNombre() +
             	"\nHubo un error al enviarle el correo con la lista de coincidencias para" +
-                "\nsu Mascota: " + Principal.perdidas.get(pIDMascota).getNombre() +
+                "\nsu Mascota: " + pMascota.getNombre() +
                 "\nPor favor, para obtener la lista de resultados sobre esta mascota," +
                 "\nejecute un emparejamiento bajo demanda." +
                 "\nCausa del error: " + ex.getMessage(),
@@ -95,15 +95,15 @@ public class Emparejador {
 				
 		switch (pMascotaEscogida.getEstado()){
 			// En éste caso debería buscar en las tres listas.
-			case "PERDIDA":
+			case MaquinaEstadosMascotas.estadoPERDIDA:
 				coincidencias = getListaCoincidencias(pMascotaEscogida, "encontradas");
 				coincidencias.addAll(getListaCoincidencias(pMascotaEscogida, "adoptadas"));
 				coincidencias.addAll(getListaCoincidencias(pMascotaEscogida, "refugiadas"));
 				break;
 			// Se cumple igual en cualquiera de éstos casos. 
-			case "ENCONTRADA":
-			case "ADOPTABLE":
-			case "REFUGIADA":
+			case MaquinaEstadosMascotas.estadoENCONTRADA:
+			case MaquinaEstadosMascotas.estadoADOPTABLE:
+			case MaquinaEstadosMascotas.estadoREFUGIADA:
 				coincidencias = getListaCoincidencias(pMascotaEscogida, "perdidas");
 				break;
 			default : {
