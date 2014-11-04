@@ -23,9 +23,8 @@ public class Imagenes {
 		return ImageIO.read(new File(pRuta));
 	}
 	
-	public static BufferedImage getEstrellas(String pPonderado) throws IOException{
+	public static BufferedImage getEstrellas(Double ponderado) throws IOException{
 		String rutaEstrellas = rutaFotosSistema + "estrellas\\";
-		Double ponderado = Double.parseDouble(pPonderado);
 		
 		if (ponderado <= 5.0 && ponderado > 4.5) {
 			rutaEstrellas += "5.0";

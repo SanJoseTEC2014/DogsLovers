@@ -5,7 +5,7 @@ import java.text.*;
 import java.util.*;
 
 import dogslovers.control.Principal;
-import dogslovers.control.excepciones.IDMascotaNoEncontradaException;
+import dogslovers.control.excepciones.MascotaNoEncontradaException;
 
 public class Usuario {
 
@@ -20,22 +20,27 @@ public class Usuario {
 	private String correo;
 	private String lapsoEmparejamiento;
 	private Integer diasUltimoEmparejamiento;
-	private ArrayList<Calificacion> calificaciones;
-	private ArrayList<Integer> mascotasPerdidasIDs;
-	private ArrayList<Integer> mascotasEncontradasIDs;
-	private ArrayList<Integer> mascotasLocalizadasIDs;
-	private ArrayList<Integer> mascotasRefugiadasIDs;
-	private ArrayList<Integer> mascotasSolicitudRefugioIDs;
-	private ArrayList<Integer> mascotasAdoptadasIDs;
-	private ArrayList<Integer> mascotasAdoptablesIDs;
-	private ArrayList<Integer> mascotasSolicitudAdopcionIDs;
+	private ArrayList<Calificacion> calificaciones = new ArrayList<Calificacion>();
+	private ArrayList<Mascota> listaMascotasPerdidas = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasEncontradas = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasLocalizadas = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasRefugiadas = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasSolicitudRefugio = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasAdoptadas = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasAdoptables = new ArrayList<Mascota>();
+	private ArrayList<Mascota> listaMascotasSolicitudAdopcion = new ArrayList<Mascota>();
+	
+	
+	
+	
+	
 	private boolean refugiante;
 	private boolean administrador;
 	private CondicionesRefugio condicionesRef;
-	private double ponderadoCalificacion;
+	private Double ponderadoCalificacion;
 
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
-			Integer pTelefono, String pCorreo, String pLapsoEmparejamiento) {
+		Integer pTelefono, String pCorreo, String pLapsoEmparejamiento) {
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
@@ -46,7 +51,7 @@ public class Usuario {
 		lapsoEmparejamiento = pLapsoEmparejamiento;
 		refugiante = false; // se instancian las personas como NO refugiantes
 		administrador = false;
-
+		ponderadoCalificacion = 5.0;
 	}
 
 	public String getNickname() {
@@ -121,134 +126,126 @@ public class Usuario {
 		this.diasUltimoEmparejamiento = diasUltimoEmparejamiento;
 	}
 
-	public ArrayList<Integer> getMascotasPerdidasIDs() {
-		return mascotasPerdidasIDs;
+	public ArrayList<Mascota> getListaMascotasPerdidas() {
+		return listaMascotasPerdidas;
 	}
 
-	public void addMascotaPerdidaID(Integer mascotaPerdidaID) {
-		this.mascotasPerdidasIDs.add(mascotaPerdidaID);
+	public void addMascotaPerdida(Mascota mascotaPerdida) {
+		this.listaMascotasPerdidas.add(mascotaPerdida);
 	}
 
-	public Integer removeMascotaPerdidaID(Integer mascotaPerdidaID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasPerdidasIDs.indexOf(mascotaPerdidaID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaPerdida(Mascota mascotaPerdida) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasPerdidas.remove(mascotaPerdida)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasPerdidasIDs.remove(posMascota);
+		return mascotaPerdida;
 	}
 
-	public ArrayList<Integer> getMascotasEncontradasIDs() {
-		return mascotasEncontradasIDs;
+	public ArrayList<Mascota> getListaMascotasEncontradas() {
+		return listaMascotasEncontradas;
 	}
 
-	public void addMascotaEncontradaID(Integer mascotaEncontradaID) {
-		this.mascotasEncontradasIDs.add(mascotaEncontradaID);
+	public void addMascotaEncontrada(Mascota mascotaEncontrada) {
+		this.listaMascotasEncontradas.add(mascotaEncontrada);
 	}
 
-	public Integer removeMascotaEncontradaID(Integer mascotaEncontradaID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasEncontradasIDs.indexOf(mascotaEncontradaID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaEncontrada(Mascota mascotaEncontrada) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasEncontradas.remove(mascotaEncontrada)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasEncontradasIDs.remove(posMascota);
+		return mascotaEncontrada;
 	}
 
-	public ArrayList<Integer> getMascotasLocalizadasIDs() {
-		return mascotasLocalizadasIDs;
+	public ArrayList<Mascota> getListaMascotasLocalizadas() {
+		return listaMascotasLocalizadas;
 	}
 
-	public void addMascotaLocalizadasID(Integer mascotaLocalizadaID) {
-		this.mascotasLocalizadasIDs.add(mascotaLocalizadaID);
+	public void addMascotaLocalizadas(Mascota mascotaLocalizada) {
+		this.listaMascotasLocalizadas.add(mascotaLocalizada);
 	}
 
-	public Integer removeMascotaLocalizadasID(Integer mascotaLocalizadaID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasLocalizadasIDs.indexOf(mascotaLocalizadaID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaLocalizadas(Mascota mascotaLocalizada) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasLocalizadas.remove(mascotaLocalizada)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasLocalizadasIDs.remove(posMascota);
+		return mascotaLocalizada;
 	}
 
-	public ArrayList<Integer> getMascotasRefugiadasIDs() {
-		return mascotasRefugiadasIDs;
+	public ArrayList<Mascota> getListaMascotasRefugiadas() {
+		return listaMascotasRefugiadas;
 	}
 
-	public void addMascotaRefugiadaID(Integer mascotaRefugiadaID) {
-		this.mascotasRefugiadasIDs.add(mascotaRefugiadaID);
+	public void addMascotaRefugiada(Mascota mascotaRefugiada) {
+		this.listaMascotasRefugiadas.add(mascotaRefugiada);
 	}
 
-	public Integer removeMascotaRefugiadaID(Integer mascotaRefugiadaID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasRefugiadasIDs.indexOf(mascotaRefugiadaID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaRefugiada(Mascota mascotaRefugiada) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasRefugiadas.remove(mascotaRefugiada)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasRefugiadasIDs.remove(posMascota);
+		return mascotaRefugiada;
 	}
 
-	public ArrayList<Integer> getMascotasSolicitudRefugioIDs() {
-		return mascotasSolicitudRefugioIDs;
+	public ArrayList<Mascota> getListaMascotasSolicitudRefugio() {
+		return listaMascotasSolicitudRefugio;
 	}
 
-	public void addMascotaSolicitudRefugioID(Integer mascotaSolicitudRefugioID) {
-		this.mascotasSolicitudRefugioIDs.add(mascotaSolicitudRefugioID);
+	public void addMascotaSolicitudRefugio(Mascota mascotaSolicitudRefugio) {
+		this.listaMascotasSolicitudRefugio.add(mascotaSolicitudRefugio);
 	}
 
-	public Integer removeMascotaSolicitudRefugioID(Integer mascotaSolicitudRefugioID)
-			throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasSolicitudRefugioIDs.indexOf(mascotaSolicitudRefugioID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaSolicitudRefugio(Mascota mascotaSolicitudRefugio) throws MascotaNoEncontradaException {
+		if (!listaMascotasSolicitudRefugio.remove(mascotaSolicitudRefugio)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasSolicitudRefugioIDs.remove(posMascota);
+		return mascotaSolicitudRefugio;
 	}
 
-	public ArrayList<Integer> getMascotasAdoptadasIDs() {
-		return mascotasAdoptadasIDs;
+	public ArrayList<Mascota> getListaMascotasAdoptadas() {
+		return listaMascotasAdoptadas;
 	}
 
-	public void addMascotasAdoptadasIDs(Integer mascotaAdoptadaIDs) {
-		this.mascotasAdoptadasIDs.add(mascotaAdoptadaIDs);
+	public void addMascotasAdoptadass(Mascota mascotaAdoptadas) {
+		this.listaMascotasAdoptadas.add(mascotaAdoptadas);
 	}
 
-	public Integer removeMascotasAdoptadasID(Integer mascotaAdoptadaID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasAdoptadasIDs.indexOf(mascotaAdoptadaID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotasAdoptadas(Mascota mascotaAdoptada) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasAdoptadas.remove(mascotaAdoptada)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasAdoptadasIDs.remove(posMascota);
+		return mascotaAdoptada;
 	}
 
-	public ArrayList<Integer> getMascotasSolicitudAdopcionIDs() {
-		return mascotasSolicitudAdopcionIDs;
+	public ArrayList<Mascota> getListaMascotasSolicitudAdopcion() {
+		return listaMascotasSolicitudAdopcion;
 	}
 
-	public void addMascotaSolicitudAdopcionID(Integer mascotaSolicitudAdopcionID) {
-		this.mascotasSolicitudAdopcionIDs.add(mascotaSolicitudAdopcionID);
+	public void addMascotaSolicitudAdopcion(Mascota mascotaSolicitudAdopcion) {
+		this.listaMascotasSolicitudAdopcion.add(mascotaSolicitudAdopcion);
 	}
 
-	public Integer removeMascotaSolicitudAdopcionID(Integer mascotaSolicitudAdopcionID)
-			throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasSolicitudAdopcionIDs.indexOf(mascotaSolicitudAdopcionID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	// El remove retorna true si el objeto esta en la lista y borra el objeto en caso de no estar retorna false
+	// si el ojeto no fue encotrado lanza la excepcion 
+	public Mascota removeMascotaSolicitudAdopcion(Mascota mascotaSolicitudAdopcion) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasAdoptadas.remove(mascotaSolicitudAdopcion)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasAdoptadasIDs.remove(posMascota);
+		return mascotaSolicitudAdopcion;
 	}
 
-	public ArrayList<Integer> getMascotasAdoptablesIDs() {
-		return mascotasAdoptablesIDs;
+	public ArrayList<Mascota> getListaMascotasAdoptables() {
+		return listaMascotasAdoptables;
 	}
 
-	public void addMascotaAdoptableID(Integer mascotaAdoptableID) {
-		this.mascotasAdoptablesIDs.add(mascotaAdoptableID);
+	public void addMascotaAdoptable(Mascota mascotaAdoptable) {
+		this.listaMascotasAdoptables.add(mascotaAdoptable);
 	}
 
-	public Integer removeMascotaAdoptableID(Integer mascotaAdoptablID) throws IDMascotaNoEncontradaException {
-		int posMascota = mascotasSolicitudAdopcionIDs.indexOf(mascotaAdoptablID);
-		if (posMascota == -1) {
-			throw new IDMascotaNoEncontradaException("La mascota no está en la lista indicada.");
+	public Mascota removeMascotaAdoptable(Mascota mascotaAdoptable) throws MascotaNoEncontradaException {
+		if (!this.listaMascotasAdoptadas.remove(mascotaAdoptable)) {
+			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
 		}
-		return this.mascotasAdoptadasIDs.remove(posMascota);
+		return mascotaAdoptable;
 	}
 
 	public boolean isRefugiante() {
@@ -295,19 +292,23 @@ public class Usuario {
 	}
 
 	public void addCalificacion(Calificacion pCalificacion) {
-		actualizarPonderado(pCalificacion);
+		System.out.println(pCalificacion.getEstrellas());
+		actualizarPonderado(pCalificacion.getEstrellas());
+		System.out.println(ponderadoCalificacion);
 		this.calificaciones.add(pCalificacion);
+		System.out.println(ponderadoCalificacion);
 	}
 	
-	public String getPonderadoCalificacion(){
+	public double getPonderadoCalificacion(){
 		DecimalFormat redondeo = new DecimalFormat("#.#");
-		redondeo.setRoundingMode(RoundingMode.HALF_DOWN);
-		return redondeo.format(ponderadoCalificacion);
+		redondeo.setRoundingMode(RoundingMode.HALF_UP);
+		return Double.parseDouble(redondeo.format(ponderadoCalificacion));
+		//return ponderadoCalificacion;
 	}
 	
-	private void actualizarPonderado(Calificacion ultimaCalificacion){
-		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size() + ultimaCalificacion.getEstrellas())
-								/ calificaciones.size() + 1; // +1 de la calificación que está agregando
+	private void actualizarPonderado(Integer ultimaCalificacion){
+		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size() + ultimaCalificacion)
+								/ (calificaciones.size() + 1); // +1 de la calificación que está agregando
 		
 		if (ponderadoCalificacion < Principal.getCalificacionMinimaPermitidaUsuarios()
 				&& Principal.isUsuarioEnListaBlanca(nickname))

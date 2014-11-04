@@ -64,6 +64,27 @@ public class Principal {
 	
 	public static void main(String[] args) {
 		
+		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
+				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
+				
+		
+		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
+		
+		ArrayList<Mascota> A = new ArrayList<Mascota>();
+		ArrayList<Mascota> B = new ArrayList<Mascota>();
+		A.add(mascota);
+		System.out.println(mascota.toString());
+		mascota.setNombre("Isaac");
+		
+		System.out.println(A.get(0).toString());
+		System.out.println(mascota.toString());
+		System.out.println(A.get(0) == mascota);
+		A.remove(0);
+		System.out.println(mascota==null);
+		System.out.println(mascota.toString());
+		
+		*/
+		
 		// Intenta cargar la fuente "Ennobled Pet" para usarla de título en las ventanas.
 		try {
 			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(getFuentePaws());
@@ -89,6 +110,15 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+					
+					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
+					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
+					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+					window2.obtenerDatosIniciales(Andre);
+					window2.setModoEdicion(false);
+					window2.setVisible(true);
+					
 					VentanaInicioSesion window = new VentanaInicioSesion();
 					window.setVisible(true);
 					/**
@@ -104,13 +134,17 @@ public class Principal {
 					window2.obtenerDatosIniciales(new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal"));
 					window2.setModoEdicion(false);
 					window2.setVisible(true);
+					VentanaBusquedaMascotas window2 = new VentanaBusquedaMascotas();
+					window2.setVisible(true);
 					 * 
 					 */			
-					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), false);
+
+					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
 					ventana.setVisible(true);
 					
 					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
