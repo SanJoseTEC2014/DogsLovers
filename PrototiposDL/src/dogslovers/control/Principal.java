@@ -40,13 +40,12 @@ public class Principal {
 		for(int i = 0; i < 100; i++) 
 			encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
 						"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao."));
-		//VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), "verDetalles");
-		//ventana.setVisible(true);
+		
 		// Validación de inserción de las 100 Mascota
 		// System.out.println(encontradas.size());
 		
 		// Prueba del clón 
-		System.out.println(encontradas.get(0).clone().toString());
+		// System.out.println(encontradas.get(0).clone().toString());
 		
 		// Demostración del clonado
 		// System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
@@ -86,23 +85,28 @@ public class Principal {
 		}
 		
 		inicializarMascotas();
+		Acceso.inicializarSuperUsuario();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					VentanaInicioSesion window = new VentanaInicioSesion();
 					window.setVisible(true);
-					/*FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
-					window2.setVisible(true);*/
-					/*VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
-					window3.setVisible(true);*/
+					/**
+					 * 
+					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
+					window2.setVisible(true);
+					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
+					window3.setVisible(true);
+					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), "verDetalles");
+					ventana.setVisible(true);
 					VentanaRegistroMascotas window5 = new VentanaRegistroMascotas();
 					window5.setVisible(true);
-					
 					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
 					window2.obtenerDatosIniciales(new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal"));
 					window2.setModoEdicion(false);
 					window2.setVisible(true);
-					
+					 * 
+					 */					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -1,5 +1,7 @@
 package dogslovers.control;
 
+import javax.swing.JOptionPane;
+
 import dogslovers.control.excepciones.ContraseniaIncorrectaException;
 import dogslovers.control.excepciones.UsuarioNoExisteException;
 import dogslovers.modelo.Usuario;
@@ -12,42 +14,40 @@ public class Acceso {
 	private static boolean modoAdministrador;
 	
 	// Aplicación de Singleton para el superUsuario
-	private static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 0000000000, "terrier", 25505033, "DIARIO");
+	static void inicializarSuperUsuario(){
+		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 0000000000, "terrier", 25505033, "paws_TEC@gmail.com", "MENSUAL");
 		superUsuario.setAdministrador(true);
 	}
-	public static Usuario getSuperUsuario(){
-		if (superUsuario == null){
-			inicializarSuperUsuario();
-		}
-		return superUsuario;
-	}
 	
-	public static void validarCredenciales(String pNickname, String pContrasenia) throws UsuarioNoExisteException, ContraseniaIncorrectaException{
-		if (pNickname == getSuperUsuario().getNickname()){
-			if (pContrasenia == getSuperUsuario().getContrasenia()) {
-				usuarioActivo = getSuperUsuario();
-				setModoAdministrador(true);
-			} else {
-				throw new ContraseniaIncorrectaException("No puede acceder como superusuario.");
+	private static boolean isSuperUsuario(String pNickname, String pContrasenia){
+		if (pNickname == superUsuario.getNickname()){
+			if (pContrasenia == superUsuario.getContrasenia()) {
+				return true;
 			}
+		} return false;
+	}
+		
+	
+	public static void validarCredenciales(String pNickname, String pContrasenia) throws Exception{
+		JOptionPane.showMessageDialog(null, superUsuario.toString() +
+									"\npNickname: " + pNickname + "\npContraseña" + pContrasenia +
+									"\nEstá accediendo el superusuario?: " +
+									(isSuperUsuario(pNickname, pContrasenia) ? "Sí" : "No"));
+		if (isSuperUsuario(pNickname, pContrasenia)){
+			usuarioActivo = superUsuario;
+			setModoAdministrador(true);
 		} else {
 			Usuario usuarioPorAcceder = validarUsuarioRegistrado(pNickname);
 			if (usuarioPorAcceder.getContrasenia() != pContrasenia){
 				throw new ContraseniaIncorrectaException("Contraseña incorrecta.");
 			} else {
 				usuarioActivo = usuarioPorAcceder;
-				if (usuarioPorAcceder.isAdministrador()){
-					setModoAdministrador(true);
-				} else {
-					setModoAdministrador(false);
-				}
-				
+				setModoAdministrador(usuarioActivo.isAdministrador());
 			}
 		}
 	}
 	
-	private static Usuario validarUsuarioRegistrado(String pNickname) throws UsuarioNoExisteException {
+	private static Usuario validarUsuarioRegistrado(String pNickname) throws Exception {
 		Integer i = 0;
 		while (i < Principal.blanca.size() && Principal.blanca.get(i).getNickname() != pNickname){
 			i++;
@@ -62,7 +62,7 @@ public class Acceso {
 			if (i < Principal.negra.size()) {
 				return Principal.negra.get(i); // El usuario está presente en la lista negra.
 			} else {
-				throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
+				throw new Exception("Usuario no registrado en el sistema.");
 				// El usuario no está presente en ninguna lista.
 			}
 		}

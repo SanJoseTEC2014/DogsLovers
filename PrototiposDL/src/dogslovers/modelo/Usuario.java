@@ -319,7 +319,10 @@ public class Usuario {
 		}
 	}
 	
-	
+	public String toString(){
+		return "Nombre: " + nombre + "\nNickname: " + nickname +
+			   "\nContraseña: " + contrasenia + "\nAdmin?: " + (administrador ? "Sí" : "No");
+	}
 	
 	
 }

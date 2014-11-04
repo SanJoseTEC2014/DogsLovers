@@ -33,7 +33,7 @@ public class VentanaInicioSesion extends JFrame {
 		setResizable(false);
 		setTitle("Inicio");
 		
-		setSize(140,139);
+		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(new Color(30, 144, 255));
 		setBackground(Principal.fondoVentanas);
@@ -88,14 +88,12 @@ public class VentanaInicioSesion extends JFrame {
 		botonInicioSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					JOptionPane.showMessageDialog(getContentPane(), passwordTextBox.getPassword());
 					Acceso.validarCredenciales(nicknameTextBox.getText(), passwordTextBox.getPassword().toString());
 					cerrarVentana();
-				} catch (UsuarioNoExisteException e) {
+				} catch (Exception e) {
 					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
 					labelUsuarioError.setText(e.getMessage());
-				} catch (ContraseniaIncorrectaException e) {
-					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
-					labelPasswordError.setText(e.getMessage());
 				}
 			}
 		});
@@ -113,8 +111,6 @@ public class VentanaInicioSesion extends JFrame {
 		marcoBotones.add(botonRegistrarNuevoUsuario);
 		botonRegistrarNuevoUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
 		botonRegistrarNuevoUsuario.setOpaque(false);
-		
-		setSize(imagenLogotipo.getIconWidth(), imagenLogotipo.getIconHeight() * 2);
 	}
 	
 	private void cerrarVentana() {
