@@ -53,46 +53,56 @@ public class VentanaDetallesUsuario extends JFrame {
 
 	public VentanaDetallesUsuario(){
 		setSize(730,500);
-		setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Principal.fondoVentanas);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		marcoTitulos = new JPanel();
 		marcoTitulos.setLayout(new BorderLayout(0, 0));
+		marcoTitulos.setOpaque(false);
 		getContentPane().add(marcoTitulos, BorderLayout.NORTH);
 		
 				labelTitulo1 = new JLabel("Información");
-				marcoTitulos.add(labelTitulo1, BorderLayout.NORTH);
 				labelTitulo1.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
 				labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
+				labelTitulo1.setOpaque(false);
+				marcoTitulos.add(labelTitulo1, BorderLayout.NORTH);
 				
 				labelTitulo2 = new JLabel("Contacto");
-				marcoTitulos.add(labelTitulo2, BorderLayout.SOUTH);
 				labelTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
 				labelTitulo2.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
+				labelTitulo2.setOpaque(false);
+				marcoTitulos.add(labelTitulo2, BorderLayout.SOUTH);
 				
 		marcoContenido = new JPanel();
 		marcoContenido.setLayout(new BorderLayout(0, 0));
+		marcoContenido.setOpaque(false);
 		getContentPane().add(marcoContenido, BorderLayout.CENTER);
 				
 				marcoFotoPerfil = new JPanel();
 				marcoFotoPerfil.setBorder(new TitledBorder(null, "Foto de Perfil", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				marcoFotoPerfil.setLayout(new BoxLayout(marcoFotoPerfil, BoxLayout.Y_AXIS));
+				marcoFotoPerfil.setOpaque(false);
 				marcoContenido.add(marcoFotoPerfil, BorderLayout.WEST);
 				
 						labelFoto = new JLabel("No disponible");
 						labelFoto.setAlignmentX(Component.CENTER_ALIGNMENT);
+						labelFoto.setOpaque(false);
 						marcoFotoPerfil.add(labelFoto);
 						
 						btnActualizarFoto = new JButton("Actualizar Foto");
 						btnActualizarFoto.setAlignmentX(Component.CENTER_ALIGNMENT);
+						btnActualizarFoto.setOpaque(false);
 						marcoFotoPerfil.add(btnActualizarFoto);
 				
 				marcoDetalles = new JPanel();
 				marcoDetalles.setBorder(new TitledBorder(null, "Detalles:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				marcoDetalles.setLayout(new GridLayout(0, 2, 3, 3));
+				marcoDetalles.setOpaque(false);
 				marcoContenido.add(marcoDetalles, BorderLayout.CENTER);
 				
 						labelNickname = new JLabel("Nickname: ");
+						labelNickname.setOpaque(false);
 						marcoDetalles.add(labelNickname);
 						
 						textNickname = new JTextField();
@@ -102,6 +112,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(textNickname);
 						
 						labelNombre = new JLabel("Nombre: ");
+						labelNombre.setOpaque(false);
 						marcoDetalles.add(labelNombre);
 						
 						textNombre = new JTextField();
@@ -110,6 +121,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(textNombre);
 						
 						labelApellidos = new JLabel("Apellidos:");
+						labelApellidos.setOpaque(false);
 						marcoDetalles.add(labelApellidos);
 						
 						textApellidos = new JTextField();
@@ -118,6 +130,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(textApellidos);
 						
 						labelCedula = new JLabel("N\u00FAmero de C\u00E9dula: ");
+						labelCedula.setOpaque(false);
 						marcoDetalles.add(labelCedula);
 						
 						try {
@@ -126,10 +139,13 @@ public class VentanaDetallesUsuario extends JFrame {
 							marcoDetalles.add(formatCedula);
 						} catch (ParseException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage());
-							marcoDetalles.add(new JLabel("Error inesperado en el sistema."));
+							JLabel error = new JLabel("Error inesperado en el sistema."); 
+							error.setOpaque(false);
+							marcoDetalles.add(error);
 						}
 						
 						labelTelefono = new JLabel("N\u00FAmero de Tel\u00E9fono:");
+						labelTelefono.setOpaque(false);
 						marcoDetalles.add(labelTelefono);
 						
 						try {
@@ -142,6 +158,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						}
 						
 						labelCorreo = new JLabel("Correo Electr\u00F3nico:");
+						labelCorreo.setOpaque(false);
 						marcoDetalles.add(labelCorreo);
 						
 						textCorreo = new JTextField();
@@ -149,13 +166,16 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(textCorreo);
 						
 						labelPromedio = new JLabel("Promedio de Calificaciones: ");
+						labelPromedio.setOpaque(false);
 						marcoDetalles.add(labelPromedio);
 						
 						labelEstrellas = new JLabel("");
 						labelEstrellas.setHorizontalAlignment(SwingConstants.CENTER);
+						labelEstrellas.setOpaque(false);
 						marcoDetalles.add(labelEstrellas);
 						
 						labelLapsos = new JLabel("Peridiocidad de Emparejamientos");
+						labelLapsos.setOpaque(false);
 						marcoDetalles.add(labelLapsos);
 						
 						comboLapsos = new JComboBox<String>();
@@ -180,6 +200,7 @@ public class VentanaDetallesUsuario extends JFrame {
 				
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+		marcoOperaciones.setOpaque(false);
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 				
 				botonGuardarCambios = new JButton("Guardar Cambios");
@@ -229,6 +250,8 @@ public class VentanaDetallesUsuario extends JFrame {
 		textCorreo.setEditable(modoEdicion);
 		//comboLapsos.setEditable(modoEdicion);
 		comboLapsos.setEnabled(modoEdicion);
+		//botonGuardarCambios.setEnabled(modoEdicion);
+		botonGuardarCambios.setVisible(modoEdicion);
 	}
 	
 	private void close(){

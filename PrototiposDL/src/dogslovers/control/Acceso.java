@@ -15,36 +15,37 @@ public class Acceso {
 	
 	// Aplicación de Singleton para el superUsuario
 	static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 0000000000, "terrier", 25505033, "paws_TEC@gmail.com", "MENSUAL");
+		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 111111111, "terrier", 25505033, "paws_TEC@gmail.com", "Mensual");
 		superUsuario.setAdministrador(true);
 	}
 	
-	private static boolean isSuperUsuario(String pNickname, String pContrasenia){
-		if (pNickname == superUsuario.getNickname()){
-			if (pContrasenia == superUsuario.getContrasenia()) {
-				return true;
-			}
-		} return false;
-	}
-		
-	
 	public static void validarCredenciales(String pNickname, String pContrasenia) throws Exception{
+		/*
 		JOptionPane.showMessageDialog(null, superUsuario.toString() +
-									"\npNickname: " + pNickname + "\npContraseña" + pContrasenia +
+									"\npNickname: " + pNickname + "\npContraseña: " + pContrasenia +
 									"\nEstá accediendo el superusuario?: " +
 									(isSuperUsuario(pNickname, pContrasenia) ? "Sí" : "No"));
+		*/
 		if (isSuperUsuario(pNickname, pContrasenia)){
 			usuarioActivo = superUsuario;
 			setModoAdministrador(true);
 		} else {
 			Usuario usuarioPorAcceder = validarUsuarioRegistrado(pNickname);
-			if (usuarioPorAcceder.getContrasenia() != pContrasenia){
-				throw new ContraseniaIncorrectaException("Contraseña incorrecta.");
-			} else {
+			if (usuarioPorAcceder.getContrasenia().equals(pContrasenia)){
 				usuarioActivo = usuarioPorAcceder;
 				setModoAdministrador(usuarioActivo.isAdministrador());
+			} else {
+				throw new ContraseniaIncorrectaException("Contraseña incorrecta.");
 			}
 		}
+	}
+	
+	private static boolean isSuperUsuario(String pNickname, String pContrasenia){
+		if (pNickname.equals(superUsuario.getNickname())){
+			if (pContrasenia.equals(superUsuario.getContrasenia())) {
+				return true;
+			}
+		} return false;
 	}
 	
 	private static Usuario validarUsuarioRegistrado(String pNickname) throws Exception {
