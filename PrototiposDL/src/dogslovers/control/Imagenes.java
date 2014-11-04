@@ -22,7 +22,7 @@ public class Imagenes {
 	protected static String rutaFotosSistema  = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\sistema\\";
 	
 	private static BufferedImage cargarImagen(String pRuta) throws IOException{
-		JOptionPane.showMessageDialog(null, pRuta);
+		// JOptionPane.showMessageDialog(null, pRuta);
 		return ImageIO.read(new File(pRuta));
 	}
 	

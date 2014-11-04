@@ -35,8 +35,7 @@ public class VentanaInicioSesion extends JFrame {
 		
 		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setBackground(new Color(30, 144, 255));
-		setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Principal.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		try {
@@ -88,9 +87,12 @@ public class VentanaInicioSesion extends JFrame {
 		botonInicioSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					JOptionPane.showMessageDialog(getContentPane(), passwordTextBox.getPassword());
-					Acceso.validarCredenciales(nicknameTextBox.getText(), passwordTextBox.getPassword().toString());
+					Acceso.validarCredenciales(nicknameTextBox.getText(), new String(passwordTextBox.getPassword()));
 					cerrarVentana();
+					VentanaDetallesUsuario prueba = new VentanaDetallesUsuario();
+					prueba.obtenerDatosIniciales(Acceso.getUsuarioActivo());
+					prueba.setModoEdicion(false);
+					prueba.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
 					labelUsuarioError.setText(e.getMessage());
