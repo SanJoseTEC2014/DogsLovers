@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 
 import dogslovers.control.excepciones.*;
@@ -35,11 +36,17 @@ public class Principal {
 	public static Font fuenteTitulosVentanas;
 	
 	public static void inicializarMascotas() {
+		
+		
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
-		for(int i = 0; i < 100; i++) 
-			encontradas.add(new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
-						"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao."));
+		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
+				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
+		mascota.setColor("negro");
+		mascota.setTamanio("ENORME");
+		mascota.setSexo("Indefinido :v");
+		for(int i = 0; i < 50; i++) 
+			encontradas.add(mascota);
 		
 		// Validación de inserción de las 100 Mascota
 		// System.out.println(encontradas.size());
@@ -66,7 +73,7 @@ public class Principal {
 		
 		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
 				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
-				
+		
 		
 		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
 		
@@ -113,9 +120,9 @@ public class Principal {
 					
 					
 					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
-					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-					window2.obtenerDatosIniciales(Andre);
+					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
+					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+					window2.obtenerDatosIniciales(Andres);
 					window2.setModoEdicion(false);
 					window2.setVisible(true);
 					
@@ -144,7 +151,20 @@ public class Principal {
 					
 					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);
-
+					
+////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+//					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
+//					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+//					try {
+//						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
+//					} catch (MessagingException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+					
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

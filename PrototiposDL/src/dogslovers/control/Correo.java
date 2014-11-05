@@ -21,7 +21,7 @@ public class Correo {
 	static String nombreUsuarioSMTP = "alejandrinabiblioteca@gmail.com";
 	static String passwordSMTP = "casa1234casa";
 
-	private static void enviarCorreo(String pReceptor, String pAsunto, String pCuerpo) throws MessagingException {
+	static void enviarCorreo(String pReceptor, String pAsunto, String pCuerpo) throws MessagingException {
 		// props contendrá información de la conexión.
 		Properties props = System.getProperties();
 		props.put("mail.transport.protocol", "smtp");
@@ -61,50 +61,49 @@ public class Correo {
 		// A continuación se calculan los valores necesarios para darle formato de tabla
 		// a los datos de las mascotas en la lista de coincidencias, para formar
 		// el cuerpo del mensaje:
-		int stringMaxNombre = 0;
-		int stringMaxEspecie = 0;
-		int stringMaxRaza = 0;
-		int stringMaxColor = 0;
-		int stringMaxTamanio = 0;
-		int stringMaxSexo = 0;
 		
+		int stringMaxNombre = 8;
+		int stringMaxEspecie = 9;
+		int stringMaxRaza = 8;
+		int stringMaxColor = 7;
+		int stringMaxTamanio = 9;
+		int stringMaxSexo = 8;
+		
+		// Obtiene el tamaño maximo del modelo para el formato del mensaje
 		for (int i = 0; i < pCoincidencias.size(); i++){
 			if (pCoincidencias.get(i).getNombre().length() > stringMaxNombre){
-				stringMaxNombre = pCoincidencias.get(i).getNombre().length();
+				stringMaxNombre = pCoincidencias.get(i).getNombre().length()+2;
 			}
 			if (pCoincidencias.get(i).getEspecie().length() > stringMaxEspecie){
-				stringMaxEspecie = pCoincidencias.get(i).getEspecie().length();
+				stringMaxEspecie = pCoincidencias.get(i).getEspecie().length()+2;
 			}
 			if (pCoincidencias.get(i).getRaza().length() > stringMaxRaza){
-				stringMaxRaza = pCoincidencias.get(i).getRaza().length();
+				stringMaxRaza = pCoincidencias.get(i).getRaza().length()+2;
 			}
 			if (pCoincidencias.get(i).getColor().length() > stringMaxColor){
-				stringMaxColor = pCoincidencias.get(i).getColor().length();
+				stringMaxColor = pCoincidencias.get(i).getColor().length()+2;
 			}
 			if (pCoincidencias.get(i).getTamanio().length() > stringMaxTamanio){
-				stringMaxTamanio = pCoincidencias.get(i).getTamanio().length();
+				stringMaxTamanio = pCoincidencias.get(i).getTamanio().length()+2;
 			}
 			if (pCoincidencias.get(i).getSexo().length() > stringMaxSexo){
-				stringMaxSexo = pCoincidencias.get(i).getSexo().length();
+				stringMaxSexo = pCoincidencias.get(i).getSexo().length()+2;
 			}
 		}
-		
+		String FORMATO = "   %-"+stringMaxNombre+"s%-"+stringMaxEspecie+"s%-"+stringMaxRaza+"s%-"+stringMaxColor+"s%-"+stringMaxTamanio+"s%-"+stringMaxSexo+"s\n";
+	
 		// Encabezados de las columnas:
-		cuerpoMsg += String.format("%" + stringMaxNombre + "s", "NOMBRE") + " ";
-		cuerpoMsg += String.format("%" + stringMaxEspecie + "s", "ESPECIE") + " ";
-		cuerpoMsg += String.format("%" + stringMaxRaza + "s", "RAZA") + " ";
-		cuerpoMsg += String.format("%" + stringMaxColor + "s", "COLOR") + " ";
-		cuerpoMsg += String.format("%" + stringMaxTamanio + "s", "TAMAÑO") + " ";
-		cuerpoMsg += String.format("%" + stringMaxSexo + "s", "SEXO") + "\n"; // Nótese el salto de línea
+		cuerpoMsg += String.format(FORMATO, "NOMBRE", "ESPECIE", "RAZA", "COLOR", "TAMAÑO", "SEXO") +"\n";
 		
 		// Construcción de las líneas de la tabla con los datos de las mascotas:		
 		for (int i = 0; i < pCoincidencias.size(); i++){
-			cuerpoMsg += String.format("%" + stringMaxNombre + "s", pCoincidencias.get(i).getNombre()) + " ";
-			cuerpoMsg += String.format("%" + stringMaxEspecie + "s",pCoincidencias.get(i).getEspecie()) + " ";
-			cuerpoMsg += String.format("%" + stringMaxRaza + "s", 	pCoincidencias.get(i).getRaza()) + " ";
-			cuerpoMsg += String.format("%" + stringMaxColor + "s", 	pCoincidencias.get(i).getColor()) + " ";
-			cuerpoMsg += String.format("%" + stringMaxTamanio + "s",pCoincidencias.get(i).getTamanio()) + " ";
-			cuerpoMsg += String.format("%" + stringMaxSexo + "s", 	pCoincidencias.get(i).getSexo()) + "\n";
+			cuerpoMsg += String.format(FORMATO, 
+					pCoincidencias.get(i).getNombre().toUpperCase(),
+					pCoincidencias.get(i).getEspecie().toUpperCase(),
+					pCoincidencias.get(i).getRaza().toUpperCase(),
+					pCoincidencias.get(i).getColor().toUpperCase(),
+					pCoincidencias.get(i).getTamanio().toUpperCase(),
+					pCoincidencias.get(i).getSexo().toUpperCase());
 																						// Nótese el salto de línea
 		}
 		
@@ -113,8 +112,9 @@ public class Correo {
 					 "para ponerse en contacto con los usuarios encargados de dichas mascotas.";
 		
 		cuerpoMsg += "\n\n" + "Atentamente: " + "\n" + "Paws San José";
-		enviarCorreo(pUsuario.getCorreo(), asunto, cuerpoMsg);
 		
+
+		enviarCorreo(pUsuario.getCorreo(), asunto, cuerpoMsg);
 	}
 
 }
