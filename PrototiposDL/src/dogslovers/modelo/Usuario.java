@@ -274,12 +274,14 @@ public class Usuario implements Comunicable {
 
 	public void addDiasTranscurridos() {
 		diasUltimoEmparejamiento++;
-		if (lapsoEmparejamiento.equals("SEMANAL")) {
+		//lapsos.get(1) == Semanal
+		if (lapsoEmparejamiento.equals(lapsos.get(1))) {
 			if (diasUltimoEmparejamiento == 7) {
 				diasUltimoEmparejamiento = 0;
 			}
 		}
-		if (lapsoEmparejamiento.equals("MENSUAL")) {
+		//lapsos.get(2) == Mensual
+		if (lapsoEmparejamiento.equals(lapsos.get(2))) {
 			if (diasUltimoEmparejamiento == 30) {
 				diasUltimoEmparejamiento = 0;
 			}
@@ -370,6 +372,18 @@ public class Usuario implements Comunicable {
 			}
 			break;
 		}
+	}
+	
+	public String[][] getArraycalificaciones(){
+		String[][] ArregloCalificaciones = new String[calificaciones.size()][3];
+		int i=0;
+		for (Calificacion calificacion: calificaciones){
+			ArregloCalificaciones[i][0] = calificaciones.get(i).getNicknameCalificante();
+			ArregloCalificaciones[i][1] = Integer.toString(calificaciones.get(i).getEstrellas());
+			ArregloCalificaciones[i][2] = calificaciones.get(i).getMensaje();
+			i++;
+		}
+		return ArregloCalificaciones;
 	}
 	
 }

@@ -8,16 +8,27 @@ public class Calificacion {
 	public Integer getEstrellas() {
 		return estrellas;
 	}
+
 	public void setEstrellas(Integer estrellas) {
 		this.estrellas = estrellas;
 	}
+
 	public String getMensaje() {
 		return mensaje;
 	}
+
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	
+
+	public String getNicknameCalificante() {
+		return nicknameCalificante;
+	}
+
+	public void setNicknameCalificante(String nicknameCalificante) {
+		this.nicknameCalificante = nicknameCalificante;
+	}
+
 	public Calificacion(String pNicknameCalificante, Integer pEstrellas, String pMensaje) {
 		nicknameCalificante = pNicknameCalificante;
 		estrellas = pEstrellas;

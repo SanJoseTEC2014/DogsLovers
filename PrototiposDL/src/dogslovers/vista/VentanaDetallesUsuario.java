@@ -210,6 +210,12 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonCondiciones);
 				
 				botonDetalles = new JButton("Ver Detalles de Calificaciones");
+				botonDetalles.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						VentanaCalificaciones ventana = new VentanaCalificaciones(usuarioActual);
+						ventana.setVisible(true);
+					}
+				});
 				marcoOperaciones.add(botonDetalles);
 				
 				botonVerMascotas = new JButton("Ver Mascotas Asociadas");
