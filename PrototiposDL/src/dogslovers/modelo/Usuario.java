@@ -4,10 +4,12 @@ import java.math.*;
 import java.text.*;
 import java.util.*;
 
+import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.control.MediadorMensajes;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.MascotaNoEncontradaException;
 
-public class Usuario {
+public class Usuario implements Comunicable {
 
 	public static final List<String> lapsos = Arrays.asList("Diario", "Semanal", "Mensual");
 
@@ -30,10 +32,7 @@ public class Usuario {
 	private ArrayList<Mascota> listaMascotasAdoptables = new ArrayList<Mascota>();
 	private ArrayList<Mascota> listaMascotasSolicitudAdopcion = new ArrayList<Mascota>();
 	
-	
-	
-	
-	
+	private BandejaMensajes buzon;
 	private boolean refugiante;
 	private boolean administrador;
 	private CondicionesRefugio condicionesRef;
@@ -49,6 +48,7 @@ public class Usuario {
 		telefono = pTelefono;
 		correo = pCorreo;
 		lapsoEmparejamiento = pLapsoEmparejamiento;
+		buzon = new BandejaMensajes();
 		refugiante = false; // se instancian las personas como NO refugiantes
 		administrador = false;
 		ponderadoCalificacion = 5.0;
@@ -290,6 +290,10 @@ public class Usuario {
 	public ArrayList<Calificacion> getCalificaciones() {
 		return calificaciones;
 	}
+	
+	public BandejaMensajes getBuzon(){
+		return buzon;
+	}
 
 	public void addCalificacion(Calificacion pCalificacion) {
 		System.out.println(pCalificacion.getEstrellas());
@@ -324,6 +328,48 @@ public class Usuario {
 		return "Nombre: " + nombre + "\nNickname: " + nickname +
 			   "\nContraseña: " + contrasenia + "\nAdmin?: " + (administrador ? "Sí" : "No");
 	}
+
+	public void enviarMensaje(int pTipoMensaje, Mascota pMascota, String pNickDestino) {
+		MediadorMensajes.recibirMensajeUsuario(new Mensaje(pTipoMensaje, pMascota, pNickDestino));
+	}
 	
+	public void recibirMensaje(Mensaje pMensaje) {
+		switch (pMensaje.getTipo()){
+			// Mensajes de mayor prioridad
+			
+			
+			// Mensajes de menor prioridad
+			case Mensaje.notificacion_SOLICITUD_REFUGIO:
+			{
+				buzon.recibirSolicitudRefugio(pMensaje);
+			}
+			break;
+			case Mensaje.notificacion_CONFIRMACION_SOLICITUD_REFUGIO:
+			{
+				buzon.recibirConfirmacionRefugio(pMensaje);
+			}
+			break;
+			case Mensaje.notificacion_RECHAZO_SOLICITUD_REFUGIO:
+			{
+				buzon.recibirRechazoRefugio(pMensaje);
+			}
+			break;
+			case Mensaje.notificacion_SOLICITUD_ADOPCION:
+			{
+				buzon.recibirSolicitudAdopcion(pMensaje);
+			}
+			break;
+			case Mensaje.notificacion_CONFIRMACION_SOLICITUD_ADOPCION:
+			{
+				buzon.recibirConfirmacionAdopcion(pMensaje);
+			}
+			break;
+			case Mensaje.notificacion_RECHAZO_SOLICITUD_ADOPCION:
+			{
+				buzon.recibirRechazoAdopcion(pMensaje);
+			}
+			break;
+		}
+	}
 	
 }
