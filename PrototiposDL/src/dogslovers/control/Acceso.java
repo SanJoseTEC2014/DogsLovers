@@ -1,9 +1,6 @@
 package dogslovers.control;
 
-import javax.swing.JOptionPane;
-
-import dogslovers.control.excepciones.ContraseniaIncorrectaException;
-import dogslovers.control.excepciones.UsuarioNoExisteException;
+import dogslovers.control.excepciones.*;
 import dogslovers.modelo.Usuario;
 
 public class Acceso {
@@ -15,7 +12,7 @@ public class Acceso {
 	
 	// Aplicación de Singleton para el superUsuario
 	static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Super Usuario", "Pitbull Terrier", 111111111, "terrier", 25505033, "paws_TEC@gmail.com", "Mensual");
+		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111, "terrier", 25505033, "paws_TEC@gmail.com", Usuario.lapsos.get(2));
 		superUsuario.setAdministrador(true);
 	}
 	
@@ -63,7 +60,7 @@ public class Acceso {
 			if (i < Principal.negra.size()) {
 				return Principal.negra.get(i); // El usuario está presente en la lista negra.
 			} else {
-				throw new Exception("Usuario no registrado en el sistema.");
+				throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 				// El usuario no está presente en ninguna lista.
 			}
 		}

@@ -1,7 +1,6 @@
 package dogslovers.vista;
 
 import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +17,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import dogslovers.control.Principal;
+
 import java.awt.Window.Type;
 import java.awt.ScrollPane;
 import java.awt.Frame;
@@ -26,89 +27,71 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 public class VentanaRegistroUsuarios extends JFrame {
-	private JTextField nombreTextBox;
-	private JTextField apellidosTextBox;
-	private JTextField cedulaTextBox;
-	private JTextField nicknameTextBox;
 	private JLabel lblContrasenia;
 	private JPasswordField passwordTextBox;
 	private JLabel lblTelefono;
-	private JLabel label_1;
 	private JLabel lblCorreo;
 	private JTextField telefonoTextBox;
 	private JTextField correoTextBox;
 	private JLabel lblRegistrarse;
 	private JButton botonLeerCondicionesUso;
 	private JCheckBox aceptarCondicionesUsoCheckBox;
+	private JPanel marcoBotones;
+	private JLabel lblNombre;
+	private JLabel lblApellidos;
+	private JLabel lblCedula;
+	private JLabel lblNickname;
+	private JTextField nicknameTextBox;
+	private JTextField cedulaTextBox;
+	private JTextField apellidosTextBox;
+	private JTextField nombreTextBox;
+	private JPanel marcoOperaciones;
+	private JButton botonRegistrar;
+	private JButton botonCancelar;
+	private JPanel marcoCampos;
 	
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
+		getContentPane().setBackground(Principal.fondoVentanas);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Registro de Usuarios");
-		setSize(443,616);
+		setSize(443,476);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		nombreTextBox = new JTextField();
-		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		nombreTextBox.setColumns(10);
-		
-		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		apellidosTextBox = new JTextField();
-		apellidosTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		apellidosTextBox.setColumns(10);
-		
-		JLabel lblCedula = new JLabel("C\u00E9dula");
-		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		cedulaTextBox = new JTextField();
-		cedulaTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cedulaTextBox.setColumns(10);
-		
-		JLabel label = new JLabel("");
-		
-		JLabel lblNickname = new JLabel("Nickname");
-		lblNickname.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		nicknameTextBox = new JTextField();
-		nicknameTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		nicknameTextBox.setColumns(10);
-		
-		lblContrasenia = new JLabel("Contrase\u00F1a");
-		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		passwordTextBox = new JPasswordField();
-		passwordTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JButton botonRegistrar = new JButton("Registrar");
-		
-		JButton botonCancelar = new JButton("Cancelar");
-		
-		label_1 = new JLabel("");
-		
-		lblCorreo = new JLabel("Correo");
-		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		
-		telefonoTextBox = new JTextField();
-		telefonoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		telefonoTextBox.setColumns(10);
-		
-		correoTextBox = new JTextField();
-		correoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		correoTextBox.setColumns(10);
-		
-		lblRegistrarse = new JLabel("Registrarse");
+		lblRegistrarse = new JLabel("Registrarse como Nuevo Usuario");
+		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistrarse.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 17));
 		
+		marcoOperaciones = new JPanel();
+		marcoOperaciones.setOpaque(false);
+		marcoOperaciones.setLayout(new BoxLayout(marcoOperaciones, BoxLayout.Y_AXIS));
+		
 		botonLeerCondicionesUso = new JButton("Leer Condiciones de Uso");
+		botonLeerCondicionesUso.setAlignmentX(Component.CENTER_ALIGNMENT);
+		marcoOperaciones.add(botonLeerCondicionesUso);
+		
+		aceptarCondicionesUsoCheckBox = new JCheckBox("Aceptar Condiciones de Uso");
+		aceptarCondicionesUsoCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		marcoOperaciones.add(aceptarCondicionesUsoCheckBox);
+		aceptarCondicionesUsoCheckBox.setOpaque(false);
+		
+		marcoBotones = new JPanel();
+		marcoBotones.setOpaque(false);
+		marcoOperaciones.add(marcoBotones);
+		
+		botonRegistrar = new JButton("Registrar");
+		marcoBotones.add(botonRegistrar);
+		
+		botonCancelar = new JButton("Cancelar");
+		botonCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		marcoBotones.add(botonCancelar);
 		botonLeerCondicionesUso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(getContentPane(),
@@ -117,122 +100,77 @@ public class VentanaRegistroUsuarios extends JFrame {
 					"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().add(lblRegistrarse, BorderLayout.NORTH);
 		
-		aceptarCondicionesUsoCheckBox = new JCheckBox("Aceptar Condiciones de Uso");
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(118)
-					.addComponent(label)
-					.addGap(35))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(166)
-					.addComponent(lblRegistrarse)
-					.addContainerGap(173, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(81)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label_1)
-							.addGap(48)
-							.addComponent(botonRegistrar)
-							.addGap(46)
-							.addComponent(botonCancelar)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCorreo)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblTelefono)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblContrasenia)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNickname)
-							.addContainerGap())
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblCedula)
-								.addContainerGap())
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblApellidos)
-									.addContainerGap())
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblNombre)
-										.addContainerGap())
-									.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-											.addComponent(apellidosTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-											.addComponent(nombreTextBox, Alignment.LEADING, 272, 272, Short.MAX_VALUE)
-											.addComponent(cedulaTextBox, Alignment.LEADING, 272, 272, Short.MAX_VALUE)
-											.addComponent(nicknameTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-											.addComponent(passwordTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-											.addComponent(telefonoTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-											.addComponent(correoTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
-										.addGap(74)))))))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(143)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(aceptarCondicionesUsoCheckBox)
-						.addComponent(botonLeerCondicionesUso))
-					.addContainerGap(125, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblRegistrarse)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNombre)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(nombreTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblApellidos)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(apellidosTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblCedula)
-					.addGap(2)
-					.addComponent(cedulaTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(13)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(label)
-						.addComponent(lblNickname))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(nicknameTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblContrasenia)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(passwordTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTelefono)
-					.addGap(10)
-					.addComponent(telefonoTextBox, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblCorreo)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(correoTextBox, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addGap(30)
-					.addComponent(botonLeerCondicionesUso)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(aceptarCondicionesUsoCheckBox)
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(label_1))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(botonRegistrar)
-								.addComponent(botonCancelar))))
-					.addGap(66))
-		);
-		getContentPane().setLayout(groupLayout);
+		marcoCampos = new JPanel();
+		marcoCampos.setBorder(new TitledBorder(null, "Ingrese sus Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		marcoCampos.setOpaque(false);
+		marcoCampos.setLayout(new BoxLayout(marcoCampos, BoxLayout.PAGE_AXIS));
+		
+		lblNombre = new JLabel("Nombre");
+		marcoCampos.add(lblNombre);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		nombreTextBox = new JTextField();
+		nombreTextBox.setColumns(10);
+		marcoCampos.add(nombreTextBox);
+		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		lblApellidos = new JLabel("Apellidos");
+		marcoCampos.add(lblApellidos);
+		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		apellidosTextBox = new JTextField();
+		marcoCampos.add(apellidosTextBox);
+		apellidosTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		apellidosTextBox.setColumns(10);
+		
+		lblCedula = new JLabel("C\u00E9dula");
+		marcoCampos.add(lblCedula);
+		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		cedulaTextBox = new JTextField();
+		marcoCampos.add(cedulaTextBox);
+		cedulaTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		cedulaTextBox.setColumns(10);
+		
+		lblNickname = new JLabel("Nickname");
+		marcoCampos.add(lblNickname);
+		lblNickname.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		nicknameTextBox = new JTextField();
+		marcoCampos.add(nicknameTextBox);
+		nicknameTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		nicknameTextBox.setColumns(10);
+		
+		lblContrasenia = new JLabel("Contrase\u00F1a");
+		marcoCampos.add(lblContrasenia);
+		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		passwordTextBox = new JPasswordField();
+		marcoCampos.add(passwordTextBox);
+		passwordTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		lblTelefono = new JLabel("Tel\u00E9fono");
+		marcoCampos.add(lblTelefono);
+		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		telefonoTextBox = new JTextField();
+		marcoCampos.add(telefonoTextBox);
+		telefonoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		telefonoTextBox.setColumns(10);
+		
+		lblCorreo = new JLabel("Correo");
+		marcoCampos.add(lblCorreo);
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		correoTextBox = new JTextField();
+		marcoCampos.add(correoTextBox);
+		correoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		correoTextBox.setColumns(10);
+		getContentPane().add(marcoCampos);
+		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 		
 	}
 }

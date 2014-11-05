@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.JList;
 
+import dogslovers.control.Principal;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Usuario;
 
@@ -90,6 +91,7 @@ public class VentanaDetallesMascota extends JFrame {
 
 	public VentanaDetallesMascota(Mascota mascota, boolean editable) {
 		setSize(600, 500);
+		getContentPane().setBackground(Principal.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(20, 10));
 
 		marcoCentro = new JPanel();

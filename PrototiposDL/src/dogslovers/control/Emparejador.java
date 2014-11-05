@@ -15,8 +15,8 @@ package dogslovers.control;
 
 import java.util.ArrayList;
 
-import javax.mail.MessagingException;
-import javax.swing.JOptionPane;
+import javax.mail.*;
+import javax.swing.*;
 
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
