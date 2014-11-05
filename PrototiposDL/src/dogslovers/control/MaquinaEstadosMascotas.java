@@ -2,43 +2,32 @@ package dogslovers.control;
 
 import javax.swing.JOptionPane;
 
-import dogslovers.control.excepciones.EstadoNoExisteException;
+import dogslovers.control.excepciones.EventoNoExisteException;
 import dogslovers.modelo.Suceso;
-
 
 public class MaquinaEstadosMascotas {
 	// Constantes que representan los estados
 	public static final String estadoPERDIDA = "Perdida";
 	public static final String estadoENCONTRADA = "Encontrada";
-	public static final String estadoLOCALIZADA = "Localizada";
-	public static final String estadoREFUGIADA = "Refugiada";
-	public static final String estadoADOPTADA = "Adoptada";
-	public static final String estadoADOPTABLE = "Adoptable";
-	public static final String estadoMUERTA = "Muerta";
+	
 	public static final String estadoEN_ESPERA_DE_REFUGIO = "En espera de ser Refugiada";
+	public static final String estadoREFUGIADA = "Refugiada";
+	
+	public static final String estadoADOPTABLE = "Adoptable";
 	public static final String estadoEN_ESPERA_DE_ADOPCION = "En espera de ser Adoptada";
-	public static final String estadoRECHAZADA_REFUGIADA = "Solicitud de Refugio Rechazada";
-	public static final String estadoRECHAZADA_ADOPTADA = "Solicitud de Adopción Rechazada";
-	public static final String estadoACEPTADA_REFUGIADA = "Solicitud de Refugio Aceptada";
-	public static final String estadoACEPTADA_ADOPTADA = "Solicitud de Adopción Aceptada";
+	public static final String estadoADOPTADA = "Adoptada";
+		
+	public static final String estadoLOCALIZADA = "Localizada";
 	public static final String estadoEN_ESPERA_CONFIRMACION_LOCALIZADA = "En espera de Confirmación de haber sido Localizada";
 	
+	public static final String estadoMUERTA = "Muerta";
+	
 	//Constantes que representan los eventos
-	public static final int eventoPERDIDA = 1;
-	public static final int eventoENCUENTRO = 2;
-	public static final int eventoLOCALIZADA = 3;
-	public static final int eventoREFUGIO = 4;
-	public static final int eventoADOPCION = 5;
-	public static final int eventoENADOPCION = 6;
-	public static final int eventoMUERTE = 7;
-	public static final int eventoSOLICITUD_REFUGIO = 8;
-	public static final int eventoSOLICITUD_ADOPCION = 9;
-	public static final int eventoRECHAZO_SOLICITUD_REFUGIO = 10;
-	public static final int eventoRECHAZO_SOLICITUD_ADOPCION = 11;
-	public static final int eventoCONFIRMACION_REFUGIO = 12;
-	public static final int eventoCONFIRMACION_ADOPCION = 13;
-	public static final int eventoCONFIRMACION_LOCALIZADA = 14;
-	public static final int eventoRECHAZO_LOCALIZADA = 15;
+	public static final int eventoLOCALIZACION = 1;
+	public static final int eventoEN_ADOPCION = 2;
+	public static final int eventoREFUGIO = 3;
+	public static final int eventoADOPCION = 4;
+	public static final int eventoMUERTE = 5;
 	
 	private static MaquinaEstadosMascotas instanciaSingleton;
 	
@@ -62,99 +51,55 @@ public class MaquinaEstadosMascotas {
 		return instanciaSingleton;
 	}
 	
-	public void setEstadoActual(String pEstado){
+	public void setEstadoPorValidar(String pEstado){
 		estadoActualMascota = pEstado;
 	}
 	
-	public String getEstadoActual(){
+	public String getEstadoValidado(){
 		return estadoActualMascota;
 	}
 	
 	// Método para disparar cambios de estado de la mascota
-	public void capturarReporte(int pEvento, Suceso pSuceso){
+	public void capturarReporte(int pEvento){
 		switch(pEvento)
 		{
-			case eventoPERDIDA:
-				reportarPerdida(pSuceso);
-				break;
-				
-			case eventoENCUENTRO:
-				reportarEncuentro(pSuceso);
-				break;
-						
-			case eventoLOCALIZADA:
-				reportarLocalizacion(pSuceso);
+			case eventoLOCALIZACION:
+				reportarLocalizada();
 				break;
 			
+			case eventoEN_ADOPCION:
+				reportarAdoptable();
+				break;
+				
 			case eventoREFUGIO:
-				reportarRefugio(pSuceso);
-				break;
-			
-			case eventoADOPCION:
-				reportarAdopcion(pSuceso);
+				reportarRefugiada();
 				break;
 				
-			case eventoENADOPCION:
-				reportarEnAdopcion(pSuceso);
+			case eventoADOPCION:
+				reportarAdoptada();
 				break;
 			
 			case eventoMUERTE:
-				reportarMuerte(pSuceso);
+				reportarMuerta();
 				break;
 				
-			case eventoSOLICITUD_REFUGIO:
-				reportarSolicitudRefugio(pSuceso);
-				break;
-				
-			case eventoSOLICITUD_ADOPCION :
-				reportarSolicitudAdopcion(pSuceso);
-				break;
-				
-			case eventoRECHAZO_SOLICITUD_REFUGIO:
-				reportarRechazoSolicitudRefugio(pSuceso);
-				break;
-				
-			case eventoRECHAZO_SOLICITUD_ADOPCION:
-				reportarRechazoSolicitudAdopcion(pSuceso);
-				break;
-				
-			case eventoCONFIRMACION_ADOPCION:
-				reportarConfirmacionSolicitudAdopcion(pSuceso);
-				break;
-			
-			case eventoCONFIRMACION_REFUGIO:
-				reportarConfirmacionSolicitudRefugio(pSuceso);
-				break;
-			
-			case eventoCONFIRMACION_LOCALIZADA:
-				reportarConfirmacionLocalizada(pSuceso);
-				break;
-			
-			case eventoRECHAZO_LOCALIZADA :
-				reportarRechazoLocalizada(pSuceso);
-				break;
-			
 			default:
-				throw new EstadoNoExisteException("El evento no existe.");
+				throw new EventoNoExisteException("El evento no existe.");
 		}		
 	}
 
 	// Métodos que cambian el estado según el evento en el estado actual de la mascota.
-	private void reportarPerdida(Suceso pSuceso){
-		estadoActualMascota = estadoPERDIDA;	
-	}
 
-	private void reportarEncuentro(Suceso pSuceso) {
-		estadoActualMascota = estadoENCONTRADA;	
-	}
-
-	private void reportarLocalizacion(Suceso pSuceso) {
+	private void reportarLocalizada() {
 		switch (estadoActualMascota) {
 			case estadoPERDIDA:
 				estadoActualMascota = estadoLOCALIZADA;
 				break;
 			case estadoENCONTRADA:
 				estadoActualMascota = estadoEN_ESPERA_CONFIRMACION_LOCALIZADA;
+				break;
+			case estadoEN_ESPERA_CONFIRMACION_LOCALIZADA:
+				estadoActualMascota = estadoLOCALIZADA;
 				break;
 			default:
 				JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
@@ -163,35 +108,36 @@ public class MaquinaEstadosMascotas {
 		}
 	}
 
-	private void reportarRefugio(Suceso pSuceso) {
+	private void reportarRefugiada() {
 		switch (estadoActualMascota) {
+		
 		case estadoENCONTRADA:
-			estadoActualMascota = estadoEN_ESPERA_DE_REFUGIO;
+			estadoActualMascota = estadoREFUGIADA;
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
 			"\nCaso no contemplado en el diseño.");
 			break;
-		
+		}
 	}
-}
-	private void reportarAdopcion(Suceso pSuceso) {
+	
+	private void reportarAdoptada() {
 		switch (estadoActualMascota) {
-		case estadoENCONTRADA:
-			estadoActualMascota = estadoEN_ESPERA_DE_ADOPCION;
+		
+		case estadoADOPTABLE:
+			estadoActualMascota = estadoADOPTADA;
 			break;
-		case estadoREFUGIADA:
-			estadoActualMascota = estadoEN_ESPERA_DE_ADOPCION;
-			break;
+			
 		default:
 			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
 			"\nCaso no contemplado en el diseño.");
 			break;		
-	  }
+		}
 	}
 	
-	private void reportarEnAdopcion(Suceso pSuceso){
+	private void reportarAdoptable(){
 		switch (estadoActualMascota) {
+		
 		case estadoENCONTRADA:
 			estadoActualMascota = estadoADOPTABLE;
 		
@@ -202,14 +148,10 @@ public class MaquinaEstadosMascotas {
 		}
 	}
 
-	private void reportarMuerte(Suceso pSuceso) {
+	private void reportarMuerta() {
 		switch (estadoActualMascota) {
 		case estadoENCONTRADA:
-			estadoActualMascota = estadoMUERTA;
-			break;
 		case estadoADOPTADA:
-			estadoActualMascota = estadoMUERTA;
-			break;
 		case estadoREFUGIADA:
 			estadoActualMascota = estadoMUERTA;
 			break;
@@ -221,6 +163,11 @@ public class MaquinaEstadosMascotas {
 	  }	
 	}
 
+	/**
+	 * TODO Existe un dilema con éstos métodos, por lo que se requiere analizar
+	 * con mayor detalle si los eventos asociados a estos reportes son necesarios. 
+	 */
+	/*
 	private void reportarSolicitudRefugio(Suceso pSuceso) {
 		switch (estadoActualMascota) {
 		case estadoENCONTRADA:
@@ -256,8 +203,8 @@ public class MaquinaEstadosMascotas {
 			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
 			"\nCaso no contemplado en el diseño.");
 			break;
-	}	
-}
+		}	
+	}
 
 	private void reportarRechazoSolicitudAdopcion(Suceso pSuceso) {
 		switch (estadoActualMascota) {
@@ -268,8 +215,8 @@ public class MaquinaEstadosMascotas {
 			JOptionPane.showMessageDialog(null, "Contacte al equipo de desarrollo."+
 			"\nCaso no contemplado en el diseño.");
 			break;
-	}		
-}
+		}		
+	}
 
 	private void reportarConfirmacionSolicitudRefugio(Suceso pSuceso) {
 		switch (estadoActualMascota) {
@@ -320,7 +267,7 @@ public class MaquinaEstadosMascotas {
 				break;
 		}
 	}
-
+	*/
 
 
 }
