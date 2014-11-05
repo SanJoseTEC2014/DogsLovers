@@ -26,30 +26,34 @@ public class BandejaMensajes {
 		entradaErroresMediador 				= new LinkedList<Mensaje>();
 	}
 	
+	public void recibirNotificacionLocalizacion(Mensaje pNotificacion){
+		entradaNotificacionesLocalizacion.add(pNotificacion);
+	}
 	
+	public void recibir
 	
 	public void recibirSolicitudRefugio(Mensaje pSolicitud){
 		entradaSolicitudesRefugio.add(pSolicitud);
 	}
 	
-	public void recibirConfirmacionRefugio(Mensaje pSolicitud){
-		entradaConfirmacionesRefugio.add(pSolicitud);
+	public void recibirConfirmacionRefugio(Mensaje pNotificacion){
+		entradaConfirmacionesRefugio.add(pNotificacion);
 	}
 	
-	public void recibirRechazoRefugio(Mensaje pSolicitud){
-		entradaRechazosRefugio.add(pSolicitud);
+	public void recibirRechazoRefugio(Mensaje pNotificacion){
+		entradaRechazosRefugio.add(pNotificacion);
 	}
 	
 	public void recibirSolicitudAdopcion(Mensaje pSolicitud){
 		entradaSolicitudesAdopcion.add(pSolicitud);
 	}
 	
-	public void recibirConfirmacionAdopcion(Mensaje pSolicitud){
-		entradaConfirmacionesAdopcion.add(pSolicitud);
+	public void recibirConfirmacionAdopcion(Mensaje pNotificacion){
+		entradaConfirmacionesAdopcion.add(pNotificacion);
 	}
 	
-	public void recibirRechazoAdopcion(Mensaje pSolicitud){
-		entradaRechazosAdopcion.add(pSolicitud);
+	public void recibirRechazoAdopcion(Mensaje pNotificacion){
+		entradaRechazosAdopcion.add(pNotificacion);
 	}
 	
 	public void recibirMensajeError(Mensaje pError){
