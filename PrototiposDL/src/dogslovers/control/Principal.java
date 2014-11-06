@@ -72,7 +72,7 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
-				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
+				"Mi perro es muy bonito y se perdió.");
 		
 		
 		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
@@ -119,15 +119,19 @@ public class Principal {
 				try {
 					
 					
-					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
-					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-					window2.obtenerDatosIniciales(Andres);
-					window2.setModoEdicion(false);
-					window2.setVisible(true);
+//					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
+//					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
+//					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+//					window2.obtenerDatosIniciales(Andres);
+//					window2.setModoEdicion(false);
+//					window2.setVisible(true);
+//					
+//					VentanaInicioSesion window = new VentanaInicioSesion();
+//					window.setVisible(true);
 					
-					VentanaInicioSesion window = new VentanaInicioSesion();
-					window.setVisible(true);
+					VentanaAgregarComentario window4 = new VentanaAgregarComentario();
+					window4.setVisible(true);
+					
 					/**
 					 * 
 					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
@@ -152,8 +156,8 @@ public class Principal {
 					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);
 					
-////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
-//					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
+//////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lizahelena@hotmail.com", "Semanal");
 //					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 //					try {
 //						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
@@ -161,7 +165,7 @@ public class Principal {
 //						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
-////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+//////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
 					
 					
 					
