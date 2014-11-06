@@ -22,6 +22,7 @@ import dogslovers.control.Correo;
 import dogslovers.control.Principal;
 import dogslovers.modelo.Usuario;
 
+import java.awt.HeadlessException;
 import java.awt.Window.Type;
 import java.awt.ScrollPane;
 import java.awt.Frame;
@@ -38,6 +39,7 @@ import java.awt.Component;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -158,8 +160,6 @@ public class VentanaRegistroUsuarios extends JFrame {
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		nombreTextBox = new JTextField();
-
-		});
 		nombreTextBox.setColumns(10);
 		marcoCampos.add(nombreTextBox);
 		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -216,9 +216,10 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoCampos.add(correoTextBox);
 		correoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		correoTextBox.setColumns(10);
-		getContentPane().add(marcoCampos);
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 		
+		getContentPane().add(marcoCampos);
 	}
+	
 }
 

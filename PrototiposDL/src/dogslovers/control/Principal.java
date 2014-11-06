@@ -40,22 +40,26 @@ public class Principal {
 		
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
-		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
-				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
-		mascota.setColor("negro");
-		mascota.setTamanio("ENORME");
-		mascota.setSexo("Indefinido :v");
-		for(int i = 0; i < 50; i++) 
-			encontradas.add(mascota);
+		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro",
+							new Suceso("lizchavca", "San José", 15, 5, 2013, "Se perdió chingo."),
+							false, 500000000,
+							"ola k ase");
+		mascota1.setColor("Negro");
+		mascota1.setTamanio("Grande");
+		mascota1.setSexo("Macho");
+		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro",
+				new Suceso("lapc506", "Heredia", 06, 11, 2014, "Se perdió con ropa."),
+				true, 0, "meeeooowww");
+		mascota2.setColor("Negro");
+		mascota2.setTamanio("Pequeño");
+		mascota2.setSexo("Macho");
+		for(int i = 0; i < 10; i++) {
+			encontradas.add(mascota1);
+			encontradas.add(mascota2);
+		}
 		
 		// Validación de inserción de las 100 Mascota
 		// System.out.println(encontradas.size());
-		
-		// Prueba del clón 
-		// System.out.println(encontradas.get(0).clone().toString());
-		
-		// Demostración del clonado
-		// System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -70,11 +74,6 @@ public class Principal {
 	}
 	
 	public static void main(String[] args) {
-		
-		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
-				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
-		
-		
 		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
 		
 		ArrayList<Mascota> A = new ArrayList<Mascota>();
@@ -89,6 +88,12 @@ public class Principal {
 		A.remove(0);
 		System.out.println(mascota==null);
 		System.out.println(mascota.toString());
+		
+		// Prueba del clón 
+		System.out.println(encontradas.get(0).clone().toString());
+		
+		// Demostración del clonado
+		System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
 		
 		*/
 		
@@ -117,59 +122,46 @@ public class Principal {
 			public void run() {
 				try {
 					
+					try {
+						Tiempo.setFechaInicioProduccion("31", "Enero", "2013");
+					} catch (FechaInvalidaException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage()
+							+ (ex.getCause() == null ? "" : ex.getCause().getMessage()),
+							"Error del sistema.", JOptionPane.ERROR_MESSAGE);
+					}
+					/* 
+					VentanaInicioSesion window1 = new VentanaInicioSesion();
+					window1.setVisible(true);
 					
 					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com");
-					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-					window2.obtenerDatosIniciales(Andres);
+					Usuario Liza = new Usuario("lizchavca", "Liza", "Chaves Carranza",
+												116070870, "wat", 89456736, "lizchavca@gmail.com");
+					Liza.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+					window2.obtenerDatosIniciales(Liza);
 					window2.setModoEdicion(false);
 					window2.setVisible(true);
 					
-					VentanaInicioSesion window = new VentanaInicioSesion();
-					window.setVisible(true);
-					/**
-					 * 
-					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
-					window2.setVisible(true);
-					
-					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0), "verDetalles");
-					ventana.setVisible(true);
-					VentanaRegistroMascotas window5 = new VentanaRegistroMascotas();
-					window5.setVisible(true);
-					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					window2.obtenerDatosIniciales(new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal"));
-					window2.setModoEdicion(false);
-					window2.setVisible(true);
-					VentanaBusquedaMascotas window2 = new VentanaBusquedaMascotas();
-					window2.setVisible(true);
-					 * 
-					 */			
-
-					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
-					ventana.setVisible(true);
-					
-					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
+					VentanaRegistroMascotas window3 = new VentanaRegistroMascotas();
 					window3.setVisible(true);
 					
-					VentanaRegistroMascotas window4 = new VentanaRegistroMascotas();
-					window4.setVisible(true);
+					VentanaBusquedaMascotas window3 = new FormularioBusquedaMascotas();
+					window3.setVisible(true);
 					
-					VentanaBusquedaMascotas window5 = new VentanaBusquedaMascotas();
+					VentanaDetallesMascota window5 = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
 					window5.setVisible(true);
+					
+					VentanaRegistroUsuarios window6 = new VentanaRegistroUsuarios();
+					window6.setVisible(true);
 				
-////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
-//					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
-//					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-//					try {
-//						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
-//					} catch (MessagingException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+					// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+					try {
+						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
+					} catch (MessagingException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage(),
+						"Error al enviar el correo.", JOptionPane.ERROR_MESSAGE);
+					}
 					
-					
-					
+					*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
