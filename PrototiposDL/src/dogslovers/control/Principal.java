@@ -147,9 +147,6 @@ public class Principal {
 					window2.setVisible(true);
 					VentanaBusquedaMascotas window2 = new VentanaBusquedaMascotas();
 					window2.setVisible(true);
-					 * 
-					 */			
-
 					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
 					ventana.setVisible(true);
 					
@@ -161,6 +158,9 @@ public class Principal {
 					
 					VentanaBusquedaMascotas window5 = new VentanaBusquedaMascotas();
 					window5.setVisible(true);
+					
+					 */			
+
 				
 ////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
 //					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
