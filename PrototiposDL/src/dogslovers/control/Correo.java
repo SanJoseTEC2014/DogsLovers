@@ -17,9 +17,9 @@ public class Correo {
 	// El puerto 587 nos permite utilizar STARTTLS para cifrar la conexión.
 	static final int puertoComunicacionServidor = 587;
 	
-	static String emisor = "alejandrinabiblioteca@gmail.com";
-	static String nombreUsuarioSMTP = "alejandrinabiblioteca@gmail.com";
-	static String passwordSMTP = "casa1234casa";
+	static String emisor = "pawsconsultas@gmail.com";
+	static String nombreUsuarioSMTP = "pawsconsultas@gmail.com";
+	static String passwordSMTP = "yhawfrxjuvadmjdx";
 
 	static void enviarCorreo(String pReceptor, String pAsunto, String pCuerpo) throws MessagingException {
 		// props contendrá información de la conexión.
@@ -109,7 +109,8 @@ public class Correo {
 		
 		cuerpoMsg += "\nPor favor si desea más información sobre alguna de éstas mascotas, \n" +
 					 "ingrese a nuestro sistema, y solicite un emparejamiento bajo demanda \n" +
-					 "para ponerse en contacto con los usuarios encargados de dichas mascotas.";
+					 "para ponerse en contacto con los usuarios encargados de dichas mascotas" +
+					 "o puede contactarnos al correo pawsconsultas@gmail.com.";
 		
 		cuerpoMsg += "\n\n" + "Atentamente: " + "\n" + "Paws San José";
 		
