@@ -39,7 +39,7 @@ public class Usuario implements Comunicable {
 	private Double ponderadoCalificacion;
 
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
-		Integer pTelefono, String pCorreo, String pLapsoEmparejamiento) {
+		Integer pTelefono, String pCorreo) {
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
@@ -47,7 +47,6 @@ public class Usuario implements Comunicable {
 		contrasenia = pContrasenia;
 		telefono = pTelefono;
 		correo = pCorreo;
-		lapsoEmparejamiento = pLapsoEmparejamiento;
 		buzon = new BandejaMensajes();
 		refugiante = false; // se instancian las personas como NO refugiantes
 		administrador = false;

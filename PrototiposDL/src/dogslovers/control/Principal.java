@@ -72,7 +72,7 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		Mascota mascota = new Mascota("Wáffles", "Perro", "Otro", new Suceso("", "San José", 15, 5, 2013, "Se perdió chingo."), false, 500000000,
-				"Mi perro es muy bonito y se perdió.");
+				"Mi perro es muy bonito y se perdió, entonces quiero encontrarlo y doy mucha plata por él porque me gusta mucho y chao.");
 		
 		
 		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
@@ -118,19 +118,15 @@ public class Principal {
 				try {
 					
 					
-//					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-//					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
-//					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-//					window2.obtenerDatosIniciales(Andres);
-//					window2.setModoEdicion(false);
-//					window2.setVisible(true);
-//					
-//					VentanaInicioSesion window = new VentanaInicioSesion();
-//					window.setVisible(true);
+					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
+					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com");
+					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+					window2.obtenerDatosIniciales(Andres);
+					window2.setModoEdicion(false);
+					window2.setVisible(true);
 					
-					VentanaAgregarComentario window4 = new VentanaAgregarComentario();
-					window4.setVisible(true);
-					
+					VentanaInicioSesion window = new VentanaInicioSesion();
+					window.setVisible(true);
 					/**
 					 * 
 					FormularioBusquedaMascotas window2 = new FormularioBusquedaMascotas();
@@ -146,20 +142,20 @@ public class Principal {
 					window2.setVisible(true);
 					VentanaBusquedaMascotas window2 = new VentanaBusquedaMascotas();
 					window2.setVisible(true);
+					 * 
+					 */			
+
 					VentanaDetallesMascota ventana = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
 					ventana.setVisible(true);
 					
 					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);
 					
-					VentanaRegistroMascotas window = new VentanaRegistroMascotas();
-					window.setVisible(true);
+					VentanaRegistroMascotas window4 = new VentanaRegistroMascotas();
+					window4.setVisible(true);
 					
 					VentanaBusquedaMascotas window5 = new VentanaBusquedaMascotas();
 					window5.setVisible(true);
-					
-					 */			
-
 				
 ////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
 //					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
@@ -170,7 +166,7 @@ public class Principal {
 //						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
-//////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
 					
 					
 					

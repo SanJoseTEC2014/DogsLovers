@@ -117,5 +117,19 @@ public class Correo {
 
 		enviarCorreo(pUsuario.getCorreo(), asunto, cuerpoMsg);
 	}
+	
+	public static void enviarCodigoCorreo(String nick, String nombre, String correo) throws MessagingException {
+		
+		String asunto = "Codigo de activacion de registro. Paws";
+				
+		String cuerpoMsg = "Estimado " + nombre + ".\n" 
+		+ "Para completar el registro de la cuenta en Paws debe ingresar el siguiente codigo.\n\n"
+		+ "CODIGO ACTIVACION: " + nick.hashCode() + "\n\n" //modulo 9999 es aplicado para que el codigo generado sea de 4 digitos
+		+ "Si usted no solicitó activar una cuenta en Paws por favor ignorar este mensaje.";
+		
+			enviarCorreo(correo, asunto, cuerpoMsg);
+	
+		
+	}
 
 }

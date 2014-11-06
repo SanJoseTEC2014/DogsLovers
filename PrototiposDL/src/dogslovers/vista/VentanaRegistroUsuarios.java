@@ -1,5 +1,6 @@
 package dogslovers.vista;
 
+import javax.mail.MessagingException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
@@ -17,7 +18,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import dogslovers.control.Correo;
 import dogslovers.control.Principal;
+import dogslovers.modelo.Usuario;
 
 import java.awt.Window.Type;
 import java.awt.ScrollPane;
@@ -27,11 +30,16 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.BoxLayout;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaRegistroUsuarios extends JFrame {
 	private JLabel lblContrasenia;
@@ -78,6 +86,37 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoOperaciones.add(botonLeerCondicionesUso);
 		
 		aceptarCondicionesUsoCheckBox = new JCheckBox("Aceptar Condiciones de Uso");
+		aceptarCondicionesUsoCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//TODO validar el correo 
+				
+				try {
+					Correo.enviarCodigoCorreo(nicknameTextBox.getText(), nombreTextBox.getText(), correoTextBox.getText());
+					abrirVentanaValidacion("Verificacíon de codigo");
+
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+
+				private void abrirVentanaValidacion(String msg) {
+					JFrame frame = new JFrame(msg);
+					String codigo = JOptionPane.showInputDialog(frame, "Ingrese el codigo enviado al correo",
+							"Verificacíon de codigo", JOptionPane.INFORMATION_MESSAGE);
+					
+					//if the user presses Cancel, this will be null
+					if (codigo != null){
+						if (codigo.equals(Integer.toString(nicknameTextBox.getText().hashCode()))) {
+							botonRegistrar.setEnabled(true);
+						} else {
+							abrirVentanaValidacion("Codigo incorreco");
+						}
+					}
+				}
+		});
 		aceptarCondicionesUsoCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		marcoOperaciones.add(aceptarCondicionesUsoCheckBox);
 		aceptarCondicionesUsoCheckBox.setOpaque(false);
@@ -87,7 +126,13 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoOperaciones.add(marcoBotones);
 		
 		botonRegistrar = new JButton("Registrar");
+		botonRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Principal.blanca.add(new Usuario(nicknameTextBox.getText(), nombreTextBox.getText(), apellidosTextBox.getText(), Integer.parseInt(cedulaTextBox.getText()), passwordTextBox.getPassword().toString(), Integer.parseInt(telefonoTextBox.getText()), correoTextBox.getText()));
+			}
+		});
 		marcoBotones.add(botonRegistrar);
+		botonRegistrar.setEnabled(false);
 		
 		botonCancelar = new JButton("Cancelar");
 		botonCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -113,6 +158,8 @@ public class VentanaRegistroUsuarios extends JFrame {
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		nombreTextBox = new JTextField();
+
+		});
 		nombreTextBox.setColumns(10);
 		marcoCampos.add(nombreTextBox);
 		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
