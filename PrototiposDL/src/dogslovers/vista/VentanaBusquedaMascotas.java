@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import dogslovers.control.BuscadorMascotas;
+import dogslovers.control.Principal;
 import dogslovers.modelo.Mascota;
 
 
@@ -50,7 +51,6 @@ public class VentanaBusquedaMascotas extends JFrame {
 
 	public VentanaBusquedaMascotas() {
 		setName("barraCarga");
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(anchoVentana, altoVentanaContraida);
 		ventanaContraida = true;

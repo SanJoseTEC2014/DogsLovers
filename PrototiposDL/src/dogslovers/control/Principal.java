@@ -156,8 +156,14 @@ public class Principal {
 					VentanaRegistroUsuarios window3 = new VentanaRegistroUsuarios();
 					window3.setVisible(true);
 					
-//////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
-					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lizahelena@hotmail.com", "Semanal");
+					VentanaRegistroMascotas window = new VentanaRegistroMascotas();
+					window.setVisible(true);
+					
+					VentanaBusquedaMascotas window5 = new VentanaBusquedaMascotas();
+					window5.setVisible(true);
+				
+////////////////// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+//					Usuario Andre = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "kakoo26i@gmail.com", "Semanal");
 //					Andre.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 //					try {
 //						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
