@@ -24,29 +24,34 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 
+import dogslovers.control.Principal;
+
+import java.awt.Label;
+
 public class VentanaRegistroMascotas extends JFrame {
 	private JTextField nombreTextBox;
 	private JTextField numeroChipTextBox;
 	private JTextField recompensaTextBox;
 	public VentanaRegistroMascotas() {
 		setTitle("  Registro de mascotas");
-		setSize(666,616);
+		getContentPane().setBackground(Principal.fondoVentanas);
+		setSize(666,680);
 		
 		JLabel lblRegistrarUnaMascota = new JLabel("Registrar una mascota");
-		lblRegistrarUnaMascota.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblRegistrarUnaMascota.setFont(new Font("Tahoma", Font.BOLD, 17));
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		nombreTextBox = new JTextField();
-		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		nombreTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		nombreTextBox.setColumns(10);
 		
 		JLabel lblNmeroDeChip = new JLabel("N\u00FAmero de chip");
 		lblNmeroDeChip.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		numeroChipTextBox = new JTextField();
-		numeroChipTextBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		numeroChipTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		numeroChipTextBox.setColumns(10);
 		
 		JLabel lblEspecie = new JLabel("Especie");
@@ -110,7 +115,7 @@ public class VentanaRegistroMascotas extends JFrame {
 		lblRecompensa.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		recompensaTextBox = new JTextField();
-		recompensaTextBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		recompensaTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		recompensaTextBox.setColumns(10);
 		
 		JLabel lblNotas = new JLabel("Notas");
@@ -126,12 +131,13 @@ public class VentanaRegistroMascotas extends JFrame {
 		perdidaRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JButton botonRegistrar = new JButton("Registrar");
-		botonRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		botonRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton botonCancelar = new JButton("Cancelar");
-		botonCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		botonCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JTextPane notasTextPane = new JTextPane();
+		notasTextPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JRadioButton adoptableRadioButton = new JRadioButton("Adoptable");
 		adoptableRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -143,36 +149,43 @@ public class VentanaRegistroMascotas extends JFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(37)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNombre)
-								.addComponent(lblNmeroDeChip)
-								.addComponent(numeroChipTextBox, 224, 300, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblEspecie)
-									.addPreferredGap(ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
-									.addComponent(especieComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblRaza)
-									.addPreferredGap(ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-									.addComponent(razaComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblTamao)
-										.addComponent(lblSexo)
-										.addComponent(lblColor)
-										.addComponent(lblEdad))
-									.addPreferredGap(ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(colorComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(edadComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(sexoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tamanioComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(nombreTextBox, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-							.addGap(89)
+									.addComponent(lblNmeroDeChip)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblNombre)
+										.addPreferredGap(ComponentPlacement.RELATED))
+									.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(nombreTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+												.addComponent(lblEspecie)
+												.addPreferredGap(ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+												.addComponent(especieComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+												.addComponent(lblRaza)
+												.addPreferredGap(ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+												.addComponent(razaComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+													.addComponent(lblTamao)
+													.addComponent(lblSexo)
+													.addComponent(lblColor)
+													.addComponent(lblEdad))
+												.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+													.addComponent(colorComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(edadComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(sexoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(tamanioComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+											.addComponent(numeroChipTextBox, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+										.addGap(89))))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(notasTextPane, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+								.addComponent(notasTextPane, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
 								.addComponent(lblRecompensa)
 								.addComponent(lblNotas)
-								.addComponent(recompensaTextBox, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))
+								.addComponent(recompensaTextBox, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -189,45 +202,49 @@ public class VentanaRegistroMascotas extends JFrame {
 							.addGap(225)
 							.addComponent(lblRegistrarUnaMascota))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(83)
+							.addGap(54)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(vacunadaCheckBox)
-								.addComponent(castradaCheckBox))
-							.addGap(63)
+								.addComponent(castradaCheckBox)
+								.addComponent(vacunadaCheckBox))
+							.addGap(92)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(desparacitadaCheckBox)
-									.addGap(76)
-									.addComponent(botonRegistrar)
-									.addGap(35)
-									.addComponent(botonCancelar))
-								.addComponent(discapacitadaCheckBox))))
+								.addComponent(desparacitadaCheckBox)
+								.addComponent(discapacitadaCheckBox))
+							.addGap(82)
+							.addComponent(botonRegistrar)
+							.addGap(29)
+							.addComponent(botonCancelar)))
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(98)
-					.addComponent(lblcmoDeseaRegistrar, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+					.addComponent(lblcmoDeseaRegistrar, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
 					.addGap(279))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(21)
-					.addComponent(lblRegistrarUnaMascota)
-					.addGap(26)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre)
-						.addComponent(lblRecompensa))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(nombreTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(recompensaTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblRegistrarUnaMascota)
+							.addGap(26)
+							.addComponent(lblRecompensa))
+						.addComponent(lblNombre))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(recompensaTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNmeroDeChip)
+							.addComponent(nombreTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNmeroDeChip)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(6)
 							.addComponent(numeroChipTextBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEspecie)
 								.addComponent(especieComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -263,20 +280,24 @@ public class VentanaRegistroMascotas extends JFrame {
 							.addComponent(lblNotas)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(notasTextPane, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)))
-					.addGap(12)
-					.addComponent(lblOtrasCaractersticas)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(discapacitadaCheckBox)
-						.addComponent(castradaCheckBox))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(desparacitadaCheckBox)
-							.addComponent(botonCancelar)
-							.addComponent(botonRegistrar))
-						.addComponent(vacunadaCheckBox))
-					.addGap(16))
+					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblOtrasCaractersticas)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(discapacitadaCheckBox)
+								.addComponent(castradaCheckBox))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(desparacitadaCheckBox)
+								.addComponent(vacunadaCheckBox))
+							.addGap(16))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(botonRegistrar)
+								.addComponent(botonCancelar))
+							.addGap(26))))
 		);
 		getContentPane().setLayout(groupLayout);
 	}
