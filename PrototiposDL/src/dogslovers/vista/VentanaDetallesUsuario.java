@@ -2,8 +2,6 @@ package dogslovers.vista;
 
 import java.awt.*;
 import java.text.*;
-import java.util.regex.*;
-
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.border.*;
@@ -184,7 +182,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						comboLapsos.setRenderer(new DefaultListCellRenderer(){
 						    @Override
 						    public Component
-						    getListCellRendererComponent(JList list, Object value, int index,
+						    getListCellRendererComponent(JList<?> list, Object value, int index,
 						    							boolean isSelected, boolean cellHasFocus)
 						    {
 						        JComponent result = (JComponent)super.getListCellRendererComponent

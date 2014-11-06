@@ -57,43 +57,43 @@ public class VentanaRegistroMascotas extends JFrame {
 		JLabel lblEspecie = new JLabel("Especie");
 		lblEspecie.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox especieComboBox = new JComboBox();
-		especieComboBox.setModel(new DefaultComboBoxModel(new String[] {"Perro", "Gato", "Conejo"}));
+		JComboBox<String> especieComboBox = new JComboBox<String>();
+		especieComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Perro", "Gato", "Conejo"}));
 		especieComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblRaza = new JLabel("Raza");
 		lblRaza.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox razaComboBox = new JComboBox();
-		razaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Chihuaha", "Doberman", "Otro"}));
+		JComboBox<String> razaComboBox = new JComboBox<String>();
+		razaComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Chihuaha", "Doberman", "Otro"}));
 		razaComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox colorComboBox = new JComboBox();
+		JComboBox<String> colorComboBox = new JComboBox<String>();
 		colorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		colorComboBox.setModel(new DefaultComboBoxModel(new String[] {"Blanco", "Negro", "Gris", "Caf\u00E9"}));
+		colorComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Blanco", "Negro", "Gris", "Caf\u00E9"}));
 		
 		JLabel lblEdad = new JLabel("Edad");
 		lblEdad.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox edadComboBox = new JComboBox();
-		edadComboBox.setModel(new DefaultComboBoxModel(new String[] {"Cachorro", "Adulto"}));
+		JComboBox<String> edadComboBox = new JComboBox<String>();
+		edadComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Cachorro", "Adulto"}));
 		edadComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblSexo = new JLabel("Sexo");
 		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox sexoComboBox = new JComboBox();
-		sexoComboBox.setModel(new DefaultComboBoxModel(new String[] {"Macho", "Hembra"}));
+		JComboBox<String> sexoComboBox = new JComboBox<String>();
+		sexoComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Macho", "Hembra"}));
 		sexoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
 		lblTamao.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox tamanioComboBox = new JComboBox();
-		tamanioComboBox.setModel(new DefaultComboBoxModel(new String[] {"Peque\u00F1o", "Mediano", "Grande"}));
+		JComboBox<String> tamanioComboBox = new JComboBox<String>();
+		tamanioComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Peque\u00F1o", "Mediano", "Grande"}));
 		tamanioComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JCheckBox castradaCheckBox = new JCheckBox("Castrada");

@@ -20,7 +20,7 @@ public class VentanaCalificaciones extends JFrame {
 		panelScrol = new JScrollPane();
 		getContentPane().add(panelScrol);
 		String Titulos[] = {"Nick Calificante", "Calificación", "Comentario"};
-		tablaCalificaciones = new JTable(usuario.getArraycalificaciones(), Titulos );
+		tablaCalificaciones = new JTable(usuario.getArrayCalificaciones(), Titulos );
 		panelScrol.setViewportView(tablaCalificaciones);
 	}
 }

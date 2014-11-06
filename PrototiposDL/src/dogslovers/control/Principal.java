@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import javax.mail.MessagingException;
+import javax.mail.*;
 import javax.swing.*;
 
 import dogslovers.control.excepciones.*;
@@ -120,51 +120,46 @@ public class Principal {
 		inicializarMascotas();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					
-					try {
-						Tiempo.setFechaInicioProduccion("31", "Enero", "2013");
-					} catch (FechaInvalidaException ex) {
-						JOptionPane.showMessageDialog(null, ex.getMessage()
-							+ (ex.getCause() == null ? "" : ex.getCause().getMessage()),
-							"Error del sistema.", JOptionPane.ERROR_MESSAGE);
-					}
-					/* 
-					VentanaInicioSesion window1 = new VentanaInicioSesion();
-					window1.setVisible(true);
-					
-					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					Usuario Liza = new Usuario("lizchavca", "Liza", "Chaves Carranza",
-												116070870, "wat", 89456736, "lizchavca@gmail.com");
-					Liza.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-					window2.obtenerDatosIniciales(Liza);
-					window2.setModoEdicion(false);
-					window2.setVisible(true);
-					
-					VentanaRegistroMascotas window3 = new VentanaRegistroMascotas();
-					window3.setVisible(true);
-					
-					VentanaBusquedaMascotas window3 = new FormularioBusquedaMascotas();
-					window3.setVisible(true);
-					
-					VentanaDetallesMascota window5 = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
-					window5.setVisible(true);
-					
-					VentanaRegistroUsuarios window6 = new VentanaRegistroUsuarios();
-					window6.setVisible(true);
+				/*
 				
-					// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
-					try {
-						Correo.enviarCoincidencias(encontradas, encontradas.get(0), Andre);
-					} catch (MessagingException ex) {
-						JOptionPane.showMessageDialog(null, ex.getMessage(),
-						"Error al enviar el correo.", JOptionPane.ERROR_MESSAGE);
-					}
-					
-					*/
-				} catch (Exception e) {
-					e.printStackTrace();
+				VentanaInicioSesion window1 = new VentanaInicioSesion();
+				window1.setVisible(true);
+				
+				VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
+				Usuario Liza = new Usuario("lizchavca", "Liza", "Chaves Carranza",
+											116070870, "wat", 89456736, "lizchavca@gmail.com");
+				Liza.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+				window2.obtenerDatosIniciales(Liza);
+				window2.setModoEdicion(false);
+				window2.setVisible(true);
+				
+				VentanaRegistroMascotas window3 = new VentanaRegistroMascotas();
+				window3.setVisible(true);
+				
+				VentanaBusquedaMascotas window4 = new VentanaBusquedaMascotas();
+				window4.setVisible(true);
+				
+				VentanaDetallesMascota window5 = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
+				window5.setVisible(true);
+				
+				VentanaRegistroUsuarios window6 = new VentanaRegistroUsuarios();
+				window6.setVisible(true);
+				
+				VentanaParametrosSistema window7 = new VentanaParametrosSistema();
+				window7.setVisible(true);
+				
+				*/
+				VentanaPrincipal window8 = new VentanaPrincipal();
+				window8.setVisible(true);
+				/*
+				// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
+				try {
+					Correo.enviarCoincidencias(encontradas, encontradas.get(0), );
+				} catch (MessagingException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(),
+					"Error al enviar el correo.", JOptionPane.ERROR_MESSAGE);
 				}
+				*/
 			}
 		});
 

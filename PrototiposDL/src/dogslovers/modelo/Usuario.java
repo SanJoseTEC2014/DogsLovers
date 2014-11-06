@@ -373,14 +373,12 @@ public class Usuario implements Comunicable {
 		}
 	}
 	
-	public String[][] getArraycalificaciones(){
+	public String[][] getArrayCalificaciones(){
 		String[][] ArregloCalificaciones = new String[calificaciones.size()][3];
-		int i=0;
-		for (Calificacion calificacion: calificaciones){
+		for (int i = 0; i < calificaciones.size(); i++){
 			ArregloCalificaciones[i][0] = calificaciones.get(i).getNicknameCalificante();
 			ArregloCalificaciones[i][1] = Integer.toString(calificaciones.get(i).getEstrellas());
 			ArregloCalificaciones[i][2] = calificaciones.get(i).getMensaje();
-			i++;
 		}
 		return ArregloCalificaciones;
 	}

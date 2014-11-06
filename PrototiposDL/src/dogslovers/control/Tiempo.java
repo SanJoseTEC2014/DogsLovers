@@ -21,7 +21,9 @@ public class Tiempo {
 		mesInicioProduccion = pMes;
 		anioInicioProduccion = Integer.parseInt(pAnio);
 		establecerInicio();
-		JOptionPane.showMessageDialog(null, fechaSistema.getTime());
+		SimpleDateFormat validador = new SimpleDateFormat("dd/MMMM/yyyy");
+		JOptionPane.showMessageDialog(null, "Fecha registrada correctamente.\n" +
+									        validador.format(fechaSistema.getTime()));
 	}
 
 	private static void validarFecha(String pDia, String pMes, String pAnio) throws FechaInvalidaException{

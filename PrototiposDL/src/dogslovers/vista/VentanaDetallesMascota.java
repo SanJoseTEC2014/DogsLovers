@@ -168,7 +168,7 @@ public class VentanaDetallesMascota extends JFrame {
 		comboRaza.setRenderer(new DefaultListCellRenderer(){
 		    @Override
 		    public Component
-		    getListCellRendererComponent(JList list, Object value, int index,
+		    getListCellRendererComponent(JList<?> list, Object value, int index,
 		    							boolean isSelected, boolean cellHasFocus)
 		    {
 		        JComponent result = (JComponent)super.getListCellRendererComponent

@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
+
 public class Imagenes {
 	
 	protected static String directorioSistema = System.getProperty("user.dir");
@@ -18,12 +20,16 @@ public class Imagenes {
 	protected static String rutaFotosUsuarios = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\usuarios\\";
 	protected static String rutaFotosSistema  = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\sistema\\";
 	
-	private static BufferedImage cargarImagen(String pRuta) throws IOException{
+	private static BufferedImage cargarImagen(String pRuta) throws ImagenNoEncontradaException{
 		// JOptionPane.showMessageDialog(null, pRuta);
-		return ImageIO.read(new File(pRuta));
+		try {
+			return ImageIO.read(new File(pRuta));
+		} catch (IOException e) {
+			throw new ImagenNoEncontradaException(e.getMessage());
+		}
 	}
 	
-	public static BufferedImage getEstrellas(Double ponderado) throws IOException{
+	public static BufferedImage getEstrellas(Double ponderado) throws ImagenNoEncontradaException{
 		String rutaEstrellas = rutaFotosSistema + "estrellas\\";
 		
 		if (ponderado <= 5.0 && ponderado > 4.5) {
@@ -63,23 +69,23 @@ public class Imagenes {
 		return cargarImagen(rutaEstrellas);
 	}
 	
-	public static BufferedImage getPerfil(Integer idMascota) throws IOException{
-		return cargarImagen(rutaFotosMascotas + idMascota.toString() + "\\perfil.jpg");
+	public static BufferedImage getPerfilMascota(Integer idMascota) throws ImagenNoEncontradaException{
+		return cargarImagen(rutaFotosMascotas + idMascota.toString() + ".jpg"); //   + "\\perfil.jpg");
 	}
 	
-	public static BufferedImage getPerfil(String nickUsuario)  throws IOException{
+	public static BufferedImage getPerfil(String nickUsuario)  throws ImagenNoEncontradaException{
 		return cargarImagen(rutaFotosUsuarios + nickUsuario + "\\perfil.jpg");
 	}
 	
-	public static BufferedImage getImagenError() throws IOException {
+	public static BufferedImage getImagenError() throws ImagenNoEncontradaException {
 		return cargarImagen(rutaFotosSistema + "404.jpg");
 	}
 	
-	public static BufferedImage getLogo() throws IOException {
+	public static BufferedImage getLogo() throws ImagenNoEncontradaException {
 		return cargarImagen(rutaFotosSistema + "paws_logo.png");
 	}
 	
-	public static BufferedImage getIcono() throws IOException {
+	public static BufferedImage getIcono() throws ImagenNoEncontradaException {
 		return cargarImagen(rutaFotosSistema + "icono.jpg");
 	}
 	
