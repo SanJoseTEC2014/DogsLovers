@@ -120,7 +120,7 @@ public class Principal {
 					
 					
 					VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com", "Semanal");
+					Usuario Andres = new Usuario("lapc506", "Andrés", "Peña Castillo", 116370245, "scp6736", 89456736, "lapc506@hotmail.com");
 					Andres.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 					window2.obtenerDatosIniciales(Andres);
 					window2.setModoEdicion(false);

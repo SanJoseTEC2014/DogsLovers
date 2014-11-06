@@ -12,7 +12,8 @@ public class Acceso {
 	
 	// Aplicación de Singleton para el superUsuario
 	static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111, "terrier", 25505033, "paws_TEC@gmail.com", Usuario.lapsos.get(2));
+		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111, "terrier", 25505033, "paws_TEC@gmail.com");
+		superUsuario.setLapsoEmparejamiento(Usuario.lapsos.get(2));
 		superUsuario.setAdministrador(true);
 	}
 	
@@ -47,24 +48,21 @@ public class Acceso {
 	
 	private static Usuario validarUsuarioRegistrado(String pNickname) throws Exception {
 		Integer i = 0;
-		while (i < Principal.blanca.size() && Principal.blanca.get(i).getNickname() != pNickname){
+		while (i < Principal.blanca.size()) {
+			if ( Principal.blanca.get(i).getNickname() == pNickname) return Principal.blanca.get(i);
 			i++;
 		}
-		if (i < Principal.blanca.size()) {
-			return Principal.blanca.get(i); // El usuario está presente en la lista blanca.
-		} else {
-			i = 0; // Reinicia el índice para recorrer la lista negra
-			while (i < Principal.negra.size() && Principal.negra.get(i).getNickname() != pNickname){
-				i++;
-			}
-			if (i < Principal.negra.size()) {
-				return Principal.negra.get(i); // El usuario está presente en la lista negra.
-			} else {
-				throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
-				// El usuario no está presente en ninguna lista.
-			}
+		
+		i = 0; // Reinicia el índice para recorrer la lista negra
+		
+		while (i < Principal.negra.size()){
+			if (Principal.negra.get(i).getNickname() == pNickname) return Principal.negra.get(i); 
+			i++;
 		}
+
+		throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 	}
+	
 	
 	private static void setModoAdministrador(boolean opcion){
 		modoAdministrador = opcion;

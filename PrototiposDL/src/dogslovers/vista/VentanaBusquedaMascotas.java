@@ -11,8 +11,7 @@ import dogslovers.control.BuscadorMascotas;
 import dogslovers.control.Principal;
 import dogslovers.modelo.Mascota;
 
-
-public class VentanaBusquedaMascotas extends JFrame {
+public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 
 	private static final Integer anchoVentana = 500;
 	private static final Integer altoVentanaContraida = 380;
@@ -48,15 +47,33 @@ public class VentanaBusquedaMascotas extends JFrame {
 	private JButton btnContraerVentana;
 	private JPanel marcoOperaciones;
 	private JButton btnVerDetalles;
+	private JTabbedPane tabbedPane;
+	private JPanel panelMascotas;
+	private JPanel panelUsuarios;
+	Thread hiloBarraProgreso;
+	Thread hiloExpandirVentana;
+	private BuscadorMascotas modelo;
 
 	public VentanaBusquedaMascotas() {
+		
+		Thread hiloBarraProgreso = new Thread(this);
+		Thread hiloExpandirVentana = new Thread(this); 
+		
 		setName("barraCarga");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(anchoVentana, altoVentanaContraida);
 		ventanaContraida = true;
 
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setToolTipText("Mascotas");
+		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
+		panelMascotas = new JPanel();
+		tabbedPane.addTab("Buscar Mascota", null, panelMascotas, null);
+		panelMascotas.setLayout(new BorderLayout(0, 0));
+
 		marcoTitulo = new JPanel();
-		getContentPane().add(marcoTitulo, BorderLayout.NORTH);
+		panelMascotas.add(marcoTitulo, BorderLayout.NORTH);
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
 
 		progressBar = new JProgressBar();
@@ -66,12 +83,14 @@ public class VentanaBusquedaMascotas extends JFrame {
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		marcoTitulo.add(labelTitulo, BorderLayout.NORTH);
-
-		listasSeleccionadas = new boolean[] { false, false, false, false, false };
 		// Perdidas, Encontradas, Adoptadas, Adoptables, Refugiadas
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
+	
+
+
+
 			public void actionPerformed(ActionEvent arg0) {
 
 				LinkedList<String> terminos = new LinkedList<String>();
@@ -111,22 +130,16 @@ public class VentanaBusquedaMascotas extends JFrame {
 				listasSeleccionadas[4] = checkMascotasEnRefugio.isSelected();
 
 				if (algunaListaSeleccionada(listasSeleccionadas)) {
-					BuscadorMascotas Modelo = new BuscadorMascotas(terminos, listasSeleccionadas);
-					tablaResultados.setModel(Modelo);
+					modelo = new BuscadorMascotas(terminos, listasSeleccionadas);
+					tablaResultados.setModel(modelo);
 					tablaResultados.setVisible(true);
-					progressBar.setMaximum(Modelo.getCantidadDeResultados());
+					progressBar.setMaximum(modelo.getCantidadDeResultados());
 
 					if (ventanaContraida) {
 						// Se intenta hacer procesamiento en paralelo...
-						actualizarBarraProgreso(Modelo.getCantidadDeResultados());
-
-						// Expande la ventana
-						for (int i = 0; i < 200; i++) {
-							// Cada iteración expande la ventana 2 píxeles hasta
-							// un máximo de 400 píxeles estirados
-							setSize(anchoVentana, getHeight() + 2);
-						}
-						ventanaContraida = false;
+						hiloBarraProgreso.start();
+						hiloExpandirVentana.start();
+						
 					}
 				} else {
 					progressBar.setString("No se ha seleccionado ninguna lista");
@@ -134,18 +147,7 @@ public class VentanaBusquedaMascotas extends JFrame {
 				SwingUtilities.updateComponentTreeUI(getContentPane());
 			}
 
-			private void actualizarBarraProgreso(Integer cantidadDeMascotas) {
-				for (Integer i = 0; i < cantidadDeMascotas; i++) {
-					try {
-						progressBar.setValue(i);
-						Integer mascotas = i + 1;
-						progressBar.setString(mascotas.toString().concat(" MascotasEncontradas"));
-						java.lang.Thread.sleep(10);
-
-					} catch (InterruptedException e) {
-					}
-				}
-			}
+			
 
 			private boolean algunaListaSeleccionada(boolean[] listasSeleccionadas) {
 				for (boolean x : listasSeleccionadas) {
@@ -173,17 +175,18 @@ public class VentanaBusquedaMascotas extends JFrame {
 		marcoTitulo.add(btnAyuda, BorderLayout.WEST);
 
 		marcoContenido = new JPanel();
+		panelMascotas.add(marcoContenido, BorderLayout.CENTER);
 		marcoContenido.setLayout(new BorderLayout(0, 0));
-		getContentPane().add(marcoContenido, BorderLayout.CENTER);
 
 		marcoParametros = new JPanel();
 		marcoParametros.setLayout(new BorderLayout(0, 0));
 		marcoContenido.add(marcoParametros, BorderLayout.NORTH);
 
 		marcoCampos = new JPanel();
-		marcoCampos.setBorder(new TitledBorder(null, "Par\u00E1metros de B\u00FAsqueda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		marcoCampos.setBorder(new TitledBorder(null, "Par\u00E1metros de B\u00FAsqueda", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		marcoCampos.setLayout(new GridLayout(6, 2, 0, 0));
-		marcoParametros.add(marcoCampos, BorderLayout.NORTH);
+		marcoParametros.add(marcoCampos, BorderLayout.CENTER);
 
 		checkNombre = new JCheckBox("Nombre");
 		checkNombre.addActionListener(new ActionListener() {
@@ -284,7 +287,8 @@ public class VentanaBusquedaMascotas extends JFrame {
 		marcoCampos.add(comboRazas);
 
 		marcoListas = new JPanel();
-		marcoListas.setBorder(new TitledBorder(null, "\u00BFD\u00F3nde desea buscar?", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		marcoListas.setBorder(new TitledBorder(null, "\u00BFD\u00F3nde desea buscar?", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		FlowLayout flowLayout = (FlowLayout) marcoListas.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		marcoParametros.add(marcoListas, BorderLayout.SOUTH);
@@ -335,6 +339,10 @@ public class VentanaBusquedaMascotas extends JFrame {
 		btnContraerVentana.setEnabled(false);
 		marcoContenido.add(btnContraerVentana, BorderLayout.SOUTH);
 
+		panelUsuarios = new JPanel();
+		tabbedPane.addTab("BuscarUsusario", null, panelUsuarios, null);
+		panelUsuarios.setLayout(new BorderLayout(0, 0));
+
 		marcoOperaciones = new JPanel();
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 		marcoOperaciones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -342,5 +350,48 @@ public class VentanaBusquedaMascotas extends JFrame {
 		btnVerDetalles = new JButton("Ver Detalles");
 		marcoOperaciones.add(btnVerDetalles);
 
+		listasSeleccionadas = new boolean[] { false, false, false, false, false };
+
 	}
+
+	private void actualizarBarraProgreso() {
+		for (Integer i = 0; i < modelo.getCantidadDeResultados(); i++) {
+			try {
+				progressBar.setValue(i);
+				Integer mascotas = i + 1;
+				progressBar.setString(mascotas.toString().concat(" MascotasEncontradas"));
+				java.lang.Thread.sleep(100);
+
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+
+	@Override
+	public void run() {
+
+		Thread ct = Thread.currentThread();
+
+		while (ct == hiloBarraProgreso) {
+			actualizarBarraProgreso();
+		}
+		
+		while (ct == hiloExpandirVentana) {
+			expandirVentana();
+		
+		}
+		
+	}
+
+	private void expandirVentana() {
+		// Expande la ventana
+		for (int i = 0; i < 200; i++) {
+			// Cada iteración expande la ventana 2 píxeles hasta
+			// un máximo de 400 píxeles estirados
+			setSize(anchoVentana, getHeight() + 2);
+		}
+		ventanaContraida = false;
+		
+	}
+
 }
