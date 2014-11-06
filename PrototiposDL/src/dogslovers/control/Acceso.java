@@ -11,9 +11,16 @@ public class Acceso {
 	private static boolean modoAdministrador;
 	
 	// Aplicación de Singleton para el superUsuario
-	static void inicializarSuperUsuario(){
+	private static void inicializarSuperUsuario(){
 		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111, "terrier", 25505033, "paws_TEC@gmail.com", Usuario.lapsos.get(2));
 		superUsuario.setAdministrador(true);
+	}
+	
+	private static Usuario getInstanciaSuperUsuario(){
+		if (superUsuario == null){
+			inicializarSuperUsuario();
+		}
+		return superUsuario;
 	}
 	
 	public static void validarCredenciales(String pNickname, String pContrasenia) throws Exception{
@@ -24,7 +31,7 @@ public class Acceso {
 									(isSuperUsuario(pNickname, pContrasenia) ? "Sí" : "No"));
 		*/
 		if (isSuperUsuario(pNickname, pContrasenia)){
-			usuarioActivo = superUsuario;
+			usuarioActivo = getInstanciaSuperUsuario();
 			setModoAdministrador(true);
 		} else {
 			Usuario usuarioPorAcceder = validarUsuarioRegistrado(pNickname);
@@ -38,8 +45,8 @@ public class Acceso {
 	}
 	
 	private static boolean isSuperUsuario(String pNickname, String pContrasenia){
-		if (pNickname.equals(superUsuario.getNickname())){
-			if (pContrasenia.equals(superUsuario.getContrasenia())) {
+		if (pNickname.equals(getInstanciaSuperUsuario().getNickname())){
+			if (pContrasenia.equals(getInstanciaSuperUsuario().getContrasenia())) {
 				return true;
 			}
 		} return false;

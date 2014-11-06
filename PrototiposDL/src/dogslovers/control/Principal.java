@@ -113,7 +113,6 @@ public class Principal {
 		}
 		
 		inicializarMascotas();
-		Acceso.inicializarSuperUsuario();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
