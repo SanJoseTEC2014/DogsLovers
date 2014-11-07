@@ -45,11 +45,11 @@ public class Picture extends Rectangle {
 	private Point3D[] projectedPoints;
 
 	public Picture(BufferedImage image) {
-		super(new Point3D(0, 0, 0), new Point3D(0, 0, 0), Color.black);
+		super(new Point3D(0.0, 0.0, 0.0), new Point3D(0.0, 0.0, 0.0), Color.black);
 		this.image = image;
 		projectedPoints = new Point3D[4];
-		setCoordinates(new Point3D(0, 0, 0), new Point3D(image.getWidth(),
-				image.getHeight(), 0));
+		setCoordinates(new Point3D(0.0, 0.0, 0.0),
+				new Point3D( (Double)(double) image.getWidth(), (Double)(double) image.getHeight(), 0.0));
 	}
 
 	public Picture(URL url) throws IOException {
@@ -81,7 +81,7 @@ public class Picture extends Rectangle {
 	}
 
 	private static boolean checkSide(Point3D point, Point3D p1, Point3D p2) {
-		double c = (point.getY() - p1.getY()) * (p2.getX() - p1.getX())
+		Double c = (point.getY() - p1.getY()) * (p2.getX() - p1.getX())
 				- (point.getX() - p1.getX()) * (p2.getY() - p1.getY());
 		return c < 0;
 	}
@@ -110,9 +110,9 @@ public class Picture extends Rectangle {
 		projectedPoints[1] = topR;
 		projectedPoints[2] = bottomR;
 		projectedPoints[3] = bottomL;
-		if (topL.getX() != bottomL.getX() || topR.getX() != bottomR.getX()) {
-			throw new RuntimeException();
-		}
+//		if (topL.getX() != bottomL.getX() || topR.getX() != bottomR.getX()) {
+//			throw new RuntimeException();
+//		}
 	}
 	
 	private void setHighQuality(boolean on, Graphics2D g) {
@@ -169,11 +169,11 @@ public class Picture extends Rectangle {
 		if (config.reflectionOpacity > 0) {
 			setHighQuality(false, g);
 			for (int x = 0; x < w; x++) {
-				double d = 1.0 * x / w;
+				Double d = 1.0 * x / w;
 				int xo = (int) Math.round(d * image.getWidth());
 				int xt = (int) Math.round(x0 + x);
-				double colY = dt * (mirror ? 1 - d : d);
-				double colH = heightLeft + (heightRight - heightLeft) * d;
+				Double colY = dt * (mirror ? 1 - d : d);
+				Double colH = heightLeft + (heightRight - heightLeft) * d;
 				int ryt0 = (int) Math.round(y0 + colY + colH);
 				int ryt1 = (int) Math.round(y0 + colY + colH + colH);
 				g.drawImage(image, xt, ryt1, xt + 1, ryt0, xo, 0, xo + 1,
@@ -203,22 +203,21 @@ public class Picture extends Rectangle {
 		setHighQuality(config.highQuality, g);
 		// image
 		for (int x = 0; x < w; x++) {
-			double d = 1.0 * x / w;
+			Double d = 1.0 * x / w;
 			int xo = (int) Math.round(d * image.getWidth());
 			int xt = (int) Math.round(x0 + x);
-			double colY = dt * (mirror ? 1 - d : d);
-			double colH = heightLeft + (heightRight - heightLeft) * d;
-			double z = constrain(
-					-topL.getZ() - (topR.getZ() - topL.getZ()) * d, 0,
+			Double colY = dt * (mirror ? 1 - d : d);
+			Double colH = heightLeft + (heightRight - heightLeft) * d;
+			Double z = constrain(
+					-topL.getZ() - (topR.getZ() - topL.getZ()) * d, 0.0,
 					Double.MAX_VALUE);
-			double ys = colY;
-			double ym = colY + colH;
+			Double ys = colY;
+			Double ym = colY + colH;
 			int yt = (int) Math.round(y0 + ys);
 			int yb = (int) Math.round(y0 + ym);
 			g.drawImage(image, xt, yt, xt + 1, yb, xo, 0, xo + 1,
 					image.getHeight(), null);
-			float shadeOpacity = (float) constrain(config.shadingFactor * z, 0,
-					1);
+			Double shadeOpacity = constrain(config.shadingFactor * z, 0.0, 1.0);
 			if (shadeOpacity > 0) {
 				g.setColor(getOverlayColor(shadeOpacity, config));
 				g.drawLine(xt, yt, xt, yb + yb);
@@ -226,13 +225,13 @@ public class Picture extends Rectangle {
 		}
 		// shade
 		if (config.shadingFactor > 0) {
-			double aL = constrain(topL.getZ() * config.shadingFactor, 0, 1);
-			double aR = constrain(topR.getZ() * config.shadingFactor, 0, 1);
+			Double aL = constrain(topL.getZ() * config.shadingFactor, 0.0, 1.0);
+			Double aR = constrain(topR.getZ() * config.shadingFactor, 0.0, 1.0);
 			Color cL = getOverlayColor(aL, config);
 			Color cR = getOverlayColor(aR, config);
 			Paint oldPaint = g.getPaint();
-			g.setPaint(new GradientPaint((float) Math.round(x0), 0f, cL,
-					(float) Math.round(x0 + w - 1), 0f, cR));
+			g.setPaint(new GradientPaint(Math.round(x0), 0f, cL,
+					Math.round(x0 + w - 1), 0f, cR));
 			g.fillPolygon(xPoints, yPoints, 4);
 			g.setPaint(oldPaint);
 		}
@@ -251,13 +250,13 @@ public class Picture extends Rectangle {
 		}
 	}
 
-	private static Color getOverlayColor(double opacity, Configuration config) {
+	private static Color getOverlayColor(Double opacity, Configuration config) {
 		Color base = config.backgroundColor;
 		return new Color(base.getRed(), base.getGreen(), base.getBlue(),
 				(int) Math.round(base.getAlpha() * opacity));
 	}
 
-	private static double constrain(double a, double min, double max) {
+	private static Double constrain(Double a, Double min, Double max) {
 		return a < min ? min : (a > max ? max : a);
 	}
 }

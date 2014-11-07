@@ -78,8 +78,8 @@ public abstract class Polygon extends Shape {
 			pt.rotate(rot);
 			pt.translate(loc);
 			Point3D pr = scene.project(pt, surfaceSize);
-			x[i] = (int) pr.getX();
-			y[i] = (int) pr.getY();
+			x[i] = (int) (double) pr.getX();
+			y[i] = (int) (double) pr.getY();
 			i++;
 		}
 		graphics.setColor(getColor());

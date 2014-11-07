@@ -30,12 +30,12 @@ public class RotationMatrix extends Matrix {
 	}
 
 	private static Matrix getMatrix(double x, double y, double z) {
-		Matrix xm = new Matrix(3, 3, 1, 0, 0, 0, Math.cos(x), -Math.sin(x), 0,
+		Matrix xm = new Matrix(3, 3, 1.0, 0.0, 0.0, 0.0, Math.cos(x), -Math.sin(x), 0.0,
 				Math.sin(x), Math.cos(x));
-		Matrix ym = new Matrix(3, 3, Math.cos(y), 0, Math.sin(y), 0, 1, 0,
-				-Math.sin(y), 0, Math.cos(y));
-		Matrix zm = new Matrix(3, 3, Math.cos(z), -Math.sin(z), 0, Math.sin(z),
-				Math.cos(z), 0, 0, 0, 1);
+		Matrix ym = new Matrix(3, 3, Math.cos(y), 0.0, Math.sin(y), 0.0, 1.0, 0.0,
+				-Math.sin(y), 0.0, Math.cos(y));
+		Matrix zm = new Matrix(3, 3, Math.cos(z), -Math.sin(z), 0.0, Math.sin(z),
+				Math.cos(z), 0.0, 0.0, 0.0, 1.0);
 		return xm.multiply(ym).multiply(zm);
 	}
 }

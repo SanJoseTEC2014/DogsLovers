@@ -67,8 +67,8 @@ public class JFlowPanel extends JPanel implements MouseListener,
 		super();
 		this.config = config;
 		listeners = new HashSet<ShapeListener>();
-		scene = new Scene(new Point3D(0, 0, 1), new RotationMatrix(0, 0, 0),
-				new Point3D(0, 0, 1));
+		scene = new Scene(new Point3D(0.0, 0.0, 1.0), new RotationMatrix(0, 0, 0),
+				new Point3D(0.0, 0.0, 1.0));
 		buttonOnePressed = false;
 		dragging = false;
 		shapeArrayOffset = 0;
@@ -106,14 +106,14 @@ public class JFlowPanel extends JPanel implements MouseListener,
 		while (scrollDelta < -0.5) {
 			scrollDelta += 1;
 			if (--shapeArrayOffset < 0) {
-				shapeArrayOffset += config.shapes.length;
+				shapeArrayOffset += config.shapes.size();
 			}
 
 		}
 		while (scrollDelta > 0.5) {
 			scrollDelta -= 1;
-			if (++shapeArrayOffset >= config.shapes.length) {
-				shapeArrayOffset -= config.shapes.length;
+			if (++shapeArrayOffset >= config.shapes.size()) {
+				shapeArrayOffset -= config.shapes.size();
 			}
 		}
 	}
@@ -131,10 +131,10 @@ public class JFlowPanel extends JPanel implements MouseListener,
 				}
 			}
 		}
-		for (int i = 0; i < config.shapes.length; i++) {
-			if (config.shapes[i] instanceof Picture) {
-				Picture pic = (Picture) config.shapes[i];
-				double j = transpose(i) - config.shapes.length / 2
+		for (int i = 0; i < config.shapes.size(); i++) {
+			if (config.shapes.get(i) instanceof Picture) {
+				Picture pic = (Picture) config.shapes.get(i);
+				double j = transpose(i) - config.shapes.size() / 2
 						+ scrollDelta;
 				j = (j < 0 ? -1 : 1)
 						* Math.pow(Math.abs(j), config.scrollScale);
@@ -162,15 +162,14 @@ public class JFlowPanel extends JPanel implements MouseListener,
 				}
 				double z = -config.zoomFactor
 						* Math.pow(Math.abs(j), config.zoomScale);
-				Point3D topLeft = new Point3D(-config.shapeWidth / 2 + comp,
-						top, 0);
-				Point3D bottomRight = new Point3D(config.shapeWidth / 2 + comp,
-						bottom, 0);
+				Point3D topLeft = new Point3D((Double) (-config.shapeWidth / 2 + comp),
+						top, 0.0);
+				Point3D bottomRight = new Point3D((Double) (config.shapeWidth / 2 + comp),
+						bottom, 0.0);
 				pic.setCoordinates(topLeft, bottomRight);
 				pic.setRotationMatrix(new RotationMatrix(0,
 						-config.shapeRotation * j, 0));
-				pic.setLocation(new Point3D(config.shapeSpacing * j - comp, 0,
-						z));
+				pic.setLocation(new Point3D((Double) (config.shapeSpacing * j - comp), 0.0, z));
 			}
 		}
 		checkActiveShape();
@@ -199,23 +198,23 @@ public class JFlowPanel extends JPanel implements MouseListener,
 	public synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// respect stacking order
-		for (int i = 0; i < config.shapes.length / 2; i++) {
-			paintShape(config.shapes[untranspose(i)], g);
+		for (int i = 0; i < config.shapes.size() / 2; i++) {
+			paintShape(config.shapes.get(untranspose(i)), g);
 			paintShape(
-					config.shapes[untranspose(config.shapes.length - 1 - i)], g);
+					config.shapes.get(untranspose(config.shapes.size() - 1 - i)), g);
 		}
-		paintShape(config.shapes[untranspose(config.shapes.length / 2)], g);
+		paintShape(config.shapes.get(untranspose(config.shapes.size() / 2)), g);
 	}
 
 	// physical (array) to logical (visual)
 	private int transpose(int index) {
-		return (index + shapeArrayOffset) % config.shapes.length;
+		return (index + shapeArrayOffset) % config.shapes.size();
 	}
 
 	// logical to physical
 	private int untranspose(int index) {
-		return (index - shapeArrayOffset + config.shapes.length)
-				% config.shapes.length;
+		return (index - shapeArrayOffset + config.shapes.size())
+				% config.shapes.size();
 	}
 
 	private void paintShape(Shape shape, Graphics g) {
@@ -324,20 +323,20 @@ public class JFlowPanel extends JPanel implements MouseListener,
 				Point mp = getMousePosition();
 				Shape newActiveShape = null;
 				if (mp != null) {
-					Point3D p = new Point3D(mp.getX(), mp.getY(), 0);
-					int i = untranspose(config.shapes.length / 2);
-					if (config.shapes[i].contains(p)) {
-						newActiveShape = config.shapes[i];
+					Point3D p = new Point3D( (Double) (double)  mp.getX(), (Double) (double) mp.getY(), 0.0);
+					int i = untranspose(config.shapes.size() / 2);
+					if (config.shapes.get(i).contains(p)) {
+						newActiveShape = config.shapes.get(i);
 					}
 					i = 1;
-					while (i <= config.shapes.length / 2
+					while (i <= config.shapes.size() / 2
 							&& newActiveShape == null) {
-						int j = untranspose(config.shapes.length / 2 - i);
-						int k = untranspose(config.shapes.length / 2 + i);
-						if (config.shapes[j].contains(p)) {
-							newActiveShape = config.shapes[j];
-						} else if (config.shapes[k].contains(p)) {
-							newActiveShape = config.shapes[k];
+						int j = untranspose(config.shapes.size() / 2 - i);
+						int k = untranspose(config.shapes.size() / 2 + i);
+						if (config.shapes.get(j).contains(p)) {
+							newActiveShape = config.shapes.get(j);
+						} else if (config.shapes.get(k).contains(p)) {
+							newActiveShape = config.shapes.get(k);
 						}
 						i++;
 					}

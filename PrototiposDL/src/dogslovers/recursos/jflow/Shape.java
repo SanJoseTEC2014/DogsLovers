@@ -30,7 +30,7 @@ public abstract class Shape {
 	private RotationMatrix rotationMatrix;
 
 	public Shape() {
-		setLocation(new Point3D(0, 0, 0));
+		setLocation(new Point3D(0.0, 0.0, 0.0));
 		setRotationMatrix(new RotationMatrix(0, 0, 0));
 	}
 

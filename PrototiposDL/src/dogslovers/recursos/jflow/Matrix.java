@@ -18,19 +18,18 @@
 
 package dogslovers.recursos.jflow;
 
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class Matrix {
-	private List<List<Double>> values;
+	private LinkedList<LinkedList<Double>> values;
 
-	public Matrix(int rows, int columns, double... values) {
+	public Matrix(int rows, int columns, Double... values) {
 		if (values.length < 0 && values.length != rows * columns) {
 			throw new IllegalArgumentException();
 		}
-		this.values = new Vector<List<Double>>(rows);
+		this.values = new LinkedList<LinkedList<Double>>();
 		for (int i = 0; i < rows; i++) {
-			List<Double> row = new Vector<Double>(columns);
+			LinkedList<Double> row = new LinkedList<Double>();
 			for (int j = 0; j < columns; j++) {
 				int index = i * columns + j;
 				row.add(values.length > 0 ? values[index] : 0.0);
@@ -40,10 +39,10 @@ public class Matrix {
 	}
 
 	public Matrix(Matrix matrix) {
-		this.values = new Vector<List<Double>>(matrix.values.size());
+		this.values = new LinkedList<LinkedList<Double>>();
 		for (List<Double> row : matrix.values) {
-			List<Double> r = new Vector<Double>(row.size());
-			for (double value : row) {
+			LinkedList<Double> r = new LinkedList<Double>();
+			for (Double value : row) {
 				r.add(value);
 			}
 			this.values.add(r);
@@ -58,11 +57,11 @@ public class Matrix {
 		return values.get(0).size();
 	}
 
-	public double getValue(int row, int column) {
+	public Double getValue(int row, int column) {
 		return values.get(row).get(column);
 	}
 
-	public void setValue(int row, int column, double value) {
+	public void setValue(int row, int column, Double value) {
 		values.get(row).set(column, value);
 	}
 
@@ -101,7 +100,7 @@ public class Matrix {
 		Matrix p = new Matrix(getRowCount(), other.getColumnCount());
 		for (int r = 0; r < p.getRowCount(); r++) {
 			for (int c = 0; c < p.getColumnCount(); c++) {
-				double sum = 0;
+				Double sum = 0.0;
 				for (int i = 0; i < getColumnCount(); i++) {
 					sum += getValue(r, i) * other.getValue(i, c);
 				}

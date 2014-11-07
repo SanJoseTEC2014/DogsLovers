@@ -29,9 +29,9 @@ public class Rectangle extends Polygon {
 	}
 
 	public void setCoordinates(Point3D p1, Point3D p2) {
-		if (p1.getZ() != p2.getZ()) {
-			throw new IllegalArgumentException();
-		}
+//		if (p1.getZ() != p2.getZ()) {
+//			throw new IllegalArgumentException();
+//		}
 		removePoints();
 		addPoint(p1);
 		addPoint(new Point3D(p2.getX(), p1.getY(), p1.getZ()));

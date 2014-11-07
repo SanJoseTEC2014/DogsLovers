@@ -10,13 +10,16 @@ package dogslovers.modelo;
  *  
  */
 
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
+import dogslovers.control.Imagenes;
 import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
 import dogslovers.modelo.Suceso;
 
 public class Mascota {
@@ -323,8 +326,12 @@ public class Mascota {
 		  return new DefaultComboBoxModel<String>(razas.get(especies.indexOf(pEspecie)));
 	}
 	
-	public DefaultComboBoxModel<String> getModeloEdades() {
+	public static DefaultComboBoxModel<String> getModeloEdades() {
 		  return new DefaultComboBoxModel<String>((String[]) edades.toArray());
+	}
+	
+	public BufferedImage getImagen() throws ImagenNoEncontradaException{
+		return Imagenes.getPerfilMascota(id);
 	}
 	
 }

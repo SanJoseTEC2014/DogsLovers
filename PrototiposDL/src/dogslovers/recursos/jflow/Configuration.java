@@ -19,13 +19,14 @@
 package dogslovers.recursos.jflow;
 
 import java.awt.Color;
+import java.util.LinkedList;
 
 public class Configuration {
 	public enum VerticalAlignment {
 		TOP, MIDDLE, BOTTOM
 	}
 
-	public Shape[] shapes;
+	public LinkedList<Shape> shapes;
 
 	public double shapeWidth = 1.0 / 3;
 	public VerticalAlignment verticalShapeAlignment = VerticalAlignment.BOTTOM;

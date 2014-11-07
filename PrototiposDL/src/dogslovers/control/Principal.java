@@ -120,16 +120,16 @@ public class Principal {
 		inicializarMascotas();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				/*
 				
 				VentanaInicioSesion window1 = new VentanaInicioSesion();
 				window1.setVisible(true);
 				
 				VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-				Usuario Liza = new Usuario("lizchavca", "Liza", "Chaves Carranza",
-											116070870, "wat", 89456736, "lizchavca@gmail.com");
-				Liza.addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-				window2.obtenerDatosIniciales(Liza);
+				blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
+										116070870, "wat", 89456736, "lizchavca@gmail.com"));
+				blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+				
+				window2.obtenerDatosIniciales(blanca.get(0));
 				window2.setModoEdicion(false);
 				window2.setVisible(true);
 				
@@ -148,7 +148,6 @@ public class Principal {
 				VentanaParametrosSistema window7 = new VentanaParametrosSistema();
 				window7.setVisible(true);
 				
-				*/
 				VentanaPrincipal window8 = new VentanaPrincipal();
 				window8.setVisible(true);
 				/*

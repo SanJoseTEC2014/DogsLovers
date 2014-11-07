@@ -21,12 +21,12 @@ package dogslovers.recursos.jflow.geometry;
 import dogslovers.recursos.jflow.Matrix;
 
 public class Point3D extends Matrix {
-	public Point3D(double x, double y, double z) {
+	public Point3D(Double x, Double y, Double z) {
 		super(3, 1, x, y, z);
 	}
 
-	public Point3D(double x, double y) {
-		this(x, y, 0);
+	public Point3D(Double x, Double y) {
+		this(x, y, 0.0);
 	}
 
 	public Point3D(Matrix matrix) {
@@ -40,27 +40,27 @@ public class Point3D extends Matrix {
 		setZ(matrix.getValue(2, 0));
 	}
 
-	public double getX() {
+	public Double getX() {
 		return getValue(0, 0);
 	}
 
-	public void setX(double x) {
+	public void setX(Double x) {
 		setValue(0, 0, x);
 	}
 
-	public double getY() {
+	public Double getY() {
 		return getValue(1, 0);
 	}
 
-	public void setY(double y) {
+	public void setY(Double y) {
 		setValue(1, 0, y);
 	}
 
-	public double getZ() {
+	public Double getZ() {
 		return getValue(2, 0);
 	}
 
-	public void setZ(double z) {
+	public void setZ(Double z) {
 		setValue(2, 0, z);
 	}
 
