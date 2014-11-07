@@ -27,7 +27,7 @@ public class VentanaPrincipal extends JFrame {
 		configTest.shapes = new LinkedList<Shape>();
 		// Después de muchas pruebas unitarias,
 		// el máximo de imágenes que la matriz sostiene son 10.
-		for (int img = 0; img < 6; img++){ 
+		for (int img = 1; img < 10; img++){ 
 			try {
 				configTest.shapes.add(new Picture(Imagenes.getPerfilMascota(img)));
 			} catch (ImagenNoEncontradaException e) {

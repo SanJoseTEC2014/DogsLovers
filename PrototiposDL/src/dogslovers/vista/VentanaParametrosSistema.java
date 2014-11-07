@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+
 import dogslovers.control.*;
+import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
 
 import com.toedter.calendar.*;
@@ -73,6 +75,13 @@ public class VentanaParametrosSistema extends JFrame {
 		comboCalificaciones.setModel(new DefaultComboBoxModel<String>(calificaciones));
 		
 		btnGuardarCalificacion = new JButton("Guardar Calificaci\u00F3n");
+		btnGuardarCalificacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Usuario.setCalificacionMinimaPermitidaUsuarios(
+						Double.valueOf((String) comboCalificaciones.getSelectedItem()));
+			}
+		});
+		
 		panelGeneral.add(btnGuardarCalificacion);
 		btnGuardarCalificacion.setOpaque(false);
 		

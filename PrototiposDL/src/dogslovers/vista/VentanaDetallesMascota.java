@@ -49,7 +49,7 @@ public class VentanaDetallesMascota extends JFrame {
 	private JButton botonCancelar;
 	private JButton botonGuardarCambios;
 
-	public VentanaDetallesMascota(Mascota mascota, boolean editable) {
+	public VentanaDetallesMascota() {
 		setSize(600, 500);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(20, 10));
@@ -92,23 +92,21 @@ public class VentanaDetallesMascota extends JFrame {
 		labelNombre = new JLabel("Nombre");
 		marcoInformacionPrincipal.add(labelNombre);
 
-		campoNombre = new JTextField(mascota.getNombre());
+		campoNombre = new JTextField();
 		marcoInformacionPrincipal.add(campoNombre);
-		campoNombre.setEditable(editable);
 		campoNombre.setColumns(12);
 
 		labelNumeroChip = new JLabel("N\u00FAmero del Chip");
 		marcoInformacionPrincipal.add(labelNumeroChip);
 
 		campoNumeroChip = new JTextField();
-		campoNumeroChip.setText(mascota.getNumeroChip() == null ? "" : mascota.getNumeroChip().toString());
 		campoNumeroChip.setColumns(12);
 		marcoInformacionPrincipal.add(campoNumeroChip);
 
 		labelColor = new JLabel("Color");
 		marcoInformacionPrincipal.add(labelColor);
 
-		campoColor = new JTextField(mascota.getColor());
+		campoColor = new JTextField();
 		marcoInformacionPrincipal.add(campoColor);
 		campoColor.setColumns(12);
 
@@ -247,10 +245,6 @@ public class VentanaDetallesMascota extends JFrame {
 		botonGuardarCambios = new JButton("Guardar Cambios");
 		botonGuardarCambios.setOpaque(false);
 		marcoOperacionesBasicas.add(botonGuardarCambios);
-
-		campoNombre.setEditable(editable);
-		campoNumeroChip.setEditable(editable);
-		campoColor.setEditable(editable);
 		
 		/*
 		if (orden == "MostrarDetalles") {
@@ -291,5 +285,17 @@ public class VentanaDetallesMascota extends JFrame {
 			checkDiscapacitada.setSelected(mascota.isDiscapacitada());
 		}
 		*/
+	}
+	
+	public void obtenerDatosIniciales(Mascota mascota){
+		campoNombre.setText(mascota.getNombre());
+		campoNumeroChip.setText(mascota.getNumeroChip() == null ? "" : mascota.getNumeroChip().toString());
+		campoColor.setText(mascota.getColor());
+	}
+	
+	public void setModoEdicion(boolean opcion){
+		campoNombre.setEditable(opcion);
+		campoNumeroChip.setEditable(opcion);
+		campoColor.setEditable(opcion);
 	}
 }

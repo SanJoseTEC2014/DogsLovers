@@ -229,7 +229,7 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonSalir);
 	}
 	
-	public void obtenerDatosIniciales(Usuario pUsuario) {
+	public void setDatosIniciales(Usuario pUsuario) {
 		usuarioActual = pUsuario;
 		textNickname.setText(usuarioActual.getNickname());
 		textNombre.setText(usuarioActual.getNombre());

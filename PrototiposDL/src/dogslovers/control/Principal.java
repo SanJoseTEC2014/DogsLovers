@@ -3,6 +3,7 @@ package dogslovers.control;
 import java.awt.*;
 import java.util.*;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 
 import dogslovers.control.excepciones.*;
@@ -23,14 +24,12 @@ public class Principal {
 	public static ArrayList<Mascota> muertas = new ArrayList<Mascota>();
 	public static ArrayList<Usuario> blanca = new ArrayList<Usuario>();
 	public static ArrayList<Usuario> negra = new ArrayList<Usuario>();
-	//public static ArrayList<Organizacion> organizaciones = new ArrayList<Mascota>;
-	//public static ArrayList<Donacion> donaciones = new ArrayList<Mascota>;
+	public static ArrayList<Organizacion> organizaciones = new ArrayList<Organizacion>();
+	public static ArrayList<Donacion> donaciones = new ArrayList<Donacion>();
 	
-	private static double calificacionMinimaPermitidaUsuarios = 3; // el valor por defecto es 3 
+	public static CoordinadorVisual coordinador;
 	
 	public static void inicializarMascotas() {
-		
-		
 		Mascota.especies.add("Perro");
 		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
 		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro",
@@ -53,6 +52,14 @@ public class Principal {
 		
 		// Validación de inserción de las 100 Mascota
 		// System.out.println(encontradas.size());
+	}
+	
+	public static void inicializarUsuarios() {
+		Usuario.setCalificacionMinimaPermitidaUsuarios(3.0);
+		
+		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
+				116070870, "wat", 89456736, "lizchavca@gmail.com"));
+		blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -88,66 +95,47 @@ public class Principal {
 		Diseno.inicializarLookAndFeel();
 		
 		inicializarMascotas();
+		inicializarUsuarios();
+		
+		// VentanaDetallesMascota: encontradas.get(0).clone(), false
+		
+		// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS
+		/*
+		try {
+			Correo.enviarCoincidencias(encontradas, encontradas.get(0), blanca.get(0));
+		} catch (MessagingException ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage(),
+			"Error al enviar el correo.", JOptionPane.ERROR_MESSAGE);
+		}
+		*/
+		
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				/*
-				VentanaInicioSesion window1 = new VentanaInicioSesion();
-				window1.setVisible(true);
-				
-				VentanaDetallesUsuario window2 = new VentanaDetallesUsuario();
-				blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
-										116070870, "wat", 89456736, "lizchavca@gmail.com"));
-				blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-				
-				window2.obtenerDatosIniciales(blanca.get(0));
-				window2.setModoEdicion(false);
-				window2.setVisible(true);
-				
-				VentanaRegistroMascotas window3 = new VentanaRegistroMascotas();
-				window3.setVisible(true);
-				
-				VentanaBusquedaMascotas window4 = new VentanaBusquedaMascotas();
-				window4.setVisible(true);
-				
-				VentanaDetallesMascota window5 = new VentanaDetallesMascota(encontradas.get(0).clone(), false);
-				window5.setVisible(true);
-				
-				VentanaRegistroUsuarios window6 = new VentanaRegistroUsuarios();
-				window6.setVisible(true);
-				*/
-				VentanaParametrosSistema window7 = new VentanaParametrosSistema();
-				window7.setVisible(true);
-				/*
-				VentanaPrincipal window8 = new VentanaPrincipal();
-				window8.setVisible(true);
-				
-				// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
-				try {
-					Correo.enviarCoincidencias(encontradas, encontradas.get(0), );
-				} catch (MessagingException ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage(),
-					"Error al enviar el correo.", JOptionPane.ERROR_MESSAGE);
-				}
-				*/
+			public void run() { 
+				coordinador = new CoordinadorVisual();
+				coordinador.mostrarInicioSesion();
 			}
 		});
 
 	}
 	
-//	private static class ComparadorFechasRecientes implements Comparator<Mascota>{
-//		@Override
-//		public int compare(Mascota arg0, Mascota arg1) {
-//			if( arg0.getPerdida().getFecha().getTime().before( arg1.getPerdida().getFecha().getTime() ) ){
-//				return 1;
-//	        } else {
-//	            return -1;
-//	        }
-//		}
-//	}
+	// TODO Hay que organizar cómo ordenar en orden
+	// de fechas recientes los resultados de una búsqueda.
+	/*
+	private static class ComparadorFechasRecientes implements Comparator<Mascota>{
+		@Override
+		public int compare(Mascota arg0, Mascota arg1) {
+			if( arg0.getPerdida().getFecha().getTime().before( arg1.getPerdida().getFecha().getTime() ) ){
+				return 1;
+	        } else {
+	            return -1;
+	        }
+		}
+	}
+	*/
 
 	public static boolean isUsuarioEnListaBlanca(String nickname) { // metodo se puede sustituir blanca.contains(usuario)
 		for (Usuario usuario : blanca ){
-			if (usuario.getNickname() == nickname) return true;
+			if (usuario.getNickname().equals(nickname)) return true;
 		}
 		return false;
 	}
@@ -188,16 +176,6 @@ public class Principal {
 		} 
 	}
 
-	public static double getCalificacionMinimaPermitidaUsuarios() {
-		return calificacionMinimaPermitidaUsuarios;
-	}
-
-	public static void setCalificacionMinimaPermitidaUsuarios(double calificacionMinimaPermitida) {
-		Principal.calificacionMinimaPermitidaUsuarios = calificacionMinimaPermitida;
-	}
-	
-
-	
 	public static ArrayList<Mascota> getCopiaMascotasPerdidas(){
 		ArrayList<Mascota> copia = new ArrayList<Mascota>();
 	    for (Mascota mascota : perdidas) copia.add(mascota.clone());

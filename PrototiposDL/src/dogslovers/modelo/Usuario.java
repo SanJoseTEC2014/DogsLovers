@@ -12,7 +12,16 @@ import dogslovers.control.excepciones.MascotaNoEncontradaException;
 public class Usuario implements Comunicable {
 
 	public static final List<String> lapsos = Arrays.asList("Diario", "Semanal", "Mensual");
+	private static Double calificacionMinimaPermitida;
+	
+	public static Double getCalificacionMinimaPermitida() {
+		return calificacionMinimaPermitida;
+	}
 
+	public static void setCalificacionMinimaPermitidaUsuarios(Double pCalificacion) {
+		calificacionMinimaPermitida = pCalificacion;
+	}
+	
 	private String nickname;
 	private String nombre;
 	private String apellidos;
@@ -297,11 +306,11 @@ public class Usuario implements Comunicable {
 	}
 
 	public void addCalificacion(Calificacion pCalificacion) {
-		System.out.println(pCalificacion.getEstrellas());
+		//System.out.println(pCalificacion.getEstrellas());
 		actualizarPonderado(pCalificacion.getEstrellas());
-		System.out.println(ponderadoCalificacion);
+		//System.out.println(ponderadoCalificacion);
 		this.calificaciones.add(pCalificacion);
-		System.out.println(ponderadoCalificacion);
+		//System.out.println(ponderadoCalificacion);
 	}
 	
 	public double getPonderadoCalificacion(){
@@ -315,8 +324,7 @@ public class Usuario implements Comunicable {
 		ponderadoCalificacion = (ponderadoCalificacion * calificaciones.size() + ultimaCalificacion)
 								/ (calificaciones.size() + 1); // +1 de la calificación que está agregando
 		
-		if (ponderadoCalificacion < Principal.getCalificacionMinimaPermitidaUsuarios()
-				&& Principal.isUsuarioEnListaBlanca(nickname))
+		if (ponderadoCalificacion < calificacionMinimaPermitida	&& Principal.isUsuarioEnListaBlanca(nickname))
 		{
 			Principal.transladarUsuarioListaNegra(this);
 		} else

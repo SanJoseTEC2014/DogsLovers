@@ -85,11 +85,7 @@ public class VentanaInicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Acceso.validarCredenciales(nicknameTextBox.getText(), new String(passwordTextBox.getPassword()));
-					cerrarVentana();
-					VentanaDetallesUsuario prueba = new VentanaDetallesUsuario();
-					prueba.obtenerDatosIniciales(Acceso.getUsuarioActivo());
-					prueba.setModoEdicion(false);
-					prueba.setVisible(true);
+					Principal.coordinador.mostrarDetallesUsuario();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
 					labelUsuarioError.setText(e.getMessage());
