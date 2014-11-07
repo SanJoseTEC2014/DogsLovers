@@ -2,13 +2,14 @@ package dogslovers.vista;
 
 import java.awt.*;
 import java.text.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.border.*;
 
 import dogslovers.control.Imagenes;
-import dogslovers.control.Principal;
 import dogslovers.modelo.*;
+import dogslovers.recursos.Diseno;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -51,7 +52,7 @@ public class VentanaDetallesUsuario extends JFrame {
 
 	public VentanaDetallesUsuario(){
 		setSize(730,500);
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -61,14 +62,14 @@ public class VentanaDetallesUsuario extends JFrame {
 		getContentPane().add(marcoTitulos, BorderLayout.NORTH);
 		
 				labelTitulo1 = new JLabel("Información");
-				labelTitulo1.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
+				labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 				labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 				labelTitulo1.setOpaque(false);
 				marcoTitulos.add(labelTitulo1, BorderLayout.NORTH);
 				
 				labelTitulo2 = new JLabel("Contacto");
 				labelTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
-				labelTitulo2.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
+				labelTitulo2.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 				labelTitulo2.setOpaque(false);
 				marcoTitulos.add(labelTitulo2, BorderLayout.SOUTH);
 				

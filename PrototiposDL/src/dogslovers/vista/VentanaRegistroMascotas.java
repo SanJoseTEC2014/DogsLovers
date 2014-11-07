@@ -1,32 +1,13 @@
 package dogslovers.vista;
 
-import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
+import javax.swing.GroupLayout.*;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Toolkit;
 
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.JFormattedTextField;
+import javax.swing.*;
+import javax.swing.LayoutStyle.*;
 
-import dogslovers.control.Principal;
-
-import java.awt.Label;
+import dogslovers.recursos.Diseno;
 
 public class VentanaRegistroMascotas extends JFrame {
 	private JTextField nombreTextBox;
@@ -34,7 +15,7 @@ public class VentanaRegistroMascotas extends JFrame {
 	private JTextField recompensaTextBox;
 	public VentanaRegistroMascotas() {
 		setTitle("  Registro de mascotas");
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		setSize(666,680);
 		
 		JLabel lblRegistrarUnaMascota = new JLabel("Registrar una mascota");

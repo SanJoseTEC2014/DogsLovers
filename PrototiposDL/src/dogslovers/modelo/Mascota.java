@@ -14,9 +14,6 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
-
 import dogslovers.control.Imagenes;
 import dogslovers.control.MaquinaEstadosMascotas;
 import dogslovers.control.excepciones.ImagenNoEncontradaException;

@@ -12,8 +12,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
-import dogslovers.control.Principal;
+import dogslovers.recursos.Diseno;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SwingConstants;
 
 public class VentanaAgregarComentario extends JFrame {
@@ -29,7 +31,7 @@ public class VentanaAgregarComentario extends JFrame {
 	private JPanel panelContenido;
 	public VentanaAgregarComentario() {
 		setSize(600,400);
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		setTitle("Agregar Comentario");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -40,7 +42,7 @@ public class VentanaAgregarComentario extends JFrame {
 		
 		lblTitulo = new JLabel("Dejar Comentario");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
+		lblTitulo.setFont(Diseno.fuenteTitulosVentanas.deriveFont(40f));
 		panelTitulo.add(lblTitulo);
 		
 		panelContenido = new JPanel();

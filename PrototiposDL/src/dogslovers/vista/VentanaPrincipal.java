@@ -4,8 +4,6 @@ import dogslovers.control.*;
 import dogslovers.control.excepciones.ImagenNoEncontradaException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import dogslovers.recursos.jflow.JFlowPanel;
 import dogslovers.recursos.jflow.Configuration;
 import dogslovers.recursos.jflow.Shape;

@@ -4,13 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
-
 import dogslovers.control.*;
-import dogslovers.control.excepciones.*;
+import dogslovers.recursos.Diseno;
 
 import com.toedter.calendar.*;
-import com.toedter.components.JLocaleChooser;
 
 public class VentanaParametrosSistema extends JFrame {
 	private JButton botonGuardarFecha;
@@ -41,8 +38,7 @@ public class VentanaParametrosSistema extends JFrame {
 	private JTextField textFecha;
 	
 	public VentanaParametrosSistema() {
-		
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		setSize(570, 402);
 		
 		marcoTitulo = new JPanel();
@@ -51,12 +47,12 @@ public class VentanaParametrosSistema extends JFrame {
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
 		
 		labelTitulo1 = new JLabel("Par\u00E1metros");
-		labelTitulo1.setFont(Principal.fuenteTitulosVentanas.deriveFont(35f));
+		labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 		marcoTitulo.add(labelTitulo1, BorderLayout.NORTH);
 		
 		labelTitulo2 = new JLabel("Sistema");
-		labelTitulo2.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
+		labelTitulo2.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 		labelTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
 		marcoTitulo.add(labelTitulo2, BorderLayout.SOUTH);
 		
@@ -91,12 +87,11 @@ public class VentanaParametrosSistema extends JFrame {
 		
 		botonCasos2 = new JButton("Cargar");
 		panelGeneral.add(botonCasos2);
-		
 		botonColorFondo = new JButton("Cambiar Color de Fondo de las Ventanas");
 		botonColorFondo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Principal.fondoVentanas = JColorChooser.showDialog(getContentPane(), "Seleccione un Color", Color.gray);
-				getContentPane().setBackground(Principal.fondoVentanas);
+				Diseno.fondoVentanas = JColorChooser.showDialog(getContentPane(), "Seleccione un Color", Color.gray);
+				getContentPane().setBackground(Diseno.fondoVentanas);
 			}
 		});
 		panelGeneral.add(botonColorFondo);

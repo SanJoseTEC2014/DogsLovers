@@ -30,7 +30,13 @@ public class BandejaMensajes {
 		entradaNotificacionesLocalizacion.add(pNotificacion);
 	}
 	
-	//public void recibir
+	public void recibirConfirmacionesLocalizacion(Mensaje pNotificacion){
+		entradaConfirmacionesLocalizacion.add(pNotificacion);
+	}
+	
+	public void recibirRechazosLocalizacion(Mensaje pNotificacion){
+		entradaRechazosLocalizacion.add(pNotificacion);
+	}
 	
 	public void recibirSolicitudRefugio(Mensaje pSolicitud){
 		entradaSolicitudesRefugio.add(pSolicitud);

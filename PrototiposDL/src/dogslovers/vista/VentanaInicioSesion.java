@@ -2,11 +2,8 @@ package dogslovers.vista;
 
 import javax.swing.*;
 
-import dogslovers.control.Acceso;
-import dogslovers.control.Imagenes;
-import dogslovers.control.Principal;
-import dogslovers.control.excepciones.ContraseniaIncorrectaException;
-import dogslovers.control.excepciones.UsuarioNoExisteException;
+import dogslovers.control.*;
+import dogslovers.recursos.Diseno;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -35,7 +32,7 @@ public class VentanaInicioSesion extends JFrame {
 		
 		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		try {
@@ -51,7 +48,7 @@ public class VentanaInicioSesion extends JFrame {
 		getContentPane().add(labelLogotipo, BorderLayout.NORTH);
 		
 		marcoDatosIngresados = new JPanel();
-		marcoDatosIngresados.setBackground(Principal.fondoVentanas);
+		marcoDatosIngresados.setBackground(Diseno.fondoVentanas);
 		getContentPane().add(marcoDatosIngresados, BorderLayout.CENTER);
 		marcoDatosIngresados.setLayout(new BoxLayout(marcoDatosIngresados, BoxLayout.PAGE_AXIS));
 		
@@ -79,7 +76,7 @@ public class VentanaInicioSesion extends JFrame {
 		marcoDatosIngresados.add(labelPasswordError);
 		
 		marcoBotones = new JPanel();
-		marcoBotones.setBackground(Principal.fondoVentanas);
+		marcoBotones.setBackground(Diseno.fondoVentanas);
 		getContentPane().add(marcoBotones, BorderLayout.SOUTH);
 		
 		botonInicioSesion = new JButton("Iniciar Sesi\u00F3n");

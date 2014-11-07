@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import dogslovers.control.Principal;
 
 public class DocumentoCasosPrueba {
-	public static final String directorioCasosPrueba = Principal.directorioProyecto + "\\src\\dogslovers\\recursos\\casosprueba\\";
+	public static final String directorioCasosPrueba = Principal.directorioProyecto +
+										"\\src\\dogslovers\\recursos\\casosprueba\\";
 	
 	private LinkedList<String[]> documento;
 	

@@ -1,47 +1,17 @@
 package dogslovers.vista;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 import javax.mail.MessagingException;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-
-import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import dogslovers.control.Correo;
 import dogslovers.control.Principal;
 import dogslovers.modelo.Usuario;
+import dogslovers.recursos.Diseno;
 
-import java.awt.HeadlessException;
-import java.awt.Window.Type;
-import java.awt.ScrollPane;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-import javax.swing.BoxLayout;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class VentanaRegistroUsuarios extends JFrame {
 	private JLabel lblContrasenia;
@@ -69,7 +39,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 	
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Registro de Usuarios");
 		setSize(443,476);

@@ -1,51 +1,11 @@
 package dogslovers.vista;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JComponent;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.border.TitledBorder;
-
-import java.awt.FlowLayout;
-import java.awt.Color;
-
-import javax.swing.border.LineBorder;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.UIManager;
-import javax.swing.JList;
-
-import dogslovers.control.Principal;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 import dogslovers.modelo.Mascota;
-import dogslovers.modelo.Usuario;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.ButtonGroup;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JComboBox;
-import javax.swing.JSplitPane;
+import dogslovers.recursos.Diseno;
 
 public class VentanaDetallesMascota extends JFrame {
 	private JTextField campoColor;
@@ -91,7 +51,7 @@ public class VentanaDetallesMascota extends JFrame {
 
 	public VentanaDetallesMascota(Mascota mascota, boolean editable) {
 		setSize(600, 500);
-		getContentPane().setBackground(Principal.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(20, 10));
 
 		marcoCentro = new JPanel();

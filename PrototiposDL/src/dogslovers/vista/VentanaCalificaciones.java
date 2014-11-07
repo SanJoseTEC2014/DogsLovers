@@ -1,9 +1,6 @@
 package dogslovers.vista;
 
 import javax.swing.JFrame;
-import javax.swing.JSlider;
-
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JTable;

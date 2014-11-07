@@ -2,10 +2,19 @@ package dogslovers.modelo;
 
 public class Donacion {
 	private Double monto;
-	private String nick;
+	private String nicknameDonante;
 	private Suceso detalle;
 	private Integer organizacionID;
 	
+	public Donacion(String pNick, Double pMonto, Suceso pDetalle, Integer pOrganizacionID) {
+		nicknameDonante = pNick;
+		monto = pMonto;
+		detalle = pDetalle;
+		organizacionID = pOrganizacionID;
+	}
+	public String getNicknameDonante() {
+		return nicknameDonante;
+	}
 	public Double getMonto() {
 		return monto;
 	}
@@ -25,10 +34,5 @@ public class Donacion {
 		this.organizacionID = organizacionID;
 	}
 
-	public Donacion(String pNick, Double pMonto, Suceso pDetalle, Integer pOrganizacionID) {
-		nick = pNick;
-		monto = pMonto;
-		detalle = pDetalle;
-		organizacionID = pOrganizacionID;
-	}
+	
 }

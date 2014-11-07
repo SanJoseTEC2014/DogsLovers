@@ -3,7 +3,6 @@ package dogslovers.control;
 import javax.swing.JOptionPane;
 
 import dogslovers.control.excepciones.EventoNoExisteException;
-import dogslovers.modelo.Suceso;
 
 public class MaquinaEstadosMascotas {
 	// Constantes que representan los estados

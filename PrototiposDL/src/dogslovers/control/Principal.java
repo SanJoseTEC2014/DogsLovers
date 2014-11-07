@@ -1,19 +1,19 @@
 package dogslovers.control;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
-import javax.mail.*;
 import javax.swing.*;
 
 import dogslovers.control.excepciones.*;
 import dogslovers.modelo.*;
+import dogslovers.recursos.Diseno;
 import dogslovers.vista.*;
 
-public class Principal {
 
+
+public class Principal {
+	public static final String directorioProyecto = System.getProperty("user.dir");
 	public static ArrayList<Mascota> perdidas = new ArrayList<Mascota>();
 	public static ArrayList<Mascota> encontradas = new ArrayList<Mascota>();
 	public static ArrayList<Mascota> localizadas = new ArrayList<Mascota>();
@@ -27,13 +27,6 @@ public class Principal {
 	//public static ArrayList<Donacion> donaciones = new ArrayList<Mascota>;
 	
 	private static double calificacionMinimaPermitidaUsuarios = 3; // el valor por defecto es 3 
-	
-	
-	public static Color fondoVentanas = new Color(30, 144, 255);
-	public static Color fondoMarcosVentanas = new Color(144, 238, 144);
-	public static final String directorioProyecto = System.getProperty("user.dir");
-	private static final File archivoFuenteHuellas = new File(directorioProyecto + "\\src\\dogslovers\\recursos\\fuentes\\ennobled pet.ttf");
-	public static Font fuenteTitulosVentanas;
 	
 	public static void inicializarMascotas() {
 		
@@ -66,12 +59,6 @@ public class Principal {
 //		Collections.sort(pLista, new ComparadorFechasRecientes());
 //		return pLista;
 //	}
-
-	public static Font getFuentePaws() throws FontFormatException, IOException {
-		return Font.createFont(Font.TRUETYPE_FONT, archivoFuenteHuellas);
-		// Se usa de la siguiente manera:
-		// label.setFont(getFuentePaws().deriveFont(50f));
-	}
 	
 	public static void main(String[] args) {
 		/** DEMOSTRACION REFERENCIA DE OBJETOS EN MEMORIA
@@ -97,25 +84,8 @@ public class Principal {
 		
 		*/
 		
-		// Intenta cargar la fuente "Ennobled Pet" para usarla de título en las ventanas.
-		try {
-			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(getFuentePaws());
-			fuenteTitulosVentanas = getFuentePaws();
-		} catch (FontFormatException | IOException ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage(), ex.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
-			fuenteTitulosVentanas = new Font("Segoe UI Light", Font.PLAIN, 30);
-		}
-		
-		// Establece un look and feel metálico, si no lo encuentra, establece el look and feel del sistema operativo.
-		try {
-			UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e2) {
-				e2.printStackTrace();
-			}
-		}
+		Diseno.inicializarFuentePaws();
+		Diseno.inicializarLookAndFeel();
 		
 		inicializarMascotas();
 		EventQueue.invokeLater(new Runnable() {
