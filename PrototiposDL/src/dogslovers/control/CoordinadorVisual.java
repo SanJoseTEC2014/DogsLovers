@@ -62,6 +62,7 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarBusquedaMascotas() {
 		ocultarVentanas();
+		busquedaMascotas.setVisible(true);
 	}
 	
 	private synchronized void ocultarVentanas() {

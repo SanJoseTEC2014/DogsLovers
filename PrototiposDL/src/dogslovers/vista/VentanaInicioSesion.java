@@ -3,10 +3,13 @@ package dogslovers.vista;
 import javax.swing.*;
 
 import dogslovers.control.*;
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
 import dogslovers.recursos.Diseno;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.IOException;
 
 
@@ -29,6 +32,10 @@ public class VentanaInicioSesion extends JFrame {
 	public VentanaInicioSesion() {
 		setResizable(false);
 		setTitle("Inicio");
+		try {
+			setIconImage(Imagenes.getIconoSistema());
+		} catch (ImagenNoEncontradaException e2) {
+		}
 		
 		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

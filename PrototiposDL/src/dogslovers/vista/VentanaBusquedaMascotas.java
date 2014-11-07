@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import dogslovers.control.BuscadorMascotas;
 import dogslovers.modelo.Mascota;
+import dogslovers.recursos.Diseno;
 
 public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 
@@ -17,7 +18,6 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 	boolean ventanaContraida;
 
 	private JPanel marcoTitulo;
-	private final JLabel labelTitulo = new JLabel("B\u00FAsqueda Mascotas");
 	private JButton btnAyuda;
 	private JProgressBar progressBar;
 	private JButton btnBuscar;
@@ -52,6 +52,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 	Thread hiloBarraProgreso;
 	Thread hiloExpandirVentana;
 	private BuscadorMascotas modelo;
+	private JLabel labelTitulo1;
 
 	public VentanaBusquedaMascotas() {
 		
@@ -61,17 +62,24 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		setName("barraCarga");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(anchoVentana, altoVentanaContraida);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
+		
+		labelTitulo1 = new JLabel("B\u00FAsqueda");
+		getContentPane().add(labelTitulo1, BorderLayout.NORTH);
+		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setToolTipText("Mascotas");
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		panelMascotas = new JPanel();
-		tabbedPane.addTab("Buscar Mascota", null, panelMascotas, null);
+		panelMascotas.setOpaque(false);
+		tabbedPane.addTab("Mascotas", null, panelMascotas, null);
 		panelMascotas.setLayout(new BorderLayout(0, 0));
 
 		marcoTitulo = new JPanel();
+		marcoTitulo.setOpaque(false);
 		panelMascotas.add(marcoTitulo, BorderLayout.NORTH);
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
 
@@ -79,9 +87,6 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoTitulo.add(progressBar, BorderLayout.CENTER);
 		progressBar.setStringPainted(true);
 		progressBar.setString("");
-		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTitulo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		marcoTitulo.add(labelTitulo, BorderLayout.NORTH);
 		// Perdidas, Encontradas, Adoptadas, Adoptables, Refugiadas
 
 		btnBuscar = new JButton("Buscar");
@@ -174,20 +179,24 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoTitulo.add(btnAyuda, BorderLayout.WEST);
 
 		marcoContenido = new JPanel();
+		marcoContenido.setOpaque(false);
 		panelMascotas.add(marcoContenido, BorderLayout.CENTER);
 		marcoContenido.setLayout(new BorderLayout(0, 0));
 
 		marcoParametros = new JPanel();
+		marcoParametros.setOpaque(false);
 		marcoParametros.setLayout(new BorderLayout(0, 0));
 		marcoContenido.add(marcoParametros, BorderLayout.NORTH);
 
 		marcoCampos = new JPanel();
+		marcoCampos.setOpaque(false);
 		marcoCampos.setBorder(new TitledBorder(null, "Par\u00E1metros de B\u00FAsqueda", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		marcoCampos.setLayout(new GridLayout(6, 2, 0, 0));
 		marcoParametros.add(marcoCampos, BorderLayout.CENTER);
 
 		checkNombre = new JCheckBox("Nombre");
+		checkNombre.setOpaque(false);
 		checkNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkNombre.isSelected()) {
@@ -206,6 +215,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoCampos.add(textNombre);
 
 		checkLugar = new JCheckBox("Lugar P\u00E9rdida / Encuentro");
+		checkLugar.setOpaque(false);
 		checkLugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkLugar.isSelected()) {
@@ -224,6 +234,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoCampos.add(textLugar);
 
 		checkNumeroChip = new JCheckBox("N\u00FAmero de Chip");
+		checkNumeroChip.setOpaque(false);
 		checkNumeroChip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkNumeroChip.isSelected()) {
@@ -242,6 +253,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoCampos.add(textNumeroChip);
 
 		checkEspecie = new JCheckBox("Especie");
+		checkEspecie.setOpaque(false);
 		checkEspecie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkEspecie.isSelected()) {
@@ -266,6 +278,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoCampos.add(comboEspecies);
 
 		checkRaza = new JCheckBox("Raza");
+		checkRaza.setOpaque(false);
 		checkRaza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkRaza.isSelected()) {
@@ -286,6 +299,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoCampos.add(comboRazas);
 
 		marcoListas = new JPanel();
+		marcoListas.setOpaque(false);
 		marcoListas.setBorder(new TitledBorder(null, "\u00BFD\u00F3nde desea buscar?", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		FlowLayout flowLayout = (FlowLayout) marcoListas.getLayout();
@@ -293,25 +307,31 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoParametros.add(marcoListas, BorderLayout.SOUTH);
 
 		checkMascotasPerdidas = new JCheckBox("Perdidas");
+		checkMascotasPerdidas.setOpaque(false);
 		marcoListas.add(checkMascotasPerdidas);
 
 		checkMascotasEncontradas = new JCheckBox("Encontradas");
+		checkMascotasEncontradas.setOpaque(false);
 		checkMascotasEncontradas.setSelected(true);
 		marcoListas.add(checkMascotasEncontradas);
 
 		checkMascotasAdoptadas = new JCheckBox("Adoptadas");
+		checkMascotasAdoptadas.setOpaque(false);
 		checkMascotasAdoptadas.setSelected(true);
 		marcoListas.add(checkMascotasAdoptadas);
 
 		checkMascotasEnAdopcion = new JCheckBox("En Adopción");
+		checkMascotasEnAdopcion.setOpaque(false);
 		marcoListas.add(checkMascotasEnAdopcion);
 		checkMascotasEnAdopcion.setSelected(true);
 
 		checkMascotasEnRefugio = new JCheckBox("Refugiadas");
+		checkMascotasEnRefugio.setOpaque(false);
 		checkMascotasEnRefugio.setSelected(true);
 		marcoListas.add(checkMascotasEnRefugio);
 
 		marcoResultados = new JScrollPane();
+		marcoResultados.setOpaque(false);
 		marcoContenido.add(marcoResultados, BorderLayout.CENTER);
 
 		tablaResultados = new JTable();
@@ -339,10 +359,12 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoContenido.add(btnContraerVentana, BorderLayout.SOUTH);
 
 		panelUsuarios = new JPanel();
-		tabbedPane.addTab("BuscarUsusario", null, panelUsuarios, null);
+		panelUsuarios.setOpaque(false);
+		tabbedPane.addTab("Usuarios", null, panelUsuarios, null);
 		panelUsuarios.setLayout(new BorderLayout(0, 0));
 
 		marcoOperaciones = new JPanel();
+		marcoOperaciones.setOpaque(false);
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 		marcoOperaciones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 

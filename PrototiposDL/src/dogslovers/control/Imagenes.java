@@ -85,8 +85,12 @@ public class Imagenes {
 		return cargarImagen(rutaFotosSistema + "paws_logo.png");
 	}
 	
-	public static BufferedImage getIcono() throws ImagenNoEncontradaException {
-		return cargarImagen(rutaFotosSistema + "icono.jpg");
+	public static BufferedImage getIconoSistema() throws ImagenNoEncontradaException {
+		return cargarImagen(rutaFotosSistema + "iconoHuella.png");
+	}
+	
+	public static BufferedImage getIconoBusqueda() throws ImagenNoEncontradaException {
+		return cargarImagen(rutaFotosSistema + "iconoBuscarMascota.png");
 	}
 	
 	public static void guardarFotoPerfilUsuario(String nickUsuario, Path rutaOrigen){

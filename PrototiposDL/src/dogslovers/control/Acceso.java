@@ -36,6 +36,9 @@ public class Acceso {
 			setModoAdministrador(true);
 		} else {
 			Usuario usuarioPorAcceder = validarUsuarioRegistrado(pNickname);
+			
+			System.out.println(usuarioPorAcceder.getContrasenia().equals(pContrasenia) + "\n" + usuarioPorAcceder.getContrasenia() == pContrasenia);
+			
 			if (usuarioPorAcceder.getContrasenia().equals(pContrasenia)){
 				usuarioActivo = usuarioPorAcceder;
 				setModoAdministrador(usuarioActivo.isAdministrador());
@@ -55,14 +58,10 @@ public class Acceso {
 	
 	private static Usuario validarUsuarioRegistrado(String pNickname) throws Exception {
 		for (Usuario i : Principal.blanca) {
-			if (i.getNickname() == pNickname) {
-				return i;
-			}
+			if (pNickname.equals(i.getNickname())) return i;
 		}
 		for (Usuario i : Principal.negra) {
-			if (i.getNickname() == pNickname) {
-				return i;
-			}
+			if (pNickname.equals(i.getNickname())) return i;
 		}
 		throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 	}
