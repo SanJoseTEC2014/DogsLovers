@@ -1,151 +1,166 @@
 package dogslovers.vista;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import javax.swing.border.*;
 
-import javax.swing.SwingConstants;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import dogslovers.control.*;
+import dogslovers.control.excepciones.*;
 
-import java.awt.FlowLayout;
-
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.border.TitledBorder;
-
-import dogslovers.control.Principal;
-import dogslovers.control.Tiempo;
-import dogslovers.control.excepciones.FechaInvalidaException;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.toedter.calendar.*;
+import com.toedter.components.JLocaleChooser;
 
 public class VentanaParametrosSistema extends JFrame {
-	private JComboBox<String> comboMes;
 	private JButton botonGuardarFecha;
 	private JComboBox<String> comboCalificaciones;
 	private JButton botonAvanzarUnDia;
 	private JButton btnGuardarCalificacion;
-	private JPanel panelContenido;
-	private JPanel panelTitulo;
-	private JPanel panelBotonesFecha;
+	private JPanel marcoTitulo;
 	private JLabel labelTitulo1;
 	private JLabel labelTitulo2;
-	private JLabel labelCalificacionMinima;
-	private JPanel panelInferior;
-	private JTextField textAnio;
-	private JLabel labelAnio;
-	private JLabel lblMes;
-	private JTextField textDia;
-	private JLabel labelDia;
-	private JPanel panelDatosFecha;
+	private JPanel marcoInferior;
+	private JPanel panelFecha;
 	
-	private static boolean fechaInicioEstablecida;
+	private static String[] calificaciones = new String[]{"5.0",
+							"4.5", "4.0", "3.5", "3.0", "2.5",
+							"2.0", "1.5", "1.0", "0.5", "0.0"};
+	private JCalendar calendar;
+	private JPanel panelGeneral;
+	private JPanel marcoBotonesFecha;
+	private JPanel panelCalendar;
+	private JTabbedPane marcoPestanias;
+	private JLabel labelMinima;
+	private JLabel labelCasos1;
+	private JButton botonCasos1;
+	private JLabel labelCasos2;
+	private JButton botonCasos2;
+	private JButton botonColorFondo;
+	private JLabel labelFecha;
+	private JTextField textFecha;
 	
 	public VentanaParametrosSistema() {
 		
 		getContentPane().setBackground(Principal.fondoVentanas);
-		setSize(650, 310);
+		setSize(570, 402);
 		
-		panelTitulo = new JPanel();
-		panelTitulo.setOpaque(false);
-		getContentPane().add(panelTitulo, BorderLayout.NORTH);
-		panelTitulo.setLayout(new BorderLayout(0, 0));
+		marcoTitulo = new JPanel();
+		marcoTitulo.setOpaque(false);
+		getContentPane().add(marcoTitulo, BorderLayout.NORTH);
+		marcoTitulo.setLayout(new BorderLayout(0, 0));
 		
 		labelTitulo1 = new JLabel("Par\u00E1metros");
 		labelTitulo1.setFont(Principal.fuenteTitulosVentanas.deriveFont(35f));
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
-		panelTitulo.add(labelTitulo1, BorderLayout.NORTH);
+		marcoTitulo.add(labelTitulo1, BorderLayout.NORTH);
 		
 		labelTitulo2 = new JLabel("Sistema");
 		labelTitulo2.setFont(Principal.fuenteTitulosVentanas.deriveFont(40f));
 		labelTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
-		panelTitulo.add(labelTitulo2, BorderLayout.SOUTH);
+		marcoTitulo.add(labelTitulo2, BorderLayout.SOUTH);
 		
-		panelContenido = new JPanel();
-		panelContenido.setOpaque(false);
-		getContentPane().add(panelContenido, BorderLayout.CENTER);
-		panelContenido.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		marcoPestanias = new JTabbedPane(JTabbedPane.TOP);
+		getContentPane().add(marcoPestanias, BorderLayout.CENTER);
 		
-		panelDatosFecha = new JPanel();
-		panelDatosFecha.setOpaque(false);
-		panelDatosFecha.setBorder(new TitledBorder(null, "Fecha de Inicio de Producci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelContenido.add(panelDatosFecha);
+		panelGeneral = new JPanel();
+		marcoPestanias.addTab("General", null, panelGeneral, null);
+		panelGeneral.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panelGeneral.setOpaque(false);
+		panelGeneral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		labelDia = new JLabel("D\u00EDa");
-		panelDatosFecha.add(labelDia);
+		labelMinima = new JLabel("Calificaci\u00F3n M\u00EDnima para degradar a un Usuario a Lista Negra:");
+		panelGeneral.add(labelMinima);
 		
-		textDia = new JTextField();
-		panelDatosFecha.add(textDia);
-		textDia.setColumns(10);
+		comboCalificaciones = new JComboBox<String>();
+		panelGeneral.add(comboCalificaciones);
+		comboCalificaciones.setModel(new DefaultComboBoxModel<String>(calificaciones));
 		
-		lblMes = new JLabel("Mes");
-		panelDatosFecha.add(lblMes);
+		btnGuardarCalificacion = new JButton("Guardar Calificaci\u00F3n");
+		panelGeneral.add(btnGuardarCalificacion);
+		btnGuardarCalificacion.setOpaque(false);
 		
-		comboMes = new JComboBox<String>();
-		comboMes.setModel(new DefaultComboBoxModel<String>(new String[] {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}));
-		panelDatosFecha.add(comboMes);
+		labelCasos1 = new JLabel("Casos de Prueba de Usuarios:");
+		panelGeneral.add(labelCasos1);
 		
-		labelAnio = new JLabel("A\u00F1o");
-		panelDatosFecha.add(labelAnio);
+		botonCasos1 = new JButton("Cargar");
+		panelGeneral.add(botonCasos1);
 		
-		textAnio = new JTextField();
-		panelDatosFecha.add(textAnio);
-		textAnio.setColumns(10);
+		labelCasos2 = new JLabel("Casos de Prueba de Mascotas:");
+		panelGeneral.add(labelCasos2);
 		
-		panelBotonesFecha = new JPanel();
-		panelBotonesFecha.setOpaque(false);
-		panelContenido.add(panelBotonesFecha);
-		panelBotonesFecha.setLayout(new BorderLayout(0, 0));
+		botonCasos2 = new JButton("Cargar");
+		panelGeneral.add(botonCasos2);
+		
+		botonColorFondo = new JButton("Cambiar Color de Fondo de las Ventanas");
+		botonColorFondo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Principal.fondoVentanas = JColorChooser.showDialog(getContentPane(), "Seleccione un Color", Color.gray);
+				getContentPane().setBackground(Principal.fondoVentanas);
+			}
+		});
+		panelGeneral.add(botonColorFondo);
+		
+		panelFecha = new JPanel();
+		marcoPestanias.addTab("Fecha Actual de Producci\u00F3n", null, panelFecha, null);
+		panelFecha.setOpaque(false);
+		panelFecha.setLayout(new BoxLayout(panelFecha, BoxLayout.PAGE_AXIS));
+		
+		panelCalendar = new JPanel();
+		panelFecha.add(panelCalendar);
+		panelCalendar.setLayout(new BoxLayout(panelCalendar, BoxLayout.X_AXIS));
+		
+		calendar = new JCalendar();
+		panelCalendar.add(calendar);
+		calendar.getDayChooser().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		calendar.getYearChooser().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		calendar.getMonthChooser().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		calendar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		
+		marcoBotonesFecha = new JPanel();
+		panelFecha.add(marcoBotonesFecha);
+		marcoBotonesFecha.setOpaque(false);
 		
 		botonGuardarFecha = new JButton("Guardar Fecha");
+		marcoBotonesFecha.add(botonGuardarFecha);
+		botonGuardarFecha.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		botonGuardarFecha.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		botonGuardarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Tiempo.setFechaInicioProduccion(textDia.getText(),
-							(String) comboMes.getSelectedItem(),
-							textAnio.getText());
-					
-				} catch (FechaInvalidaException ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage()
-						+ (ex.getCause() == null ? "" : ex.getCause().getMessage()),
-						"Error del sistema.", JOptionPane.ERROR_MESSAGE);
-				}
+				Tiempo.setFechaInicioProduccion(calendar.getCalendar());
+				calendar.setEnabled(false);
 			}
 		});
 		botonGuardarFecha.setOpaque(false);
-		panelBotonesFecha.add(botonGuardarFecha, BorderLayout.NORTH);
 		
 		botonAvanzarUnDia = new JButton("Avanzar un D\u00EDa");
+		marcoBotonesFecha.add(botonAvanzarUnDia);
+		botonAvanzarUnDia.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		botonAvanzarUnDia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Tiempo.avanzarDia();
+				textFecha.setText(Tiempo.getStringFechaSistema());
+				textFecha.setEnabled(true);
+			}
+		});
 		botonAvanzarUnDia.setOpaque(false);
-		panelBotonesFecha.add(botonAvanzarUnDia, BorderLayout.SOUTH);
 		
-		labelCalificacionMinima = new JLabel("Calificaci\u00F3n M\u00EDnima para degradar a un Usuario a Lista Negra:");
-		panelContenido.add(labelCalificacionMinima);
+		labelFecha = new JLabel("Fecha Actual:");
+		marcoBotonesFecha.add(labelFecha);
 		
-		comboCalificaciones = new JComboBox<String>();
-		comboCalificaciones.setModel(new DefaultComboBoxModel<String>(new String[] {"5.0", "4.5", "4.0", "3.5", "3.0", "2.5", "2.0", "1.5", "1.0", "0.5", "0.0"}));
-		panelContenido.add(comboCalificaciones);
+		textFecha = new JTextField();
+		textFecha.setEnabled(false);
+		textFecha.setEditable(false);
+		marcoBotonesFecha.add(textFecha);
+		textFecha.setColumns(10);
 		
-		btnGuardarCalificacion = new JButton("Guardar Calificaci\u00F3n");
-		btnGuardarCalificacion.setOpaque(false);
-		panelContenido.add(btnGuardarCalificacion);
-		
-		panelInferior = new JPanel();
-		panelInferior.setOpaque(false);
-		getContentPane().add(panelInferior, BorderLayout.SOUTH);
+		marcoInferior = new JPanel();
+		marcoInferior.setOpaque(false);
+		getContentPane().add(marcoInferior, BorderLayout.SOUTH);
 		
 		JButton botonCerrar = new JButton("Cerrar");
 		botonCerrar.setOpaque(false);
-		panelInferior.add(botonCerrar);
-	}
-	
-	public static void setFechaInicio(boolean opcion){
-		fechaInicioEstablecida = opcion;
+		marcoInferior.add(botonCerrar);
 	}
 	
 }

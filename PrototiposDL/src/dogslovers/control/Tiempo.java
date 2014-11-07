@@ -1,62 +1,36 @@
 package dogslovers.control;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
-import dogslovers.control.excepciones.FechaInvalidaException;
+import dogslovers.modelo.Usuario;
 
 public class Tiempo {
 	private static Calendar fechaSistema;
-	
-	private static Integer diaInicioProduccion;
-	private static String mesInicioProduccion;
-	private static Integer anioInicioProduccion;
-	
-	public static void setFechaInicioProduccion(String pDia, String pMes, String pAnio) throws FechaInvalidaException{
-		validarFecha(pDia, pMes, pAnio);
-		diaInicioProduccion = Integer.parseInt(pDia);
-		mesInicioProduccion = pMes;
-		anioInicioProduccion = Integer.parseInt(pAnio);
-		establecerInicio();
-		SimpleDateFormat validador = new SimpleDateFormat("dd/MMMM/yyyy");
-		JOptionPane.showMessageDialog(null, "Fecha registrada correctamente.\n" +
-									        validador.format(fechaSistema.getTime()));
+
+	public static void setFechaInicioProduccion(Calendar pFechaInicio){
+		fechaSistema = pFechaInicio;
 	}
 
-	private static void validarFecha(String pDia, String pMes, String pAnio) throws FechaInvalidaException{
-		// Se intenta contemplar todo caso de error.
-	    if (pDia == null || pDia.equals("") || pMes == null ||
-	    	pMes.equals("") || pAnio == null || pAnio.equals("")){
-	    	throw new FechaInvalidaException("Campos vacíos.");
-	    }
-	    SimpleDateFormat validador = new SimpleDateFormat("dd/MMMM/yyyy");
-	    try {
-			validador.parse(pDia + "/" + pMes + "/" + pAnio);
-		} catch (ParseException ex) {
-			throw new FechaInvalidaException("Fecha inválida.\n", ex);
+	public static void avanzarDia() {
+		fechaSistema.add(Calendar.DAY_OF_MONTH, 1);
+		for (Usuario i : Principal.blanca){
+			Emparejador.rutinaMatch(i);
 		}
 	}
-	
-	private static void establecerInicio() throws FechaInvalidaException {
-		SimpleDateFormat validador = new SimpleDateFormat("dd/MMMM/yyyy");
-		try {
-			fechaSistema = new Calendar.Builder()
-					.setCalendarType("iso8601")
-					.setInstant(validador
-							.parse(diaInicioProduccion + 
-							 "/" + mesInicioProduccion +
-							 "/" + anioInicioProduccion)
-					).build();
-		} catch (ParseException ex) {
-			throw new FechaInvalidaException("Error inesperado del sistema. \n" +
-											"Contacte al equipo de desarrollo.", ex);
-		}
+
+	public static Calendar getFechaSistema(){
+		return fechaSistema;
 	}
 	
-	
-	
-	
+	public static String getStringFechaSistema(){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/YYYY");
+		return sdf.format(fechaSistema.getTime());
+	}
+		
+
+	public static boolean isFechaEstablecida() {
+		return (fechaSistema != null);
+	}
+
 }

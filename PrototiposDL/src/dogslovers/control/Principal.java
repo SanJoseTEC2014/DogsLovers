@@ -29,10 +29,10 @@ public class Principal {
 	private static double calificacionMinimaPermitidaUsuarios = 3; // el valor por defecto es 3 
 	
 	
-	public static final Color fondoVentanas = new Color(30, 144, 255);
-	public static final Color fondoMarcosVentanas = new Color(144, 238, 144);
+	public static Color fondoVentanas = new Color(30, 144, 255);
+	public static Color fondoMarcosVentanas = new Color(144, 238, 144);
 	public static final String directorioProyecto = System.getProperty("user.dir");
-	private static final File archivoFuenteHuellas = new File(directorioProyecto + "\\src\\dogslovers\\recursos\\ennobled pet.ttf");
+	private static final File archivoFuenteHuellas = new File(directorioProyecto + "\\src\\dogslovers\\recursos\\fuentes\\ennobled pet.ttf");
 	public static Font fuenteTitulosVentanas;
 	
 	public static void inicializarMascotas() {
@@ -120,7 +120,7 @@ public class Principal {
 		inicializarMascotas();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
+				/*
 				VentanaInicioSesion window1 = new VentanaInicioSesion();
 				window1.setVisible(true);
 				
@@ -144,13 +144,13 @@ public class Principal {
 				
 				VentanaRegistroUsuarios window6 = new VentanaRegistroUsuarios();
 				window6.setVisible(true);
-				
+				*/
 				VentanaParametrosSistema window7 = new VentanaParametrosSistema();
 				window7.setVisible(true);
-				
+				/*
 				VentanaPrincipal window8 = new VentanaPrincipal();
 				window8.setVisible(true);
-				/*
+				
 				// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS 
 				try {
 					Correo.enviarCoincidencias(encontradas, encontradas.get(0), );
