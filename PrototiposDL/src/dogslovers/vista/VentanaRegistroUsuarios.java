@@ -36,24 +36,27 @@ public class VentanaRegistroUsuarios extends JFrame {
 	private JButton botonRegistrar;
 	private JButton botonCancelar;
 	private JPanel marcoCampos;
+	private JLabel lblDireccin;
+	private JTextField textField;
 	
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setTitle("Registro de Usuarios");
-		setSize(443,476);
+		setSize(443,525);
 		
 		lblRegistrarse = new JLabel("Registrarse como Nuevo Usuario");
 		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistrarse.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblRegistrarse.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
 		
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
 		marcoOperaciones.setLayout(new BoxLayout(marcoOperaciones, BoxLayout.Y_AXIS));
 		
 		botonLeerCondicionesUso = new JButton("Leer Condiciones de Uso");
+		botonLeerCondicionesUso.setOpaque(false);
 		botonLeerCondicionesUso.setAlignmentX(Component.CENTER_ALIGNMENT);
 		marcoOperaciones.add(botonLeerCondicionesUso);
 		
@@ -98,6 +101,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoOperaciones.add(marcoBotones);
 		
 		botonRegistrar = new JButton("Registrar");
+		botonRegistrar.setOpaque(false);
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Principal.blanca.add(new Usuario(nicknameTextBox.getText(), nombreTextBox.getText(), apellidosTextBox.getText(), Integer.parseInt(cedulaTextBox.getText()), passwordTextBox.getPassword().toString(), Integer.parseInt(telefonoTextBox.getText()), correoTextBox.getText()));
@@ -107,6 +111,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		botonRegistrar.setEnabled(false);
 		
 		botonCancelar = new JButton("Cancelar");
+		botonCancelar.setOpaque(false);
 		botonCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		marcoBotones.add(botonCancelar);
 		botonLeerCondicionesUso.addActionListener(new ActionListener() {
@@ -125,11 +130,10 @@ public class VentanaRegistroUsuarios extends JFrame {
 				"3.Contenidos facilitados por los usuarios:"+ "\n"+
 				"El Usuario podrá registrar a su mascota (o varias) en estado de Perdida, Encontrada o en Adopción "+ "\n"+ 
 				"y asociarlas a su perfil facilitando contenido en forma de texto e imágenes.",
-				"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);
-					
-					
+				"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);	
 			}
 		});
+		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(lblRegistrarse, BorderLayout.NORTH);
 		
@@ -202,6 +206,14 @@ public class VentanaRegistroUsuarios extends JFrame {
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 		
 		getContentPane().add(marcoCampos);
+		
+		lblDireccin = new JLabel("Direcci\u00F3n");
+		marcoCampos.add(lblDireccin);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textField.setColumns(10);
+		marcoCampos.add(textField);
 	}
 	
 }

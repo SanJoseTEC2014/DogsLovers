@@ -179,22 +179,27 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoRadios.setLayout(new GridLayout(0, 5, 20, 20));
 
 		radioPerdida = new JRadioButton("Perdida");
+		radioPerdida.setOpaque(false);
 		buttonGroupEstados.add(radioPerdida);
 		marcoRadios.add(radioPerdida);
 
 		radioEncontrada = new JRadioButton("Encontrada");
+		radioEncontrada.setOpaque(false);
 		buttonGroupEstados.add(radioEncontrada);
 		marcoRadios.add(radioEncontrada);
 
 		radioLocalizada = new JRadioButton("Localizada");
+		radioLocalizada.setOpaque(false);
 		buttonGroupEstados.add(radioLocalizada);
 		marcoRadios.add(radioLocalizada);
 
 		radioAdoptada = new JRadioButton("Adoptada");
+		radioAdoptada.setOpaque(false);
 		buttonGroupEstados.add(radioAdoptada);
 		marcoRadios.add(radioAdoptada);
 
 		radioRefugiada = new JRadioButton("Refugiada");
+		radioRefugiada.setOpaque(false);
 		buttonGroupEstados.add(radioRefugiada);
 		marcoRadios.add(radioRefugiada);
 
@@ -209,15 +214,19 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoChecks.setLayout(new GridLayout(0, 4, 20, 20));
 
 		checkVacunada = new JCheckBox("Vacunada");
+		checkVacunada.setOpaque(false);
 		marcoChecks.add(checkVacunada);
 
 		checkCastrada = new JCheckBox("Castrada");
+		checkCastrada.setOpaque(false);
 		marcoChecks.add(checkCastrada);
 
 		checkDesparacitada = new JCheckBox("Desparacitada");
+		checkDesparacitada.setOpaque(false);
 		marcoChecks.add(checkDesparacitada);
 
 		checkDiscapacitada = new JCheckBox("Discapacitada");
+		checkDiscapacitada.setOpaque(false);
 		marcoChecks.add(checkDiscapacitada);
 
 		marcoOperaciones = new JPanel();
