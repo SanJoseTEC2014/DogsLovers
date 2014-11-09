@@ -26,8 +26,14 @@ public class Principal {
 	public static CoordinadorVisual coordinador;
 	
 	public static void inicializarMascotas() {
-		Mascota.especies.add("Perro");
-		Mascota.razas.add( new String[]{ "Otro", "Chihuahua", "Schnauzer", "Doberman", "Salchicha" });
+		Mascota.addEspecie("Perro");
+		Mascota.addRaza("Perro", "Chihuahua");
+		Mascota.addRaza("Perro", "Dálmata");
+		Mascota.addRaza("Perro", "Schanuzer");
+		Mascota.addRaza("Perro", "Casizagua");
+		Mascota.addRaza("Perro", "Poodle");
+		Mascota.addRaza("Perro", "Rottweiler");
+		Mascota.addRaza("Perro", "Golden Retreiver");
 		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro",
 							new Suceso("lizchavca", "San José", 15, 5, 2013, "Se perdió chingo."),
 							false, 500000000,
