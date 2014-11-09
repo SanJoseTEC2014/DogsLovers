@@ -8,6 +8,7 @@ import dogslovers.recursos.Diseno;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.IOException;
@@ -37,13 +38,13 @@ public class VentanaInicioSesion extends JFrame {
 		} catch (ImagenNoEncontradaException e2) {
 		}
 		
-		setSize(500,500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500,446);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
+//		getScaledInstance(250, 200, 50)
 		try {
-			imagenLogotipo = new ImageIcon(Imagenes.getLogo());
+			imagenLogotipo = new ImageIcon(Imagenes.getLogo().getScaledInstance(240, 170, BufferedImage.SCALE_FAST));
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(getContentPane(), e1.getMessage(),
 				"Error inesperado del sistema.", JOptionPane.ERROR_MESSAGE);
@@ -57,29 +58,46 @@ public class VentanaInicioSesion extends JFrame {
 		marcoDatosIngresados = new JPanel();
 		marcoDatosIngresados.setBackground(Diseno.fondoVentanas);
 		getContentPane().add(marcoDatosIngresados, BorderLayout.CENTER);
-		marcoDatosIngresados.setLayout(new BoxLayout(marcoDatosIngresados, BoxLayout.PAGE_AXIS));
+		marcoDatosIngresados.setLayout(null);
 		
 		labelNickname = new JLabel("Nickname:");
+		labelNickname.setBounds(14, 40, 87, 26);
 		marcoDatosIngresados.add(labelNickname);
-		labelNickname.setFont(new Font("Calibri", Font.PLAIN, 20));
+		try {
+			labelNickname.setFont(Diseno.getFuentePaws().deriveFont(16f));
+		} catch (FontFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		nicknameTextBox = new JTextField();
+		nicknameTextBox.setBounds(0, 69, 494, 46);
 		nicknameTextBox.setFont(new Font("Calibri", Font.PLAIN, 20));
 		marcoDatosIngresados.add(nicknameTextBox);
 		
 		labelUsuarioError = new JLabel("");
+		labelUsuarioError.setBounds(14, 217, 0, 0);
 		marcoDatosIngresados.add(labelUsuarioError);
 		
 		labelPassword = new JLabel("Contrase\u00F1a:");
+		labelPassword.setBounds(14, 123, 101, 26);
 		marcoDatosIngresados.add(labelPassword);
-		labelPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
+		try {
+			labelPassword.setFont(Diseno.getFuentePaws().deriveFont(17f));
+		} catch (FontFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			labelPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
+		}
+		
 		
 		passwordTextBox = new JPasswordField();
+		passwordTextBox.setBounds(0, 160, 494, 46);
 		passwordTextBox.setFont(new Font("Calibri", Font.PLAIN, 20));
 		passwordTextBox.setHorizontalAlignment(SwingConstants.LEFT);
 		marcoDatosIngresados.add(passwordTextBox);
 		
 		labelPasswordError = new JLabel("");
+		labelPasswordError.setBounds(14, 434, 0, 0);
 		marcoDatosIngresados.add(labelPasswordError);
 		
 		marcoBotones = new JPanel();

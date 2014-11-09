@@ -82,7 +82,7 @@ public class Imagenes {
 	}
 	
 	public static BufferedImage getLogo() throws ImagenNoEncontradaException {
-		return cargarImagen(rutaFotosSistema + "paws_logo.png");
+		return cargarImagen(rutaFotosSistema + "paws.png");
 	}
 	
 	public static BufferedImage getIconoSistema() throws ImagenNoEncontradaException {

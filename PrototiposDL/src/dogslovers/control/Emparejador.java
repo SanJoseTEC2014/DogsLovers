@@ -196,9 +196,9 @@ public class Emparejador {
 			CondicionesRefugio pCondiciones = usuario.getCondicionesRefugio();
 			
 			if (pMascotaAComparar.isVacunada() == pCondiciones.isSoloVacunada()
-			 && pMascotaAComparar.isCastrada() == pCondiciones.isSoloCastrada()
-			 && pMascotaAComparar.isDesparacitada() == pCondiciones.isSoloDesparacitada()) {
-				refugiantes.add(usuario);
+					 && pMascotaAComparar.isCastrada() == pCondiciones.isSoloCastrada()
+					 && pMascotaAComparar.isDesparacitada() == pCondiciones.isSoloDesparacitada()) {
+						refugiantes.add(usuario);
 			}
 		}
 

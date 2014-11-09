@@ -61,7 +61,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		Thread hiloExpandirVentana = new Thread(this); 
 		
 		setName("barraCarga");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(600, 392);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
@@ -376,7 +376,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		listasSeleccionadas = new boolean[] { false, false, false, false, false };
 		
 		//TODO Quitar estas dos lineas una vez que quede completada la clase
-		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+//		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
 		tabbedPane.addTab("Mascotas", null, pestaniaMascotas, null);
 
 	}

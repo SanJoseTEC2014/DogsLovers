@@ -40,7 +40,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
 		getContentPane().setBackground(Diseno.fondoVentanas);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setTitle("Registro de Usuarios");
 		setSize(443,476);
 		

@@ -55,7 +55,7 @@ public class VentanaDetallesUsuario extends JFrame {
 	public VentanaDetallesUsuario(){
 		setSize(730,500);
 		getContentPane().setBackground(Diseno.fondoVentanas);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		marcoTitulos = new JPanel();

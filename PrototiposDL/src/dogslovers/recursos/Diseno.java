@@ -14,11 +14,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 import dogslovers.control.Principal;
 
 public class Diseno {
-	public static Color fondoVentanas = new Color(60,179,113);
+	public static Color fondoVentanas = new Color(150,192,150);
 	public static Color fondoMarcosVentanas = new Color(176,196,222);
 	public static Color letras = new Color(25,25,112);
 	private static final File archivoFuenteHuellas = new File(Principal.directorioProyecto + 
-								"\\src\\dogslovers\\recursos\\fuentes\\ennobled pet.ttf");
+								"\\src\\dogslovers\\recursos\\fuentes\\Coustard-Regular.ttf");
 	public static Font fuenteTitulosVentanas;
 	
 	public static Font getFuentePaws() throws FontFormatException, IOException {

@@ -117,8 +117,15 @@ public class Principal {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
 				coordinador.mostrarInicioSesion();
-
-				
+				coordinador.mostrarAgregarComentario();
+				coordinador.mostrarBusqueda();
+				//coordinador.mostrarCondicionesRefugio(blanca.get(0));
+				coordinador.mostrarDetallesMascota();
+				coordinador.mostrarDetallesUsuario();
+				coordinador.mostrarMenuPrincipal();
+				coordinador.mostrarParametrosSistema();
+				coordinador.mostrarRegistroMascotas();
+				coordinador.mostrarRegistroUsuarios();
 			}
 		});
 
