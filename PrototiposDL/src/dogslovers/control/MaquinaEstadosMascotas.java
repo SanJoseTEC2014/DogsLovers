@@ -58,6 +58,10 @@ public class MaquinaEstadosMascotas {
 		return estadoActualMascota;
 	}
 	
+	public void actualizarEstado(){
+		
+	}
+	
 	// Método para disparar cambios de estado de la mascota
 	public void capturarReporte(int pEvento){
 		switch(pEvento)
