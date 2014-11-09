@@ -4,10 +4,11 @@ import java.math.*;
 import java.text.*;
 import java.util.*;
 
-import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.modelo.ColeccionMascotas;
 import dogslovers.control.MediadorMensajes;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.MascotaNoEncontradaException;
+import dogslovers.control.excepciones.UsuarioNoExisteException;
 
 public class Usuario implements Comunicable {
 
@@ -29,6 +30,7 @@ public class Usuario implements Comunicable {
 	private String contrasenia;
 	private Integer telefono;
 	private String correo;
+	private String direccion;
 	private String lapsoEmparejamiento;
 	private Integer diasUltimoEmparejamiento;
 	private ArrayList<Calificacion> calificaciones;
@@ -40,7 +42,7 @@ public class Usuario implements Comunicable {
 	private Double ponderadoCalificacion;
 
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
-		Integer pTelefono, String pCorreo) {
+		Integer pTelefono, String pCorreo, String pDireccion) {
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
@@ -213,13 +215,19 @@ public class Usuario implements Comunicable {
 		return "Nombre: " + nombre + "\nNickname: " + nickname +
 			   "\nContraseña: " + contrasenia + "\nAdmin?: " + (administrador ? "Sí" : "No");
 	}
-
-	public void enviarMensaje(int pTipoMensaje, Mascota pMascota, String pNickDestino) {
-		MediadorMensajes.recibirMensajeUsuario(new Mensaje(pTipoMensaje, pMascota, this.nickname, pNickDestino));
+	
+	@Override
+	public void enviarMensaje(String pTipoMensaje, Mascota pMascota, String pNickDestino) throws UsuarioNoExisteException{
+		MediadorMensajes.recibirMensaje(
+			new Mensaje(pMascota,
+				new Suceso(this.nickname, this.direccion, pTipoMensaje),
+			pNickDestino)
+		);
 	}
 	
+	@Override
 	public void recibirMensaje(Mensaje pMensaje) {
-		switch (pMensaje.getTipo()){
+		switch (pMensaje.getSuceso().getDescripcion()){
 			// Mensajes de mayor prioridad
 			
 			

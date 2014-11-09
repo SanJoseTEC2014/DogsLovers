@@ -25,6 +25,13 @@ public class Principal {
 	
 	public static CoordinadorVisual coordinador;
 	
+	public static Usuario getUsuarioListaBlanca(String pNickname) throws UsuarioNoExisteException{
+		for (Usuario x : blanca){
+			if (x.getNickname().equals(pNickname)) return x;
+		}
+		throw new UsuarioNoExisteException("El usuario no aparece registrado.");
+	}
+	
 	public static void inicializarMascotas() {
 		Mascota.addEspecie("Perro");
 		Mascota.addRaza("Perro", "Chihuahua");

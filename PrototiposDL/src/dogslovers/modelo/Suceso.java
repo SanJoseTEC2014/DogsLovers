@@ -3,6 +3,8 @@ package dogslovers.modelo;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import dogslovers.control.Tiempo;
+
 public class Suceso {
 
 	private String lugar;
@@ -10,10 +12,12 @@ public class Suceso {
 	private String descripcion;
 	private String nick;
 	
-	public Suceso(String pNick, String pLugar, Integer pDia, Integer pMes, Integer pAnio, String pDescripcion) {
+	public Suceso(String pNick, String pLugar, String pDescripcion) {
 		nick = pNick;
 		lugar = pLugar;
-		fecha = Calendar.getInstance(); fecha.set(pAnio, pMes, pDia);
+		// Copia el valor Date de la fecha del Sistema
+		fecha = new Calendar.Builder().setCalendarType("iso8601")
+				.setInstant(Tiempo.getFechaSistema().getTime()).build();
 		descripcion = pDescripcion;
 	}
 	

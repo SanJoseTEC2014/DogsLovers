@@ -28,7 +28,6 @@ public class Mascota {
 	private static LinkedList<LinkedList<String>> razas = new LinkedList<LinkedList<String>>();
 	
 	private static Integer totalIDsRegistradas = 0;
-	private MaquinaEstadosMascotas maquina;
 
 	private Integer id;
 	private String nombre;
@@ -238,7 +237,7 @@ public class Mascota {
 	}
 	
 	public void notificar(){
-		maquina.actualizarEstado();
+		// MaquinaEstadosMascotas.getMaquina().capturarReporte();
 	}
 
 	public BufferedImage getImagen() throws ImagenNoEncontradaException{
@@ -247,13 +246,12 @@ public class Mascota {
 	
 	public String toString() {
 		String msg = "Nombre de la mascota: " + getNombre();
-		msg += "\nID: " + getID();
-		msg += " Estado: " + getEstado();
-
+		// msg += "\nID: " + getID();
+		msg += "\nEstado: " + getEstado();
 		msg += "\nEspecie: " + getEspecie();
-		msg += "  Raza: " + getRaza();
-
-		msg += "\nMonto de recompensa: " + getRecompensa() + "\n";
+		msg += "\nRaza: " + getRaza();
+		msg += "\n";
+		// msg += "\nMonto de recompensa: " + getRecompensa() + "\n";
 		// msg += "\nNotas Secundarias: " + getNotasSecundarias();
 		return msg;
 	}
