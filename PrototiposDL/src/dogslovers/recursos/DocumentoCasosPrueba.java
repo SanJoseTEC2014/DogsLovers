@@ -8,11 +8,12 @@ public class DocumentoCasosPrueba {
 	public static final String directorioCasosPrueba = Principal.directorioProyecto +
 										"\\src\\dogslovers\\recursos\\casosprueba\\";
 	
-	private LinkedList<String[]> documento;
-	
+	private LinkedList<LinkedList<String>> documento;
+
 	public DocumentoCasosPrueba(String pNombreArchivo) throws FileNotFoundException, IOException {
 		BufferedReader archivo = new BufferedReader(new FileReader(directorioCasosPrueba + pNombreArchivo));
 		LinkedList<String> lineas = new LinkedList<String>();
+		
 		String lineaActual;
 		while ( (lineaActual = archivo.readLine()) != null ) {
 			lineas.add(lineaActual);
@@ -30,7 +31,16 @@ public class DocumentoCasosPrueba {
 	        	pLinea = pLinea.substring(pLinea.indexOf(";") + 1, pLinea.length());
 	        }
 	        tokens.add(pLinea); // Añade el último token sin ;
-	        documento.add((String[]) tokens.toArray());
+	        documento.add(tokens);
 		}
 	}
+	
+	public LinkedList<String> getRegistro(int indice){
+		return documento.get(indice);
+	}
+	
+	public int getDocumentoSize() {
+		return documento.size();
+	}
+
 }
