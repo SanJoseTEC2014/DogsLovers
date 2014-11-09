@@ -67,7 +67,6 @@ public class Mascota {
 			this.encuentro = pSuceso;
 			this.estado = MaquinaEstadosMascotas.estadoENCONTRADA;
 		}
-
 		recompensa = pRecompensa;
 		notas = pNotas;
 	}
@@ -322,10 +321,11 @@ public class Mascota {
 	
 	public static void addEspecie(String pEspecie){
 		especies.add(pEspecie);
+		razas.add(new LinkedList<String>());
 	}
 	
 	public static void addRaza(String pEspecie, String pRaza){
-		razas.get(especies.indexOf(pEspecie)).add(pRaza);
+		razas.get(especies.indexOf(pEspecie)).add(pRaza);	
 	}
 	
 	public static void addColor(String pColor){

@@ -50,7 +50,7 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarDetallesUsuario() {
 		ocultarVentanas();
-		detallesUsuario.setDatosIniciales(Acceso.getUsuarioActivo());
+		detallesUsuario.setDatosIniciales(Principal.blanca.get(0));
 		detallesUsuario.setModoEdicion(false);
 		detallesUsuario.setVisible(true);
 	}
@@ -92,7 +92,7 @@ public class CoordinadorVisual {
 	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
 		condicionesRefugio.setDatos(usuarioActual);
 		condicionesRefugio.setVisible(true);
-		
+		condicionesRefugio.setModoEdicion(usuarioActual == Acceso.getUsuarioActivo());
 	}
 	
 }

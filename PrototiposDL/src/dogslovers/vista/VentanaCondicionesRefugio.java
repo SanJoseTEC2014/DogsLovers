@@ -26,6 +26,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.CardLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
 
 public class VentanaCondicionesRefugio extends JFrame {
 	private JTextField textDetalles;
@@ -35,19 +46,34 @@ public class VentanaCondicionesRefugio extends JFrame {
 	private JCheckBox checkSoloVacunada;
 	private JCheckBox checkNecesitaAlimentos;
 	private Usuario usuarioSeleccionado;
+	private JPanel checks;
+	private JLabel lblSeDebeEntregar;
+	private JLabel lblLaMascotaDebe;
+	private JLabel lblLaMascotaDebe_1;
+	private JLabel lblLaMascotaDebe_2;
+	private JPanel labels;
+	private JPanel panel_2;
+	private JPanel titulo;
+	private JLabel lblCondicionesDeRefugio;
+	private JLabel lblNewLabel;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel opciones;
 	
 	public VentanaCondicionesRefugio() {
+		
+		setSize(500, 320);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel titulo = new JPanel();
+		titulo = new JPanel();
 		getContentPane().add(titulo, BorderLayout.NORTH);
 		titulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblCondicionesDeRefugio = new JLabel("Condiciones de Refugio");
+		lblCondicionesDeRefugio = new JLabel("Condiciones de Refugio");
 		titulo.add(lblCondicionesDeRefugio);
 		lblCondicionesDeRefugio.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
-			lblCondicionesDeRefugio.setFont(Diseno.getFuentePaws());
+			lblCondicionesDeRefugio.setFont(Diseno.getFuentePaws().deriveFont(35f));
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,42 +82,79 @@ public class VentanaCondicionesRefugio extends JFrame {
 			e.printStackTrace();
 		}
 		
-		JLabel lblNewLabel = new JLabel("Los requisitos para refugiar unas mascota son:");
+		lblNewLabel = new JLabel("Los requisitos para refugiar unas mascota son:");
 		titulo.add(lblNewLabel);
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(6, 0, 0, 0));
+		panel = new JPanel();
+		getContentPane().add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		checkNecesitaAlimentos = new JCheckBox("Se debe entregar alimento para la mascota");
-		checkNecesitaAlimentos.setEnabled(false);
-		panel.add(checkNecesitaAlimentos);
+		panel_1 = new JPanel();
+		panel_1.setOpaque(false);
+		panel.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
 		
-		checkSoloVacunada = new JCheckBox("La mascota debe estar vacunada");
+		opciones = new JPanel();
+		opciones.setOpaque(false);
+		panel_1.add(opciones);
+		opciones.setLayout(new BorderLayout(0, 0));
+		
+		checks = new JPanel();
+		checks.setOpaque(false);
+		opciones.add(checks, BorderLayout.WEST);
+		checks.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		checks.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		checkNecesitaAlimentos = new JCheckBox("");
+		checks.add(checkNecesitaAlimentos);
+		
+		checkSoloVacunada = new JCheckBox("");
+		checks.add(checkSoloVacunada);
 		checkSoloVacunada.setEnabled(false);
-		panel.add(checkSoloVacunada);
 		
-		checkSoloCastrada = new JCheckBox("La mascota debe estar Castrada");
+		checkSoloCastrada = new JCheckBox("");
+		checks.add(checkSoloCastrada);
 		checkSoloCastrada.setEnabled(false);
-		panel.add(checkSoloCastrada);
 		
-		checkSoloDesparacitada = new JCheckBox("La mascota debe estar desparacitada");
+		checkSoloDesparacitada = new JCheckBox("");
+		checks.add(checkSoloDesparacitada);
 		checkSoloDesparacitada.setEnabled(false);
-		panel.add(checkSoloDesparacitada);
+		
+		labels = new JPanel();
+		labels.setOpaque(false);
+		opciones.add(labels, BorderLayout.CENTER);
+		labels.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblSeDebeEntregar = new JLabel("Se debe entregar alimento para la mascota");
+		labels.add(lblSeDebeEntregar);
+		
+		lblLaMascotaDebe = new JLabel("La mascota debe estar vacunada");
+		labels.add(lblLaMascotaDebe);
+		
+		lblLaMascotaDebe_1 = new JLabel("La mascota debe estar Castrada");
+		labels.add(lblLaMascotaDebe_1);
+		
+		lblLaMascotaDebe_2 = new JLabel("La mascota debe estar desparacitada");
+		labels.add(lblLaMascotaDebe_2);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Detalles Adicionales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
+		panel_1.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		textDetalles = new JTextField();
+		panel_2.add(textDetalles);
 		textDetalles.setEditable(false);
-		textDetalles.setBorder(new TitledBorder(null, "Detalles Adicionales", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panel.add(textDetalles);
-		textDetalles.setColumns(10);
+		textDetalles.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		botonGuardarCambios = new JButton("Guardar cambios");
+		getContentPane().add(botonGuardarCambios, BorderLayout.SOUTH);
+		botonGuardarCambios.setAlignmentX(Component.CENTER_ALIGNMENT);
 		botonGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				guardarCambios();
 			}
 		});
-		panel.add(botonGuardarCambios);
 	}
 	protected void guardarCambios() {
 		Acceso.getUsuarioActivo().getCondicionesRefugio().setDetallesAdicionales(textDetalles.getText());
@@ -108,7 +171,6 @@ public class VentanaCondicionesRefugio extends JFrame {
 		textDetalles.setText(usuarioSeleccionado.getCondicionesRefugio().getDetallesAdicionales());
 		
 		botonGuardarCambios.setVisible(usuarioSeleccionado == Acceso.getUsuarioActivo());
-		botonGuardarCambios.setSelected(usuarioSeleccionado == Acceso.getUsuarioActivo());
 
 		checkSoloDesparacitada.setVisible(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
 		checkSoloDesparacitada.setSelected(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
@@ -121,27 +183,23 @@ public class VentanaCondicionesRefugio extends JFrame {
 
 		checkNecesitaAlimentos.setVisible(usuarioSeleccionado.getCondicionesRefugio().isNecesitaAlimentos());
 		checkNecesitaAlimentos.setSelected(usuarioSeleccionado.getCondicionesRefugio().isNecesitaAlimentos());
-		
-		if (pUsuarioSeleccionado == Acceso.getUsuarioActivo()) ventanaModoEdicion();
-
-
 	}
 	
-	private void ventanaModoEdicion() {
+	public void setModoEdicion(boolean opcion) {
 		
-		textDetalles.setEditable(true);
+		textDetalles.setEditable(opcion);
 		
-		checkSoloDesparacitada.setEnabled(true);
-		checkSoloDesparacitada.setVisible(true);
+		checkSoloDesparacitada.setEnabled(opcion);
+		checkSoloDesparacitada.setVisible(opcion);
 
-		checkSoloCastrada.setEnabled(true);
-		checkSoloCastrada.setVisible(true);
+		checkSoloCastrada.setEnabled(opcion);
+		checkSoloCastrada.setVisible(opcion);
 
-		checkSoloVacunada.setEnabled(true);
-		checkSoloVacunada.setVisible(true);
+		checkSoloVacunada.setEnabled(opcion);
+		checkSoloVacunada.setVisible(opcion);
 
-		checkNecesitaAlimentos.setEnabled(true);
-		checkNecesitaAlimentos.setVisible(true);
+		checkNecesitaAlimentos.setEnabled(opcion);
+		checkNecesitaAlimentos.setVisible(opcion);
 
 	}
 	
