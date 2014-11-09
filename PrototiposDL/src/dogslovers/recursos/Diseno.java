@@ -21,12 +21,6 @@ public class Diseno {
 								"\\src\\dogslovers\\recursos\\fuentes\\Coustard-Regular.ttf");
 	public static Font fuenteTitulosVentanas;
 	
-	public static Font getFuentePaws() throws FontFormatException, IOException {
-		return Font.createFont(Font.TRUETYPE_FONT, archivoFuenteHuellas);
-		// Se usa de la siguiente manera:
-		// label.setFont(getFuentePaws().deriveFont(50f));
-	}
-	
 	public static void inicializarFuentePaws(){
 		// Intenta cargar la fuente "Ennobled Pet" para usarla de título en las ventanas.
 		try {
@@ -36,6 +30,12 @@ public class Diseno {
 			JOptionPane.showMessageDialog(null, ex.getMessage(), ex.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
 			fuenteTitulosVentanas = new Font("Segoe UI Light", Font.PLAIN, 30);
 		}
+	}
+	
+	private static Font getFuentePaws() throws FontFormatException, IOException {
+		return Font.createFont(Font.TRUETYPE_FONT, archivoFuenteHuellas);
+		// Se usa de la siguiente manera:
+		// label.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
 	}
 	
 	public static void inicializarLookAndFeel(){

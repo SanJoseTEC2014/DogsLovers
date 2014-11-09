@@ -66,7 +66,7 @@ public class VentanaDetallesMascota extends JFrame {
 		labelDetalles = new JLabel("Detalles Mascota");
 		marcoFoto.add(labelDetalles, BorderLayout.NORTH);
 		labelDetalles.setHorizontalAlignment(SwingConstants.CENTER);
-		labelDetalles.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelDetalles.setFont(Diseno.fuenteTitulosVentanas.deriveFont(25f));
 
 		labelFotoMascota = new JLabel("FOTO MASCOTA");
 		marcoFoto.add(labelFotoMascota, BorderLayout.CENTER);

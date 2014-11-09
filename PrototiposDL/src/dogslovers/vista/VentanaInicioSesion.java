@@ -63,12 +63,7 @@ public class VentanaInicioSesion extends JFrame {
 		labelNickname = new JLabel("Nickname:");
 		labelNickname.setBounds(14, 40, 87, 26);
 		marcoDatosIngresados.add(labelNickname);
-		try {
-			labelNickname.setFont(Diseno.getFuentePaws().deriveFont(16f));
-		} catch (FontFormatException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		labelNickname.setFont(Diseno.fuenteTitulosVentanas.deriveFont(16f));
 		
 		nicknameTextBox = new JTextField();
 		nicknameTextBox.setBounds(0, 69, 494, 46);
@@ -82,13 +77,7 @@ public class VentanaInicioSesion extends JFrame {
 		labelPassword = new JLabel("Contrase\u00F1a:");
 		labelPassword.setBounds(14, 123, 101, 26);
 		marcoDatosIngresados.add(labelPassword);
-		try {
-			labelPassword.setFont(Diseno.getFuentePaws().deriveFont(17f));
-		} catch (FontFormatException | IOException e1) {
-			// TODO Auto-generated catch block
-			labelPassword.setFont(new Font("Calibri", Font.PLAIN, 20));
-		}
-		
+		labelPassword.setFont(Diseno.fuenteTitulosVentanas.deriveFont(17f));
 		
 		passwordTextBox = new JPasswordField();
 		passwordTextBox.setBounds(0, 160, 494, 46);

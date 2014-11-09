@@ -66,7 +66,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
 		
-		labelTitulo1 = new JLabel("B\u00FAsquedaa");
+		labelTitulo1 = new JLabel("B\u00FAsqueda");
 		getContentPane().add(labelTitulo1, BorderLayout.NORTH);
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));

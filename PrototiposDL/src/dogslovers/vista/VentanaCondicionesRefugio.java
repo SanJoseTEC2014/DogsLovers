@@ -71,16 +71,8 @@ public class VentanaCondicionesRefugio extends JFrame {
 		lblCondicionesDeRefugio = new JLabel("Condiciones");
 		titulo.add(lblCondicionesDeRefugio);
 		lblCondicionesDeRefugio.setHorizontalAlignment(SwingConstants.CENTER);
-		try {
-			lblCondicionesDeRefugio.setFont(Diseno.getFuentePaws().deriveFont(35f));
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		lblCondicionesDeRefugio.setFont(Diseno.fuenteTitulosVentanas.deriveFont(17f));
+			
 		lblNewLabel = new JLabel("Los requisitos para refugiar unas mascota son:");
 		titulo.add(lblNewLabel);
 		
