@@ -23,6 +23,7 @@ public class Mascota {
 
 	private static LinkedList<String> edades = new LinkedList<String>();
 	private static LinkedList<String> tamanios = new LinkedList<String>();
+	private static LinkedList<String> colores = new LinkedList<String>();
 	private static LinkedList<String> especies = new LinkedList<String>();
 	private static LinkedList<LinkedList<String>> razas = new LinkedList<LinkedList<String>>();
 	
@@ -307,6 +308,10 @@ public class Mascota {
 		  return new DefaultComboBoxModel<String>((String[]) tamanios.toArray());
 	}
 	
+	public static DefaultComboBoxModel<String> getModeloColores() {
+		  return new DefaultComboBoxModel<String>((String[]) colores.toArray());
+	}
+	
 	public static void addEdad(String pEdad){
 		edades.add(pEdad);
 	}
@@ -321,6 +326,10 @@ public class Mascota {
 	
 	public static void addRaza(String pEspecie, String pRaza){
 		razas.get(especies.indexOf(pEspecie)).add(pRaza);
+	}
+	
+	public static void addColor(String pColor){
+		colores.add(pColor);
 	}
 	
 	public static LinkedList<String> getEspecies() {
