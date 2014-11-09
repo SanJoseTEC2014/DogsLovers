@@ -244,6 +244,7 @@ public class VentanaDetallesUsuario extends JFrame {
 								   "Ponderado: " + usuarioActual.getPonderadoCalificacion());
 		}
 		comboLapsos.setSelectedIndex(Usuario.lapsos.indexOf(usuarioActual.getLapsoEmparejamiento()));
+		botonCondiciones.setVisible(usuarioActual.isRefugiante());
 	}
 	
 	public void setModoEdicion(boolean pModo){

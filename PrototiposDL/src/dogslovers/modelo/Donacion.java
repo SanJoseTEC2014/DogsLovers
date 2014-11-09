@@ -18,21 +18,11 @@ public class Donacion {
 	public Double getMonto() {
 		return monto;
 	}
-	public void setMonto(Double monto) {
-		this.monto = monto;
-	}
 	public Suceso getDetalle() {
 		return detalle;
-	}
-	public void setDetalle(Suceso detalle) {
-		this.detalle = detalle;
 	}
 	public Integer getOrganizacionID() {
 		return organizacionID;
 	}
-	public void setOrganizacionID(Integer organizacionID) {
-		this.organizacionID = organizacionID;
-	}
-
 	
 }

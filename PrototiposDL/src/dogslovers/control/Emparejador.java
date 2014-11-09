@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.mail.*;
 import javax.swing.*;
 
+import dogslovers.modelo.CondicionesRefugio;
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
 import dogslovers.control.Principal;
@@ -185,28 +186,26 @@ public class Emparejador {
 			return resultados;
 	}
 	
-	public static ArrayList<Usuario> getListaCoincidenciasCondiciones(Mascota pMascotaAComparar){
+	public static ArrayList<Usuario> getListaRefugiantes(Mascota pMascotaAComparar){
 		// Busca los usuarios que tengan condiciones de refugio similares a las características
 		// de la mascota reportada.
 
-		ArrayList<Usuario> coincidenciasCondiciones =  new ArrayList<Usuario>();
+		ArrayList<Usuario> refugiantes =  new ArrayList<Usuario>();
 
 		for (Usuario usuario : Principal.blanca) {
-			if (pMascotaAComparar.getTamanio().equals(usuario
-							.getCondicionesRefugio().getTamanioMascota())
-							&& pMascotaAComparar.isVacunada() == usuario
-									.getCondicionesRefugio().isVacunada()
-							&& pMascotaAComparar.isDiscapacitada() == usuario
-									.getCondicionesRefugio().isDiscapacitada()
-							&& pMascotaAComparar.isCastrada() == usuario
-									.getCondicionesRefugio().isCastrada()
-							&& pMascotaAComparar.isDesparacitada() == usuario
-									.getCondicionesRefugio().isDesparacitada()) {
-				coincidenciasCondiciones.add(usuario);
+			CondicionesRefugio pCondiciones = usuario.getCondicionesRefugio();
+			
+			if (pMascotaAComparar.getTamanio().equals(pCondiciones.getTamanioMascota())
+			 && pMascotaAComparar.isVacunada() == pCondiciones.isVacunada()
+			 && pMascotaAComparar.isDiscapacitada() == pCondiciones.isDiscapacitada()
+			 && pMascotaAComparar.isCastrada() == pCondiciones.isCastrada()
+			 && pMascotaAComparar.isDesparacitada() == pCondiciones.isDesparacitada())
+			{
+				refugiantes.add(usuario);
 			}
 		}
 
-		return coincidenciasCondiciones;
+		return refugiantes;
 	}
 }
 

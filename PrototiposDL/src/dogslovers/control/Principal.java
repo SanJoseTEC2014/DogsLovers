@@ -3,15 +3,11 @@ package dogslovers.control;
 import java.awt.*;
 import java.util.*;
 
-import javax.mail.MessagingException;
 import javax.swing.*;
 
 import dogslovers.control.excepciones.*;
 import dogslovers.modelo.*;
 import dogslovers.recursos.Diseno;
-import dogslovers.vista.*;
-
-
 
 public class Principal {
 	public static final String directorioProyecto = System.getProperty("user.dir");
@@ -112,7 +108,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-				coordinador.mostrarBusquedaMascotas();
+				coordinador.mostrarInicioSesion();
 			}
 		});
 

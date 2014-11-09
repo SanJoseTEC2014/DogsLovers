@@ -16,17 +16,22 @@ public class Mensaje {
 	
 	private int tipo;
 	private Mascota mascotaAsociada;
+	private String nickEmisor;
 	private String nickDestinario;
-	public Mensaje(int pTipo, Mascota pReferencia, String pNick){
+	public Mensaje(int pTipo, Mascota pReferencia, String pNickEmisor, String pNickDestinatario){
 		tipo = pTipo;
 		mascotaAsociada = pReferencia;
-		nickDestinario = pNick;
+		nickEmisor = pNickEmisor;
+		nickDestinario = pNickDestinatario;
 	}
 	public int getTipo() {
 		return tipo;
 	}
 	public Mascota getMascotaAsociada() {
 		return mascotaAsociada;
+	}
+	public String getNickEmisor() {
+		return nickEmisor;
 	}
 	public String getNickDestinario() {
 		return nickDestinario;
