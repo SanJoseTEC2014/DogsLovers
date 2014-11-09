@@ -33,14 +33,14 @@ public class Emparejador {
 		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+				for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 					emparejarAutomatico(mascota, pUsuario);
 				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -50,7 +50,7 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {

@@ -108,7 +108,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-				coordinador.mostrarInicioSesion();
+				coordinador.mostrarAgregarComentario();
 			}
 		});
 
