@@ -49,7 +49,7 @@ public class Mascota {
 	private Suceso refugio;
 	private Suceso adopcion;
 	private Suceso defuncion;
-	private Integer recompensa;
+	private Integer recompensa = 0;
 	private String notas;
 
 	public Mascota(String pNombre, String pEspecie, String pRaza, Suceso pSuceso, boolean perdida, Integer pRecompensa,
@@ -68,6 +68,7 @@ public class Mascota {
 			this.encuentro = pSuceso;
 			this.estado = MaquinaEstadosMascotas.estadoENCONTRADA;
 		}
+		
 		recompensa = pRecompensa;
 		notas = pNotas;
 	}

@@ -23,7 +23,7 @@ public class ModeloTablaMascotas extends AbstractTableModel {
 		case 1:
 			return listaMascotas.get(rowIndex).getNombre();
 		case 2:
-			return listaMascotas.get(rowIndex).getEncuentro().getLugar();
+			return listaMascotas.get(rowIndex).getEncuentro().getLugar() == null? "" : listaMascotas.get(rowIndex).getEncuentro().getLugar() ;
 		case 3:
 			return listaMascotas.get(rowIndex).getEspecie();
 		case 4:

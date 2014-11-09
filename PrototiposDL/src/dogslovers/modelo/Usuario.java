@@ -267,4 +267,9 @@ public class Usuario implements Comunicable {
 		return ArregloCalificaciones;
 	}
 	
+	public Usuario clone() {
+		  Usuario clone = new Usuario(nickname, nombre, apellidos, cedula, "", telefono, correo);
+		  return clone;
+	}
+	
 }

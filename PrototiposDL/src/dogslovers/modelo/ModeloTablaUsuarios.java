@@ -8,7 +8,7 @@ public class ModeloTablaUsuarios extends AbstractTableModel {
 	private ArrayList<Usuario> listaUsuarios;
 	private String[] titulos = {"NickName", "Nombre", "Apellidos", "cedula", "Telefono", "Correo"};
 
-	ModeloTablaUsuarios(ArrayList<Usuario> pListaUsusarios){
+	public ModeloTablaUsuarios(ArrayList<Usuario> pListaUsusarios){
 		listaUsuarios = pListaUsusarios;
 	}
 	

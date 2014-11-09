@@ -2,8 +2,12 @@ package dogslovers.vista;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.control.Principal;
 import dogslovers.modelo.Mascota;
 import dogslovers.recursos.Diseno;
 
@@ -48,6 +52,8 @@ public class VentanaDetallesMascota extends JFrame {
 	private JPanel marcoOperacionesBasicas;
 	private JButton botonCancelar;
 	private JButton botonGuardarCambios;
+	private JTextField campoRecompensa;
+	private JLabel lblMontoRecompensa;
 
 	public VentanaDetallesMascota() {
 		setSize(600, 500);
@@ -87,7 +93,7 @@ public class VentanaDetallesMascota extends JFrame {
 				"Informaci\u00F3n Principal", TitledBorder.LEADING,
 				TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 11), new Color(
 						0, 0, 0)));
-		marcoInformacionPrincipal.setLayout(new GridLayout(8, 2, 0, 10));
+		marcoInformacionPrincipal.setLayout(new GridLayout(9, 2, 0, 10));
 
 		labelNombre = new JLabel("Nombre");
 		marcoInformacionPrincipal.add(labelNombre);
@@ -159,6 +165,13 @@ public class VentanaDetallesMascota extends JFrame {
 
 		comboSexo = new JComboBox<String>();
 		marcoInformacionPrincipal.add(comboSexo);
+		
+		lblMontoRecompensa = new JLabel("Monto Recompensa:");
+		marcoInformacionPrincipal.add(lblMontoRecompensa);
+		
+		campoRecompensa = new JTextField();
+		marcoInformacionPrincipal.add(campoRecompensa);
+		campoRecompensa.setColumns(10);
 		botonVerMasFotos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -288,6 +301,12 @@ public class VentanaDetallesMascota extends JFrame {
 	}
 	
 	public void obtenerDatosIniciales(Mascota mascota){
+		
+		if (mascota.getEstado() == MaquinaEstadosMascotas.estadoPERDIDA){
+			campoRecompensa.setVisible(true);
+			campoRecompensa.setText(mascota.getRecompensa().toString());
+		}
+		
 		campoNombre.setText(mascota.getNombre());
 		campoNumeroChip.setText(mascota.getNumeroChip() == null ? "" : mascota.getNumeroChip().toString());
 		campoColor.setText(mascota.getColor());

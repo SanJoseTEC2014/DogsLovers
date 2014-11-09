@@ -116,7 +116,9 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-				coordinador.mostrarInicioSesion();
+				//coordinador.mostrarInicioSesion();
+				coordinador.mostrarBusqueda();
+				
 
 				
 			}
@@ -216,6 +218,21 @@ public class Principal {
 		ArrayList<Mascota> copia = new ArrayList<Mascota>();
 	    for(Mascota mascota : muertas) copia.add(mascota.clone());
 	    return copia;
+	}
+
+	public static ArrayList<Usuario> getCopiaUsuarios() {
+		ArrayList<Usuario> copia = new ArrayList<Usuario>();
+	    for(Usuario usuario : blanca) copia.add(usuario.clone());
+	    for(Usuario usuario : negra) copia.add(usuario.clone());
+	    return copia;
+	}
+	
+	public static ArrayList<Usuario> getCopiaUsuariosRefugiantes() {
+		ArrayList<Usuario> copia = new ArrayList<Usuario>();
+	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add(usuario.clone());
+	    for(Usuario usuario : negra) copia.add(usuario.clone());
+	    return copia;
+	    
 	}
 	
 }
