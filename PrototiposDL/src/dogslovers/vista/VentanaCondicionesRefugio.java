@@ -33,7 +33,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
@@ -69,7 +68,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		getContentPane().add(titulo, BorderLayout.NORTH);
 		titulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		lblCondicionesDeRefugio = new JLabel("Condiciones de Refugio");
+		lblCondicionesDeRefugio = new JLabel("Condiciones");
 		titulo.add(lblCondicionesDeRefugio);
 		lblCondicionesDeRefugio.setHorizontalAlignment(SwingConstants.CENTER);
 		try {

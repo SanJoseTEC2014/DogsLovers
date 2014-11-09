@@ -15,7 +15,7 @@ public class CoordinadorVisual {
 	private VentanaDetallesMascota detallesMascota;
 	private VentanaRegistroUsuarios registroUsuarios;
 	private VentanaRegistroMascotas registroMascotas;
-	private VentanaBusquedaMascotas busquedaMascotas;
+	private VentanaBusqueda busqueda;
 	private VentanaAgregarComentario agregarComentario;
 	
 	private JFrame ventanaActiva;
@@ -29,7 +29,7 @@ public class CoordinadorVisual {
 		detallesMascota = new VentanaDetallesMascota();
 		registroUsuarios = new VentanaRegistroUsuarios();
 		registroMascotas = new VentanaRegistroMascotas();
-		busquedaMascotas = new VentanaBusquedaMascotas();
+		busqueda = new VentanaBusqueda();
 		condicionesRefugio = new VentanaCondicionesRefugio();
 		agregarComentario = new VentanaAgregarComentario();
 	}
@@ -67,9 +67,9 @@ public class CoordinadorVisual {
 		ocultarVentanas();
 	}
 
-	public synchronized void mostrarBusquedaMascotas() {
+	public synchronized void mostrarBusqueda() {
 		ocultarVentanas();
-		busquedaMascotas.setVisible(true);
+		busqueda.setVisible(true);
 	}
 	
 	public synchronized void mostrarAgregarComentario(){
@@ -85,7 +85,7 @@ public class CoordinadorVisual {
 		detallesMascota.setVisible(false);
 		registroUsuarios.setVisible(false);
 		registroMascotas.setVisible(false);
-		busquedaMascotas.setVisible(false);
+		busqueda.setVisible(false);
 		agregarComentario.setVisible(false);
 	}
 
