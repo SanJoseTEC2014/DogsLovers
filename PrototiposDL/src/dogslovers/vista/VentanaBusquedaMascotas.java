@@ -47,8 +47,8 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 	private JPanel marcoOperaciones;
 	private JButton btnVerDetalles;
 	private JTabbedPane tabbedPane;
-	private JPanel panelMascotas;
-	private JPanel panelUsuarios;
+	private JPanel pestaniaMascotas;
+	private JPanel pestaniaUsuarios;
 	Thread hiloBarraProgreso;
 	Thread hiloExpandirVentana;
 	private BuscadorMascotas modelo;
@@ -61,11 +61,11 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		
 		setName("barraCarga");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(anchoVentana, altoVentanaContraida);
+		setSize(500, 392);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
 		
-		labelTitulo1 = new JLabel("B\u00FAsqueda");
+		labelTitulo1 = new JLabel("B\u00FAsquedaa");
 		getContentPane().add(labelTitulo1, BorderLayout.NORTH);
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
@@ -73,14 +73,13 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		panelMascotas = new JPanel();
-		panelMascotas.setOpaque(false);
-		tabbedPane.addTab("Mascotas", null, panelMascotas, null);
-		panelMascotas.setLayout(new BorderLayout(0, 0));
+		pestaniaMascotas = new JPanel();
+		pestaniaMascotas.setOpaque(false);
+		pestaniaMascotas.setLayout(new BorderLayout(0, 0));
 
 		marcoTitulo = new JPanel();
 		marcoTitulo.setOpaque(false);
-		panelMascotas.add(marcoTitulo, BorderLayout.NORTH);
+		pestaniaMascotas.add(marcoTitulo, BorderLayout.NORTH);
 		marcoTitulo.setLayout(new BorderLayout(0, 0));
 
 		progressBar = new JProgressBar();
@@ -180,7 +179,7 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 
 		marcoContenido = new JPanel();
 		marcoContenido.setOpaque(false);
-		panelMascotas.add(marcoContenido, BorderLayout.CENTER);
+		pestaniaMascotas.add(marcoContenido, BorderLayout.CENTER);
 		marcoContenido.setLayout(new BorderLayout(0, 0));
 
 		marcoParametros = new JPanel();
@@ -358,10 +357,9 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		btnContraerVentana.setEnabled(false);
 		marcoContenido.add(btnContraerVentana, BorderLayout.SOUTH);
 
-		panelUsuarios = new JPanel();
-		panelUsuarios.setOpaque(false);
-		tabbedPane.addTab("Usuarios", null, panelUsuarios, null);
-		panelUsuarios.setLayout(new BorderLayout(0, 0));
+		pestaniaUsuarios = new JPanel();
+		pestaniaUsuarios.setOpaque(false);
+		pestaniaUsuarios.setLayout(new BorderLayout(0, 0));
 
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
@@ -372,6 +370,10 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 		marcoOperaciones.add(btnVerDetalles);
 
 		listasSeleccionadas = new boolean[] { false, false, false, false, false };
+		
+		//TODO Quitar estas dos lineas una vez que quede completada la clase
+		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+		tabbedPane.addTab("Mascotas", null, pestaniaMascotas, null);
 
 	}
 
@@ -412,7 +414,18 @@ public class VentanaBusquedaMascotas extends JFrame implements Runnable {
 			setSize(anchoVentana, getHeight() + 2);
 		}
 		ventanaContraida = false;
-		
 	}
+	
+	
+	public void busquedaGeneral(){
+		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+		tabbedPane.addTab("Mascotas", null, pestaniaMascotas, null);
+	}
+	
+	public void busquedaRefugiantes() {
+		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+	}
+	
+	
 
 }

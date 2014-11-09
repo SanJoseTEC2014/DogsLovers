@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.border.*;
 
+import dogslovers.control.Acceso;
 import dogslovers.control.Imagenes;
 import dogslovers.modelo.*;
 import dogslovers.recursos.Diseno;
@@ -206,6 +207,10 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonGuardarCambios);
 				
 				botonCondiciones = new JButton("Ver Condiciones de Refugio");
+				botonCondiciones.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					}
+				});
 				marcoOperaciones.add(botonCondiciones);
 				
 				botonDetalles = new JButton("Ver Detalles de Calificaciones");
@@ -230,6 +235,8 @@ public class VentanaDetallesUsuario extends JFrame {
 	}
 	
 	public void setDatosIniciales(Usuario pUsuario) {
+		
+		botonCondiciones.setVisible(pUsuario == Acceso.getUsuarioActivo());
 		usuarioActual = pUsuario;
 		textNickname.setText(usuarioActual.getNickname());
 		textNombre.setText(usuarioActual.getNombre());

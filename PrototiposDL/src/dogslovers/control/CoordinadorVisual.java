@@ -1,7 +1,10 @@
 package dogslovers.control;
 
+import java.awt.Window;
+
 import javax.swing.JFrame;
 
+import dogslovers.modelo.Usuario;
 import dogslovers.vista.*;
 
 public class CoordinadorVisual {
@@ -15,6 +18,7 @@ public class CoordinadorVisual {
 	private VentanaBusquedaMascotas busquedaMascotas;
 	
 	private JFrame ventanaActiva;
+	private VentanaCondicionesRefugio condicionesRefugio;
 	
 	public CoordinadorVisual(){
 		inicioSesion = new VentanaInicioSesion();
@@ -25,6 +29,7 @@ public class CoordinadorVisual {
 		registroUsuarios = new VentanaRegistroUsuarios();
 		registroMascotas = new VentanaRegistroMascotas();
 		busquedaMascotas = new VentanaBusquedaMascotas();
+		condicionesRefugio = new VentanaCondicionesRefugio();
 	}
 	
 	public synchronized void mostrarInicioSesion() {
@@ -74,6 +79,12 @@ public class CoordinadorVisual {
 		registroUsuarios.setVisible(false);
 		registroMascotas.setVisible(false);
 		busquedaMascotas.setVisible(false);
+	}
+
+	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
+		condicionesRefugio.setDatos(usuarioActual);
+		condicionesRefugio.setVisible(true);
+		
 	}
 	
 }

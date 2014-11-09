@@ -185,24 +185,21 @@ public class Emparejador {
 			return resultados;
 	}
 	
-	public static ArrayList<Usuario> getListaCoincidenciasCondiciones(Mascota pMascotaAComparar){
+	public static ArrayList<Usuario> getListaRefugiantes(Mascota pMascotaAComparar){
 		// Busca los usuarios que tengan condiciones de refugio similares a las características
 		// de la mascota reportada.
 
 		ArrayList<Usuario> coincidenciasCondiciones =  new ArrayList<Usuario>();
 
 		for (Usuario usuario : Principal.blanca) {
-			if (pMascotaAComparar.getTamanio().equals(usuario
-							.getCondicionesRefugio().getTamanioMascota())
-							&& pMascotaAComparar.isVacunada() == usuario
-									.getCondicionesRefugio().isVacunada()
-							&& pMascotaAComparar.isDiscapacitada() == usuario
-									.getCondicionesRefugio().isDiscapacitada()
-							&& pMascotaAComparar.isCastrada() == usuario
-									.getCondicionesRefugio().isCastrada()
-							&& pMascotaAComparar.isDesparacitada() == usuario
-									.getCondicionesRefugio().isDesparacitada()) {
-				coincidenciasCondiciones.add(usuario);
+			if (usuario.isRefugiante()){
+				if (pMascotaAComparar.isVacunada() == usuario.getCondicionesRefugio().isSoloVacunada()
+								&& pMascotaAComparar.isCastrada() == usuario
+										.getCondicionesRefugio().isSoloCastrada()
+								&& pMascotaAComparar.isDesparacitada() == usuario
+										.getCondicionesRefugio().isSoloDesparacitada()) {
+					coincidenciasCondiciones.add(usuario);
+				}
 			}
 		}
 
