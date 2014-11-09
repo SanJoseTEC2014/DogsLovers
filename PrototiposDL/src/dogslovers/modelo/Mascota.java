@@ -21,9 +21,12 @@ import dogslovers.modelo.Suceso;
 
 public class Mascota {
 
-	public static final LinkedList<String> edades = new LinkedList<String>();;
-	public static LinkedList<String> especies = new LinkedList<String>();
-	public static LinkedList<String[]> razas = new LinkedList<String[]>();
+	private static LinkedList<String> edades = new LinkedList<String>();
+	private static LinkedList<String> tamanios = new LinkedList<String>();
+	private static LinkedList<String> colores = new LinkedList<String>();
+	private static LinkedList<String> especies = new LinkedList<String>();
+	private static LinkedList<LinkedList<String>> razas = new LinkedList<LinkedList<String>>();
+	
 	private static Integer totalIDsRegistradas = 0;
 
 	private Integer id;
@@ -37,7 +40,6 @@ public class Mascota {
 	private boolean castrada;
 	private boolean vacunada;
 	private boolean desparacitada;
-	private boolean discapacitada;
 	private String tamanio;
 	private String estado;
 	private Suceso perdida;
@@ -68,30 +70,6 @@ public class Mascota {
 
 		recompensa = pRecompensa;
 		notas = pNotas;
-	}
-
-	public static LinkedList<String> getEspecies() {
-		return especies;
-	}
-
-	public static void setEspecies(LinkedList<String> especies) {
-		Mascota.especies = especies;
-	}
-
-	public static LinkedList<String[]> getRazas() {
-		return razas;
-	}
-
-	public static void setRazas(LinkedList<String[]> razas) {
-		Mascota.razas = razas;
-	}
-
-	public static Integer getTotalChips() {
-		return totalIDsRegistradas;
-	}
-
-	public static void setTotalChips(Integer totalChips) {
-		Mascota.totalIDsRegistradas = totalChips;
 	}
 
 	public Integer getID() {
@@ -178,14 +156,6 @@ public class Mascota {
 		this.desparacitada = desparacitada;
 	}
 
-	public boolean isDiscapacitada() {
-		return discapacitada;
-	}
-
-	public void setDiscapacitada(boolean discapacitada) {
-		this.discapacitada = discapacitada;
-	}
-
 	public String getTamanio() {
 		return tamanio;
 	}
@@ -267,6 +237,10 @@ public class Mascota {
 		estado = pEstado;
 	}
 
+	public BufferedImage getImagen() throws ImagenNoEncontradaException{
+		return Imagenes.getPerfilMascota(id);
+	}
+	
 	public String toString() {
 		String msg = "Nombre de la mascota: " + getNombre();
 		msg += "\nID: " + getID();
@@ -308,7 +282,6 @@ public class Mascota {
 		  
 		  clone.setCastrada(castrada);
 		  clone.setDesparacitada(desparacitada);
-		  clone.setDiscapacitada(discapacitada);
 		  clone.setVacunada(vacunada);
 		  return clone;
 	}
@@ -320,15 +293,55 @@ public class Mascota {
 	// Recibe la especie seleccionada en el JComboBox para que éste pueda refrescarse
 	// cuando se está editando la especie de una Mascota.
 	public static DefaultComboBoxModel<String> getModeloRazas(String pEspecie) {
-		  return new DefaultComboBoxModel<String>(razas.get(especies.indexOf(pEspecie)));
+		return new DefaultComboBoxModel<String>(
+			(String[]) razas.get(
+				especies.indexOf(pEspecie)
+			).toArray()
+		);
 	}
 	
 	public static DefaultComboBoxModel<String> getModeloEdades() {
 		  return new DefaultComboBoxModel<String>((String[]) edades.toArray());
 	}
 	
-	public BufferedImage getImagen() throws ImagenNoEncontradaException{
-		return Imagenes.getPerfilMascota(id);
+	public static DefaultComboBoxModel<String> getModeloTamanios() {
+		  return new DefaultComboBoxModel<String>((String[]) tamanios.toArray());
+	}
+	
+	public static DefaultComboBoxModel<String> getModeloColores() {
+		  return new DefaultComboBoxModel<String>((String[]) colores.toArray());
+	}
+	
+	public static void addEdad(String pEdad){
+		edades.add(pEdad);
+	}
+	
+	public static void addTamanio(String pTamanio){
+		tamanios.add(pTamanio);
+	}
+	
+	public static void addEspecie(String pEspecie){
+		especies.add(pEspecie);
+	}
+	
+	public static void addRaza(String pEspecie, String pRaza){
+		razas.get(especies.indexOf(pEspecie)).add(pRaza);
+	}
+	
+	public static void addColor(String pColor){
+		colores.add(pColor);
+	}
+	
+	public static LinkedList<String> getEspecies() {
+		return especies;
+	}
+
+	public static LinkedList<LinkedList<String>> getRazas() {
+		return razas;
+	}
+
+	public static Integer getTotalChips() {
+		return totalIDsRegistradas;
 	}
 	
 }

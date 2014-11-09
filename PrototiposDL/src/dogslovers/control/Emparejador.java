@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.mail.*;
 import javax.swing.*;
 
+import dogslovers.modelo.CondicionesRefugio;
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
 import dogslovers.control.Principal;
@@ -32,14 +33,14 @@ public class Emparejador {
 		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+				for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 					emparejarAutomatico(mascota, pUsuario);
 				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -49,7 +50,7 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					for (Mascota mascota : pUsuario.getListaMascotasPerdidas()){
+					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -189,21 +190,19 @@ public class Emparejador {
 		// Busca los usuarios que tengan condiciones de refugio similares a las características
 		// de la mascota reportada.
 
-		ArrayList<Usuario> coincidenciasCondiciones =  new ArrayList<Usuario>();
+		ArrayList<Usuario> refugiantes =  new ArrayList<Usuario>();
 
 		for (Usuario usuario : Principal.blanca) {
-			if (usuario.isRefugiante()){
-				if (pMascotaAComparar.isVacunada() == usuario.getCondicionesRefugio().isSoloVacunada()
-								&& pMascotaAComparar.isCastrada() == usuario
-										.getCondicionesRefugio().isSoloCastrada()
-								&& pMascotaAComparar.isDesparacitada() == usuario
-										.getCondicionesRefugio().isSoloDesparacitada()) {
-					coincidenciasCondiciones.add(usuario);
-				}
+			CondicionesRefugio pCondiciones = usuario.getCondicionesRefugio();
+			
+			if (pMascotaAComparar.isVacunada() == pCondiciones.isSoloVacunada()
+			 && pMascotaAComparar.isCastrada() == pCondiciones.isSoloCastrada()
+			 && pMascotaAComparar.isDesparacitada() == pCondiciones.isSoloDesparacitada()) {
+				refugiantes.add(usuario);
 			}
 		}
 
-		return coincidenciasCondiciones;
+		return refugiantes;
 	}
 }
 

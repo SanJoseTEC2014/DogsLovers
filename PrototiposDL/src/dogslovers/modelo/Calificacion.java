@@ -25,10 +25,6 @@ public class Calificacion {
 		return nicknameCalificante;
 	}
 
-	public void setNicknameCalificante(String nicknameCalificante) {
-		this.nicknameCalificante = nicknameCalificante;
-	}
-
 	public Calificacion(String pNicknameCalificante, Integer pEstrellas, String pMensaje) {
 		nicknameCalificante = pNicknameCalificante;
 		estrellas = pEstrellas;

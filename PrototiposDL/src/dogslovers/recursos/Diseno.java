@@ -14,8 +14,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import dogslovers.control.Principal;
 
 public class Diseno {
-	public static Color fondoVentanas = new Color(30, 144, 255);
-	public static Color fondoMarcosVentanas = new Color(144, 238, 144);
+	public static Color fondoVentanas = new Color(60,179,113);
+	public static Color fondoMarcosVentanas = new Color(176,196,222);
+	public static Color letras = new Color(25,25,112);
 	private static final File archivoFuenteHuellas = new File(Principal.directorioProyecto + 
 								"\\src\\dogslovers\\recursos\\fuentes\\ennobled pet.ttf");
 	public static Font fuenteTitulosVentanas;

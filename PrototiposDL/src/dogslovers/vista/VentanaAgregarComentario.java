@@ -30,7 +30,7 @@ public class VentanaAgregarComentario extends JFrame {
 	private JPanel panelBotones;
 	private JPanel panelContenido;
 	public VentanaAgregarComentario() {
-		setSize(600,400);
+		setSize(650,400);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setTitle("Agregar Comentario");
 		getContentPane().setLayout(new BorderLayout(0, 0));

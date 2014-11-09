@@ -9,14 +9,15 @@ public class CondicionesRefugio {
 	private boolean soloDesparacitadas;
 	private String detallesAdicionales;
 	
-	public CondicionesRefugio(String pTamanioMascota,
-			  boolean pNecesitaAlimentos, boolean pVacunada,
-			  boolean pDiscapacitada, boolean pCastrada, boolean pDesparacitada) {
+	public CondicionesRefugio(boolean pNecesitaAlimentos, boolean pVacunada,
+			 boolean pCastrada, boolean pDesparacitada, String pDetallesAdicionales) {
 
 		necesitaAlimentos = pNecesitaAlimentos;
 		soloVacunadas = pVacunada;
 		soloCastradas = pCastrada;
 		soloDesparacitadas = pDesparacitada;
+		detallesAdicionales = pDetallesAdicionales;
+		
 	}
 	
 	
@@ -58,6 +59,7 @@ public class CondicionesRefugio {
 
 	public void setDetallesAdicionales(String detallesAdicionales) {
 		this.detallesAdicionales = detallesAdicionales;
+
 	}
 }
 

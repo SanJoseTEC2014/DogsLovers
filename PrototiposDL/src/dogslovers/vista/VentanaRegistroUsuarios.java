@@ -112,9 +112,22 @@ public class VentanaRegistroUsuarios extends JFrame {
 		botonLeerCondicionesUso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(getContentPane(),
-					"Lea los siguientes terminos antes de registrarse"+"\n"+
-					"1- Este no es un sistema para dar en adopción una mascota",
-					"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);
+				"LEA LOS SIGUIENTES TERMINOS ANTES DE REGISTRARSE"+"\n"+
+				"1.Descripción general del servicio:"+ "\n" +
+				"Paws es un sistema de identificación de mascotas a través del cual sus" + "\n"+ 
+				"dueños pueden encontrar a su mascota perdida,ayudar a otras a volver"+ "\n"+ 
+				 " a casa e interactuar con el resto de usuarios."+ "\n"+ 
+				"Este servicio no asegura,ni garantiza que los dueños recuperen a sus mascotas perdidas,"+ "\n"+ 
+				"simplemente les provee de una herramienta para lograrlo."  + "\n"+ 
+				"2. Registro:" + "\n"+ 
+				"Para poder registar una mascota y utilizar ciertas funcionalidades del sistema"+ "\n"+
+				"es necesario registrarse."+ "\n"+
+				"3.Contenidos facilitados por los usuarios:"+ "\n"+
+				"El Usuario podrá registrar a su mascota (o varias) en estado de Perdida, Encontrada o en Adopción "+ "\n"+ 
+				"y asociarlas a su perfil facilitando contenido en forma de texto e imágenes.",
+				"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);
+					
+					
 			}
 		});
 		getContentPane().setLayout(new BorderLayout(0, 0));
