@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import dogslovers.modelo.Mascota;
+import dogslovers.modelo.Usuario;
 
 public class Busqueda {
 
@@ -15,22 +16,22 @@ public class Busqueda {
 
 	public static ArrayList<Mascota>  buscarMascotas(LinkedList<String> pTerminos, boolean[] listasABuscar) {
 		
-		ArrayList<Mascota> entrada = new ArrayList<Mascota>();
+		ArrayList<Mascota> listaMascotas = new ArrayList<Mascota>();
 		
 		if (listasABuscar[0] == true) {
-			entrada.addAll(Principal.getCopiaMascotasEncontradas());
+			listaMascotas.addAll(Principal.getCopiaMascotasEncontradas());
 		}
 		if (listasABuscar[1] == true) {
-			entrada.addAll(Principal.getCopiaMascotasPerdidas());
+			listaMascotas.addAll(Principal.getCopiaMascotasPerdidas());
 		}
 		if (listasABuscar[2] == true) {
-			entrada.addAll(Principal.getCopiaMascotasAdoptadas());
+			listaMascotas.addAll(Principal.getCopiaMascotasAdoptadas());
 		}
 		if (listasABuscar[3] == true) {
-			entrada.addAll(Principal.getCopiaMascotasEnAdopcion());
+			listaMascotas.addAll(Principal.getCopiaMascotasEnAdopcion());
 		}
 		if (listasABuscar[4] == true) {
-			entrada.addAll(Principal.getCopiaMascotasRefugiadas());
+			listaMascotas.addAll(Principal.getCopiaMascotasRefugiadas());
 		}
 		
 		ArrayList<Mascota> resultados = new ArrayList<Mascota>();
@@ -38,7 +39,7 @@ public class Busqueda {
 		for (int numeroTermino = 0; numeroTermino < pTerminos.size(); numeroTermino++){
 			String criterio = pTerminos.get(numeroTermino);
 			if (criterio != "") {
-				for (Mascota porFiltrar : entrada) {
+				for (Mascota porFiltrar : listaMascotas) {
 					
 					// Verificación de los resultados de una búsqueda
 					/*
@@ -109,7 +110,7 @@ public class Busqueda {
 	}
 	
 	private static boolean numeroChipCoincide(Mascota pMascota, String pCriterio){
-		return pMascota.getNumeroChip().equals(pCriterio);
+		return pMascota.getNumeroChip() == null? false : pMascota.getNumeroChip().equals(pCriterio);
 	}
 	
 	private static boolean especieCoincide(Mascota pMascota, String pCriterio){
@@ -118,5 +119,97 @@ public class Busqueda {
 	
 	private static boolean razaCoincide(Mascota pMascota, String pCriterio){
 		return pMascota.getRaza().equals(pCriterio);
+	}
+
+	
+	//////////////////////////////// BLOQUE BUSQUEDA DE USUARIOS /////////////////////////////
+	
+	public static ArrayList<Usuario> buscarUsuarios(LinkedList<String> pTerminos, boolean soloUsusariosRefugiantes) {
+
+		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		
+		
+		if (soloUsusariosRefugiantes) {
+			listaUsuarios.addAll(Principal.getCopiaUsuariosRefugiantes());
+		}else {
+			listaUsuarios.addAll(Principal.getCopiaUsuarios());
+		}
+		
+		ArrayList<Usuario> resultados = new ArrayList<Usuario>();
+	
+		for (int numeroTermino = 0; numeroTermino < pTerminos.size(); numeroTermino++){
+			String criterio = pTerminos.get(numeroTermino);
+			if (criterio != "") {
+				for (Usuario porFiltrar : listaUsuarios) {
+					
+					
+					switch (numeroTermino){
+						case 0: {
+							if (nickCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 1: {
+							if (nombreCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 2: {
+							if (apellidosCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 3: {
+							if (cedulaCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 4: {
+							if (numTelefonoCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+						case 5: {
+							if (correoCoincide(porFiltrar, criterio)){
+								resultados.add(porFiltrar);
+							}
+						}
+						break;
+					}
+				}
+			}
+		}
+		
+		return resultados;
+	}
+
+	private static boolean correoCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getCorreo().toLowerCase().contains(pCriterio.toLowerCase());
+	}
+
+	private static boolean numTelefonoCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getTelefono().toString().contains(pCriterio);
+	}
+
+	private static boolean cedulaCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getCedula().toString().contains(pCriterio);
+	}
+
+	private static boolean apellidosCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getApellidos().toLowerCase().contains(pCriterio.toLowerCase());
+	}
+
+	private static boolean nombreCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getNombre().toLowerCase().contains(pCriterio.toLowerCase());
+
+	}
+
+	private static boolean nickCoincide(Usuario pUsuario, String pCriterio) {
+		return pUsuario.getNickname().toLowerCase().contains(pCriterio.toLowerCase());
 	}
 }

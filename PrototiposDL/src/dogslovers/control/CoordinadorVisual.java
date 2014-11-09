@@ -78,15 +78,15 @@ public class CoordinadorVisual {
 	}
 	
 	private synchronized void ocultarVentanas() {
-		inicioSesion.setVisible(true);
-		parametrosSistema.setVisible(true);
-		menuPrincipal.setVisible(true);
-		detallesUsuario.setVisible(true);
-		detallesMascota.setVisible(true);
-		registroUsuarios.setVisible(true);
-		registroMascotas.setVisible(true);
-		busqueda.setVisible(true);
-		agregarComentario.setVisible(true);
+		inicioSesion.setVisible(false);
+		parametrosSistema.setVisible(false);
+		menuPrincipal.setVisible(false);
+		detallesUsuario.setVisible(false);
+		detallesMascota.setVisible(false);
+		registroUsuarios.setVisible(false);
+		registroMascotas.setVisible(false);
+		busqueda.setVisible(false);
+		agregarComentario.setVisible(false);
 	}
 
 	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
