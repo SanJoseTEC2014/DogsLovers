@@ -84,8 +84,10 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		Thread hiloExpandirVentana = new Thread(this); 
 		
 		setName("barraCarga");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(anchoVentana, altoVentanaContraida);
+
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setSize(anchoVentana, altoVentanaContraida);	
+
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
 		

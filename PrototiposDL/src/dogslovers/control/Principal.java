@@ -25,6 +25,13 @@ public class Principal {
 	
 	public static CoordinadorVisual coordinador;
 	
+	public static Usuario getUsuarioListaBlanca(String pNickname) throws UsuarioNoExisteException{
+		for (Usuario x : blanca){
+			if (x.getNickname().equals(pNickname)) return x;
+		}
+		throw new UsuarioNoExisteException("El usuario no aparece registrado.");
+	}
+	
 	public static void inicializarMascotas() {
 		Mascota.addEspecie("Perro");
 		Mascota.addRaza("Perro", "Chihuahua");
@@ -35,14 +42,14 @@ public class Principal {
 		Mascota.addRaza("Perro", "Rottweiler");
 		Mascota.addRaza("Perro", "Golden Retreiver");
 		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro",
-							new Suceso("lizchavca", "San José", 15, 5, 2013, "Se perdió chingo."),
+							new Suceso("lizchavca", "San José", "Se perdió chingo."),
 							false, 500000000,
 							"ola k ase");
 		mascota1.setColor("Negro");
 		mascota1.setTamanio("Grande");
 		mascota1.setSexo("Macho");
 		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro",
-				new Suceso("lapc506", "Heredia", 06, 11, 2014, "Se perdió con ropa."),
+				new Suceso("lapc506", "Heredia", "Se perdió con ropa."),
 				true, 0, "meeeooowww");
 		mascota2.setColor("Negro");
 		mascota2.setTamanio("Pequeño");
@@ -60,7 +67,7 @@ public class Principal {
 		Usuario.setCalificacionMinimaPermitidaUsuarios(3.0);
 		
 		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
-				116070870, "wat", 89456736, "lizchavca@gmail.com"));
+				116070870, "wat", 89456736, "lizchavca@gmail.com", "por ahí !"));
 		blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 		blanca.get(0).setCondicionesRefugio(new CondicionesRefugio(true, false, true, true, "caca"));
 		blanca.get(0).setRefugiante(true);
@@ -116,11 +123,17 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-				//coordinador.mostrarInicioSesion();
+				coordinador.mostrarInicioSesion();
+				coordinador.mostrarAgregarComentario();
 				coordinador.mostrarBusqueda();
-				
+				//coordinador.mostrarCondicionesRefugio(blanca.get(0));
+				coordinador.mostrarDetallesMascota();
+				coordinador.mostrarDetallesUsuario();
+				coordinador.mostrarMenuPrincipal();
+				coordinador.mostrarParametrosSistema();
+				coordinador.mostrarRegistroMascotas();
+				coordinador.mostrarRegistroUsuarios();
 
-				
 			}
 		});
 
