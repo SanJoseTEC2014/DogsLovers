@@ -28,6 +28,7 @@ public class Mascota {
 	private static LinkedList<LinkedList<String>> razas = new LinkedList<LinkedList<String>>();
 	
 	private static Integer totalIDsRegistradas = 0;
+	private MaquinaEstadosMascotas maquina;
 
 	private Integer id;
 	private String nombre;
@@ -234,6 +235,10 @@ public class Mascota {
 
 	public void setEstado(String pEstado) {
 		estado = pEstado;
+	}
+	
+	public void notificar(){
+		maquina.actualizarEstado();
 	}
 
 	public BufferedImage getImagen() throws ImagenNoEncontradaException{
