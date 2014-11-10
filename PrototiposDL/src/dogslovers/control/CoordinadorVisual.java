@@ -73,7 +73,6 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarBusqueda() {
-		ocultarVentanas();
 		busqueda.setVisible(true);
 	}
 	
