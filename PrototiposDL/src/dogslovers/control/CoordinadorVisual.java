@@ -3,9 +3,7 @@ package dogslovers.control;
 import java.awt.Window;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import dogslovers.control.excepciones.UsuarioNoExisteException;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Usuario;
 import dogslovers.vista.*;
@@ -50,37 +48,24 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarParametrosSistema() {
 		parametrosSistema.setVisible(Acceso.isAdministradorActivo());
+		parametrosSistema.setMensajeNuevo();
+		parametrosSistema.setVisible(true);
 	}
 
 	public synchronized void mostrarMenuPrincipal() {
 		ocultarVentanas();
-		menuPrincipal.setUsuario();
 		menuPrincipal.setVisible(true);
 	}
 
 	public synchronized void mostrarDetallesUsuario(Usuario usuarioActual) {
+		ocultarVentanas();
 		detallesUsuario.setDatosIniciales(usuarioActual);
 		detallesUsuario.setModoEdicion(usuarioActual == Acceso.getUsuarioActivo());
 		detallesUsuario.setVisible(true);
 	}
 
-	public synchronized void mostrarDetallesMascota(Mascota mascotaActual) {
-		detallesMascota.setDatosIniciales(mascotaActual);
-		
-		
-		// Si la mascota está actualmente perdida "O" encontrada y 
-		// la persona que registro ese estado es la persona activa
-		// en el sistema, tiene permiso de modificar la informacion
-		try {
-			detallesMascota.setModoEdicion((mascotaActual.getEstadoActual().equals(MaquinaEstadosMascotas.estadoENCONTRADA) 
-							|| mascotaActual.getEstadoActual().equals(MaquinaEstadosMascotas.estadoPERDIDA))
-							&& Principal.getUsuarioListaBlanca(mascotaActual.getUltimoSuceso().getNick()) == Acceso
-									.getUsuarioActivo());
-		} catch (UsuarioNoExisteException e) {
-			JOptionPane.showMessageDialog(null, "Usuario no activo/encontrado", "Error del sistema", JOptionPane.ERROR_MESSAGE);
-		}
-		
-		detallesMascota.setVisible(true);
+	public synchronized void mostrarDetallesMascota() {
+		ocultarVentanas();
 	}
 
 	public synchronized void mostrarRegistroUsuarios() {
@@ -88,10 +73,11 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarRegistroMascotas() {
-		registroMascotas.setVisible(true);
+		ocultarVentanas();
 	}
 
 	public synchronized void mostrarBusqueda() {
+		ocultarVentanas();
 		busqueda.setVisible(true);
 	}
 	
@@ -140,5 +126,9 @@ public class CoordinadorVisual {
 		calificaciones.setVisible(true);
 		
 	}
-	
+
+	public void mostrarDetallesMascota(Mascota mascota) {
+		detallesMascota.setDatosIniciales(mascota);
+		detallesMascota.setVisible(true);
+	}
 }

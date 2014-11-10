@@ -8,6 +8,7 @@ import javax.swing.*;
 import dogslovers.control.*;
 import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
+import dogslovers.control.Correo;
 
 import com.toedter.calendar.*;
 import javax.swing.border.TitledBorder;
@@ -41,11 +42,12 @@ public class VentanaParametrosSistema extends JFrame {
 	private JTextField textFecha;
 	private JPanel panelMensajeCorreo;
 	private JPanel mensajeNuevo;
-	private JTextField textField;
+	private JTextField mensajeCorreoNuevo;
+	private JButton btnGuardarMensaje;
 	
 	public VentanaParametrosSistema() {
 		getContentPane().setBackground(Diseno.fondoVentanas);
-		setSize(570, 402);
+		setSize(570, 464);
 		
 		marcoTitulo = new JPanel();
 		marcoTitulo.setOpaque(false);
@@ -174,10 +176,20 @@ public class VentanaParametrosSistema extends JFrame {
 		panelMensajeCorreo.add(mensajeNuevo);
 		mensajeNuevo.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 21, 509, 141);
-		mensajeNuevo.add(textField);
-		textField.setColumns(10);
+		mensajeCorreoNuevo = new JTextField();
+		mensajeCorreoNuevo.setAlignmentY(0.0f);
+		mensajeCorreoNuevo.setBounds(10, 21, 509, 141);
+		mensajeNuevo.add(mensajeCorreoNuevo);
+		mensajeCorreoNuevo.setColumns(10);
+		
+		btnGuardarMensaje = new JButton("Guardar Mensaje");
+		btnGuardarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Correo.setMensaje(mensajeCorreoNuevo.getText());
+			}
+		});
+		btnGuardarMensaje.setBounds(20, 191, 123, 28);
+		panelMensajeCorreo.add(btnGuardarMensaje);
 		
 		marcoInferior = new JPanel();
 		marcoInferior.setOpaque(false);
@@ -188,4 +200,13 @@ public class VentanaParametrosSistema extends JFrame {
 		marcoInferior.add(botonCerrar);
 	}
 	
+	public void setMensajeNuevo() {
+		mensajeCorreoNuevo.setText(Correo.getMensaje());
+	}
+	
 }
+
+
+
+
+

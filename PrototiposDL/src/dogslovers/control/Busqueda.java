@@ -10,10 +10,6 @@ import dogslovers.modelo.Usuario;
 
 public class Busqueda {
 
-
-
-
-
 	public static ArrayList<Mascota>  buscarMascotas(LinkedList<String> pTerminos, boolean[] listasABuscar) {
 		
 		ArrayList<Mascota> listaMascotas = new ArrayList<Mascota>();

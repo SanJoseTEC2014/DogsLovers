@@ -204,7 +204,7 @@ public class VentanaMenuPrincipal extends JFrame {
 	
 	public void setUsuario(){
 		lblBienvenido.setText(Acceso.getUsuarioActivo().getNombre()+" bienvenido a");
-		
+	
 		if(Acceso.isAdministradorActivo()) mnCuenta.add(mntmParametrosSistema);
 
 		if(Acceso.getUsuarioActivo().isRefugiante()) mnCuenta.add(mntmSolicitarSerCasa);

@@ -66,15 +66,12 @@ public class Principal {
 	}
 	
 	public static void inicializarUsuarios() {
-		
 		Usuario.setCalificacionMinimaPermitidaUsuarios(3.0);
 		
 		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
 				116070870, "wat", 89456736, "lizchavca@gmail.com", "sabanilla"));
 		blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
-		//blanca.get(0).addCalificacion(new Calificacion("KAKO", 0, "bakaaa ne"));
 		blanca.get(0).setCondicionesRefugio(new CondicionesRefugio(true, false, true, true, "caca"));
-		
 		blanca.get(0).setRefugiante(true);
 	}
 	
@@ -114,10 +111,6 @@ public class Principal {
 		inicializarMascotas();
 		inicializarUsuarios();
 		
-		CasosPrueba.cargarDocumentoUsuariosPrueba();
-		CasosPrueba.cargarDocumentoMascotasPrueba();
-
-		
 		// VentanaDetallesMascota: encontradas.get(0).clone(), false
 		
 		// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS
@@ -133,8 +126,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-				//coordinador.mostrarInicioSesion();
-				coordinador.mostrarInicioSesion();
+//				coordinador.mostrarVentanas();
+				coordinador.mostrarParametrosSistema();
 			}
 		});
 

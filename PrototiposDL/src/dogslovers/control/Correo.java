@@ -118,6 +118,14 @@ public class Correo {
 		enviarCorreo(pUsuario.getCorreo(), asunto, cuerpoMsg);
 	}
 	
+	public static void setMensaje(String pMensaje) {
+		mensajeParametrizable = pMensaje;
+	}
+	
+	public static String getMensaje() {
+		return mensajeParametrizable;
+	}
+	
 	public static void enviarCodigoCorreo(String nick, String nombre, String correo) throws MessagingException {
 		
 		String asunto = "Codigo de activacion de registro. Paws";
