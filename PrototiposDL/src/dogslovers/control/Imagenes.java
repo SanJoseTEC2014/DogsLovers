@@ -6,10 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import dogslovers.control.excepciones.ImagenNoEncontradaException;
 
@@ -74,7 +77,7 @@ public class Imagenes {
 	}
 	
 	public static BufferedImage getPerfil(String nickUsuario)  throws ImagenNoEncontradaException{
-		return cargarImagen(rutaFotosUsuarios + nickUsuario + "\\perfil.jpg");
+		return cargarImagen(rutaFotosUsuarios + nickUsuario + "perfil.jpg");
 	}
 	
 	public static BufferedImage getImagenError() throws ImagenNoEncontradaException {
@@ -93,15 +96,20 @@ public class Imagenes {
 		return cargarImagen(rutaFotosSistema + "iconoBuscarMascota.png");
 	}
 	
-	public static void guardarFotoPerfilUsuario(String nickUsuario, Path rutaOrigen){
-		Path rutaDestino = Paths.get(rutaFotosUsuarios + nickUsuario + "\\perfil.jpg");
+	public static void guardarFotoPerfilUsuario(String nickUsuario, String rutaOrigen){
+		String rutaDestino = rutaFotosUsuarios + nickUsuario + "perfil.jpg";
 		guardarImagen(rutaOrigen, rutaDestino);
 	}
 	
-	private static void guardarImagen(Path pOrigen, Path pDestino) {
+	public static void guardarFotoPerfilMascota(Integer IDMascota, String rutaOrigen){
+		String rutaDestino = rutaFotosMascotas + IDMascota.toString() + ".jpg";
+		guardarImagen(rutaOrigen, rutaDestino);
+	}
+	
+	private static void guardarImagen(String rutaOrigen, String rutaDestino) {
 		try {
-			FileInputStream flujoArchivoEntrada = new FileInputStream(pOrigen.toString());
-			FileOutputStream flujoArchivoSalida = new FileOutputStream(pDestino.toString());
+			FileInputStream flujoArchivoEntrada = new FileInputStream(rutaOrigen);
+			FileOutputStream flujoArchivoSalida = new FileOutputStream(rutaDestino);
 			byte[] buffer = new byte[1024];
 			int length;
 			while ((length = flujoArchivoEntrada.read(buffer)) > 0) {
@@ -115,4 +123,18 @@ public class Imagenes {
 				"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public static String seleccionarImagen() throws ImagenNoEncontradaException{
+		JFileChooser selector = new JFileChooser();
+		selector.setAcceptAllFileFilterUsed(false); // Deshabilita seleccionar todos los archivos
+		selector.setFileFilter(new FileNameExtensionFilter("Sólo imágenes", ImageIO.getReaderFileSuffixes()));
+		
+		if (selector.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
+			throw new ImagenNoEncontradaException("Se canceló la operación.");
+		} else if (selector.getSelectedFile().getAbsolutePath() == null){
+			throw new ImagenNoEncontradaException("No se seleccionó ninguna imagen.");
+		}
+		return selector.getSelectedFile().getAbsolutePath();
+	}
+	
 }
