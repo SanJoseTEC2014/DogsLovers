@@ -1,5 +1,19 @@
 package dogslovers.control;
 
+/**	 Controlador ValidacionesRegistro: 
+ * 	 Este controlador se encarga de validar cada uno de los datos
+ *   ingresados por un usuario cuando este intenta realizar un registro en
+ *   el sistema.
+ *  
+ *	 Fecha de creación: 10/11/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
+
 import java.awt.Component;
 import java.awt.image.ComponentSampleModel;
 import java.util.regex.Matcher;

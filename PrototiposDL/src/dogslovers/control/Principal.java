@@ -1,6 +1,6 @@
 package dogslovers.control;
 
-/**	Clase Principal: 
+/**	Controlador Principal: 
  * 	 Esta clase permite inicializar las mascotas, asi como los usuarios,
  *   cargar los casos de prueba para el sistema e invocar la ventana de
  *   inicio de sesión de la aplicación, asimismo implementa algunos  

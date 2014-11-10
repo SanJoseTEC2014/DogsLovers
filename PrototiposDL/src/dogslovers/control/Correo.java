@@ -1,7 +1,7 @@
 package dogslovers.control;
 
 /**	 Controlador Correo: 
- * 	 Esta clase se encarga de enviar un correo a un usuario
+ * 	 Esta controlador se encarga de enviar un correo a un usuario
  *   del sistema con un mensaje que contiene el código de confirmación
  *   para que el usuario pueda registrarse y se encargar de enviar
  *   otro correo que contiene una lista de coincidencias del resultado 

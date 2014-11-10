@@ -1,7 +1,7 @@
 package dogslovers.control;
 
 /**	 Controlador Acceso: 
- * 	 Esta clase implementa diversos métodos que permiten validar
+ * 	 Este controlador implementa diversos métodos que permiten validar
  *   el acceso del usuario al sistema.
  * 
  *	 Fecha de creación: 28/10/2014

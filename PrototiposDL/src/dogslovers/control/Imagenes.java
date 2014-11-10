@@ -1,10 +1,10 @@
 package dogslovers.control;
 
-/**	 Controlador Acceso: 
- * 	 Esta clase implementa diversos métodos que permiten validar
- *   el acceso del usuario al sistema.
- * 
- *	 Fecha de creación: 28/10/2014
+/**	 Controlador Imagenes: 
+ * 	 Este controlador se encarga de cargar las imágenes que aparecerán 
+ * 	 en la aplicación tales como las fotos de las mascotas, usuarios y las 
+ *   propias del sistema.
+ *	 Fecha de creación: 23/10/2014
  * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573
