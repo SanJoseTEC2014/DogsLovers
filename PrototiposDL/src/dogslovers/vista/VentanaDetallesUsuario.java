@@ -224,6 +224,11 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonDetalles);
 				
 				botonVerMascotas = new JButton("Ver Mascotas Asociadas");
+				botonVerMascotas.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Principal.coordinador.mostrarMascotasAsociadas(usuarioActual);
+					}
+				});
 				marcoOperaciones.add(botonVerMascotas);
 				
 				botonSalir = new JButton("Salir");

@@ -25,6 +25,9 @@ import java.util.LinkedList;
 
 public class VentanaMenuPrincipal extends JFrame {
 	private JFlowPanel prueba;
+	JLabel lblBienvenido;
+	private JMenuItem mntmSolicitarSerCasa;
+	private JMenu mnAyuda;
 
 	public VentanaMenuPrincipal() {
 		setTitle("Paws");
@@ -37,7 +40,7 @@ public class VentanaMenuPrincipal extends JFrame {
 		panel.setOpaque(false);
 		getContentPane().add(panel, BorderLayout.NORTH);
 		
-		JLabel lblBienvenido = new JLabel(Acceso.getUsuarioActivo().getNombre()+" bienvenido a");
+		lblBienvenido = new JLabel();
 		panel.add(lblBienvenido);
 		lblBienvenido.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
 		
@@ -64,6 +67,14 @@ public class VentanaMenuPrincipal extends JFrame {
 		});
 		mnMascotas.add(mntmRegistraTuMascota);
 		
+		JMenuItem mntmMisMascotas = new JMenuItem("Mis mascotas");
+		mntmMisMascotas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Principal.coordinador.mostrarMascotasAsociadas(Acceso.getUsuarioActivo());
+			}
+		});
+		mnMascotas.add(mntmMisMascotas);
+		
 		JMenuItem mntmVerEncontradas = new JMenuItem("Ver encontradas");
 		mnMascotas.add(mntmVerEncontradas);
 		
@@ -72,20 +83,6 @@ public class VentanaMenuPrincipal extends JFrame {
 		
 		JMenuItem mntmVerEnAdopcin = new JMenuItem("Ver en adopci\u00F3n");
 		mnMascotas.add(mntmVerEnAdopcin);
-		
-		JMenu mnUsuarios = new JMenu("Usuarios");
-		menuBar.add(mnUsuarios);
-		
-		JMenuItem mntmVerMisDetalles = new JMenuItem("Detalles de mi cuenta");
-		mntmVerMisDetalles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Principal.coordinador.mostrarDetallesUsuario(Acceso.getUsuarioActivo());
-			}
-		});
-		mnUsuarios.add(mntmVerMisDetalles);
-		
-		JMenuItem menuItem = new JMenuItem("");
-		mnUsuarios.add(menuItem);
 		
 		JMenu mnBsqueda = new JMenu("B\u00FAsqueda");
 		menuBar.add(mnBsqueda);
@@ -107,24 +104,30 @@ public class VentanaMenuPrincipal extends JFrame {
 		JMenuItem mntmRealizarUnaDonacin = new JMenuItem("Realizar una donaci\u00F3n");
 		mnAsociaciones.add(mntmRealizarUnaDonacin);
 		
-		JMenu mnAyuda = new JMenu("Ayuda");
-		menuBar.add(mnAyuda);
+		JMenu mnUsuarios = new JMenu("Cuenta");
+		menuBar.add(mnUsuarios);
 		
-		JMenuItem mntmManualDeUso = new JMenuItem("Manual de Uso");
-		mnAyuda.add(mntmManualDeUso);
+		JMenuItem mntmVerMisDetalles = new JMenuItem("Detalles de mi cuenta");
+		mntmVerMisDetalles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Principal.coordinador.mostrarDetallesUsuario(Acceso.getUsuarioActivo());
+			}
+		});
+		mnUsuarios.add(mntmVerMisDetalles);
 		
-		if (!Acceso.getUsuarioActivo().isRefugiante()){
-			JMenuItem mntmSolicitarSerCasa = new JMenuItem("Solicitar ser Casa Cuna");
-			mnAyuda.add(mntmSolicitarSerCasa);
-		}
-		
-		JMenuItem mntmCondicionesDeRefugio = new JMenuItem("Condiciones Casa Cuna");
+		JMenuItem mntmCondicionesDeRefugio = new JMenuItem("Mis condiciones de refugio");
+		mnUsuarios.add(mntmCondicionesDeRefugio);
 		mntmCondicionesDeRefugio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Principal.coordinador.mostrarCondicionesRefugio(Acceso.getUsuarioActivo());
 			}
 		});
-		mnAyuda.add(mntmCondicionesDeRefugio);
+		
+		mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+		
+		JMenuItem mntmManualDeUso = new JMenuItem("Manual de Uso");
+		mnAyuda.add(mntmManualDeUso);
 		
 		JMenuItem mntmContctenos = new JMenuItem("Cont\u00E1ctenos");
 		mnAyuda.add(mntmContctenos);
@@ -166,6 +169,15 @@ public class VentanaMenuPrincipal extends JFrame {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	public void setUsuario(){
+		lblBienvenido.setText(Acceso.getUsuarioActivo().getNombre()+" bienvenido a");
+		
+		if (!Acceso.getUsuarioActivo().isRefugiante()){
+			mntmSolicitarSerCasa = new JMenuItem("Solicitar ser Casa Cuna");
+			mnAyuda.add(mntmSolicitarSerCasa);
+		}
 	}
 }
 

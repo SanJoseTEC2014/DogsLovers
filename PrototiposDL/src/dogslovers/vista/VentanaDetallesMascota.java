@@ -53,6 +53,7 @@ public class VentanaDetallesMascota extends JFrame {
 	private JButton botonGuardarCambios;
 	private JLabel labelMontoRecompensa;
 	private JTextField campoMontoRecompensa;
+	private JButton botonQuieroAdoptarEsta;
 
 	public VentanaDetallesMascota() {
 		setSize(600, 500);
@@ -286,6 +287,10 @@ public class VentanaDetallesMascota extends JFrame {
 		botonGuardarCambios.setOpaque(false);
 		marcoOperacionesBasicas.add(botonGuardarCambios);
 		
+		botonQuieroAdoptarEsta = new JButton("Quiero adoptarla");
+		botonQuieroAdoptarEsta.setOpaque(false);
+		marcoOperaciones.add(botonQuieroAdoptarEsta, BorderLayout.CENTER);
+		
 		/*
 		if (orden == "MostrarDetalles") {
 			comboEspecie.setToolTipText(mascota.getEspecie());
@@ -342,7 +347,13 @@ public class VentanaDetallesMascota extends JFrame {
 		campoMontoRecompensa.setVisible(mascota.getEstadoActual().equals(MaquinaEstadosMascotas.estadoPERDIDA));
 		campoMontoRecompensa.setText(mascota.getRecompensa().toString());
 		
-
+		// pone el boton de adoptar visible si la mascota está adoptable o en refugio
+		botonQuieroAdoptarEsta.setVisible(mascota.getEstadoActual()
+				.equals(MaquinaEstadosMascotas.estadoADOPTABLE)
+						|| mascota.getEstadoActual()
+						.equals(MaquinaEstadosMascotas.estadoREFUGIADA));
+		
+		
 		DefaultComboBoxModel modelo = new DefaultComboBoxModel();
 		
 		modelo.addElement(mascota.getEspecie());
@@ -369,6 +380,8 @@ public class VentanaDetallesMascota extends JFrame {
 	public void setModoEdicion(boolean opcion){
 		
 		botonGuardarCambios.setEnabled(opcion);
+		botonCancelar.setEnabled(opcion);
+		
 		campoNombre.setEditable(opcion);
 		campoNumeroChip.setEditable(opcion);
 		campoColor.setEditable(opcion);
