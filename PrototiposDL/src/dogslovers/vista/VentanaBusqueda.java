@@ -92,7 +92,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		setName("barraCarga");
 
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(anchoVentana, altoVentanaContraida);	
+		setSize(577, 395);	
 
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
@@ -375,6 +375,8 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		marcoOperaciones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 						
 								btnAyuda = new JButton("\u00A1Necesito Ayuda!");
+								btnAyuda.setOpaque(false);
+								btnAyuda.setBackground(Diseno.fondoVentanas);
 								marcoOperaciones.add(btnAyuda);
 								btnAyuda.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent arg0) {
@@ -384,6 +386,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 								});
 				
 						btnContraerVentana = new JButton("Ocultar Resultados");
+						btnContraerVentana.setOpaque(false);
 						marcoOperaciones.add(btnContraerVentana);
 						btnContraerVentana.setVisible(false);
 						btnContraerVentana.addActionListener(new ActionListener() {
@@ -404,6 +407,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 						});
 
 		btnVerDetalles = new JButton("Ver Detalles");
+		btnVerDetalles.setOpaque(false);
 		btnVerDetalles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -449,6 +453,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 		
 		marcoTituloUsuarios = new JPanel();
+		marcoTituloUsuarios.setOpaque(false);
 		pestaniaUsuarios.add(marcoTituloUsuarios, BorderLayout.NORTH);
 		marcoTituloUsuarios.setLayout(new BorderLayout(0, 0));
 		
@@ -522,14 +527,17 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		marcoTituloUsuarios.add(button, BorderLayout.EAST);
 		
 		marcoContenidoUsuarios = new JPanel();
+		marcoContenidoUsuarios.setOpaque(false);
 		pestaniaUsuarios.add(marcoContenidoUsuarios, BorderLayout.CENTER);
 		marcoContenidoUsuarios.setLayout(new BorderLayout(0, 0));
 		
 		marcoParametrosUsuario = new JPanel();
+		marcoParametrosUsuario.setOpaque(false);
 		marcoContenidoUsuarios.add(marcoParametrosUsuario, BorderLayout.NORTH);
 		marcoParametrosUsuario.setLayout(new BorderLayout(0, 0));
 		
 		campos = new JPanel();
+		campos.setOpaque(false);
 		campos.setBorder(new TitledBorder(null, "Parametros de busqueda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		marcoParametrosUsuario.add(campos);
 		campos.setLayout(new GridLayout(7, 2, 0, 0));
@@ -648,6 +656,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		campos.add(checkSoloUsuariosRefugiantes);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setOpaque(false);
 		marcoContenidoUsuarios.add(scrollPane);
 		
 		tablaResultadosUsuarios = new JTable();

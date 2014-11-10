@@ -55,7 +55,7 @@ public class VentanaRegistroMascotas extends JFrame {
 		setTitle("  Registro de mascotas");
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(660,588);
+		setSize(663,632);
 		getContentPane().setLayout(new BorderLayout(20, 10));
 		
 		JLabel lblRegistrarUnaMascota = new JLabel("Registrar una mascota");
@@ -238,6 +238,7 @@ public class VentanaRegistroMascotas extends JFrame {
 				panel_1.setLayout(new BorderLayout(0, 0));
 				
 				campoNotas = new JTextArea();
+				campoNotas.setOpaque(false);
 				panel_1.add(campoNotas);
 				campoNotas.setRows(1);
 				campoNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -258,6 +259,7 @@ public class VentanaRegistroMascotas extends JFrame {
 				panel.add(lblNewLabel, BorderLayout.NORTH);
 				
 				JEditorPane dtrpnDireccionSuceso = new JEditorPane();
+				dtrpnDireccionSuceso.setOpaque(false);
 				panel.add(dtrpnDireccionSuceso, BorderLayout.SOUTH);
 				
 				JPanel panelFoto = new JPanel();

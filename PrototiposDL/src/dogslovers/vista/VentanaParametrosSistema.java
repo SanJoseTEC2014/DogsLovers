@@ -112,15 +112,22 @@ public class VentanaParametrosSistema extends JFrame {
 		panelGeneral.add(botonColorFondo);
 		
 		panelFecha = new JPanel();
-		marcoPestanias.addTab("Fecha Actual de Producci\u00F3n", null, panelFecha, null);
 		panelFecha.setOpaque(false);
+		marcoPestanias.addTab("Fecha Actual de Producci\u00F3n", null, panelFecha, null);
 		panelFecha.setLayout(new BoxLayout(panelFecha, BoxLayout.PAGE_AXIS));
 		
 		panelCalendar = new JPanel();
+		panelCalendar.setOpaque(false);
 		panelFecha.add(panelCalendar);
 		panelCalendar.setLayout(new BoxLayout(panelCalendar, BoxLayout.X_AXIS));
 		
 		calendar = new JCalendar();
+		calendar.getDayChooser().setOpaque(false);
+		calendar.getYearChooser().setOpaque(false);
+		calendar.getMonthChooser().setOpaque(false);
+		calendar.setOpaque(false);
+		calendar.setBackground(Diseno.fondoVentanas);
+		calendar.getDayChooser().getDayPanel().setOpaque(false);
 		panelCalendar.add(calendar);
 		calendar.getDayChooser().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		calendar.getYearChooser().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

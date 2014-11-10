@@ -49,7 +49,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		lblRegistrarse = new JLabel("Registrarse como Nuevo Usuario");
 		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistrarse.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblRegistrarse.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
+		lblRegistrarse.setFont(Diseno.fuenteTitulosVentanas.deriveFont(22f));
 		
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
