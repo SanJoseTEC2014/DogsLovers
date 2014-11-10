@@ -4,7 +4,7 @@ package dogslovers.control;
  * 	 Esta clase implementa diversos métodos que permiten validar
  *   el acceso del usuario al sistema.
  * 
- *	Fecha de creación: 28/10/2014
+ *	 Fecha de creación: 28/10/2014
  * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573

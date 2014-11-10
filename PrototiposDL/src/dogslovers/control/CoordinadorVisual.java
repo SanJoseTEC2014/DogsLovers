@@ -1,4 +1,5 @@
 package dogslovers.control;
+
 /**	 Controlador Coordinador Visual: 
  * 	 Esta clase implementa diversos métodos que permiten
  * 	 mostrar y ocultar cada una de las ventanas de la aplicación.
