@@ -23,7 +23,7 @@ public class Imagenes {
 	protected static String rutaFotosUsuarios = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\usuarios\\";
 	protected static String rutaFotosSistema  = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\sistema\\";
 	
-	private static BufferedImage cargarImagen(String pRuta) throws ImagenNoEncontradaException{
+	public static BufferedImage cargarImagen(String pRuta) throws ImagenNoEncontradaException{
 		// JOptionPane.showMessageDialog(null, pRuta);
 		try {
 			return ImageIO.read(new File(pRuta));

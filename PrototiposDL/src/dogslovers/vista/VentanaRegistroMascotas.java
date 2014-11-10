@@ -9,7 +9,9 @@ import javax.swing.LayoutStyle.*;
 
 import dogslovers.control.Acceso;
 import dogslovers.control.CasosPrueba;
+import dogslovers.control.Imagenes;
 import dogslovers.control.Principal;
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.Suceso;
 import dogslovers.recursos.Diseno;
@@ -25,7 +27,9 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.text.ParseException;
+import java.awt.BorderLayout;
 
 public class VentanaRegistroMascotas extends JFrame {
 	private JTextField campoNombre;
@@ -35,7 +39,7 @@ public class VentanaRegistroMascotas extends JFrame {
 	private JRadioButton radioButtonEncontrada;
 	private JRadioButton radioButtonPerdida;
 	private JRadioButton radioButtonAdoptable;
-	private JTextPane campoNotas;
+	private JTextArea campoNotas;
 	private JComboBox<String> comboBoxEspecie;
 	private JComboBox<String> comboBoxRaza;
 	private JComboBox<String> comboBoxTamanio;
@@ -45,141 +49,74 @@ public class VentanaRegistroMascotas extends JFrame {
 	private JCheckBox checkBoxCastrada;
 	private JCheckBox checkBoxVacunada;
 	private JCheckBox checkBoxDesparacitada;
-	private JCheckBox checkBoxDiscapacitada;
+	private String imagenSeleccionada;
+	
 	public VentanaRegistroMascotas() {
 		setResizable(false);
 		setTitle("  Registro de mascotas");
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(627,583);
+		setSize(660,660);
+		getContentPane().setLayout(new BorderLayout(20, 10));
 		
 		JLabel lblRegistrarUnaMascota = new JLabel("Registrar una mascota");
 		lblRegistrarUnaMascota.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistrarUnaMascota.setBounds(147, 23, 309, 33);
 		lblRegistrarUnaMascota.setFont(Diseno.fuenteTitulosVentanas.deriveFont(25f));
+		getContentPane().add(lblRegistrarUnaMascota, BorderLayout.NORTH);
+		
+		
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter("######");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JLabel labelEspacioIzq = new JLabel(" ");
+		getContentPane().add(labelEspacioIzq, BorderLayout.WEST);
+		
+		JLabel labelEspacioDer = new JLabel(" ");
+		getContentPane().add(labelEspacioDer, BorderLayout.EAST);
+		
+		JPanel panelContenido = new JPanel();
+		panelContenido.setOpaque(false);
+		getContentPane().add(panelContenido, BorderLayout.CENTER);
+		panelContenido.setLayout(new BorderLayout(0, 0));
+		
+		JPanel columnaIzq = new JPanel();
+		panelContenido.add(columnaIzq, BorderLayout.WEST);
+		columnaIzq.setOpaque(false);
+		columnaIzq.setLayout(new BoxLayout(columnaIzq, BoxLayout.Y_AXIS));
+		
+		JPanel datosIniciales = new JPanel();
+		datosIniciales.setOpaque(false);
+		columnaIzq.add(datosIniciales);
+		datosIniciales.setLayout(new GridLayout(4, 1, 0, 0));
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(37, 68, 45, 16);
+		datosIniciales.add(lblNombre);
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		campoNombre = new JTextField();
-		campoNombre.setBounds(37, 90, 255, 25);
+		datosIniciales.add(campoNombre);
 		campoNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		campoNombre.setColumns(10);
 		
 		JLabel lblNmeroDeChip = new JLabel("N\u00FAmero de chip");
-		lblNmeroDeChip.setBounds(37, 118, 90, 16);
+		datosIniciales.add(lblNmeroDeChip);
 		lblNmeroDeChip.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JLabel lblRecompensa = new JLabel("Recompensa (colones)");
-		lblRecompensa.setBounds(315, 68, 169, 16);
-		lblRecompensa.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		JLabel lblNotas = new JLabel("Notas");
-		lblNotas.setBounds(315, 118, 32, 16);
-		lblNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		JButton botonRegistrar = new JButton("Registrar");
-		botonRegistrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Mascota mascota = new Mascota(campoNombre.getText(), (String)comboBoxEspecie.getSelectedItem(), (String)comboBoxRaza.getSelectedItem(), Integer.getInteger(campoRecompensa.getText()) , campoNotas.getText());
-				mascota.setCastrada(checkBoxCastrada.isSelected());
-				mascota.setColor((String)comboBoxColor.getSelectedItem());
-				mascota.setDesparacitada(checkBoxDesparacitada.isSelected());
-				mascota.setEdad((String)comboBoxEdad.getSelectedItem());
-				mascota.setNumeroChip(campoNumeroDeChip.getText());
-				mascota.setSexo((String)comboBoxSexo.getSelectedItem());
-				mascota.setTamanio((String) comboBoxTamanio.getSelectedItem());
-				mascota.setVacunada(checkBoxVacunada.isSelected());
-				
-				if (radioButtonAdoptable.isSelected()){ 
-					Acceso.getUsuarioActivo().getMascotas().addAdoptables(mascota);
-					mascota.addAdopcion(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
-					Principal.enAdopcion.add(mascota);
-				}
-				if (radioButtonEncontrada.isSelected()){ 
-					Acceso.getUsuarioActivo().getMascotas().addEncontrada(mascota);
-					mascota.addEncuentro(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
-					Principal.encontradas.add(mascota);
-				}
-				if (radioButtonPerdida.isSelected()){ 
-					Acceso.getUsuarioActivo().getMascotas().addPerdida(mascota);
-					mascota.addPerdida(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
-					Principal.perdidas.add(mascota);
-				}
-				
-				JOptionPane.showMessageDialog(getContentPane(), 
-						"Registro Satisfactorio, se le recuerda que puede editar la informacion\n de esta mascota en la pestaña de mis mascotas", "Información",
-						 JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
-				
-
-
-			}
-		});
-		botonRegistrar.setOpaque(false);
-		botonRegistrar.setBounds(295, 512, 104, 25);
-		botonRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		
-		JButton botonCancelar = new JButton("Cancelar");
-		botonCancelar.setOpaque(false);
-		botonCancelar.setBounds(147, 512, 115, 25);
-		botonCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		getContentPane().setLayout(null);
-		getContentPane().add(lblNombre);
-		getContentPane().add(lblNmeroDeChip);
-		
 		campoNumeroDeChip = new JTextField();
+		datosIniciales.add(campoNumeroDeChip);
 		campoNumeroDeChip.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		campoNumeroDeChip.setColumns(10);
-		campoNumeroDeChip.setBounds(37, 136, 255, 25);
-		getContentPane().add(campoNumeroDeChip);
-		getContentPane().add(campoNombre);
-		getContentPane().add(lblNotas);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(315, 136, 259, 211);
-		getContentPane().add(scrollPane);
-		
-		campoNotas = new JTextPane();
-		scrollPane.setViewportView(campoNotas);
-		campoNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		getContentPane().add(lblRecompensa);
-		getContentPane().add(lblRegistrarUnaMascota);
-		getContentPane().add(botonRegistrar);
-		getContentPane().add(botonCancelar);
-		
-		JPanel Estado = new JPanel();
-		Estado.setBorder(new TitledBorder(null, "\u00BFC\u00F3mo desea registrar la mascota?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		Estado.setOpaque(false);
-		Estado.setBounds(297, 370, 296, 50);
-		getContentPane().add(Estado);
-		
-		radioButtonEncontrada = new JRadioButton("Encontrada");
-		radioButtonEncontrada.setSelected(true);
-		buttonGroup.add(radioButtonEncontrada);
-		radioButtonEncontrada.setOpaque(false);
-		Estado.add(radioButtonEncontrada);
-		radioButtonEncontrada.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		radioButtonPerdida = new JRadioButton("Perdida");
-		buttonGroup.add(radioButtonPerdida);
-		radioButtonPerdida.setOpaque(false);
-		Estado.add(radioButtonPerdida);
-		radioButtonPerdida.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		radioButtonAdoptable = new JRadioButton("Adoptable");
-		buttonGroup.add(radioButtonAdoptable);
-		radioButtonAdoptable.setOpaque(false);
-		Estado.add(radioButtonAdoptable);
-		radioButtonAdoptable.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JPanel caracteristicas = new JPanel();
+		columnaIzq.add(caracteristicas);
 		caracteristicas.setOpaque(false);
 		caracteristicas.setBorder(new TitledBorder(null, "Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		caracteristicas.setBounds(37, 186, 206, 314);
-		getContentPane().add(caracteristicas);
-		caracteristicas.setLayout(new GridLayout(6, 2, 0, 30));
+		caracteristicas.setLayout(new GridLayout(6, 2, 0, 5));
 		
 		JLabel lblEspecie = new JLabel("Especie");
 		caracteristicas.add(lblEspecie);
@@ -236,28 +173,35 @@ public class VentanaRegistroMascotas extends JFrame {
 		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Macho", "Hembra"}));
 		comboBoxSexo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
+		JPanel estado = new JPanel();
+		columnaIzq.add(estado);
+		estado.setBorder(new TitledBorder(null, "\u00BFC\u00F3mo desea registrar la mascota?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		estado.setOpaque(false);
 		
-		MaskFormatter formatter = null;
-		try {
-			formatter = new MaskFormatter("######");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		radioButtonEncontrada = new JRadioButton("Encontrada");
+		radioButtonEncontrada.setSelected(true);
+		buttonGroup.add(radioButtonEncontrada);
+		radioButtonEncontrada.setOpaque(false);
+		estado.add(radioButtonEncontrada);
+		radioButtonEncontrada.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		campoRecompensa = new JFormattedTextField(formatter);
-		campoRecompensa.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campoRecompensa.setColumns(10);
-		campoRecompensa.setBounds(314, 90, 255, 25);
-		getContentPane().add(campoRecompensa);
+		radioButtonPerdida = new JRadioButton("Perdida");
+		buttonGroup.add(radioButtonPerdida);
+		radioButtonPerdida.setOpaque(false);
+		estado.add(radioButtonPerdida);
+		radioButtonPerdida.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		radioButtonAdoptable = new JRadioButton("Adoptable");
+		buttonGroup.add(radioButtonAdoptable);
+		radioButtonAdoptable.setOpaque(false);
+		estado.add(radioButtonAdoptable);
+		radioButtonAdoptable.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JPanel condicionesfisicas = new JPanel();
+		columnaIzq.add(condicionesfisicas);
 		condicionesfisicas.setOpaque(false);
-		condicionesfisicas.setBorder(new TitledBorder(null, "Condiciones F\u00EDsicas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
-		condicionesfisicas.setBounds(304, 432, 277, 68);
-		getContentPane().add(condicionesfisicas);
-		condicionesfisicas.setLayout(new GridLayout(0, 2, 0, 0));
+		condicionesfisicas.setBorder(new TitledBorder(null, "Condiciones F\u00EDsicas", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
+		condicionesfisicas.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		checkBoxCastrada = new JCheckBox("Castrada");
 		condicionesfisicas.add(checkBoxCastrada);
@@ -274,9 +218,123 @@ public class VentanaRegistroMascotas extends JFrame {
 		checkBoxDesparacitada.setOpaque(false);
 		checkBoxDesparacitada.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		checkBoxDiscapacitada = new JCheckBox("Discapacitada");
-		condicionesfisicas.add(checkBoxDiscapacitada);
-		checkBoxDiscapacitada.setOpaque(false);
-		checkBoxDiscapacitada.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JPanel panelRecompensa = new JPanel();
+		panelRecompensa.setOpaque(false);
+		columnaIzq.add(panelRecompensa);
+		panelRecompensa.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JLabel lblRecompensa = new JLabel("Recompensa (colones)");
+		panelRecompensa.add(lblRecompensa);
+		lblRecompensa.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+				
+				campoRecompensa = new JFormattedTextField(formatter);
+				panelRecompensa.add(campoRecompensa);
+				campoRecompensa.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				campoRecompensa.setColumns(10);
+				
+				JPanel columnaDer = new JPanel();
+				panelContenido.add(columnaDer, BorderLayout.CENTER);
+				columnaDer.setOpaque(false);
+				columnaDer.setLayout(new BoxLayout(columnaDer, BoxLayout.Y_AXIS));
+				
+				JPanel panelNotas = new JPanel();
+				panelNotas.setOpaque(false);
+				columnaDer.add(panelNotas);
+				panelNotas.setLayout(new BorderLayout(10, 10));
+				
+				JLabel labelNotas = new JLabel("Notas");
+				labelNotas.setAlignmentX(Component.CENTER_ALIGNMENT);
+				labelNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				panelNotas.add(labelNotas, BorderLayout.NORTH);
+				
+				campoNotas = new JTextArea();
+				campoNotas.setRows(1);
+				panelNotas.add(campoNotas);
+				campoNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				
+				JPanel panelFoto = new JPanel();
+				panelFoto.setOpaque(false);
+				columnaDer.add(panelFoto);
+				panelFoto.setBorder(new TitledBorder(null, "Foto de su Mascota", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+				panelFoto.setLayout(new BorderLayout(0, 0));
+				
+				JLabel labelFoto = new JLabel("Ninguna Seleccionada");
+				labelFoto.setHorizontalAlignment(SwingConstants.CENTER);
+				labelFoto.setAlignmentX(Component.CENTER_ALIGNMENT);
+				panelFoto.add(labelFoto);
+				
+				JButton btnSeleccionarImagen = new JButton("Seleccionar Imagen");
+				btnSeleccionarImagen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							imagenSeleccionada = Imagenes.seleccionarImagen();
+							int ancho = labelFoto.getSize().width;
+							int alto = labelFoto.getSize().height;
+							labelFoto.setText("");
+							labelFoto.setIcon(new ImageIcon(Imagenes.cargarImagen(imagenSeleccionada)
+									.getScaledInstance(ancho, alto, BufferedImage.SCALE_FAST)));
+						} catch (ImagenNoEncontradaException e) {
+							JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
+									"Advertencia", JOptionPane.WARNING_MESSAGE);
+							imagenSeleccionada = "";
+							labelFoto.setIcon(null);
+							labelFoto.setText("Ninguna Seleccionada");
+						}
+					}
+				});
+				btnSeleccionarImagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+				panelFoto.add(btnSeleccionarImagen, BorderLayout.SOUTH);
+		
+		JPanel panelOperaciones = new JPanel();
+		panelOperaciones.setOpaque(false);
+		getContentPane().add(panelOperaciones, BorderLayout.SOUTH);
+		
+		JButton botonCancelar = new JButton("Cancelar");
+		panelOperaciones.add(botonCancelar);
+		botonCancelar.setOpaque(false);
+		botonCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JButton botonRegistrar = new JButton("Registrar");
+		panelOperaciones.add(botonRegistrar);
+		botonRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Mascota mascota = new Mascota(campoNombre.getText(), (String)comboBoxEspecie.getSelectedItem(), (String)comboBoxRaza.getSelectedItem(), Integer.getInteger(campoRecompensa.getText()) , campoNotas.getText());
+				mascota.setCastrada(checkBoxCastrada.isSelected());
+				mascota.setColor((String)comboBoxColor.getSelectedItem());
+				mascota.setDesparacitada(checkBoxDesparacitada.isSelected());
+				mascota.setEdad((String)comboBoxEdad.getSelectedItem());
+				mascota.setNumeroChip(campoNumeroDeChip.getText());
+				mascota.setSexo((String)comboBoxSexo.getSelectedItem());
+				mascota.setTamanio((String) comboBoxTamanio.getSelectedItem());
+				mascota.setVacunada(checkBoxVacunada.isSelected());
+				
+				if (radioButtonAdoptable.isSelected()){ 
+					Acceso.getUsuarioActivo().getMascotas().addAdoptables(mascota);
+					mascota.addAdopcion(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
+					Principal.enAdopcion.add(mascota);
+				}
+				if (radioButtonEncontrada.isSelected()){ 
+					Acceso.getUsuarioActivo().getMascotas().addEncontrada(mascota);
+					mascota.addEncuentro(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
+					Principal.encontradas.add(mascota);
+				}
+				if (radioButtonPerdida.isSelected()){ 
+					Acceso.getUsuarioActivo().getMascotas().addPerdida(mascota);
+					mascota.addPerdida(new Suceso(Acceso.getUsuarioActivo().getNickname(), "en mi casa", campoNotas.getText()));
+					Principal.perdidas.add(mascota);
+				}
+				
+				JOptionPane.showMessageDialog(getContentPane(), 
+						"Registro Satisfactorio, se le recuerda que puede editar la informacion\n de esta mascota en la pestaña de mis mascotas", "Información",
+						 JOptionPane.INFORMATION_MESSAGE);
+				setVisible(false);
+				
+
+
+			}
+		});
+		botonRegistrar.setOpaque(false);
+		botonRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 	}
 }
