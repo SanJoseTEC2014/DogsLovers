@@ -43,6 +43,8 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarParametrosSistema() {
 		ocultarVentanas();
+		parametrosSistema.setMensajeNuevo();
+		parametrosSistema.setVisible(true);
 	}
 
 	public synchronized void mostrarMenuPrincipal() {

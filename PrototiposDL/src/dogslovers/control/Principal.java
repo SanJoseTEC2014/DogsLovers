@@ -126,13 +126,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-<<<<<<< HEAD
-				//coordinador.mostrarInicioSesion();
-				coordinador.mostrarBusqueda();
-				
-=======
-				coordinador.mostrarVentanas();
->>>>>>> origin/master
+//				coordinador.mostrarVentanas();
+				coordinador.mostrarParametrosSistema();
 			}
 		});
 
