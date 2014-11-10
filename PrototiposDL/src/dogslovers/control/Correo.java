@@ -93,7 +93,7 @@ public class Correo {
 		String FORMATO = "   %-"+stringMaxNombre+"s%-"+stringMaxEspecie+"s%-"+stringMaxRaza+"s%-"+stringMaxColor+"s%-"+stringMaxTamanio+"s%-"+stringMaxSexo+"s\n";
 	
 		// Encabezados de las columnas:
-		cuerpoMsg += String.format(FORMATO, "NOMBRE", "ESPECIE", "RAZA", "COLOR", "TAMAÑO", "SEXO") +"\n";
+		cuerpoMsg += String.format(FORMATO, " NOMBRE", " ESPECIE", " RAZA", " COLOR", " TAMAÑO", " SEXO") +"\n";
 		
 		// Construcción de las líneas de la tabla con los datos de las mascotas:		
 		for (int i = 0; i < pCoincidencias.size(); i++){
@@ -130,14 +130,11 @@ public class Correo {
 		
 		String asunto = "Codigo de activacion de registro. Paws";
 				
-		String cuerpoMsg = "Estimado " + nombre + ".\n" 
+		String cuerpoMsg = "Estimado " + nombre + ".\n\n" 
 		+ "Para completar el registro de la cuenta en Paws debe ingresar el siguiente codigo.\n\n"
 		+ "CODIGO ACTIVACION: " + nick.hashCode() + "\n\n" //modulo 9999 es aplicado para que el codigo generado sea de 4 digitos
 		+ "Si usted no solicitó activar una cuenta en Paws por favor ignorar este mensaje.";
-		
-			enviarCorreo(correo, asunto, cuerpoMsg);
-	
-		
+		enviarCorreo(correo, asunto, cuerpoMsg);	
 	}
 
 }

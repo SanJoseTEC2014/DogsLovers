@@ -32,23 +32,23 @@ import java.text.ParseException;
 import java.awt.BorderLayout;
 
 public class VentanaRegistroMascotas extends JFrame {
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField campoNombre;
+	private JTextArea campoNotas;
 	private JTextField campoNumeroDeChip;
 	private JFormattedTextField campoRecompensa;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JRadioButton radioButtonEncontrada;
-	private JRadioButton radioButtonPerdida;
-	private JRadioButton radioButtonAdoptable;
-	private JTextArea campoNotas;
+	private JCheckBox checkBoxCastrada;
+	private JCheckBox checkBoxDesparacitada;
+	private JCheckBox checkBoxVacunada;
+	private JComboBox<String> comboBoxColor;
 	private JComboBox<String> comboBoxEspecie;
 	private JComboBox<String> comboBoxRaza;
-	private JComboBox<String> comboBoxTamanio;
-	private JComboBox<String> comboBoxColor;
 	private JComboBox<String> comboBoxSexo;
-	private JCheckBox checkBoxCastrada;
-	private JCheckBox checkBoxVacunada;
-	private JCheckBox checkBoxDesparacitada;
+	private JComboBox<String> comboBoxTamanio;
 	private String imagenSeleccionada;
+	private JRadioButton radioButtonAdoptable;
+	private JRadioButton radioButtonEncontrada;
+	private JRadioButton radioButtonPerdida;
 	
 	public VentanaRegistroMascotas() {
 		setResizable(false);

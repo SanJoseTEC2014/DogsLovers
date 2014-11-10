@@ -18,71 +18,71 @@ import dogslovers.recursos.Diseno;
 
 public class VentanaBusqueda extends JFrame implements Runnable {
 
-	private static final Integer anchoVentana = 520;
 	private static final Integer altoVentanaContraida = 395;
-	boolean ventanaContraida;
-
-	private JPanel marcoTituloMascotas;
+	private static final Integer anchoVentana = 520;
 	private JButton btnAyuda;
-	private JProgressBar progressBar;
+
 	private JButton btnBuscar;
-	private JPanel marcoContenidoMascotas;
-	private JPanel marcoParametrosMascota;
-	private JPanel marcoCampos;
-	private JCheckBox checkNombre;
-	private JTextField textNombre;
-	private JCheckBox checkLugar;
-	private JTextField textLugar;
-	private JCheckBox checkNumeroChip;
-	private JTextField textNumeroChip;
-	private JCheckBox checkEspecie;
-	private JComboBox<String> comboEspecies;
-	private JCheckBox checkRaza;
-	private JComboBox<String> comboRazas;
-	private JPanel marcoListas;
-	private JCheckBox checkMascotasEncontradas;
-	private JCheckBox checkMascotasAdoptadas;
-	private JCheckBox checkMascotasEnRefugio;
-	private JCheckBox checkMascotasEnAdopcion;
-	private JCheckBox checkMascotasPerdidas;
-	private boolean[] listasSeleccionadas;
-	private JScrollPane marcoResultados;
-	private JTable tablaResultadosMascotas;
 	private JButton btnContraerVentana;
-	private JPanel marcoOperaciones;
 	private JButton btnVerDetalles;
-	private JTabbedPane pestanias;
-	private JPanel pestaniaMascotas;
-	private JPanel pestaniaUsuarios;
+	private JButton button;
+	private JTextField campoApellidos;
+	private JTextField campoCedula;
+	private JTextField campoCorreoElectronico;
+	private JTextField campoNickName;
+	private JTextField campoNombreUsuario;
+	private JTextField campoNumeroTelefonico;
+	private JPanel campos;
+	private JCheckBox checkApellidos;
+	private JCheckBox checkCedula;
+	private JCheckBox checkCorreoElectronico;
+	private JCheckBox checkEspecie;
+	private JCheckBox checkLugar;
+	private JCheckBox checkMascotasAdoptadas;
+	private JCheckBox checkMascotasEnAdopcion;
+	private JCheckBox checkMascotasEncontradas;
+	private JCheckBox checkMascotasEnRefugio;
+	private JCheckBox checkMascotasPerdidas;
+	private JCheckBox checkNickName;
+	private JCheckBox checkNombre;
+	private JCheckBox checkNombreUsuario;
+	private JCheckBox checkNumeroChip;
+	private JCheckBox checkNumeroTelefonico;
+	private JCheckBox checkRaza;
+	private JCheckBox checkSoloUsuariosRefugiantes;
+	private JComboBox<String> comboEspecies;
+	private JComboBox<String> comboRazas;
 	Thread hiloBarraProgreso;
 	Thread hiloExpandirVentana;
+	private JLabel labelTitulo1;
+	private boolean[] listasSeleccionadas;
 	
+	private JPanel marcoCampos;
+	private JPanel marcoContenidoMascotas;
+	
+	private JPanel marcoContenidoUsuarios;
+	private JPanel marcoListas;
+	private JPanel marcoOperaciones;
+	private JPanel marcoParametrosMascota;
+	private JPanel marcoParametrosUsuario;
+	private JScrollPane marcoResultados;
+	private JPanel marcoTituloMascotas;
+	private JPanel marcoTituloUsuarios;
 	private ModeloTablaMascotas modeloMascotas;
 	private ModeloTablaUsuarios modeloUsuarios;
-	
-	private JLabel labelTitulo1;
-	private JPanel marcoTituloUsuarios;
-	private JPanel marcoContenidoUsuarios;
-	private JButton button;
+	private JPanel pestaniaMascotas;
+	private JTabbedPane pestanias;
+	private JPanel pestaniaUsuarios;
+	private JProgressBar progressBar;
 	private JProgressBar progressBar_1;
-	private JPanel marcoParametrosUsuario;
-	private JTable tablaResultadosUsuarios;
 	private JScrollPane scrollPane;
-	private JPanel campos;
-	private JCheckBox checkNickName;
-	private JTextField campoNickName;
-	private JCheckBox checkNombreUsuario;
-	private JTextField campoNombreUsuario;
-	private JCheckBox checkApellidos;
-	private JTextField campoApellidos;
-	private JCheckBox checkCedula;
-	private JTextField campoCedula;
-	private JCheckBox checkNumeroTelefonico;
-	private JTextField campoNumeroTelefonico;
-	private JCheckBox checkCorreoElectronico;
-	private JTextField campoCorreoElectronico;
-	private JCheckBox checkSoloUsuariosRefugiantes;
 	protected boolean soloUsusariosRefugiantes;
+	private JTable tablaResultadosMascotas;
+	private JTable tablaResultadosUsuarios;
+	private JTextField textLugar;
+	private JTextField textNombre;
+	private JTextField textNumeroChip;
+	boolean ventanaContraida;
 
 	public VentanaBusqueda() {
 		
@@ -666,16 +666,6 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 
 	}
 
-	protected void mostrarMensajeAyuda() {
-		JOptionPane.showMessageDialog(getContentPane(),
-				"Para realizar una búsqueda, seleccione los campos que \n"
-						+ "desee tomar en cuenta. Si un campo no está seleccionado, \n"
-						+ "las mascotas que aparezcan en los resultados de búsqueda \n"
-						+ "no estarán filtradas (excluídas) por dicho campo. \n\n"
-						+ "Para más información, contacte al equipo de desarrollo.", "Ayuda ",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-
 	private void actualizarBarraProgreso() {
 		for (Integer i = 0; i < modeloMascotas.getCantidadDeResultados(); i++) {
 			try {
@@ -689,20 +679,13 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		}
 	}
 
-	@Override
-	public void run() {
+	public void busquedaGeneral(){
+		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
+		pestanias.addTab("Mascotas", null, pestaniaMascotas, null);
+	}
 
-		Thread ct = Thread.currentThread();
-
-		while (ct == hiloBarraProgreso) {
-			actualizarBarraProgreso();
-		}
-		
-		while (ct == hiloExpandirVentana) {
-			expandirVentana();
-		
-		}
-		
+	public void busquedaRefugiantes() {
+		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 	}
 
 	private void expandirVentana() {
@@ -717,12 +700,29 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	}
 	
 	
-	public void busquedaGeneral(){
-		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
-		pestanias.addTab("Mascotas", null, pestaniaMascotas, null);
+	protected void mostrarMensajeAyuda() {
+		JOptionPane.showMessageDialog(getContentPane(),
+				"Para realizar una búsqueda, seleccione los campos que \n"
+						+ "desee tomar en cuenta. Si un campo no está seleccionado, \n"
+						+ "las mascotas que aparezcan en los resultados de búsqueda \n"
+						+ "no estarán filtradas (excluídas) por dicho campo. \n\n"
+						+ "Para más información, contacte al equipo de desarrollo.", "Ayuda ",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public void busquedaRefugiantes() {
-		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
+	@Override
+	public void run() {
+
+		Thread ct = Thread.currentThread();
+
+		while (ct == hiloBarraProgreso) {
+			actualizarBarraProgreso();
+		}
+		
+		while (ct == hiloExpandirVentana) {
+			expandirVentana();
+		
+		}
+		
 	}
 }
