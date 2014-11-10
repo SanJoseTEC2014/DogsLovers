@@ -1,31 +1,44 @@
 package dogslovers.vista;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
+
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.List;
 import java.awt.Choice;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import dogslovers.recursos.Diseno;
+
 import java.awt.Label;
 import java.awt.Canvas;
 
 public class VentanaMenuPrincipal extends JFrame {
 	public VentanaMenuPrincipal() {
+		getContentPane().setBackground(Diseno.fondoVentanas);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(700,565);
 		
 		JButton botonVerMascotasPerdidas = new JButton("Ver mascotas perdidas");

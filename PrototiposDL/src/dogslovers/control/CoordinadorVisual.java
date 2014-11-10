@@ -10,7 +10,7 @@ import dogslovers.vista.*;
 public class CoordinadorVisual {
 	private VentanaInicioSesion inicioSesion;
 	private VentanaParametrosSistema parametrosSistema;
-	private VentanaPrincipal menuPrincipal;
+	private VentanaMenuPrincipal menuPrincipal;
 	private VentanaDetallesUsuario detallesUsuario;
 	private VentanaDetallesMascota detallesMascota;
 	private VentanaRegistroUsuarios registroUsuarios;
@@ -24,7 +24,7 @@ public class CoordinadorVisual {
 	public CoordinadorVisual(){
 		inicioSesion = new VentanaInicioSesion();
 		parametrosSistema = new VentanaParametrosSistema();
-		menuPrincipal = new VentanaPrincipal();
+		menuPrincipal = new VentanaMenuPrincipal();
 		detallesUsuario = new VentanaDetallesUsuario();
 		detallesMascota = new VentanaDetallesMascota();
 		registroUsuarios = new VentanaRegistroUsuarios();
@@ -32,6 +32,7 @@ public class CoordinadorVisual {
 		busqueda = new VentanaBusqueda();
 		condicionesRefugio = new VentanaCondicionesRefugio();
 		agregarComentario = new VentanaAgregarComentario();
+		
 	}
 	
 	public synchronized void mostrarInicioSesion() {
@@ -46,6 +47,7 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarMenuPrincipal() {
 		ocultarVentanas();
+		
 	}
 
 	public synchronized void mostrarDetallesUsuario() {
