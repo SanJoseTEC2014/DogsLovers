@@ -1,5 +1,21 @@
 package dogslovers.control;
 
+/**	 Controlador Correo: 
+ * 	 Esta clase se encarga de enviar un correo a un usuario
+ *   del sistema con un mensaje que contiene el código de confirmación
+ *   para que el usuario pueda registrarse y se encargar de enviar
+ *   otro correo que contiene una lista de coincidencias del resultado 
+ *   del emparejamiento con respecto a la mascota registrada
+ *   por el usuario en el sistema.
+ * 
+ *	Fecha de creación: 29/10/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
 import java.util.ArrayList;
 import java.util.Properties;
 
