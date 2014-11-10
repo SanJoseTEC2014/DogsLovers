@@ -86,7 +86,7 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarRegistroMascotas() {
-		ocultarVentanas();
+		registroMascotas.setVisible(true);
 	}
 
 	public synchronized void mostrarBusqueda() {

@@ -57,7 +57,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 					try {
 						Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(IDMascota));
 					} catch (MascotaNoEncontradaException e) {
-						JOptionPane.showMessageDialog(getContentPane(), "error", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(getContentPane(), "Información", "Debe seleccionar una mascota primero", JOptionPane.INFORMATION_MESSAGE);			

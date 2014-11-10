@@ -33,7 +33,7 @@ public class Mascota {
 
 	private Integer id;
 	private String nombre;
-	private Integer numeroChip;
+	private String numeroChip;
 	private String especie;
 	private String raza;
 	private String color;
@@ -72,12 +72,12 @@ public class Mascota {
 		this.nombre = nombre;
 	}
 
-	public Integer getNumeroChip() {
+	public String getNumeroChip() {
 		return numeroChip;
 	}
 
-	public void setNumeroChip(Integer numeroChip) {
-		this.numeroChip = numeroChip;
+	public void setNumeroChip(String string) {
+		this.numeroChip = string;
 	}
 
 	public String getEspecie() {
