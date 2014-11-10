@@ -36,7 +36,7 @@ public class VentanaDetallesUsuario extends JFrame {
 	private JLabel labelPromedio;
 	private JLabel labelEstrellas;
 	private JLabel labelLapsos;
-	private JComboBox<String> comboLapsos;
+	private JComboBox<String> comboLapsos; 
 	private JPanel marcoOperaciones;
 	private JButton botonGuardarCambios;
 	private JButton botonDetalles;
@@ -224,6 +224,11 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonDetalles);
 				
 				botonVerMascotas = new JButton("Ver Mascotas Asociadas");
+				botonVerMascotas.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Principal.coordinador.mostrarMascotasAsociadas(usuarioActual);
+					}
+				});
 				marcoOperaciones.add(botonVerMascotas);
 				
 				botonSalir = new JButton("Salir");

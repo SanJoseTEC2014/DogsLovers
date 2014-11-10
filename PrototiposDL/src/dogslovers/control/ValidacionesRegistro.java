@@ -1,6 +1,6 @@
 package dogslovers.control;
 
-public class Validaciones {
+public class ValidacionesRegistro {
 	
 	//TODO validarSoloNumeros
 	//TODO validarCorreo

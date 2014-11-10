@@ -9,7 +9,7 @@ import dogslovers.control.MaquinaEstadosMascotas;
 
 public class ModeloTablaMascotas extends AbstractTableModel {
 	private ArrayList<Mascota> listaMascotas;
-	private String[] titulos = {"ID", "Nombre Mascota", "Lugar de Encuentro/ Perdida", "Especie", "Raza" };
+	private String[] titulos = {"ID", "Nombre", "Lugar de Encuentro/ Perdida", "Especie", "Raza", "Estado Actual", "Fecha suceso" };
 
 	public ModeloTablaMascotas(ArrayList<Mascota> pListaMascotas){
 		listaMascotas = pListaMascotas;
@@ -24,12 +24,16 @@ public class ModeloTablaMascotas extends AbstractTableModel {
 			return listaMascotas.get(rowIndex).getID().toString();
 		case 1:
 			return listaMascotas.get(rowIndex).getNombre();
-		case 2:
-			return listaMascotas.get(rowIndex).getUltimoSuceso().getLugar();
+//		case 2:
+//			return listaMascotas.get(rowIndex).getUltimoSuceso().getLugar();
 		case 3:
 			return listaMascotas.get(rowIndex).getEspecie();
 		case 4:
 			return listaMascotas.get(rowIndex).getRaza();
+//		case 5:
+//			return listaMascotas.get(rowIndex).getEstadoActual();
+//		case 6:
+//			return listaMascotas.get(rowIndex).getUltimoSuceso().getFecha();
 		default:
 			return null;
 		}
@@ -37,7 +41,7 @@ public class ModeloTablaMascotas extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 5;
+		return titulos.length;
 	}
 
 	@Override
