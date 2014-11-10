@@ -41,19 +41,21 @@ public class Principal {
 		Mascota.addRaza("Perro", "Poodle");
 		Mascota.addRaza("Perro", "Rottweiler");
 		Mascota.addRaza("Perro", "Golden Retreiver");
-		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro",
-							new Suceso("lizchavca", "San José", "Se perdió chingo."),
-							false, 500000000,
-							"ola k ase");
+		
+		Suceso suceso1 = new Suceso("lizchavca", "San José", "Se perdió chingo.");
+		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro", 500000000, "ola k ase");
+		mascota1.addPerdida(suceso1);
 		mascota1.setColor("Negro");
 		mascota1.setTamanio("Grande");
 		mascota1.setSexo("Macho");
-		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro",
-				new Suceso("lapc506", "Heredia", "Se perdió con ropa."),
-				true, 0, "meeeooowww");
+		
+		Suceso suceso2 = new Suceso("lapc506", "Heredia", "Se perdió con ropa.");
+		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro", 0, "meeeooowww");
+		mascota2.addEncuentro(suceso2);
 		mascota2.setColor("Negro");
 		mascota2.setTamanio("Pequeño");
 		mascota2.setSexo("Macho");
+		
 		for(int i = 0; i < 10; i++) {
 			encontradas.add(mascota1);
 			encontradas.add(mascota2);
@@ -125,6 +127,7 @@ public class Principal {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
 				//coordinador.mostrarInicioSesion();
+				coordinador.mostrarBusqueda();
 				
 			}
 		});

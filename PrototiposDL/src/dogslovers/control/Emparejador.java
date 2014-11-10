@@ -94,7 +94,7 @@ public class Emparejador {
 				
 		ArrayList<Mascota> coincidencias = new ArrayList<Mascota>();
 				
-		switch (pMascotaEscogida.getEstado()){
+		switch (pMascotaEscogida.getEstadoActual()){
 			// En éste caso debería buscar en las tres listas.
 			case MaquinaEstadosMascotas.estadoPERDIDA:
 				coincidencias = getListaCoincidencias(pMascotaEscogida, "encontradas");

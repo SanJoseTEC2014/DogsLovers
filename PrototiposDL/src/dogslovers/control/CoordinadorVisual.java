@@ -50,10 +50,10 @@ public class CoordinadorVisual {
 		
 	}
 
-	public synchronized void mostrarDetallesUsuario() {
+	public synchronized void mostrarDetallesUsuario(Usuario usuarioActual) {
 		ocultarVentanas();
-		detallesUsuario.setDatosIniciales(Principal.blanca.get(0));
-		detallesUsuario.setModoEdicion(false);
+		detallesUsuario.setDatosIniciales(usuarioActual);
+		detallesUsuario.setModoEdicion(usuarioActual == Acceso.getUsuarioActivo());
 		detallesUsuario.setVisible(true);
 	}
 

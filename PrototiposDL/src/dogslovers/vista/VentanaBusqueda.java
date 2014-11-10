@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import dogslovers.control.Busqueda;
+import dogslovers.control.Principal;
+import dogslovers.control.excepciones.UsuarioNoExisteException;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.ModeloTablaMascotas;
 import dogslovers.modelo.ModeloTablaUsuarios;
@@ -48,12 +50,15 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	private JButton btnContraerVentana;
 	private JPanel marcoOperaciones;
 	private JButton btnVerDetalles;
-	private JTabbedPane tabbedPane;
+	private JTabbedPane pestanias;
 	private JPanel pestaniaMascotas;
 	private JPanel pestaniaUsuarios;
 	Thread hiloBarraProgreso;
 	Thread hiloExpandirVentana;
-	private ModeloTablaMascotas modelo;
+	
+	private ModeloTablaMascotas modeloMascotas;
+	private ModeloTablaUsuarios modeloUsuarios;
+	
 	private JLabel labelTitulo1;
 	private JPanel marcoTituloUsuarios;
 	private JPanel marcoContenidoUsuarios;
@@ -96,8 +101,8 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		labelTitulo1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo1.setFont(Diseno.fuenteTitulosVentanas.deriveFont(35f));
 
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		pestanias = new JTabbedPane(JTabbedPane.TOP);
+		getContentPane().add(pestanias, BorderLayout.CENTER);
 
 		pestaniaMascotas = new JPanel();
 		pestaniaMascotas.setOpaque(false);
@@ -162,10 +167,12 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				if (algunaListaSeleccionada(listasSeleccionadas)) {
 					//modelo = new Busqueda(terminos, listasSeleccionadas);
 
-					ModeloTablaMascotas modelo = new ModeloTablaMascotas(Busqueda.buscarMascotas(terminos, listasSeleccionadas));
-					tablaResultadosMascotas.setModel(modelo);
+					modeloMascotas = new ModeloTablaMascotas(Busqueda.buscarMascotas(terminos, listasSeleccionadas));
+					tablaResultadosMascotas.setModel(modeloMascotas);
+					tablaResultadosMascotas.setAutoResizeMode(tablaResultadosMascotas.AUTO_RESIZE_ALL_COLUMNS);
+					tablaResultadosMascotas.setAutoCreateRowSorter(true);
 					tablaResultadosMascotas.setVisible(true);
-					progressBar.setMaximum(modelo.getCantidadDeResultados());
+					progressBar.setMaximum(modeloMascotas.getCantidadDeResultados());
 
 					if (ventanaContraida) {
 						// Se intenta hacer procesamiento en paralelo...
@@ -358,6 +365,8 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		pestaniaUsuarios = new JPanel();
 		pestaniaUsuarios.setOpaque(false);
 		pestaniaUsuarios.setLayout(new BorderLayout(0, 0));
+		pestaniaUsuarios.setBackground(Diseno.fondoVentanas);
+
 
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
@@ -394,12 +403,28 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 						});
 
 		btnVerDetalles = new JButton("Ver Detalles");
+		btnVerDetalles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (pestanias.getSelectedIndex() == 0){
+					
+					int fila = tablaResultadosUsuarios.getSelectedRow();
+					String nick = (String) modeloUsuarios.getValueAt(fila, 0);
+					try {
+						Principal.coordinador.mostrarDetallesUsuario(Principal.getUsuarioListaBlanca(nick));
+					} catch (UsuarioNoExisteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			}
+		});
 		marcoOperaciones.add(btnVerDetalles);
 
 		listasSeleccionadas = new boolean[] { false, false, false, false, false };
 		
 		//TODO Quitar estas dos lineas una vez que quede completada la clase
-		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 		
 		marcoTituloUsuarios = new JPanel();
 		pestaniaUsuarios.add(marcoTituloUsuarios, BorderLayout.NORTH);
@@ -452,10 +477,10 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				//if (algunaListaSeleccionada(listasSeleccionadas)) {
 					//modelo = new Busqueda(terminos, listasSeleccionadas);
 
-				ModeloTablaUsuarios modelo = new ModeloTablaUsuarios(Busqueda.buscarUsuarios(terminos, soloUsusariosRefugiantes));
-				tablaResultadosUsuarios.setModel(modelo);
+				modeloUsuarios = new ModeloTablaUsuarios(Busqueda.buscarUsuarios(terminos, soloUsusariosRefugiantes));
+				tablaResultadosUsuarios.setModel(modeloUsuarios);
 				tablaResultadosUsuarios.setVisible(true);
-				progressBar_1.setMaximum(modelo.getCantidadDeResultados());
+				progressBar_1.setMaximum(modeloUsuarios.getCantidadDeResultados());
 
 				if (ventanaContraida) {
 					// Se intenta hacer procesamiento en paralelo...
@@ -604,7 +629,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		tablaResultadosUsuarios = new JTable();
 		tablaResultadosUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tablaResultadosUsuarios);
-		tabbedPane.addTab("Mascotas", null, pestaniaMascotas, null);
+		pestanias.addTab("Mascotas", null, pestaniaMascotas, null);
 
 	}
 
@@ -619,7 +644,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	}
 
 	private void actualizarBarraProgreso() {
-		for (Integer i = 0; i < modelo.getCantidadDeResultados(); i++) {
+		for (Integer i = 0; i < modeloMascotas.getCantidadDeResultados(); i++) {
 			try {
 				progressBar.setValue(i);
 				Integer mascotas = i + 1;
@@ -660,12 +685,12 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	
 	
 	public void busquedaGeneral(){
-		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
-		tabbedPane.addTab("Mascotas", null, pestaniaMascotas, null);
+		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
+		pestanias.addTab("Mascotas", null, pestaniaMascotas, null);
 	}
 	
 	public void busquedaRefugiantes() {
-		tabbedPane.addTab("Usuarios", null, pestaniaUsuarios, null);
+		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 	}
 	
 	

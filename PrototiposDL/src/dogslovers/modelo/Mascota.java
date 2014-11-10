@@ -11,9 +11,11 @@ package dogslovers.modelo;
  */
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
+
 import dogslovers.control.Imagenes;
 import dogslovers.control.MaquinaEstadosMascotas;
 import dogslovers.control.excepciones.ImagenNoEncontradaException;
@@ -41,32 +43,19 @@ public class Mascota {
 	private boolean vacunada;
 	private boolean desparacitada;
 	private String tamanio;
-	private String estado;
+	
+	private ArrayList<Suceso> sucesos = new ArrayList<Suceso>(); //para cada suceso del array corresponde un estado
+	private ArrayList<String> estados = new ArrayList<String>();
+	
 	private Suceso perdida;
-	private Suceso encuentro;
-	private Suceso localizacion;
-	private Suceso refugio;
-	private Suceso adopcion;
-	private Suceso defuncion;
 	private Integer recompensa;
 	private String notas;
 
-	public Mascota(String pNombre, String pEspecie, String pRaza, Suceso pSuceso, boolean perdida, Integer pRecompensa,
-			String pNotas) {
+	public Mascota(String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
 		id = ++totalIDsRegistradas;
 		nombre = pNombre;
 		especie = pEspecie;
 		raza = pRaza;
-
-		if (perdida) {
-			this.perdida = pSuceso;
-			this.encuentro = null;
-			this.estado = MaquinaEstadosMascotas.estadoPERDIDA;
-		} else {
-			this.perdida = null;
-			this.encuentro = pSuceso;
-			this.estado = MaquinaEstadosMascotas.estadoENCONTRADA;
-		}
 		recompensa = pRecompensa;
 		notas = pNotas;
 	}
@@ -167,48 +156,35 @@ public class Mascota {
 		return perdida;
 	}
 
-	public void setPerdida(Suceso perdida) {
-		this.perdida = perdida;
+	public void addPerdida(Suceso perdida) {
+		sucesos.add(perdida);
+		estados.add(MaquinaEstadosMascotas.estadoPERDIDA);
 	}
 
-	public Suceso getEncuentro() {
-		return encuentro;
+	public void addEncuentro(Suceso encuentro) {
+		sucesos.add(encuentro);
+		estados.add(MaquinaEstadosMascotas.estadoENCONTRADA);
 	}
 
-	public void setEncuentro(Suceso encuentro) {
-		this.encuentro = encuentro;
+	public void addLocalizacion(Suceso localizacion) {
+		sucesos.add(localizacion);
+		estados.add(MaquinaEstadosMascotas.estadoLOCALIZADA);
 	}
 
-	public Suceso getLocalizacion() {
-		return localizacion;
+	public void addRefugio(Suceso refugio) {
+		sucesos.add(refugio);
+		estados.add(MaquinaEstadosMascotas.estadoREFUGIADA);
 	}
 
-	public void setLocalizacion(Suceso localizacion) {
-		this.localizacion = localizacion;
+
+	public void addAdopcion(Suceso adopcion) {
+		sucesos.add(adopcion);
+		estados.add(MaquinaEstadosMascotas.estadoADOPTADA);
 	}
 
-	public Suceso getRefugio() {
-		return refugio;
-	}
-
-	public void setRefugio(Suceso refugio) {
-		this.refugio = refugio;
-	}
-
-	public Suceso getAdopcion() {
-		return adopcion;
-	}
-
-	public void setAdopcion(Suceso adopcion) {
-		this.adopcion = adopcion;
-	}
-
-	public Suceso getDefuncion() {
-		return defuncion;
-	}
-
-	public void setDefuncion(Suceso defuncion) {
-		this.defuncion = defuncion;
+	public void addDefuncion(Suceso defuncion) {
+		sucesos.add(defuncion);
+		estados.add(MaquinaEstadosMascotas.estadoMUERTA);
 	}
 
 	public Integer getRecompensa() {
@@ -228,13 +204,15 @@ public class Mascota {
 	}
 
 	// MAQUINA DE ESTADOS
-	public String getEstado() {
-		return estado;
+	public String getEstadoActual() {
+		return estados.get(estados.size()-1);
 	}
-
-	public void setEstado(String pEstado) {
-		estado = pEstado;
+	
+	public Suceso getUltimoSuceso() {
+		return sucesos.get(sucesos.size()-1);
 	}
+	
+	
 	
 	public void notificar(){
 		// MaquinaEstadosMascotas.getMaquina().capturarReporte();
@@ -247,7 +225,7 @@ public class Mascota {
 	public String toString() {
 		String msg = "Nombre de la mascota: " + getNombre();
 		// msg += "\nID: " + getID();
-		msg += "\nEstado: " + getEstado();
+		msg += "\nEstado: " + getEstadoActual();
 		msg += "\nEspecie: " + getEspecie();
 		msg += "\nRaza: " + getRaza();
 		msg += "\n";
@@ -270,18 +248,9 @@ public class Mascota {
 		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa, notas);
 		  clone.setColor(color);
 		  clone.setEdad(edad);
-		  clone.setEstado(estado);
 		  clone.setNumeroChip(numeroChip);
 		  clone.setSexo(sexo);
-		  clone.setTamanio(tamanio);
-		  
-		  clone.setPerdida(perdida);
-		  clone.setEncuentro(encuentro);
-		  clone.setLocalizacion(localizacion);
-		  clone.setRefugio(refugio);
-		  clone.setAdopcion(adopcion);
-		  clone.setDefuncion(defuncion);
-		  
+		  clone.setTamanio(tamanio);		  
 		  clone.setCastrada(castrada);
 		  clone.setDesparacitada(desparacitada);
 		  clone.setVacunada(vacunada);

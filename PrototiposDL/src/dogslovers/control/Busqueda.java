@@ -96,15 +96,15 @@ public class Busqueda {
 	}
 	
 	private static boolean lugarPerdidaCoincide(Mascota pMascota, String pCriterio){
-		if (pMascota.getPerdida() != null) {
+		if (pMascota.getEstadoActual() == MaquinaEstadosMascotas.estadoPERDIDA) {
 			return pMascota.getPerdida().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
 		}
 		return false;
 	}
 	
 	private static boolean lugarEncuentroCoincide(Mascota pMascota, String pCriterio){
-		if (pMascota.getEncuentro() != null) {
-			return pMascota.getEncuentro().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+		if (pMascota.getEstadoActual() == MaquinaEstadosMascotas.estadoENCONTRADA) {
+			return pMascota.getUltimoSuceso().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
 		}
 		return false;
 	}

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import javax.swing.table.AbstractTableModel;
 
+import dogslovers.control.MaquinaEstadosMascotas;
+
 public class ModeloTablaMascotas extends AbstractTableModel {
 	private ArrayList<Mascota> listaMascotas;
 	private String[] titulos = {"ID", "Nombre Mascota", "Lugar de Encuentro/ Perdida", "Especie", "Raza" };
@@ -23,7 +25,7 @@ public class ModeloTablaMascotas extends AbstractTableModel {
 		case 1:
 			return listaMascotas.get(rowIndex).getNombre();
 		case 2:
-			return listaMascotas.get(rowIndex).getEncuentro() == null? listaMascotas.get(rowIndex).getPerdida().getLugar() : listaMascotas.get(rowIndex).getEncuentro().getLugar() ;
+			return listaMascotas.get(rowIndex).getUltimoSuceso().getLugar();
 		case 3:
 			return listaMascotas.get(rowIndex).getEspecie();
 		case 4:
