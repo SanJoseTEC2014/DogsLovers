@@ -1,163 +1,130 @@
 package dogslovers.vista;
 
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.GroupLayout.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import java.awt.Font;
-
-import javax.swing.ImageIcon;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JPopupMenu;
-
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.List;
-import java.awt.Choice;
-
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-
+import dogslovers.control.Imagenes;
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
 import dogslovers.recursos.Diseno;
+import dogslovers.recursos.jflow.Configuration;
+import dogslovers.recursos.jflow.JFlowPanel;
+import dogslovers.recursos.jflow.Shape;
+import dogslovers.recursos.jflow.shape.Picture;
 
 import java.awt.Label;
 import java.awt.Canvas;
+import java.awt.FlowLayout;
+import java.util.LinkedList;
 
 public class VentanaMenuPrincipal extends JFrame {
+	private JFlowPanel prueba;
+
 	public VentanaMenuPrincipal() {
-		getContentPane().setBackground(Diseno.fondoVentanas);
+		setTitle("Paws");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(700,565);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		
-		JButton botonVerMascotasPerdidas = new JButton("Ver mascotas perdidas");
-		botonVerMascotasPerdidas.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/Huellas.png")));
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		getContentPane().add(panel, BorderLayout.NORTH);
 		
-		JButton btnVerMascotasEncontradas = new JButton("Ver mascotas encontradas");
-		btnVerMascotasEncontradas.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/Huellas.png")));
-		
-		JButton btnVerMascotasEn = new JButton("Ver mascotas en adopci\u00F3n");
-		btnVerMascotasEn.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/Huellas.png")));
-		
-		JButton btnManualDeUsuario = new JButton("Ver Manual de Usuario");
-		
-		JButton btnContactenos = new JButton("Contactenos");
-		
-		JButton btnVerPerfil = new JButton("Ver perfil");
-		
-		JLabel lblBienvenidoAPaws = new JLabel("Bienvenido a Paws!");
-		lblBienvenidoAPaws.setFont(new Font("Tahoma", Font.BOLD, 20));
+		JLabel lblBienvenido = new JLabel("Bienvenido a");
+		panel.add(lblBienvenido);
+		lblBienvenido.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/iconoMenuPrincipal.png")));
+		panel.add(label_1);
+		try {
+			label_1.setIcon(new ImageIcon(Imagenes.getLogo().getScaledInstance(240, 170, BufferedImage.SCALE_FAST)));
+		} catch (ImagenNoEncontradaException e1) {
+			JOptionPane.showMessageDialog(getContentPane(), e1.getMessage(),
+				"Error inesperado del sistema.", JOptionPane.ERROR_MESSAGE);
+		}
 		
-		JButton btnIrABsqueda_1 = new JButton("Ir a b\u00FAsqueda de  mascotas");
-		btnIrABsqueda_1.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/iconoBuscador.png")));
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 		
-		JButton btnIrABsqueda = new JButton("Ir a b\u00FAsqueda de personas");
-		btnIrABsqueda.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/iconoBuscador.png")));
+		JMenu mnMascotas = new JMenu("Mascotas");
+		menuBar.add(mnMascotas);
 		
-		JButton btnRegistraTuMascota = new JButton("Registra tu mascota");
-		btnRegistraTuMascota.setIcon(new ImageIcon(VentanaMenuPrincipal.class.getResource("/dogslovers/recursos/imagenes/sistema/iconoRegistrarmascota.png")));
+		JMenuItem mntmRegistraTuMascota = new JMenuItem("Registra tu mascota");
+		mnMascotas.add(mntmRegistraTuMascota);
 		
-		JButton btnVerDetallesDe = new JButton("Ver detalles de mascotas registradas");
+		JMenuItem mntmVerEncontradas = new JMenuItem("Ver encontradas");
+		mnMascotas.add(mntmVerEncontradas);
 		
-		JButton btnAyuda = new JButton("Ayuda");
+		JMenuItem mntmVerPerdidas = new JMenuItem("Ver perdidas");
+		mnMascotas.add(mntmVerPerdidas);
 		
-		JButton btnNewButton = new JButton("Ver Asociaciones");
+		JMenuItem mntmVerEnAdopcin = new JMenuItem("Ver en adopci\u00F3n");
+		mnMascotas.add(mntmVerEnAdopcin);
 		
-		JButton btnConfiguracin = new JButton("Configuraci\u00F3n");
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnVerMascotasEncontradas)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(botonVerMascotasPerdidas))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnRegistraTuMascota)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnIrABsqueda_1)))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnVerMascotasEn)
-								.addComponent(btnIrABsqueda)))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-									.addComponent(btnVerPerfil)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnNewButton)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnVerDetallesDe)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnManualDeUsuario))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(111)
-									.addComponent(lblBienvenidoAPaws)))))
-					.addContainerGap(25, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnConfiguracin)
-						.addComponent(btnAyuda)
-						.addComponent(btnContactenos))
-					.addContainerGap(541, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(label_1))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(52)
-							.addComponent(lblBienvenidoAPaws)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVerPerfil)
-						.addComponent(btnNewButton)
-						.addComponent(btnVerDetallesDe)
-						.addComponent(btnManualDeUsuario))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVerMascotasEncontradas, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-						.addComponent(botonVerMascotasPerdidas)
-						.addComponent(btnVerMascotasEn))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnRegistraTuMascota, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnIrABsqueda_1)
-						.addComponent(btnIrABsqueda))
-					.addGap(43)
-					.addComponent(btnConfiguracin)
-					.addGap(18)
-					.addComponent(btnContactenos)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAyuda)
-					.addGap(76))
-		);
-		getContentPane().setLayout(groupLayout);
+		JMenu mnUsuarios = new JMenu("Usuarios");
+		menuBar.add(mnUsuarios);
+		
+		JMenuItem mntmVerMisDetalles = new JMenuItem("Mis detalles");
+		mnUsuarios.add(mntmVerMisDetalles);
+		
+		JMenuItem menuItem = new JMenuItem("");
+		mnUsuarios.add(menuItem);
+		
+		JMenu mnBsqueda = new JMenu("B\u00FAsqueda");
+		menuBar.add(mnBsqueda);
+		
+		JMenuItem mntmUsuarios = new JMenuItem("Usuarios");
+		mnBsqueda.add(mntmUsuarios);
+		
+		JMenuItem mntmMascotas = new JMenuItem("Mascotas");
+		mnBsqueda.add(mntmMascotas);
+		
+		JMenu mnAsociaciones = new JMenu("Asociaciones");
+		menuBar.add(mnAsociaciones);
+		
+		JMenuItem mntmListaDeAsociaciones = new JMenuItem("Lista de Asociaciones");
+		mnAsociaciones.add(mntmListaDeAsociaciones);
+		
+		JMenuItem mntmRealizarUnaDonacin = new JMenuItem("Realizar una donaci\u00F3n");
+		mnAsociaciones.add(mntmRealizarUnaDonacin);
+		
+		JMenu mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+		
+		JMenuItem mntmManualDeUso = new JMenuItem("Manual de Uso");
+		mnAyuda.add(mntmManualDeUso);
+		
+		JMenuItem mntmSolicitarSerCasa = new JMenuItem("Solicitar ser Casa Cuna");
+		mnAyuda.add(mntmSolicitarSerCasa);
+		
+		JMenuItem mntmCondicionesDeRefugio = new JMenuItem("Condiciones Casa Cuna");
+		mnAyuda.add(mntmCondicionesDeRefugio);
+		
+		JMenuItem mntmContctenos = new JMenuItem("Cont\u00E1ctenos");
+		mnAyuda.add(mntmContctenos);
+		
+		Configuration configTest = new Configuration();
+		configTest.shapeWidth = 0.8;
+		configTest.scrollFactor = 10.0;
+		configTest.framesPerSecond = 60;
+		
+		configTest.shapes = new LinkedList<Shape>();
+		// Después de muchas pruebas unitarias,
+		// el máximo de imágenes que la matriz sostiene son 10.
+		for (int img = 1; img < 10; img++){ 
+			try {
+				configTest.shapes.add(new Picture(Imagenes.getPerfilMascota(img)));
+			} catch (ImagenNoEncontradaException e) {
+				break;
+			}
+		}
+		
+		prueba = new JFlowPanel(configTest);
+		prueba.setOpaque(false);
+		getContentPane().add(prueba);
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {

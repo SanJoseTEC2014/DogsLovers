@@ -20,6 +20,9 @@ public class Correo {
 	static String emisor = "pawsconsultas@gmail.com";
 	static String nombreUsuarioSMTP = "pawsconsultas@gmail.com";
 	static String passwordSMTP = "yhawfrxjuvadmjdx";
+	static String mensajeParametrizable = "Le notificamos que éstas son las mascotas que podrían coincidir con \n" +
+										  "la suya, según la descripción que ha ingresado en nuestro sistema, \n" + 
+										  "acorde a los datos disponibles al día de hoy: \n\n";
 
 	static void enviarCorreo(String pReceptor, String pAsunto, String pCuerpo) throws MessagingException {
 		// props contendrá información de la conexión.
@@ -53,10 +56,7 @@ public class Correo {
 		String asunto = "Su mascota puede haber sido localizada.";
 		
 		String cuerpoMsg =	"Estimado usuario " + pUsuario.getNombre() + ", \n" +
-							"Su mascota " + pMascota.getNombre() + " podría haber sido localizada. \n" +
-							"Le notificamos que éstas son las mascotas que podrían coincidir con \n" +
-							"la suya, según la descripción que ha ingresado en nuestro sistema, \n" + 
-							"acorde a los datos disponibles al día de hoy: \n\n";
+							"Su mascota " + pMascota.getNombre() + " podría haber sido localizada. \n" + mensajeParametrizable;
 		
 		// A continuación se calculan los valores necesarios para darle formato de tabla
 		// a los datos de las mascotas en la lista de coincidencias, para formar

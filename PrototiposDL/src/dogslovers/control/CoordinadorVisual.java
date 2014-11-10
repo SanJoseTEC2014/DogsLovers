@@ -47,7 +47,7 @@ public class CoordinadorVisual {
 
 	public synchronized void mostrarMenuPrincipal() {
 		ocultarVentanas();
-		
+		menuPrincipal.setVisible(true);
 	}
 
 	public synchronized void mostrarDetallesUsuario(Usuario usuarioActual) {

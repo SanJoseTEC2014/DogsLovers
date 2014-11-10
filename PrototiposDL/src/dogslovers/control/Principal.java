@@ -126,9 +126,13 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
+<<<<<<< HEAD
 				//coordinador.mostrarInicioSesion();
 				coordinador.mostrarBusqueda();
 				
+=======
+				coordinador.mostrarVentanas();
+>>>>>>> origin/master
 			}
 		});
 
@@ -155,8 +159,6 @@ public class Principal {
 		}
 		return false;
 	}
-	
-	
 
 	public static void transladarUsuarioListaNegra(Usuario usuario)  {
 		try {
@@ -240,7 +242,5 @@ public class Principal {
 	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());
 	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
 	    return copia;
-	    
 	}
-	
 }

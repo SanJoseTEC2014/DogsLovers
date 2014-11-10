@@ -10,6 +10,7 @@ import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
 
 import com.toedter.calendar.*;
+import javax.swing.border.TitledBorder;
 
 public class VentanaParametrosSistema extends JFrame {
 	private JButton botonGuardarFecha;
@@ -38,6 +39,9 @@ public class VentanaParametrosSistema extends JFrame {
 	private JButton botonColorFondo;
 	private JLabel labelFecha;
 	private JTextField textFecha;
+	private JPanel panelMensajeCorreo;
+	private JPanel mensajeNuevo;
+	private JTextField textField;
 	
 	public VentanaParametrosSistema() {
 		getContentPane().setBackground(Diseno.fondoVentanas);
@@ -157,6 +161,23 @@ public class VentanaParametrosSistema extends JFrame {
 		textFecha.setEditable(false);
 		marcoBotonesFecha.add(textFecha);
 		textFecha.setColumns(10);
+		
+		panelMensajeCorreo = new JPanel();
+		panelMensajeCorreo.setOpaque(false);
+		marcoPestanias.addTab("Mensaje del Correo de Coincidencias", null, panelMensajeCorreo, null);
+		panelMensajeCorreo.setLayout(null);
+		
+		mensajeNuevo = new JPanel();
+		mensajeNuevo.setOpaque(false);
+		mensajeNuevo.setBorder(new TitledBorder(null, "Nuevo Mensaje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		mensajeNuevo.setBounds(10, 10, 529, 179);
+		panelMensajeCorreo.add(mensajeNuevo);
+		mensajeNuevo.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(10, 21, 509, 141);
+		mensajeNuevo.add(textField);
+		textField.setColumns(10);
 		
 		marcoInferior = new JPanel();
 		marcoInferior.setOpaque(false);
