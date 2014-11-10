@@ -127,7 +127,8 @@ public class Principal {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
 //				coordinador.mostrarVentanas();
-				coordinador.mostrarParametrosSistema();
+				//coordinador.mostrarParametrosSistema();
+				coordinador.mostrarInicioSesion();
 			}
 		});
 
