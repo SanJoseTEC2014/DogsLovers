@@ -1,5 +1,19 @@
 package dogslovers.control;
 
+/**	Clase Principal: 
+ * 	 Esta clase permite inicializar las mascotas, asi como los usuarios,
+ *   cargar los casos de prueba para el sistema e invocar la ventana de
+ *   inicio de sesión de la aplicación, asimismo implementa algunos  
+ *   métodos para el funcionamiento de la aplicación.
+ * 
+ *	Fecha de creación: 03/10/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
 import java.awt.*;
 import java.util.*;
 
