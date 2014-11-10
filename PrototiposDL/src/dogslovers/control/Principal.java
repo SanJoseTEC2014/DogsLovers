@@ -124,8 +124,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
+				coordinador.mostrarMenuPrincipal();
 				//coordinador.mostrarInicioSesion();
-				
 			}
 		});
 
