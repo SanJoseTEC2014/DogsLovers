@@ -63,8 +63,9 @@ public class VentanaCondicionesRefugio extends JFrame {
 		
 		setSize(500, 320);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		setBackground(Diseno.fondoVentanas);
+		getContentPane().setBackground(Diseno.fondoVentanas);
 		titulo = new JPanel();
+		titulo.setOpaque(false);
 		getContentPane().add(titulo, BorderLayout.NORTH);
 		titulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
@@ -78,6 +79,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		titulo.add(lblNewLabel);
 		
 		panel = new JPanel();
+		panel.setOpaque(false);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -131,6 +133,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		labels.add(textSoloDesparacitada);
 		
 		panel_2 = new JPanel();
+		panel_2.setOpaque(false);
 		panel_2.setBorder(new TitledBorder(null, "Detalles Adicionales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
@@ -141,6 +144,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		textDetalles.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		botonGuardarCambios = new JButton("Guardar cambios");
+		botonGuardarCambios.setOpaque(false);
 		getContentPane().add(botonGuardarCambios, BorderLayout.SOUTH);
 		botonGuardarCambios.setAlignmentX(Component.CENTER_ALIGNMENT);
 		botonGuardarCambios.addActionListener(new ActionListener() {

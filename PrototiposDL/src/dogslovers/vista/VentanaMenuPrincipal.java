@@ -21,6 +21,9 @@ import dogslovers.recursos.jflow.shape.Picture;
 import java.awt.Label;
 import java.awt.Canvas;
 import java.awt.FlowLayout;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.LinkedList;
 
 public class VentanaMenuPrincipal extends JFrame {
@@ -152,10 +155,16 @@ public class VentanaMenuPrincipal extends JFrame {
 		mnAyuda = new JMenu("Ayuda");
 		menuBar.add(mnAyuda);
 		
+		
 		JMenuItem mntmManualDeUso = new JMenuItem("Manual de Uso");
 		mntmManualDeUso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				try {
+					Desktop.getDesktop().browse(new URL("http://www.mylostpaws.weebly.com").toURI());
+				} catch (IOException | URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		mnAyuda.add(mntmManualDeUso);
