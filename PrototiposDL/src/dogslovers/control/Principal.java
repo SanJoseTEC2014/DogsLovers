@@ -240,12 +240,12 @@ public class Principal {
 	    return copia;
 	}
 
-	public static Mascota getMascotaID(String IDmascota) throws MascotaNoEncontradaException {
-		for (Mascota mascota : perdidas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
-		for (Mascota mascota : encontradas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
-		for (Mascota mascota : refugiadas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
-		for (Mascota mascota : adoptadas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
-		for (Mascota mascota : enAdopcion) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+	public static Mascota getMascotaID(Integer IDmascota) throws MascotaNoEncontradaException {
+		for (Mascota mascota : perdidas) if (IDmascota == mascota.getID()) return mascota;
+		for (Mascota mascota : encontradas) if (IDmascota == mascota.getID())return mascota;
+		for (Mascota mascota : refugiadas) if (IDmascota == mascota.getID()) return mascota;
+		for (Mascota mascota : adoptadas) if (IDmascota == mascota.getID()) return mascota;
+		for (Mascota mascota : enAdopcion) if (IDmascota == mascota.getID()) return mascota;
 		throw new MascotaNoEncontradaException("Error inesperado no se pueden cargar los detalles de la mascota");
 	}
 }

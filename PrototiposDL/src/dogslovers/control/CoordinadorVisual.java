@@ -37,7 +37,6 @@ public class CoordinadorVisual {
 		agregarComentario = new VentanaAgregarComentario();
 		mascotasAsociadas = new VentanaMascotasDeUsuario();
 		calificaciones = new VentanaCalificaciones();
-		
 	}
 	
 	public synchronized void mostrarInicioSesion() {
@@ -65,11 +64,11 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarRegistroUsuarios() {
-		ocultarVentanas();
+		registroUsuarios.setVisible(true);
 	}
 
 	public synchronized void mostrarRegistroMascotas() {
-		ocultarVentanas();
+		registroMascotas.setVisible(true);
 	}
 
 	public synchronized void mostrarBusqueda() {

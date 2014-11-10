@@ -18,39 +18,40 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class VentanaDetallesUsuario extends JFrame {
-	private JPanel marcoTitulos;
+	
+	private JButton botonCondiciones;
+	private JButton botonDetalles;
+	private JButton botonGuardarCambios;
+	private JButton botonSalir;
+	private JButton botonVerMascotas;
+	private JButton btnActualizarFoto;
+	private JComboBox<String> comboLapsos;
+	private JFormattedTextField formatCedula;
+	private JFormattedTextField formatTelefono;
+	private JLabel labelApellidos;
+	private JLabel labelCedula;
+	private JLabel labelCorreo;
+	private JLabel labelEstrellas;
+	private JLabel labelFoto;
+	private JLabel labelLapsos;
+	private JLabel labelNickname;
+	private JLabel labelNombre;
+	private JLabel labelPromedio;
+	private JLabel labelTelefono; 
 	private JLabel labelTitulo1;
 	private JLabel labelTitulo2;
 	private JPanel marcoContenido;
-	private JPanel marcoFotoPerfil;
-	private JLabel labelFoto;
-	private JButton btnActualizarFoto;
 	private JPanel marcoDetalles;
-	private JLabel labelNickname;
-	private JLabel labelNombre;
-	private JLabel labelApellidos;
-	private JLabel labelCedula;
-	private JFormattedTextField formatCedula;
-	private JLabel labelTelefono;
-	private JFormattedTextField formatTelefono;
-	private JLabel labelPromedio;
-	private JLabel labelEstrellas;
-	private JLabel labelLapsos;
-	private JComboBox<String> comboLapsos; 
+	private JPanel marcoFotoPerfil;
 	private JPanel marcoOperaciones;
-	private JButton botonGuardarCambios;
-	private JButton botonDetalles;
-	private JButton botonVerMascotas;
-	private JButton botonSalir;
-	private Usuario usuarioActual;
-	private JButton botonCondiciones;
-	private JLabel labelCorreo;
-	private JTextField textCorreo;
-	
+	private JPanel marcoTitulos;
 	private boolean modoEdicion;
-	private JTextField textNombre;
-	private JTextField textNickname;
 	private JTextField textApellidos;
+	
+	private JTextField textCorreo;
+	private JTextField textNickname;
+	private JTextField textNombre;
+	private Usuario usuarioActual;
 
 	public VentanaDetallesUsuario(){
 		setSize(730,500);
@@ -205,6 +206,16 @@ public class VentanaDetallesUsuario extends JFrame {
 		getContentPane().add(marcoOperaciones, BorderLayout.SOUTH);
 				
 				botonGuardarCambios = new JButton("Guardar Cambios");
+				botonGuardarCambios.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Acceso.getUsuarioActivo().setApellidos(textApellidos.getText());
+						Acceso.getUsuarioActivo().setNombre(textNombre.getText());
+						Acceso.getUsuarioActivo().setCorreo(textCorreo.getText());
+						Acceso.getUsuarioActivo().setCedula(Integer.parseInt(formatCedula.getText()));
+						Acceso.getUsuarioActivo().setApellidos(formatTelefono.getText());
+						Acceso.getUsuarioActivo().setLapsoEmparejamiento((String)comboLapsos.getSelectedItem());
+					}
+				});
 				marcoOperaciones.add(botonGuardarCambios);
 				
 				botonCondiciones = new JButton("Ver Condiciones de Refugio");
@@ -240,6 +251,10 @@ public class VentanaDetallesUsuario extends JFrame {
 				marcoOperaciones.add(botonSalir);
 	}
 	
+	private void close(){
+		setVisible(false);
+	}
+	
 	public void setDatosIniciales(Usuario pUsuario) {
 		
 		botonCondiciones.setVisible(pUsuario == Acceso.getUsuarioActivo());
@@ -271,9 +286,6 @@ public class VentanaDetallesUsuario extends JFrame {
 		comboLapsos.setEnabled(modoEdicion);
 		//botonGuardarCambios.setEnabled(modoEdicion);
 		botonGuardarCambios.setVisible(modoEdicion);
-	}
-	
-	private void close(){
-		setVisible(false);
+		if (pModo) botonCondiciones.setText("Editar mis condiciones registro");
 	}
 }

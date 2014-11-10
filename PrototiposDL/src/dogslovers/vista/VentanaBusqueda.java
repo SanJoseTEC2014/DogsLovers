@@ -429,9 +429,9 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 					if (fila != -1){
 						String IDMascota = (String) tablaResultadosMascotas.getValueAt(fila, 0);
 						try {
-							Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(IDMascota));
+							Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(Integer.parseInt(IDMascota)));
 						} catch (MascotaNoEncontradaException e) {
-							JOptionPane.showMessageDialog(getContentPane(), "error", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(getContentPane(),  e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(), "Información", "Debe seleccionar una mascota primero", JOptionPane.INFORMATION_MESSAGE);			

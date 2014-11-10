@@ -55,7 +55,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 				if (fila != -1){
 					String IDMascota = (String) tableMascotas.getValueAt(fila, 0);
 					try {
-						Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(IDMascota));
+						Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(Integer.parseInt(IDMascota)));
 					} catch (MascotaNoEncontradaException e) {
 						JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
 					}

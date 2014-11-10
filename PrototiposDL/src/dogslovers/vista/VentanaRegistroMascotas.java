@@ -44,7 +44,6 @@ public class VentanaRegistroMascotas extends JFrame {
 	private JComboBox<String> comboBoxRaza;
 	private JComboBox<String> comboBoxTamanio;
 	private JComboBox<String> comboBoxColor;
-	private JComboBox<String> comboBoxEdad;
 	private JComboBox<String> comboBoxSexo;
 	private JCheckBox checkBoxCastrada;
 	private JCheckBox checkBoxVacunada;
@@ -56,7 +55,7 @@ public class VentanaRegistroMascotas extends JFrame {
 		setTitle("  Registro de mascotas");
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(660,660);
+		setSize(660,588);
 		getContentPane().setLayout(new BorderLayout(20, 10));
 		
 		JLabel lblRegistrarUnaMascota = new JLabel("Registrar una mascota");
@@ -116,7 +115,7 @@ public class VentanaRegistroMascotas extends JFrame {
 		columnaIzq.add(caracteristicas);
 		caracteristicas.setOpaque(false);
 		caracteristicas.setBorder(new TitledBorder(null, "Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		caracteristicas.setLayout(new GridLayout(6, 2, 0, 5));
+		caracteristicas.setLayout(new GridLayout(5, 2, 0, 5));
 		
 		JLabel lblEspecie = new JLabel("Especie");
 		caracteristicas.add(lblEspecie);
@@ -153,16 +152,6 @@ public class VentanaRegistroMascotas extends JFrame {
 		caracteristicas.add(comboBoxColor);
 		comboBoxColor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxColor.setModel(new DefaultComboBoxModel<String>(new String[] {"Blanco", "Negro", "Gris", "Caf\u00E9"}));
-		//caracteristicas.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblEspecie, especieComboBox, lblRaza, razaComboBox, lblTamao, tamanioComboBox, lblSexo, sexoComboBox, lblColor, colorComboBox, lblEdad, edadComboBox}));
-		
-		JLabel lblEdad = new JLabel("Edad");
-		caracteristicas.add(lblEdad);
-		lblEdad.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		comboBoxEdad = new JComboBox<String>();
-		caracteristicas.add(comboBoxEdad);
-		comboBoxEdad.setModel(new DefaultComboBoxModel<String>(new String[] {"Cachorro", "Adulto"}));
-		comboBoxEdad.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JLabel lblSexo = new JLabel("Sexo");
 		caracteristicas.add(lblSexo);
@@ -238,20 +227,38 @@ public class VentanaRegistroMascotas extends JFrame {
 				columnaDer.setOpaque(false);
 				columnaDer.setLayout(new BoxLayout(columnaDer, BoxLayout.Y_AXIS));
 				
-				JPanel panelNotas = new JPanel();
-				panelNotas.setOpaque(false);
-				columnaDer.add(panelNotas);
-				panelNotas.setLayout(new BorderLayout(10, 10));
+				JPanel panelDetalles = new JPanel();
+				panelDetalles.setBorder(new TitledBorder(null, "Detalles", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+				panelDetalles.setOpaque(false);
+				columnaDer.add(panelDetalles);
+				panelDetalles.setLayout(new BorderLayout(10, 10));
 				
-				JLabel labelNotas = new JLabel("Notas");
-				labelNotas.setAlignmentX(Component.CENTER_ALIGNMENT);
-				labelNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				panelNotas.add(labelNotas, BorderLayout.NORTH);
+				JPanel panel_1 = new JPanel();
+				panelDetalles.add(panel_1, BorderLayout.CENTER);
+				panel_1.setLayout(new BorderLayout(0, 0));
 				
 				campoNotas = new JTextArea();
+				panel_1.add(campoNotas);
 				campoNotas.setRows(1);
-				panelNotas.add(campoNotas);
 				campoNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				
+				JLabel labelNotas = new JLabel("Notas adicionales:");
+				labelNotas.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_1.add(labelNotas, BorderLayout.NORTH);
+				labelNotas.setAlignmentX(Component.CENTER_ALIGNMENT);
+				labelNotas.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				
+				JPanel panel = new JPanel();
+				panelDetalles.add(panel, BorderLayout.SOUTH);
+				panel.setLayout(new BorderLayout(0, 0));
+				
+				JLabel lblNewLabel = new JLabel("Direccion del suceso:");
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				panel.add(lblNewLabel, BorderLayout.NORTH);
+				
+				JEditorPane dtrpnDireccionSuceso = new JEditorPane();
+				panel.add(dtrpnDireccionSuceso, BorderLayout.SOUTH);
 				
 				JPanel panelFoto = new JPanel();
 				panelFoto.setOpaque(false);
@@ -299,11 +306,10 @@ public class VentanaRegistroMascotas extends JFrame {
 		panelOperaciones.add(botonRegistrar);
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Mascota mascota = new Mascota(campoNombre.getText(), (String)comboBoxEspecie.getSelectedItem(), (String)comboBoxRaza.getSelectedItem(), Integer.getInteger(campoRecompensa.getText()) , campoNotas.getText());
+				Mascota mascota = new Mascota(campoNombre.getText(), (String)comboBoxEspecie.getSelectedItem(), (String)comboBoxRaza.getSelectedItem(), Integer.getInteger(campoRecompensa.getText()==null? "0" : campoRecompensa.getText() ) , campoNotas.getText());
 				mascota.setCastrada(checkBoxCastrada.isSelected());
 				mascota.setColor((String)comboBoxColor.getSelectedItem());
 				mascota.setDesparacitada(checkBoxDesparacitada.isSelected());
-				mascota.setEdad((String)comboBoxEdad.getSelectedItem());
 				mascota.setNumeroChip(campoNumeroDeChip.getText());
 				mascota.setSexo((String)comboBoxSexo.getSelectedItem());
 				mascota.setTamanio((String) comboBoxTamanio.getSelectedItem());
