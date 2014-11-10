@@ -72,7 +72,9 @@ public class Principal {
 		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
 				116070870, "wat", 89456736, "lizchavca@gmail.com", "sabanilla"));
 		blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
+		blanca.get(0).addCalificacion(new Calificacion("KAKO", 0, "bakaaa ne"));
 		blanca.get(0).setCondicionesRefugio(new CondicionesRefugio(true, false, true, true, "caca"));
+		
 		blanca.get(0).setRefugiante(true);
 	}
 	
@@ -132,7 +134,7 @@ public class Principal {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
 				//coordinador.mostrarInicioSesion();
-				coordinador.mostrarBusqueda();
+				coordinador.mostrarInicioSesion();
 			}
 		});
 

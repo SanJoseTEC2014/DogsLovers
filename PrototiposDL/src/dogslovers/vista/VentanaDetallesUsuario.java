@@ -36,7 +36,7 @@ public class VentanaDetallesUsuario extends JFrame {
 	private JLabel labelPromedio;
 	private JLabel labelEstrellas;
 	private JLabel labelLapsos;
-	private JComboBox<String> comboLapsos;
+	private JComboBox<String> comboLapsos; 
 	private JPanel marcoOperaciones;
 	private JButton botonGuardarCambios;
 	private JButton botonDetalles;

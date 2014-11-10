@@ -99,7 +99,7 @@ public class VentanaInicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Acceso.validarCredenciales(nicknameTextBox.getText(), new String(passwordTextBox.getPassword()));
-					Principal.coordinador.mostrarDetallesUsuario(Acceso.getUsuarioActivo());
+					Principal.coordinador.mostrarMenuPrincipal();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(getContentPane(), e.getMessage(), "Error de Acceso", JOptionPane.ERROR_MESSAGE);
 					labelUsuarioError.setText(e.getMessage());
