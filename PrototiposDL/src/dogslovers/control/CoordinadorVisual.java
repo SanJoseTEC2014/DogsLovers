@@ -1,5 +1,16 @@
 package dogslovers.control;
-
+/**	 Clase Coordinador Visual: 
+ * 	 Esta clase implementa diversos métodos que permiten
+ * 	 mostrar y ocultar cada una de las ventanas de la aplicación.
+ * 
+ *	Fecha de creación: 7/11/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
 
 import java.awt.Window;
 

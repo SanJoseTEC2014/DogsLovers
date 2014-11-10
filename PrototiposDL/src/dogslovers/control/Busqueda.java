@@ -1,4 +1,17 @@
 package dogslovers.control;
+/**	 Clase Búsqueda: 
+ * 	 Esta clase implementa los métodos que se encargan
+ * 	 de realizar la búsqueda de usuarios y mascotas en 
+ *   el sistema.
+ * 
+ *	Fecha de creación: 17/10/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
 
 import javax.swing.table.AbstractTableModel;
 

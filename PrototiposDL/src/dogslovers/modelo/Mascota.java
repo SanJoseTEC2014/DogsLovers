@@ -4,7 +4,7 @@ package dogslovers.modelo;
  * 	Esta clase implementa cada uno de los atributos,
  *  listas y métodos correspondientes a las mascotas.
  * 
- *	Fecha de creación: 03/10/2014
+ *	Fecha de creación: 24/10/2014
  * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573

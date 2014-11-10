@@ -6,7 +6,7 @@ package dogslovers.control;
  *   inicio de sesión de la aplicación, asimismo implementa algunos  
  *   métodos para el funcionamiento de la aplicación.
  * 
- *	Fecha de creación: 03/10/2014
+ *	Fecha de creación: 28/10/2014
  * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573
