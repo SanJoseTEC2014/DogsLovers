@@ -11,14 +11,19 @@ import dogslovers.modelo.Usuario;
 public class VentanaCalificaciones extends JFrame {
 	private JTable tablaCalificaciones;
 	private JScrollPane panelScrol;
+	String Titulos[] = {"Nick Calificante", "Calificación", "Comentario"};
+
 	public VentanaCalificaciones(Usuario usuario) {
 		getContentPane().setLayout(new GridLayout(1, 0, 0, 0));
 		setSize(400,400);
+		tablaCalificaciones = new JTable();
+		tablaCalificaciones.setAutoCreateRowSorter(true);
 		panelScrol = new JScrollPane();
 		getContentPane().add(panelScrol);
-		String Titulos[] = {"Nick Calificante", "Calificación", "Comentario"};
-		tablaCalificaciones = new JTable(usuario.getArrayCalificaciones(), Titulos );
 		panelScrol.setViewportView(tablaCalificaciones);
+	}
+	public void setUsuario(Usuario usuarioActual) {
+		tablaCalificaciones = new JTable(usuarioActual.getArrayCalificaciones(), Titulos );
 	}
 }
 	

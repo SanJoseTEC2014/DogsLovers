@@ -12,25 +12,35 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
+import dogslovers.control.Acceso;
+import dogslovers.modelo.Calificacion;
+import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
 
 import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JEditorPane;
+
 public class VentanaAgregarComentario extends JFrame {
-	private JTextField textComentario;
+	private JEditorPane textComentario;
 	private JLabel lblTitulo;
 	private JPanel panelTitulo;
 	private JPanel cajaComentarios;
-	private JComboBox<String> comboCalificacion;
+	private JComboBox<Double> comboCalificacion;
 	private JLabel lblCalificacion;
 	private JButton btnCancelar;
 	private JButton btnComentar;
 	private JPanel panelBotones;
 	private JPanel panelContenido;
+	private Usuario usuarioACalificar;
+	
 	public VentanaAgregarComentario() {
-		setSize(650,400);
+		setSize(480,299);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setTitle("Agregar Comentario");
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -56,9 +66,8 @@ public class VentanaAgregarComentario extends JFrame {
 		cajaComentarios.setBorder(new TitledBorder(null, "Escribir Comentario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		cajaComentarios.setLayout(new BorderLayout(20, 20));
 		
-		textComentario = new JTextField();
+		textComentario = new JEditorPane();
 		cajaComentarios.add(textComentario);
-		textComentario.setColumns(10);
 		
 		JPanel panelCalificacion = new JPanel();
 		panelContenido.add(panelCalificacion, BorderLayout.SOUTH);
@@ -69,8 +78,8 @@ public class VentanaAgregarComentario extends JFrame {
 		lblCalificacion.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelCalificacion.add(lblCalificacion, BorderLayout.CENTER);
 		
-		comboCalificacion = new JComboBox<String>();
-		comboCalificacion.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5"}));
+		comboCalificacion = new JComboBox<Double>();
+		comboCalificacion.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2, 3, 4, 5}));
 		panelCalificacion.add(comboCalificacion, BorderLayout.EAST);
 		
 		panelBotones = new JPanel();
@@ -81,11 +90,24 @@ public class VentanaAgregarComentario extends JFrame {
 		getContentPane().add(panelBotones, BorderLayout.SOUTH);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
 		panelBotones.add(btnCancelar);
 		btnCancelar.setOpaque(false);
 		
 		btnComentar = new JButton("Comentar");
+		btnComentar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				usuarioACalificar.addCalificacion(new Calificacion(Acceso.getUsuarioActivo().getNickname(), (Integer) comboCalificacion.getSelectedItem(), textComentario.getText()));
+			}
+		});
 		panelBotones.add(btnComentar);
 		btnComentar.setOpaque(false);
+	}
+	public void setUsuarioACalificar(Usuario pUsuarioACalificar) {
+		usuarioACalificar = pUsuarioACalificar;
 	}
 }

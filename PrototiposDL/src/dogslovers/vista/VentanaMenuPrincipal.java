@@ -28,6 +28,9 @@ public class VentanaMenuPrincipal extends JFrame {
 	JLabel lblBienvenido;
 	private JMenuItem mntmSolicitarSerCasa;
 	private JMenu mnAyuda;
+	private JMenuItem mntmParametrosSistema;
+	private JMenu mnCuenta;
+	private JMenuItem mntmCondicionesDeRefugio;
 
 	public VentanaMenuPrincipal() {
 		setTitle("Paws");
@@ -104,8 +107,8 @@ public class VentanaMenuPrincipal extends JFrame {
 		JMenuItem mntmRealizarUnaDonacin = new JMenuItem("Realizar una donaci\u00F3n");
 		mnAsociaciones.add(mntmRealizarUnaDonacin);
 		
-		JMenu mnUsuarios = new JMenu("Cuenta");
-		menuBar.add(mnUsuarios);
+		mnCuenta = new JMenu("Cuenta");
+		menuBar.add(mnCuenta);
 		
 		JMenuItem mntmVerMisDetalles = new JMenuItem("Detalles de mi cuenta");
 		mntmVerMisDetalles.addActionListener(new ActionListener() {
@@ -113,10 +116,33 @@ public class VentanaMenuPrincipal extends JFrame {
 				Principal.coordinador.mostrarDetallesUsuario(Acceso.getUsuarioActivo());
 			}
 		});
-		mnUsuarios.add(mntmVerMisDetalles);
+		mnCuenta.add(mntmVerMisDetalles);
 		
-		JMenuItem mntmCondicionesDeRefugio = new JMenuItem("Mis condiciones de refugio");
-		mnUsuarios.add(mntmCondicionesDeRefugio);
+		// TODO BORRAR LA LINEA 167 HASTA QUE FUNCIONE ToDO 
+		mntmParametrosSistema = new JMenuItem("Parametros Sistema");
+			mntmParametrosSistema.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Principal.coordinador.mostrarParametrosSistema();
+				}
+			});
+		
+		JMenuItem mntmVerMisCalificaciones = new JMenuItem("Ver mis calificaciones");
+		mntmVerMisCalificaciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Principal.coordinador.mostrarCalificaciones(Acceso.getUsuarioActivo());
+			}
+		});
+		mnCuenta.add(mntmVerMisCalificaciones);
+		mnCuenta.add(mntmParametrosSistema);
+		
+		mntmCondicionesDeRefugio = new JMenuItem("Editar condiciones de refugio");
+		mnCuenta.add(mntmCondicionesDeRefugio);
+		// TODO borrar la 130 al terminar de debugguear
+		
+		mntmSolicitarSerCasa = new JMenuItem("Llenar solicitud refugiante");
+		mnCuenta.add(mntmSolicitarSerCasa);
+		
+	
 		mntmCondicionesDeRefugio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Principal.coordinador.mostrarCondicionesRefugio(Acceso.getUsuarioActivo());
@@ -127,6 +153,11 @@ public class VentanaMenuPrincipal extends JFrame {
 		menuBar.add(mnAyuda);
 		
 		JMenuItem mntmManualDeUso = new JMenuItem("Manual de Uso");
+		mntmManualDeUso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		mnAyuda.add(mntmManualDeUso);
 		
 		JMenuItem mntmContctenos = new JMenuItem("Cont\u00E1ctenos");
@@ -174,10 +205,10 @@ public class VentanaMenuPrincipal extends JFrame {
 	public void setUsuario(){
 		lblBienvenido.setText(Acceso.getUsuarioActivo().getNombre()+" bienvenido a");
 		
-		if (!Acceso.getUsuarioActivo().isRefugiante()){
-			mntmSolicitarSerCasa = new JMenuItem("Solicitar ser Casa Cuna");
-			mnAyuda.add(mntmSolicitarSerCasa);
-		}
+		if(Acceso.isAdministradorActivo()) mnCuenta.add(mntmParametrosSistema);
+
+		if(Acceso.getUsuarioActivo().isRefugiante()) mnCuenta.add(mntmSolicitarSerCasa);
+
 	}
 }
 

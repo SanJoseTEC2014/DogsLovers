@@ -24,6 +24,7 @@ public class CoordinadorVisual {
 	private JFrame ventanaActiva;
 	private VentanaCondicionesRefugio condicionesRefugio;
 	private VentanaMascotasDeUsuario mascotasAsociadas;
+	private VentanaCalificaciones calificaciones;
 	
 	public CoordinadorVisual(){
 		inicioSesion = new VentanaInicioSesion();
@@ -37,6 +38,7 @@ public class CoordinadorVisual {
 		condicionesRefugio = new VentanaCondicionesRefugio();
 		agregarComentario = new VentanaAgregarComentario();
 		mascotasAsociadas = new VentanaMascotasDeUsuario();
+		calificaciones = new VentanaCalificaciones();
 		
 	}
 	
@@ -47,7 +49,7 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarParametrosSistema() {
-		ocultarVentanas();
+		parametrosSistema.setVisible(Acceso.isAdministradorActivo());
 	}
 
 	public synchronized void mostrarMenuPrincipal() {
@@ -93,9 +95,9 @@ public class CoordinadorVisual {
 		busqueda.setVisible(true);
 	}
 	
-	public synchronized void mostrarAgregarComentario(){
-		ocultarVentanas();
-		agregarComentario.setVisible(true);
+	public synchronized void mostrarAgregarComentario(Usuario usuarioACalificar){
+		agregarComentario.setUsuarioACalificar(usuarioACalificar);
+		agregarComentario.setVisible(true);		
 	}
 	
 	private synchronized void ocultarVentanas() {
@@ -131,6 +133,12 @@ public class CoordinadorVisual {
 	public void mostrarMascotasAsociadas(Usuario usuarioActual){
 		mascotasAsociadas.setUsuario(usuarioActual);
 		mascotasAsociadas.setVisible(true);
+	}
+
+	public void mostrarCalificaciones(Usuario usuarioActual) {
+		calificaciones.setUsuario(usuarioActual);
+		calificaciones.setVisible(true);
+		
 	}
 	
 }
