@@ -66,6 +66,7 @@ public class Principal {
 	}
 	
 	public static void inicializarUsuarios() {
+		
 		Usuario.setCalificacionMinimaPermitidaUsuarios(3.0);
 		
 		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
@@ -111,6 +112,10 @@ public class Principal {
 		inicializarMascotas();
 		inicializarUsuarios();
 		
+		CasosPrueba.cargarDocumentoUsuariosPrueba();
+		CasosPrueba.cargarDocumentoMascotasPrueba();
+
+		
 		// VentanaDetallesMascota: encontradas.get(0).clone(), false
 		
 		// PRUEBA ENVIANDO CORREOS CON COINCIDENCIAS
@@ -126,13 +131,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
-<<<<<<< HEAD
 				//coordinador.mostrarInicioSesion();
 				coordinador.mostrarBusqueda();
-				
-=======
-				coordinador.mostrarVentanas();
->>>>>>> origin/master
 			}
 		});
 
@@ -242,5 +242,14 @@ public class Principal {
 	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());
 	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
 	    return copia;
+	}
+
+	public static Mascota getMascotaID(String IDmascota) throws MascotaNoEncontradaException {
+		for (Mascota mascota : perdidas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+		for (Mascota mascota : encontradas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+		for (Mascota mascota : refugiadas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+		for (Mascota mascota : adoptadas) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+		for (Mascota mascota : enAdopcion) if (IDmascota.equals(mascota.getID().toString())) return mascota;
+		throw new MascotaNoEncontradaException("Error inesperado no se pueden cargar los detalles de la mascota");
 	}
 }

@@ -23,7 +23,7 @@ public class ModeloTablaMensajes extends AbstractTableModel {
 		case 1:
 			return listaMensajes.get(rowIndex).getNombre();
 		case 2:
-			return listaMensajes.get(rowIndex).getEncuentro().getLugar();
+			return listaMensajes.get(rowIndex).getUltimoSuceso().getLugar();
 		case 3:
 			return listaMensajes.get(rowIndex).getEspecie();
 		case 4:

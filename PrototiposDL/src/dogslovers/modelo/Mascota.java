@@ -209,7 +209,7 @@ public class Mascota {
 	}
 	
 	public Suceso getUltimoSuceso() {
-		return sucesos.get(sucesos.size()-1);
+		return sucesos.get((sucesos.size())-1);
 	}
 	
 	

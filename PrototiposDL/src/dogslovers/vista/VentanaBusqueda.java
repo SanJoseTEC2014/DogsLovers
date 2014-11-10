@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import dogslovers.control.Busqueda;
 import dogslovers.control.Principal;
+import dogslovers.control.excepciones.MascotaNoEncontradaException;
 import dogslovers.control.excepciones.UsuarioNoExisteException;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.ModeloTablaMascotas;
@@ -405,18 +406,39 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		btnVerDetalles = new JButton("Ver Detalles");
 		btnVerDetalles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				if (pestanias.getSelectedIndex() == 0){
-					
 					int fila = tablaResultadosUsuarios.getSelectedRow();
-					String nick = (String) modeloUsuarios.getValueAt(fila, 0);
-					try {
-						Principal.coordinador.mostrarDetallesUsuario(Principal.getUsuarioListaBlanca(nick));
-					} catch (UsuarioNoExisteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (fila != -1){
+						String nick = (String) tablaResultadosUsuarios.getValueAt(fila, 0);
+						
+						
+						try {
+							Principal.coordinador.mostrarDetallesUsuario(Principal.getUsuarioListaBlanca(nick));
+						} catch (UsuarioNoExisteException e) {
+							JOptionPane.showMessageDialog(getContentPane(), "error", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(getContentPane(), "Información", "Debe seleccionar un usuario primero", JOptionPane.INFORMATION_MESSAGE);			
 					}
 					
 				}
+				
+				if (pestanias.getSelectedIndex() == 1){
+					int fila = tablaResultadosMascotas.getSelectedRow();
+					if (fila != -1){
+						String IDMascota = (String) tablaResultadosMascotas.getValueAt(fila, 0);
+						try {
+							Principal.coordinador.mostrarDetallesMascota(Principal.getMascotaID(IDMascota));
+						} catch (MascotaNoEncontradaException e) {
+							JOptionPane.showMessageDialog(getContentPane(), "error", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(getContentPane(), "Información", "Debe seleccionar una mascota primero", JOptionPane.INFORMATION_MESSAGE);			
+					}
+					
+				}
+				
 			}
 		});
 		marcoOperaciones.add(btnVerDetalles);
@@ -480,6 +502,8 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				modeloUsuarios = new ModeloTablaUsuarios(Busqueda.buscarUsuarios(terminos, soloUsusariosRefugiantes));
 				tablaResultadosUsuarios.setModel(modeloUsuarios);
 				tablaResultadosUsuarios.setVisible(true);
+				tablaResultadosUsuarios.setAutoResizeMode(tablaResultadosMascotas.AUTO_RESIZE_ALL_COLUMNS);
+				tablaResultadosUsuarios.setAutoCreateRowSorter(true);
 				progressBar_1.setMaximum(modeloUsuarios.getCantidadDeResultados());
 
 				if (ventanaContraida) {
@@ -692,7 +716,4 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	public void busquedaRefugiantes() {
 		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 	}
-	
-	
-
 }

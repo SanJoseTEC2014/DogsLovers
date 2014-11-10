@@ -46,10 +46,10 @@ public class VentanaCondicionesRefugio extends JFrame {
 	private JCheckBox checkNecesitaAlimentos;
 	private Usuario usuarioSeleccionado;
 	private JPanel checks;
-	private JLabel lblSeDebeEntregar;
-	private JLabel lblLaMascotaDebe;
-	private JLabel lblLaMascotaDebe_1;
-	private JLabel lblLaMascotaDebe_2;
+	private JLabel textNecesitaAlimentos;
+	private JLabel textSoloVacunadas;
+	private JLabel textSoloCastradas;
+	private JLabel textSoloDesparacitada;
 	private JPanel labels;
 	private JPanel panel_2;
 	private JPanel titulo;
@@ -63,7 +63,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		
 		setSize(500, 320);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
+		setBackground(Diseno.fondoVentanas);
 		titulo = new JPanel();
 		getContentPane().add(titulo, BorderLayout.NORTH);
 		titulo.setLayout(new GridLayout(2, 1, 0, 0));
@@ -74,6 +74,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		lblCondicionesDeRefugio.setFont(Diseno.fuenteTitulosVentanas.deriveFont(17f));
 			
 		lblNewLabel = new JLabel("Los requisitos para refugiar unas mascota son:");
+		lblNewLabel.setEnabled(false);
 		titulo.add(lblNewLabel);
 		
 		panel = new JPanel();
@@ -97,6 +98,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		checks.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		checkNecesitaAlimentos = new JCheckBox("");
+		checkNecesitaAlimentos.setEnabled(false);
 		checks.add(checkNecesitaAlimentos);
 		
 		checkSoloVacunada = new JCheckBox("");
@@ -116,17 +118,17 @@ public class VentanaCondicionesRefugio extends JFrame {
 		opciones.add(labels, BorderLayout.CENTER);
 		labels.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblSeDebeEntregar = new JLabel("Se debe entregar alimento para la mascota");
-		labels.add(lblSeDebeEntregar);
+		textNecesitaAlimentos = new JLabel("Se debe entregar alimento para la mascota");
+		labels.add(textNecesitaAlimentos);
 		
-		lblLaMascotaDebe = new JLabel("La mascota debe estar vacunada");
-		labels.add(lblLaMascotaDebe);
+		textSoloVacunadas = new JLabel("La mascota debe estar vacunada");
+		labels.add(textSoloVacunadas);
 		
-		lblLaMascotaDebe_1 = new JLabel("La mascota debe estar Castrada");
-		labels.add(lblLaMascotaDebe_1);
+		textSoloCastradas = new JLabel("La mascota debe estar Castrada");
+		labels.add(textSoloCastradas);
 		
-		lblLaMascotaDebe_2 = new JLabel("La mascota debe estar desparacitada");
-		labels.add(lblLaMascotaDebe_2);
+		textSoloDesparacitada = new JLabel("La mascota debe estar desparacitada");
+		labels.add(textSoloDesparacitada);
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Detalles Adicionales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(59, 59, 59)));
@@ -163,16 +165,12 @@ public class VentanaCondicionesRefugio extends JFrame {
 		
 		botonGuardarCambios.setVisible(usuarioSeleccionado == Acceso.getUsuarioActivo());
 
-		checkSoloDesparacitada.setVisible(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
 		checkSoloDesparacitada.setSelected(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
 
-		checkSoloCastrada.setVisible(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
 		checkSoloCastrada.setSelected(usuarioSeleccionado.getCondicionesRefugio().isSoloDesparacitada());
 
-		checkSoloVacunada.setVisible(usuarioSeleccionado.getCondicionesRefugio().isSoloVacunada());
 		checkSoloVacunada.setSelected(usuarioSeleccionado.getCondicionesRefugio().isSoloVacunada());
 
-		checkNecesitaAlimentos.setVisible(usuarioSeleccionado.getCondicionesRefugio().isNecesitaAlimentos());
 		checkNecesitaAlimentos.setSelected(usuarioSeleccionado.getCondicionesRefugio().isNecesitaAlimentos());
 	}
 	

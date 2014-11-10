@@ -19,6 +19,7 @@ public class VentanaRegistroMascotas extends JFrame {
 	private JTextField numeroDeChip;
 	private JTextField textField;
 	public VentanaRegistroMascotas() {
+		setResizable(false);
 		setTitle("  Registro de mascotas");
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
