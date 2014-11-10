@@ -20,7 +20,7 @@ public class Imagenes {
 	protected static String rutaFotosUsuarios = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\usuarios\\";
 	protected static String rutaFotosSistema  = directorioSistema + "\\src\\dogslovers\\recursos\\imagenes\\sistema\\";
 	
-	private static BufferedImage cargarImagen(String pRuta) throws ImagenNoEncontradaException{
+	public static BufferedImage cargarImagen(String pRuta) throws ImagenNoEncontradaException{
 		// JOptionPane.showMessageDialog(null, pRuta);
 		try {
 			return ImageIO.read(new File(pRuta));
@@ -104,7 +104,7 @@ public class Imagenes {
 			FileOutputStream flujoArchivoSalida = new FileOutputStream(pDestino.toString());
 			byte[] buffer = new byte[1024];
 			int length;
-			while ((length = flujoArchivoEntrada.read(buffer)) > 0) {
+			while ((length = flujoArchivoEntrada.read(buffer)) > 0) { 
 				flujoArchivoSalida.write(buffer, 0, length);
 			}
 			flujoArchivoEntrada.close();
@@ -114,5 +114,10 @@ public class Imagenes {
 				"No se pudo copiar la imagen seleccionada.\n" + noHayArchivo.getMessage(),
 				"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public static String seleccionarImagen() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

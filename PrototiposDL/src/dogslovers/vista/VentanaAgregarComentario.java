@@ -31,7 +31,7 @@ public class VentanaAgregarComentario extends JFrame {
 	private JLabel lblTitulo;
 	private JPanel panelTitulo;
 	private JPanel cajaComentarios;
-	private JComboBox<Double> comboCalificacion;
+	private JComboBox<Integer> comboCalificacion;
 	private JLabel lblCalificacion;
 	private JButton btnCancelar;
 	private JButton btnComentar;
@@ -78,7 +78,7 @@ public class VentanaAgregarComentario extends JFrame {
 		lblCalificacion.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelCalificacion.add(lblCalificacion, BorderLayout.CENTER);
 		
-		comboCalificacion = new JComboBox<Double>();
+		comboCalificacion = new JComboBox<Integer>();
 		comboCalificacion.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2, 3, 4, 5}));
 		panelCalificacion.add(comboCalificacion, BorderLayout.EAST);
 		
