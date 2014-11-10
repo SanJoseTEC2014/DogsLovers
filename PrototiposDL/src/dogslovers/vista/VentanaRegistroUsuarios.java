@@ -37,7 +37,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 	private JButton botonCancelar;
 	private JPanel marcoCampos;
 	private JLabel lblDireccin;
-	private JTextField textField;
+	private JTextField direccionTextBox;
 	
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -71,8 +71,10 @@ public class VentanaRegistroUsuarios extends JFrame {
 					abrirVentanaValidacion("Verificacíon de codigo");
 
 				} catch (MessagingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(getContentPane(),
+							e.getMessage(),
+							"Correo inválido.",
+							JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -104,7 +106,18 @@ public class VentanaRegistroUsuarios extends JFrame {
 		botonRegistrar.setOpaque(false);
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Principal.blanca.add(new Usuario(nicknameTextBox.getText(), nombreTextBox.getText(), apellidosTextBox.getText(), Integer.parseInt(cedulaTextBox.getText()), passwordTextBox.getPassword().toString(), Integer.parseInt(telefonoTextBox.getText()), correoTextBox.getText()));
+				Principal.blanca.add(
+					new Usuario(
+						nicknameTextBox.getText(),
+						nombreTextBox.getText(),
+						apellidosTextBox.getText(),
+						Integer.parseInt(cedulaTextBox.getText()),
+						new String(passwordTextBox.getPassword()),
+						Integer.parseInt(telefonoTextBox.getText()),
+						correoTextBox.getText(),
+						direccionTextBox.getText()
+						)
+					);
 			}
 		});
 		marcoBotones.add(botonRegistrar);
@@ -210,10 +223,10 @@ public class VentanaRegistroUsuarios extends JFrame {
 		lblDireccin = new JLabel("Direcci\u00F3n");
 		marcoCampos.add(lblDireccin);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textField.setColumns(10);
-		marcoCampos.add(textField);
+		direccionTextBox = new JTextField();
+		direccionTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		direccionTextBox.setColumns(10);
+		marcoCampos.add(direccionTextBox);
 	}
 	
 }

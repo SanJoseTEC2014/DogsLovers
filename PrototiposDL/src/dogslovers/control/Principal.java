@@ -125,16 +125,6 @@ public class Principal {
 			public void run() { 
 				coordinador = new CoordinadorVisual();
 				coordinador.mostrarInicioSesion();
-				coordinador.mostrarAgregarComentario();
-				coordinador.mostrarBusqueda();
-				//coordinador.mostrarCondicionesRefugio(blanca.get(0));
-				coordinador.mostrarDetallesMascota();
-				coordinador.mostrarDetallesUsuario();
-				coordinador.mostrarMenuPrincipal();
-				coordinador.mostrarParametrosSistema();
-				coordinador.mostrarRegistroMascotas();
-				coordinador.mostrarRegistroUsuarios();
-
 			}
 		});
 
@@ -236,15 +226,15 @@ public class Principal {
 
 	public static ArrayList<Usuario> getCopiaUsuarios() {
 		ArrayList<Usuario> copia = new ArrayList<Usuario>();
-	    for(Usuario usuario : blanca) copia.add(usuario.clone());
-	    for(Usuario usuario : negra) copia.add(usuario.clone());
+	    for(Usuario usuario : blanca) copia.add((Usuario) usuario.clone());
+	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
 	    return copia;
 	}
 	
 	public static ArrayList<Usuario> getCopiaUsuariosRefugiantes() {
 		ArrayList<Usuario> copia = new ArrayList<Usuario>();
-	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add(usuario.clone());
-	    for(Usuario usuario : negra) copia.add(usuario.clone());
+	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());
+	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
 	    return copia;
 	    
 	}

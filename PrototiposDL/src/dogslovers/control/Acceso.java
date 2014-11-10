@@ -12,7 +12,8 @@ public class Acceso {
 	
 	// Aplicación de Singleton para el superUsuario
 	private static void inicializarSuperUsuario(){
-		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111, "terrier", 25505033, "paws_TEC@gmail.com");
+		superUsuario = new Usuario("pitbull", "Superusuario", "Paws", 111111111,
+				"terrier", 25505033, "paws_TEC@gmail.com", "Barrio Amón");
 		superUsuario.setLapsoEmparejamiento(Usuario.lapsos.get(2));
 		superUsuario.setAdministrador(true);
 	}

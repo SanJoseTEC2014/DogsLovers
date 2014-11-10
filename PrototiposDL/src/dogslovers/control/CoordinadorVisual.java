@@ -88,6 +88,18 @@ public class CoordinadorVisual {
 		busqueda.setVisible(false);
 		agregarComentario.setVisible(false);
 	}
+	
+	public synchronized void mostrarVentanas() {
+		inicioSesion.setVisible(true);
+		parametrosSistema.setVisible(true);
+		menuPrincipal.setVisible(true);
+		detallesUsuario.setVisible(true);
+		detallesMascota.setVisible(true);
+		registroUsuarios.setVisible(true);
+		registroMascotas.setVisible(true);
+		busqueda.setVisible(true);
+		agregarComentario.setVisible(true);
+	}
 
 	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
 		condicionesRefugio.setDatos(usuarioActual);
