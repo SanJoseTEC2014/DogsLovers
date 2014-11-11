@@ -1,5 +1,5 @@
 package dogslovers.control;
-/**	 Clase Búsqueda: 
+/**	 Controlador Búsqueda: 
  * 	 Esta clase implementa los métodos que se encargan
  * 	 de realizar la búsqueda de usuarios y mascotas en 
  *   el sistema.

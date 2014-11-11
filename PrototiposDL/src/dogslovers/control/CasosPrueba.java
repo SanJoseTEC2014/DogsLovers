@@ -1,5 +1,19 @@
 package dogslovers.control;
 
+/**	 Clase CasosPrueba: 
+ * 	 Esta clase implementa métodos para poder cargar
+ * 	 los casos de prueba tanto de mascotas como de usuarios
+ * 	 al sistema.
+ * 
+ *	Fecha de creación: 8/11/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
+
 import java.io.IOException;
 import java.util.*;
 
