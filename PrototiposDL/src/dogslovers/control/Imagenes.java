@@ -2,10 +2,12 @@ package dogslovers.control;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
+import net.coobird.thumbnailator.Thumbnails;
 import dogslovers.control.excepciones.ImagenNoEncontradaException;
 
 public class Imagenes {
@@ -127,6 +129,14 @@ public class Imagenes {
 			throw new ImagenNoEncontradaException("No se seleccionó ninguna imagen.");
 		}
 		return selector.getSelectedFile().getAbsolutePath();
+	}
+	
+	public static BufferedImage redimensionar(BufferedImage origen, int nuevoAncho, int nuevoAlto) throws ImagenNoEncontradaException {
+		try {
+			return Thumbnails.of(origen).size(nuevoAncho, nuevoAlto).asBufferedImage();
+		} catch (IOException e) {
+			throw new ImagenNoEncontradaException("No se encuentra la imagen requerida.");
+		}
 	}
 	
 }

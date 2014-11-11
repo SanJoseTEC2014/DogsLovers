@@ -3,6 +3,7 @@ package dogslovers.vista;
 import java.awt.Font;
 
 import javax.swing.*;
+
 import dogslovers.control.Acceso;
 import dogslovers.control.Imagenes;
 import dogslovers.control.Principal;
@@ -15,7 +16,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
 import java.awt.GridLayout;
-
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -312,12 +312,13 @@ public class VentanaRegistroMascotas extends JFrame {
 							imagenSeleccionada = Imagenes.seleccionarImagen();
 							int ancho = labelFoto.getSize().width;
 							int alto = labelFoto.getSize().height;
+							BufferedImage porInsertar = Imagenes.redimensionar(
+									Imagenes.cargarImagen(imagenSeleccionada), ancho, alto);
 							labelFoto.setText("");
-							labelFoto.setIcon(new ImageIcon(Imagenes.cargarImagen(imagenSeleccionada)
-									.getScaledInstance(ancho, alto, BufferedImage.SCALE_FAST)));
+							labelFoto.setIcon(new ImageIcon(porInsertar));
 						} catch (ImagenNoEncontradaException e) {
 							JOptionPane.showMessageDialog(getContentPane(), e.getMessage(),
-									"Advertencia", JOptionPane.WARNING_MESSAGE);
+								"Advertencia", JOptionPane.WARNING_MESSAGE);
 							imagenSeleccionada = "";
 							labelFoto.setIcon(null);
 							labelFoto.setText("Ninguna Seleccionada");

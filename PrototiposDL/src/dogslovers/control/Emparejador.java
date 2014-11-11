@@ -206,6 +206,3 @@ public class Emparejador {
 		return refugiantes;
 	}
 }
-
-
-

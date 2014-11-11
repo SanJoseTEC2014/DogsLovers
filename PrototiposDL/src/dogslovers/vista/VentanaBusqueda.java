@@ -411,9 +411,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				if (pestanias.getSelectedIndex() == 0){
 					int fila = tablaResultadosUsuarios.getSelectedRow();
 					if (fila != -1){
-						String nick = (String) tablaResultadosUsuarios.getValueAt(fila, 0);
-						
-						
+						String nick = (String) tablaResultadosUsuarios.getValueAt(fila, 0);						
 						try {
 							Principal.coordinador.mostrarDetallesUsuario(Principal.getUsuarioListaBlanca(nick));
 						} catch (UsuarioNoExisteException e) {
