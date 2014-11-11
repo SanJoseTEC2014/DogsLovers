@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 
+import dogslovers.control.excepciones.MascotaNoEncontradaException;
 import dogslovers.control.excepciones.UsuarioNoExisteException;
+import dogslovers.modelo.Mascota;
 
 public class ValidacionesRegistro {
 
@@ -40,5 +42,14 @@ public class ValidacionesRegistro {
 				return false; // No se repite
 			}
 		}
+	}
+	
+	public static boolean isNumeroChipMascotaRepetido(String pNumeroChip){
+		for (Mascota mascota : Principal.perdidas) 		if (mascota.getNumeroChip().equals(pNumeroChip)) return true;
+		for (Mascota mascota : Principal.encontradas) 	if (mascota.getNumeroChip().equals(pNumeroChip)) return true;
+		for (Mascota mascota : Principal.refugiadas) 	if (mascota.getNumeroChip().equals(pNumeroChip)) return true;
+		for (Mascota mascota : Principal.adoptadas) 	if (mascota.getNumeroChip().equals(pNumeroChip)) return true;
+		for (Mascota mascota : Principal.enAdopcion) 	if (mascota.getNumeroChip().equals(pNumeroChip)) return true;
+		return false;
 	}
 }
