@@ -6,7 +6,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import dogslovers.control.Imagenes;
 import dogslovers.control.MaquinaEstadosMascotas;
+import dogslovers.control.excepciones.ImagenNoEncontradaException;
 import dogslovers.modelo.Mascota;
 import dogslovers.recursos.Diseno;
 
@@ -15,7 +17,6 @@ public class VentanaDetallesMascota extends JFrame {
 	private JCheckBox checkVacunada;
 	private JCheckBox checkCastrada;
 	private JCheckBox checkDesparacitada;
-	private JCheckBox checkDiscapacitada;
 	private JRadioButton radioPerdida;
 	private JRadioButton radioEncontrada;
 	private JRadioButton radioLocalizada;
@@ -23,16 +24,14 @@ public class VentanaDetallesMascota extends JFrame {
 	private JRadioButton radioRefugiada;
 	private JComboBox<String> comboEspecie;
 	private JComboBox<String> comboRaza;
-	private JComboBox<String> comboEdad;
 	private JComboBox<String> comboTamanio;
 	private JComboBox<String> comboSexo;
 	private final ButtonGroup buttonGroupEstados = new ButtonGroup();
 	private JTextField campoNumeroChip;
 	private JPanel marcoCentro;
 	private JPanel marcoFoto;
-	private JLabel labelDetalles;
 	private JLabel labelFotoMascota;
-	private JButton botonVerMasFotos;
+	private JButton botonActualizarFoto;
 	private JPanel marcoInformacionPrincipal;
 	private JLabel labelNombre;
 	private JTextField campoNombre;
@@ -40,7 +39,6 @@ public class VentanaDetallesMascota extends JFrame {
 	private JLabel labelColor;
 	private JLabel lblEspecie;
 	private JLabel labelRaza;
-	private JLabel labelEdad;
 	private JLabel labelTamanio;
 	private JLabel labelSexo;
 	private JPanel marcoInferior;
@@ -54,7 +52,8 @@ public class VentanaDetallesMascota extends JFrame {
 	private JLabel labelMontoRecompensa;
 	private JTextField campoMontoRecompensa;
 	private JButton botonQuieroAdoptarEsta;
-
+	private JRadioButton radioAdoptable;
+	
 	public VentanaDetallesMascota() {
 		setSize(600, 500);
 		getContentPane().setBackground(Diseno.fondoVentanas);
@@ -66,40 +65,30 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoCentro.setLayout(new BorderLayout(10, 10));
 
 		marcoFoto = new JPanel();
+		marcoFoto.setBorder(new TitledBorder(null, "Detalles de Mascota", TitledBorder.CENTER, TitledBorder.TOP,
+											Diseno.fuenteTitulosVentanas.deriveFont(25f), null));
 		marcoFoto.setOpaque(false);
 		marcoCentro.add(marcoFoto, BorderLayout.CENTER);
 		marcoFoto.setLayout(new BorderLayout(10, 10));
-		labelDetalles = new JLabel("Detalles Mascota");
-		marcoFoto.add(labelDetalles, BorderLayout.NORTH);
-		labelDetalles.setHorizontalAlignment(SwingConstants.CENTER);
-		labelDetalles.setFont(Diseno.fuenteTitulosVentanas.deriveFont(25f));
 
-		labelFotoMascota = new JLabel("FOTO MASCOTA");
+		labelFotoMascota = new JLabel("");
 		marcoFoto.add(labelFotoMascota, BorderLayout.CENTER);
-		labelFotoMascota.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
-				null));
-		labelFotoMascota.setBackground(Color.GREEN);
 		labelFotoMascota.setHorizontalAlignment(SwingConstants.CENTER);
 
-		botonVerMasFotos = new JButton("Ver m\u00E1s fotos");
-		botonVerMasFotos.setOpaque(false);
-		marcoFoto.add(botonVerMasFotos, BorderLayout.SOUTH);
+		botonActualizarFoto = new JButton("Actualizar Foto");
+		botonActualizarFoto.setOpaque(false);
+		marcoFoto.add(botonActualizarFoto, BorderLayout.SOUTH);
 
 		marcoInformacionPrincipal = new JPanel();
 		marcoInformacionPrincipal.setOpaque(false);
 		marcoCentro.add(marcoInformacionPrincipal, BorderLayout.EAST);
-		marcoInformacionPrincipal.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"),
-				"Informaci\u00F3n Principal", TitledBorder.LEADING,
-				TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 11), new Color(
-						0, 0, 0)));
-		marcoInformacionPrincipal.setLayout(new GridLayout(9, 2, 0, 10));
+		marcoInformacionPrincipal.setBorder(new TitledBorder(null, "Informaci\u00F3n Principal", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		marcoInformacionPrincipal.setLayout(new GridLayout(8, 2, 0, 0));
 
 		labelNombre = new JLabel("Nombre");
 		marcoInformacionPrincipal.add(labelNombre);
 
 		campoNombre = new JTextField();
-		campoNombre.setEditable(false);
 		marcoInformacionPrincipal.add(campoNombre);
 		campoNombre.setColumns(12);
 
@@ -107,7 +96,6 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoInformacionPrincipal.add(labelNumeroChip);
 
 		campoNumeroChip = new JTextField();
-		campoNumeroChip.setEditable(false);
 		campoNumeroChip.setColumns(12);
 		marcoInformacionPrincipal.add(campoNumeroChip);
 
@@ -115,7 +103,6 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoInformacionPrincipal.add(labelColor);
 
 		campoColor = new JTextField();
-		campoColor.setEditable(false);
 		marcoInformacionPrincipal.add(campoColor);
 		campoColor.setColumns(12);
 
@@ -123,7 +110,25 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoInformacionPrincipal.add(lblEspecie);
 
 		comboEspecie = new JComboBox<String>();
-		comboEspecie.setEnabled(false);
+		comboEspecie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboRaza.setModel(Mascota.getModeloRazas((String) comboEspecie.getSelectedItem()));
+			}
+		});
+		// Esto permite que cuando el ComboBox esté desactivado, pueda
+		// seguir viéndose el texto de la especie de la Mascota claramente.
+		comboEspecie.setRenderer(new DefaultListCellRenderer(){
+		    @Override
+		    public Component
+		    getListCellRendererComponent(JList<?> list, Object value, int index,
+		    							boolean isSelected, boolean cellHasFocus)
+		    {
+		        JComponent result = (JComponent)super.getListCellRendererComponent
+		        					(list, value, index, isSelected, cellHasFocus);
+		        result.setOpaque(false);
+		        return result;
+		    }
+		});
 		comboEspecie.setToolTipText("");
 		marcoInformacionPrincipal.add(comboEspecie);
 
@@ -131,9 +136,8 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoInformacionPrincipal.add(labelRaza);
 
 		comboRaza = new JComboBox<String>();
-		comboRaza.setEnabled(false);
 		// Esto permite que cuando el ComboBox esté desactivado, pueda
-		// seguir viéndose el texto del lapso del Usuario claramente.
+		// seguir viéndose el texto de la raza de la Mascota claramente.
 		comboRaza.setRenderer(new DefaultListCellRenderer(){
 		    @Override
 		    public Component
@@ -146,32 +150,18 @@ public class VentanaDetallesMascota extends JFrame {
 		        return result;
 		    }
 		});
-		// Aquí se obtienen los datos directamente del Modelo
-		// String[] lapsos = (String[]) Usuario.lapsos.toArray();
-		// comboRaza.setModel(new DefaultComboBoxModel<String>(lapsos));
 		marcoInformacionPrincipal.add(comboRaza);
-		
-		marcoInformacionPrincipal.add(comboRaza);
-
-		labelEdad = new JLabel("Edad");
-		marcoInformacionPrincipal.add(labelEdad);
-
-		comboEdad = new JComboBox<String>();
-		comboEdad.setEnabled(false);
-		marcoInformacionPrincipal.add(comboEdad);
 
 		labelTamanio = new JLabel("Tama\u00F1o");
 		marcoInformacionPrincipal.add(labelTamanio);
 
 		comboTamanio = new JComboBox<String>();
-		comboTamanio.setEnabled(false);
 		marcoInformacionPrincipal.add(comboTamanio);
 
 		labelSexo = new JLabel("Sexo");
 		marcoInformacionPrincipal.add(labelSexo);
 
 		comboSexo = new JComboBox<String>();
-		comboSexo.setEnabled(false);
 		marcoInformacionPrincipal.add(comboSexo);
 		
 		labelMontoRecompensa = new JLabel("Monto Recompensa:");
@@ -181,8 +171,14 @@ public class VentanaDetallesMascota extends JFrame {
 		campoMontoRecompensa.setEditable(false);
 		campoMontoRecompensa.setColumns(12);
 		marcoInformacionPrincipal.add(campoMontoRecompensa);
-		botonVerMasFotos.addActionListener(new ActionListener() {
+		botonActualizarFoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					String rutaFotoMascota = Imagenes.seleccionarImagen();
+					labelFotoMascota.setIcon(new ImageIcon(Imagenes.cargarImagen(rutaFotoMascota)));
+				} catch (ImagenNoEncontradaException e1) {
+					JOptionPane.showMessageDialog(getContentPane(), e1.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 
@@ -194,11 +190,8 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoRadios = new JPanel();
 		marcoRadios.setOpaque(false);
 		marcoInferior.add(marcoRadios, BorderLayout.NORTH);
-		marcoRadios.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Estado Actual",
-				TitledBorder.LEFT, TitledBorder.TOP, new Font("Tahoma",
-						Font.BOLD, 11), new Color(0, 0, 0)));
-		marcoRadios.setLayout(new GridLayout(0, 5, 20, 20));
+		marcoRadios.setBorder(new TitledBorder(null, "Estado Actual", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		marcoRadios.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		radioPerdida = new JRadioButton("Perdida");
 		radioPerdida.setEnabled(false);
@@ -217,6 +210,11 @@ public class VentanaDetallesMascota extends JFrame {
 		radioLocalizada.setOpaque(false);
 		buttonGroupEstados.add(radioLocalizada);
 		marcoRadios.add(radioLocalizada);
+		
+		radioAdoptable = new JRadioButton("Adoptable");
+		radioAdoptable.setOpaque(false);
+		radioAdoptable.setEnabled(false);
+		marcoRadios.add(radioAdoptable);
 
 		radioAdoptada = new JRadioButton("Adoptada");
 		radioAdoptada.setEnabled(false);
@@ -233,12 +231,8 @@ public class VentanaDetallesMascota extends JFrame {
 		marcoChecks = new JPanel();
 		marcoChecks.setOpaque(false);
 		marcoInferior.add(marcoChecks, BorderLayout.CENTER);
-		marcoChecks.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"),
-				"Información Física & Veterinaria", TitledBorder.LEFT,
-				TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 11), new Color(
-						0, 0, 0)));
-		marcoChecks.setLayout(new GridLayout(0, 4, 20, 20));
+		marcoChecks.setBorder(new TitledBorder(null, "Informaci\u00F3n F\u00EDsica & Veterinaria", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		marcoChecks.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		checkVacunada = new JCheckBox("Vacunada");
 		checkVacunada.setEnabled(false);
@@ -254,11 +248,6 @@ public class VentanaDetallesMascota extends JFrame {
 		checkDesparacitada.setEnabled(false);
 		checkDesparacitada.setOpaque(false);
 		marcoChecks.add(checkDesparacitada);
-
-		checkDiscapacitada = new JCheckBox("Discapacitada");
-		checkDiscapacitada.setEnabled(false);
-		checkDiscapacitada.setOpaque(false);
-		marcoChecks.add(checkDiscapacitada);
 
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
@@ -345,33 +334,24 @@ public class VentanaDetallesMascota extends JFrame {
 		
 		labelMontoRecompensa.setVisible(mascota.getEstadoActual().equals(MaquinaEstadosMascotas.estadoPERDIDA));
 		campoMontoRecompensa.setVisible(mascota.getEstadoActual().equals(MaquinaEstadosMascotas.estadoPERDIDA));
-		campoMontoRecompensa.setText(mascota.getRecompensa().toString());
+		campoMontoRecompensa.setText(mascota.getRecompensa() == null ? "0" : mascota.getRecompensa().toString());
 		
 		// pone el boton de adoptar visible si la mascota está adoptable o en refugio
-		botonQuieroAdoptarEsta.setVisible(mascota.getEstadoActual()
-				.equals(MaquinaEstadosMascotas.estadoADOPTABLE)
-						|| mascota.getEstadoActual()
-						.equals(MaquinaEstadosMascotas.estadoREFUGIADA));
+		botonQuieroAdoptarEsta.setVisible(
+				mascota.getEstadoActual().equals(MaquinaEstadosMascotas.estadoADOPTABLE)
+				|| mascota.getEstadoActual().equals(MaquinaEstadosMascotas.estadoREFUGIADA));
 		
+		comboEspecie.setModel(Mascota.getModeloEspecies());
+		comboEspecie.setSelectedItem(mascota.getEspecie());
 		
-		DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+		comboRaza.setModel(Mascota.getModeloRazas((String) comboEspecie.getSelectedItem()));
+		comboRaza.setSelectedItem(mascota.getRaza());
 		
-		modelo.addElement(mascota.getEspecie());
-		comboEspecie.setModel(modelo);
+		comboSexo.setModel(Mascota.getModeloSexos());
+		comboSexo.setSelectedItem(mascota.getSexo());
 		
-		modelo.removeAllElements();
-		modelo.addElement(mascota.getRaza());
-		comboRaza.setModel(modelo);
-		
-		modelo.removeAllElements();
-		modelo.addElement(mascota.getSexo());
-		comboSexo.setModel(modelo);
-		
-		modelo.removeAllElements();
-		modelo.addElement(mascota.getTamanio());
-		comboTamanio.setModel(modelo);
-		
-		
+		comboTamanio.setModel(Mascota.getModeloTamanios());
+		comboTamanio.setSelectedItem(mascota.getTamanio());
 		//TODO activarRadiobuttonEstadoActual();
 		
 		

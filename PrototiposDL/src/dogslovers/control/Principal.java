@@ -42,27 +42,34 @@ public class Principal {
 		Mascota.addRaza("Perro", "Rottweiler");
 		Mascota.addRaza("Perro", "Golden Retreiver");
 		
-		Suceso suceso1 = new Suceso("lizchavca", "San José", "Se perdió chingo.");
-		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro", 500000000, "ola k ase");
-		mascota1.addPerdida(suceso1);
-		mascota1.setColor("Negro");
-		mascota1.setTamanio("Grande");
-		mascota1.setSexo("Macho");
+		Mascota.addEspecie("Gato");
+		Mascota.addRaza("Gato", "Angora");
+		Mascota.addRaza("Gato", "Himalaya");
+		Mascota.addRaza("Gato", "Siamés");
+		Mascota.addRaza("Gato", "Tuxedo");
+		Mascota.addRaza("Gato", "Toyger");
 		
-		Suceso suceso2 = new Suceso("lapc506", "Heredia", "Se perdió con ropa.");
-		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro", 0, "meeeooowww");
-		mascota2.addEncuentro(suceso2);
-		mascota2.setColor("Negro");
-		mascota2.setTamanio("Pequeño");
-		mascota2.setSexo("Macho");
-		
-		for(int i = 0; i < 10; i++) {
-			encontradas.add(mascota1);
-			encontradas.add(mascota2);
-		}
-		
-		// Validación de inserción de las 100 Mascota
-		// System.out.println(encontradas.size());
+//		Suceso suceso1 = new Suceso("lizchavca", "San José", "Se perdió chingo.");
+//		Mascota mascota1 = new Mascota("Waffles", "Perro", "Otro", 500000000);
+//		mascota1.addPerdida(suceso1);
+//		mascota1.setColor("Negro");
+//		mascota1.setTamanio("Grande");
+//		mascota1.setSexo("Macho");
+//		
+//		Suceso suceso2 = new Suceso("lapc506", "Heredia", "Se perdió con ropa.");
+//		Mascota mascota2 = new Mascota("Chochoi", "Gato", "Otro", 0);
+//		mascota2.addEncuentro(suceso2);
+//		mascota2.setColor("Negro");
+//		mascota2.setTamanio("Pequeño");
+//		mascota2.setSexo("Macho");
+//		
+//		for(int i = 0; i < 10; i++) {
+//			encontradas.add(mascota1);
+//			encontradas.add(mascota2);
+//		}
+//		
+//		 Validación de inserción de las 100 Mascota
+//		 System.out.println(encontradas.size());
 	}
 	
 	public static void inicializarUsuarios() {
@@ -107,7 +114,7 @@ public class Principal {
 		Tiempo.setFechaInicioProduccion(Calendar.getInstance());
 		Diseno.inicializarFuentePaws();
 		Diseno.inicializarLookAndFeel();
-		
+		CasosPrueba.cargarDocumentoUsuariosPrueba();
 		inicializarMascotas();
 		inicializarUsuarios();
 		

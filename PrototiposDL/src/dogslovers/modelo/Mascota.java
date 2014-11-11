@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
 import dogslovers.control.Imagenes;
@@ -23,7 +24,6 @@ import dogslovers.modelo.Suceso;
 
 public class Mascota {
 
-	private static LinkedList<String> edades = new LinkedList<String>();
 	private static LinkedList<String> tamanios = new LinkedList<String>();
 	private static LinkedList<String> colores = new LinkedList<String>();
 	private static LinkedList<String> especies = new LinkedList<String>();
@@ -47,17 +47,14 @@ public class Mascota {
 	private ArrayList<Suceso> sucesos = new ArrayList<Suceso>(); //para cada suceso del array corresponde un estado
 	private ArrayList<String> estados = new ArrayList<String>();
 	
-	private Suceso perdida;
 	private Integer recompensa;
-	private String notas;
 
-	public Mascota(String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
+	public Mascota(String pNombre, String pEspecie, String pRaza, Integer pRecompensa) {
 		id = ++totalIDsRegistradas;
 		nombre = pNombre;
 		especie = pEspecie;
 		raza = pRaza;
 		recompensa = pRecompensa;
-		notas = pNotas;
 	}
 
 	public Integer getID() {
@@ -152,10 +149,6 @@ public class Mascota {
 		this.tamanio = tamanio;
 	}
 
-	public Suceso getPerdida() {
-		return perdida;
-	}
-
 	public void addPerdida(Suceso perdida) {
 		sucesos.add(perdida);
 		estados.add(MaquinaEstadosMascotas.estadoPERDIDA);
@@ -195,14 +188,6 @@ public class Mascota {
 		this.recompensa = recompensa;
 	}
 
-	public String getNotasSecundarias() {
-		return notas;
-	}
-
-	public void setNotasSecundarias(String notas) {
-		this.notas = notas;
-	}
-
 	// MAQUINA DE ESTADOS
 	public String getEstadoActual() {
 		return estados.get(estados.size()-1);
@@ -235,17 +220,16 @@ public class Mascota {
 	}
 
 	// Constructor invocado únicamente por el método .clone()
-	private Mascota(Integer pID, String pNombre, String pEspecie, String pRaza, Integer pRecompensa, String pNotas) {
+	private Mascota(Integer pID, String pNombre, String pEspecie, String pRaza, Integer pRecompensa) {
 		id = pID;
 		nombre = pNombre;
 		especie = pEspecie;
 		raza = pRaza;
 		recompensa = pRecompensa;
-		notas = pNotas;
 	}
 	
 	public Mascota clone() {
-		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa, notas);
+		  Mascota clone = new Mascota(id, nombre, especie, raza, recompensa);
 		  clone.setColor(color);
 		  clone.setEdad(edad);
 		  clone.setNumeroChip(numeroChip);
@@ -258,33 +242,24 @@ public class Mascota {
 	}
 
 	public static DefaultComboBoxModel<String> getModeloEspecies() {
-		return new DefaultComboBoxModel<String>((String[]) especies.toArray());
+		int size = especies.size();
+		return new DefaultComboBoxModel<String>(especies.toArray(new String[size]));
 	}
 	
 	// Recibe la especie seleccionada en el JComboBox para que éste pueda refrescarse
 	// cuando se está editando la especie de una Mascota.
 	public static DefaultComboBoxModel<String> getModeloRazas(String pEspecie) {
-		return new DefaultComboBoxModel<String>(
-			(String[]) razas.get(
-				especies.indexOf(pEspecie)
-			).toArray()
-		);
-	}
-	
-	public static DefaultComboBoxModel<String> getModeloEdades() {
-		  return new DefaultComboBoxModel<String>((String[]) edades.toArray());
+		int size = razas.get(especies.indexOf(pEspecie)).size();
+		return new DefaultComboBoxModel<String>(razas.get(especies.indexOf(pEspecie)).toArray(new String[size]));
 	}
 	
 	public static DefaultComboBoxModel<String> getModeloTamanios() {
-		  return new DefaultComboBoxModel<String>((String[]) tamanios.toArray());
+		  return new DefaultComboBoxModel<String>(tamanios.toArray(new String[3]));
 	}
 	
 	public static DefaultComboBoxModel<String> getModeloColores() {
-		  return new DefaultComboBoxModel<String>((String[]) colores.toArray());
-	}
-	
-	public static void addEdad(String pEdad){
-		edades.add(pEdad);
+		int size = colores.size();
+		return new DefaultComboBoxModel<String>(colores.toArray(new String[size]));
 	}
 	
 	public static void addTamanio(String pTamanio){
@@ -314,6 +289,10 @@ public class Mascota {
 
 	public static Integer getTotalChips() {
 		return totalIDsRegistradas;
+	}
+
+	public static ComboBoxModel<String> getModeloSexos() {
+		return new DefaultComboBoxModel<String>(new String[]{"Macho", "Hembra"});
 	}
 	
 }

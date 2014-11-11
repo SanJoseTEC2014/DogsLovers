@@ -14,8 +14,6 @@ public class CoordinadorVisual {
 	private VentanaMenuPrincipal menuPrincipal;
 	private VentanaDetallesUsuario detallesUsuario;
 	private VentanaDetallesMascota detallesMascota;
-	private VentanaRegistroUsuarios registroUsuarios;
-	private VentanaRegistroMascotas registroMascotas;
 	private VentanaBusqueda busqueda;
 	private VentanaAgregarComentario agregarComentario;
 	
@@ -30,8 +28,6 @@ public class CoordinadorVisual {
 		menuPrincipal = new VentanaMenuPrincipal();
 		detallesUsuario = new VentanaDetallesUsuario();
 		detallesMascota = new VentanaDetallesMascota();
-		registroUsuarios = new VentanaRegistroUsuarios();
-		registroMascotas = new VentanaRegistroMascotas();
 		busqueda = new VentanaBusqueda();
 		condicionesRefugio = new VentanaCondicionesRefugio();
 		agregarComentario = new VentanaAgregarComentario();
@@ -64,10 +60,12 @@ public class CoordinadorVisual {
 	}
 
 	public synchronized void mostrarRegistroUsuarios() {
+		VentanaRegistroUsuarios registroUsuarios = new VentanaRegistroUsuarios();
 		registroUsuarios.setVisible(true);
 	}
 
 	public synchronized void mostrarRegistroMascotas() {
+		VentanaRegistroMascotas registroMascotas = new VentanaRegistroMascotas();
 		registroMascotas.setVisible(true);
 	}
 
@@ -86,8 +84,6 @@ public class CoordinadorVisual {
 		menuPrincipal.setVisible(false);
 		detallesUsuario.setVisible(false);
 		detallesMascota.setVisible(false);
-		registroUsuarios.setVisible(false);
-		registroMascotas.setVisible(false);
 		busqueda.setVisible(false);
 		agregarComentario.setVisible(false);
 	}
@@ -98,8 +94,6 @@ public class CoordinadorVisual {
 		menuPrincipal.setVisible(true);
 		detallesUsuario.setVisible(true);
 		detallesMascota.setVisible(true);
-		registroUsuarios.setVisible(true);
-		registroMascotas.setVisible(true);
 		busqueda.setVisible(true);
 		agregarComentario.setVisible(true);
 	}
