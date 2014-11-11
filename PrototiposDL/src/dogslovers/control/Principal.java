@@ -32,6 +32,13 @@ public class Principal {
 		throw new UsuarioNoExisteException("El usuario no aparece registrado.");
 	}
 	
+	public static Usuario getUsuarioListaNegra(String pNickname) throws UsuarioNoExisteException{
+		for (Usuario x : negra){
+			if (x.getNickname().equals(pNickname)) return x;
+		}
+		throw new UsuarioNoExisteException("El usuario no aparece registrado.");
+	}
+	
 	public static void inicializarMascotas() {
 		Mascota.addEspecie("Perro");
 		Mascota.addRaza("Perro", "Chihuahua");
