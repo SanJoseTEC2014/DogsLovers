@@ -1,3 +1,5 @@
+package dogslovers.control;
+
 /**
  * Controlador : Emparejador
  * Se encarga de realizar el match correspondiente en un lapso definido por el usuario
@@ -12,8 +14,6 @@
  *	@author Luis Andrés Peña Castillo 2014057250 
  *
  */
-package dogslovers.control;
-
 import java.util.ArrayList;
 
 import javax.mail.*;

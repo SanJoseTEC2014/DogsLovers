@@ -166,7 +166,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		
 		this.usuarioSeleccionado = pUsuarioSeleccionado;
 		
-		textDetalles.setText(usuarioSeleccionado.getCondicionesRefugio().getDetallesAdicionales());
+		textDetalles.setText(usuarioSeleccionado.getCondicionesRefugio().getDetallesAdicionales() == null? "" : usuarioSeleccionado.getCondicionesRefugio().getDetallesAdicionales());
 		
 		botonGuardarCambios.setVisible(usuarioSeleccionado == Acceso.getUsuarioActivo());
 
