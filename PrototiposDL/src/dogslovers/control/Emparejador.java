@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.mail.*;
 import javax.swing.*;
 
+import dogslovers.modelo.ColeccionMascotas;
 import dogslovers.modelo.CondicionesRefugio;
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
@@ -33,14 +34,14 @@ public class Emparejador {
 		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+				for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 					emparejarAutomatico(mascota, pUsuario);
 				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+					for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -50,7 +51,7 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+					for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -85,7 +86,7 @@ public class Emparejador {
 		
 	}
 		
-	private static ArrayList<Mascota> emparejarBajoDemanda(Mascota pMascotaEscogida) {
+	public static ArrayList<Mascota> emparejarBajoDemanda(Mascota pMascotaEscogida) {
 		
 		// Empareja una mascota escogida por pUsuario con todas
 		// las mascotas reportadas en el sistema como:
@@ -118,7 +119,7 @@ public class Emparejador {
 		
     }
 
-	public static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
+	private static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
 		// Empareja una de las mascotas reportadas por pUsuario,
 		// con las mascotas que estén reportadas (a nivel de sistema)
 		// como : "encontradas", "perdidas","refugiadas", "adoptadas", "adoptables",

@@ -43,6 +43,8 @@ public class Usuario implements Comunicable {
 
 	public Usuario(String pNickname, String pNombre, String pApellidos, Integer pCedula, String pContrasenia,
 		Integer pTelefono, String pCorreo, String pDireccion) {
+
+		condicionesRef = new CondicionesRefugio(false, false, false, false, " ");
 		nickname = pNickname;
 		nombre = pNombre;
 		apellidos = pApellidos;
@@ -56,6 +58,7 @@ public class Usuario implements Comunicable {
 		refugiante = false; // se instancian las personas como NO refugiantes
 		administrador = false;
 		ponderadoCalificacion = 5.0;
+		lapsoEmparejamiento = Usuario.lapsos.get(2);
 	}
 
 	public String getNickname() {

@@ -21,6 +21,7 @@ import dogslovers.control.Acceso;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.MascotaNoEncontradaException;
 import dogslovers.control.excepciones.UsuarioNoExisteException;
+import dogslovers.modelo.ColeccionMascotas;
 import dogslovers.modelo.ModeloTablaMascotas;
 import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
@@ -76,7 +77,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnPerdidas = new JRadioButton("Perdidas");
 		rdbtnPerdidas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getPerdidas()));
+				tableMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getPerdidas(usuarioActivo)));
 			}
 		});
 		buttonGroup.add(rdbtnPerdidas);
@@ -85,7 +86,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnEncontradas = new JRadioButton("Encontradas");
 		rdbtnEncontradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getEncontradas()));
+				tableMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getEncontradas(usuarioActivo)));
 
 			}
 		});
@@ -95,7 +96,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnAdoptables = new JRadioButton("Adoptables");
 		rdbtnAdoptables.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getAdoptables()));
+				tableMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getAdoptables(usuarioActivo)));
 
 			}
 		});
@@ -105,7 +106,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnAdoptadas = new JRadioButton("Adoptadas");
 		rdbtnAdoptadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getAdoptadas()));
+				tableMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getAdoptadas(usuarioActivo)));
 
 			}
 		});
@@ -115,7 +116,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnRefugiadas = new JRadioButton("Refugiadas");
 		rdbtnRefugiadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getRefugiadas()));
+				tableMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getRefugiadas(usuarioActivo)));
 			}
 		});
 		buttonGroup.add(rdbtnRefugiadas);
@@ -130,11 +131,11 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		usuarioActivo = pUsuario;
 		if (pUsuario == Acceso.getUsuarioActivo()) botonDetalles.setText("Editar Detalles");
 		
-		rdbtnPerdidas.setVisible(pUsuario.getMascotas().getPerdidas().size() != 0);
-		rdbtnEncontradas.setVisible(pUsuario.getMascotas().getEncontradas().size() != 0);
-		rdbtnAdoptables.setVisible(pUsuario.getMascotas().getAdoptables().size() != 0);
-		rdbtnAdoptadas.setVisible(pUsuario.getMascotas().getAdoptadas().size() != 0);
-		rdbtnRefugiadas.setVisible(pUsuario.getMascotas().getRefugiadas().size() != 0); 
+		rdbtnPerdidas.setVisible(ColeccionMascotas.getPerdidas(pUsuario).size() != 0);
+		rdbtnEncontradas.setVisible(ColeccionMascotas.getEncontradas(pUsuario).size() != 0);
+		rdbtnAdoptables.setVisible(ColeccionMascotas.getAdoptables(pUsuario).size() != 0);
+		rdbtnAdoptadas.setVisible(ColeccionMascotas.getAdoptadas(pUsuario).size() != 0);
+		rdbtnRefugiadas.setVisible(ColeccionMascotas.getRefugiadas(pUsuario).size() != 0); 
 	}
 
 }

@@ -229,7 +229,7 @@ public class VentanaDetallesUsuario extends JFrame {
 				botonDetalles = new JButton("Ver Detalles de Calificaciones");
 				botonDetalles.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-					
+						Principal.coordinador.mostrarCalificaciones(usuarioActual);
 					}
 				});
 				marcoOperaciones.add(botonDetalles);
