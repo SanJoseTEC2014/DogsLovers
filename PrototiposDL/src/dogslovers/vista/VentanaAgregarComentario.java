@@ -27,16 +27,16 @@ import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
 
 public class VentanaAgregarComentario extends JFrame {
-	private JEditorPane textComentario;
-	private JLabel lblTitulo;
-	private JPanel panelTitulo;
+	private JButton btnCancelar;
+	private JButton btnComentar;
 	private JPanel cajaComentarios;
 	private JComboBox<Integer> comboCalificacion;
 	private JLabel lblCalificacion;
-	private JButton btnCancelar;
-	private JButton btnComentar;
+	private JLabel lblTitulo;
 	private JPanel panelBotones;
 	private JPanel panelContenido;
+	private JPanel panelTitulo;
+	private JEditorPane textComentario;
 	private Usuario usuarioACalificar;
 	
 	public VentanaAgregarComentario() {

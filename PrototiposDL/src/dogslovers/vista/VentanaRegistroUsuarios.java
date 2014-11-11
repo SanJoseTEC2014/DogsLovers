@@ -2,42 +2,47 @@ package dogslovers.vista;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
+
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.text.MaskFormatter;
 import javax.mail.MessagingException;
 
 import dogslovers.control.Correo;
 import dogslovers.control.Principal;
+import dogslovers.control.ValidacionesRegistro;
 import dogslovers.modelo.Usuario;
 import dogslovers.recursos.Diseno;
 
 
 
 public class VentanaRegistroUsuarios extends JFrame {
-	private JLabel lblContrasenia;
-	private JPasswordField passwordTextBox;
-	private JLabel lblTelefono;
-	private JLabel lblCorreo;
-	private JTextField telefonoTextBox;
-	private JTextField correoTextBox;
-	private JLabel lblRegistrarse;
+	private JTextField apellidosTextBox;
+	private JButton botonCancelar;
 	private JButton botonLeerCondicionesUso;
-	private JCheckBox aceptarCondicionesUsoCheckBox;
-	private JPanel marcoBotones;
-	private JLabel lblNombre;
+	private JButton botonRegistrar;
+	private JButton btnValidarCampos;
+	private JFormattedTextField cedulaTextBox;
+	private JCheckBox checkBoxAceptarCondicionesUso;
+	private JTextField correoTextBox;
+	private JTextField direccionTextBox;
 	private JLabel lblApellidos;
 	private JLabel lblCedula;
-	private JLabel lblNickname;
-	private JTextField nicknameTextBox;
-	private JTextField cedulaTextBox;
-	private JTextField apellidosTextBox;
-	private JTextField nombreTextBox;
-	private JPanel marcoOperaciones;
-	private JButton botonRegistrar;
-	private JButton botonCancelar;
-	private JPanel marcoCampos;
+	private JLabel lblContrasenia;
+	private JLabel lblCorreo;
 	private JLabel lblDireccin;
-	private JTextField direccionTextBox;
+	private JLabel lblNickname;
+	private JLabel lblNombre;
+	private JLabel lblRegistrarse;
+	private JLabel lblTelefono;
+	private JPanel marcoBotones;
+	private JPanel marcoCampos;
+	private JPanel marcoOperaciones;
+	private JTextField nicknameTextBox;
+	private JTextField nombreTextBox;
+	private JPasswordField passwordTextBox;
+	private JFormattedTextField telefonoTextBox;
 	
 	public VentanaRegistroUsuarios() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -49,54 +54,73 @@ public class VentanaRegistroUsuarios extends JFrame {
 		lblRegistrarse = new JLabel("Registrarse como Nuevo Usuario");
 		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistrarse.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblRegistrarse.setFont(Diseno.fuenteTitulosVentanas.deriveFont(30f));
+		lblRegistrarse.setFont(Diseno.fuenteTitulosVentanas.deriveFont(22f));
 		
 		marcoOperaciones = new JPanel();
 		marcoOperaciones.setOpaque(false);
 		marcoOperaciones.setLayout(new BoxLayout(marcoOperaciones, BoxLayout.Y_AXIS));
 		
+		btnValidarCampos = new JButton("Validar campos");
+		btnValidarCampos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!correoValido()){}
+				if (ValidacionesRegistro.HayCamposVacios(arregloCamposAValidar()) && correoValido()){
+					JOptionPane.showMessageDialog(getContentPane(), "Debe llenar correctamente todos los campos antes de continuar", "Faltan campos",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				else {botonLeerCondicionesUso.isEnabled();}
+			}
+		});
+		btnValidarCampos.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnValidarCampos.setAlignmentX(Component.CENTER_ALIGNMENT);
+		marcoOperaciones.add(btnValidarCampos);
+		
 		botonLeerCondicionesUso = new JButton("Leer Condiciones de Uso");
+		botonLeerCondicionesUso.setEnabled(false);
 		botonLeerCondicionesUso.setOpaque(false);
 		botonLeerCondicionesUso.setAlignmentX(Component.CENTER_ALIGNMENT);
 		marcoOperaciones.add(botonLeerCondicionesUso);
 		
-		aceptarCondicionesUsoCheckBox = new JCheckBox("Aceptar Condiciones de Uso");
-		aceptarCondicionesUsoCheckBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		checkBoxAceptarCondicionesUso = new JCheckBox("Aceptar Condiciones de Uso");
+		checkBoxAceptarCondicionesUso.setEnabled(false);
+		checkBoxAceptarCondicionesUso.addActionListener(new ActionListener() {
+			
 				
-				//TODO validar el correo 
-				
-				try {
-					Correo.enviarCodigoCorreo(nicknameTextBox.getText(), nombreTextBox.getText(), correoTextBox.getText());
-					abrirVentanaValidacion("Verificacíon de codigo");
-
-				} catch (MessagingException e) {
-					JOptionPane.showMessageDialog(getContentPane(),
-							e.getMessage(),
-							"Correo inválido.",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-
-				private void abrirVentanaValidacion(String msg) {
-					JFrame frame = new JFrame(msg);
-					String codigo = JOptionPane.showInputDialog(frame, "Ingrese el codigo enviado al correo",
-							"Verificacíon de codigo", JOptionPane.INFORMATION_MESSAGE);
+					private void abrirVentanaValidacion(String msg) {
 					
-					//if the user presses Cancel, this will be null
-					if (codigo != null){
-						if (codigo.equals(Integer.toString(nicknameTextBox.getText().hashCode()))) {
-							botonRegistrar.setEnabled(true);
-						} else {
-							abrirVentanaValidacion("Codigo incorreco");
+						JFrame frame = new JFrame(msg);
+						String codigo = JOptionPane.showInputDialog(frame, "Ingrese el codigo enviado al correo",
+								"Verificacíon de codigo", JOptionPane.INFORMATION_MESSAGE);
+						
+						//if the user presses Cancel, this will be null
+						if (codigo != null){
+							if (codigo.equals(Integer.toString(nicknameTextBox.getText().hashCode()))) {
+								botonRegistrar.setEnabled(true);
+							} else {
+								abrirVentanaValidacion("Codigo incorreco");
+							}
+						}
+					}
+
+				public void actionPerformed(ActionEvent arg0) {
+					
+					if (checkBoxAceptarCondicionesUso.isSelected()){
+						try {
+							Correo.enviarCodigoCorreo(nicknameTextBox.getText(), nombreTextBox.getText(), correoTextBox.getText());
+							abrirVentanaValidacion("Verificacíon de codigo");
+	
+						} catch (MessagingException e) {
+							JOptionPane.showMessageDialog(getContentPane(),
+									e.getMessage(),
+									"Correo inválido.",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
 		});
-		aceptarCondicionesUsoCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-		marcoOperaciones.add(aceptarCondicionesUsoCheckBox);
-		aceptarCondicionesUsoCheckBox.setOpaque(false);
+		checkBoxAceptarCondicionesUso.setAlignmentX(Component.CENTER_ALIGNMENT);
+		marcoOperaciones.add(checkBoxAceptarCondicionesUso);
+		checkBoxAceptarCondicionesUso.setOpaque(false);
 		
 		marcoBotones = new JPanel();
 		marcoBotones.setOpaque(false);
@@ -118,12 +142,20 @@ public class VentanaRegistroUsuarios extends JFrame {
 						direccionTextBox.getText()
 						)
 					);
+				JOptionPane.showMessageDialog(getContentPane(), "Su cuenta ha sido registrada satisfactoriamente", "Registro finalizado",
+						JOptionPane.INFORMATION_MESSAGE);
+				setVisible(false);
 			}
 		});
 		marcoBotones.add(botonRegistrar);
 		botonRegistrar.setEnabled(false);
 		
 		botonCancelar = new JButton("Cancelar");
+		botonCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
 		botonCancelar.setOpaque(false);
 		botonCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		marcoBotones.add(botonCancelar);
@@ -144,6 +176,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 				"El Usuario podrá registrar a su mascota (o varias) en estado de Perdida, Encontrada o en Adopción "+ "\n"+ 
 				"y asociarlas a su perfil facilitando contenido en forma de texto e imágenes.",
 				"Condiciones de Uso", JOptionPane.INFORMATION_MESSAGE);	
+				checkBoxAceptarCondicionesUso.setEnabled(true);
 			}
 		});
 		
@@ -177,7 +210,14 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoCampos.add(lblCedula);
 		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		cedulaTextBox = new JTextField();
+		MaskFormatter formatoCedula = null;
+		try {
+			formatoCedula = new MaskFormatter("# #### ####");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cedulaTextBox = new JFormattedTextField(formatoCedula);
 		marcoCampos.add(cedulaTextBox);
 		cedulaTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cedulaTextBox.setColumns(10);
@@ -203,7 +243,14 @@ public class VentanaRegistroUsuarios extends JFrame {
 		marcoCampos.add(lblTelefono);
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		telefonoTextBox = new JTextField();
+		MaskFormatter formatoTelefono = null;
+		try {
+			formatoTelefono = new MaskFormatter("#### ####");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		telefonoTextBox = new JFormattedTextField(formatoTelefono);
 		marcoCampos.add(telefonoTextBox);
 		telefonoTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		telefonoTextBox.setColumns(10);
@@ -227,6 +274,20 @@ public class VentanaRegistroUsuarios extends JFrame {
 		direccionTextBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		direccionTextBox.setColumns(10);
 		marcoCampos.add(direccionTextBox);
+	}
+
+	protected String[] arregloCamposAValidar() {
+		String[] camposAValidar = {nicknameTextBox.getText(), 
+				nombreTextBox.getText(), apellidosTextBox.getText(), 
+				cedulaTextBox.getText(), String.valueOf(passwordTextBox.getPassword()), 
+				telefonoTextBox.getText(), correoTextBox.getText(), direccionTextBox.getText()};
+		return camposAValidar;
+	}
+	
+	protected boolean correoValido() {
+		if (!ValidacionesRegistro.validarCorreo(correoTextBox.getText()))
+			lblCorreo.setText("Direccion de correo invalida, favor corregir");
+		return ValidacionesRegistro.validarCorreo(correoTextBox.getText());
 	}
 	
 }
