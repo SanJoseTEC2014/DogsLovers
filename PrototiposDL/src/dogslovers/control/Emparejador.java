@@ -85,7 +85,7 @@ public class Emparejador {
 		
 	}
 		
-	private static ArrayList<Mascota> emparejarBajoDemanda(Mascota pMascotaEscogida) {
+	public static ArrayList<Mascota> emparejarBajoDemanda(Mascota pMascotaEscogida) {
 		
 		// Empareja una mascota escogida por pUsuario con todas
 		// las mascotas reportadas en el sistema como:
@@ -118,7 +118,7 @@ public class Emparejador {
 		
     }
 
-	public static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
+	private static ArrayList<Mascota> getListaCoincidencias(Mascota perdidaAComparar, String pListaMascotasDondeBuscar){
 		// Empareja una de las mascotas reportadas por pUsuario,
 		// con las mascotas que estén reportadas (a nivel de sistema)
 		// como : "encontradas", "perdidas","refugiadas", "adoptadas", "adoptables",
