@@ -1,18 +1,19 @@
+package dogslovers.control;
+
 /**
  * Controlador : Emparejador
  * Se encarga de realizar el match correspondiente en un lapso definido por el usuario
  * con todas las mascotas reportadas como propias con las mascotas que estén reportadas en 
  * el sistema como: "encontradas","perdidas","refugiadas", "adoptadas", "localizadas" o "muertas".
  * 
+ * 	Fecha de creación: 28/10/2014
+ * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573
  *	@author Melissa María Molina Corrales 2013006074
  *	@author Luis Andrés Peña Castillo 2014057250 
  *
- *	Fecha de creación: 28/10/2014
  */
-package dogslovers.control;
-
 import java.util.ArrayList;
 
 import javax.mail.*;
