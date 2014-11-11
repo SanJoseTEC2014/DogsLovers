@@ -364,19 +364,16 @@ public class VentanaRegistroMascotas extends JFrame {
 				Suceso suceso = new Suceso(Acceso.getUsuarioActivo().getNickname(), editorDireccionSuceso.getText(), campoNotas.getText());
 				
 				if (radioButtonAdoptable.isSelected()){ 
-					Acceso.getUsuarioActivo().getMascotas().addAdoptables(mascota);
 					mascota.addAdopcion(suceso);
 					Principal.enAdopcion.add(mascota);
 				}
 				
 				if (radioButtonEncontrada.isSelected()){ 
-					Acceso.getUsuarioActivo().getMascotas().addEncontrada(mascota);
 					mascota.addEncuentro(suceso);
 					Principal.encontradas.add(mascota);
 				}
 				
 				if (radioButtonPerdida.isSelected()){
-					Acceso.getUsuarioActivo().getMascotas().addPerdida(mascota);
 					mascota.addPerdida(suceso);
 					Principal.perdidas.add(mascota);
 				}

@@ -2,101 +2,70 @@ package dogslovers.modelo;
 
 import java.util.ArrayList;
 
+import dogslovers.control.Acceso;
+import dogslovers.control.Principal;
 import dogslovers.control.excepciones.MascotaNoEncontradaException;
+import dogslovers.control.excepciones.UsuarioNoExisteException;
 
 public class ColeccionMascotas {
-	private ArrayList<Mascota> perdidas;
-	private ArrayList<Mascota> encontradas;
-	private ArrayList<Mascota> localizadas;
-	private ArrayList<Mascota> refugiadas;
-	private ArrayList<Mascota> adoptables;
-	private ArrayList<Mascota> adoptadas;
-	
-	public ColeccionMascotas(){
-		perdidas = new ArrayList<Mascota>();
-		encontradas = new ArrayList<Mascota>();
-		localizadas = new ArrayList<Mascota>();
-		refugiadas = new ArrayList<Mascota>();
-		adoptables = new ArrayList<Mascota>();
-		adoptadas = new ArrayList<Mascota>();	
-	}
 
-	public ArrayList<Mascota> getPerdidas() {
+	public static ArrayList<Mascota> getPerdidas(Usuario pUsuario) {
+		ArrayList<Mascota> perdidas = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.perdidas){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				perdidas.add(mascota);
+			}
+		}
 		return perdidas;
 	}
 
-	public ArrayList<Mascota> getEncontradas() {
+	public static ArrayList<Mascota> getEncontradas(Usuario pUsuario) {
+		ArrayList<Mascota> encontradas = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.encontradas){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				encontradas.add(mascota);
+			}
+		}
 		return encontradas;
 	}
 
-	public ArrayList<Mascota> getLocalizadas() {
-		return localizadas;
+	public static ArrayList<Mascota> getLocalizadas(Usuario pUsuario) {
+		ArrayList<Mascota> localizada = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.localizadas){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				localizada.add(mascota);
+			}
+		}
+		return localizada;
 	}
 
-	public ArrayList<Mascota> getRefugiadas() {
+	public static ArrayList<Mascota> getRefugiadas(Usuario pUsuario) {
+		ArrayList<Mascota> refugiadas = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.refugiadas){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				refugiadas.add(mascota);
+			}
+		}
 		return refugiadas;
 	}
 
-	public ArrayList<Mascota> getAdoptables() {
+	public static ArrayList<Mascota> getAdoptables(Usuario pUsuario) {
+		ArrayList<Mascota> adoptables = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.enAdopcion){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				adoptables.add(mascota);
+			}
+		}
 		return adoptables;
 	}
 
-	public ArrayList<Mascota> getAdoptadas() {
+	public static ArrayList<Mascota> getAdoptadas(Usuario pUsuario) {
+		ArrayList<Mascota> adoptadas = new ArrayList<Mascota>();
+		for (Mascota mascota : Principal.adoptadas){
+			if (mascota.getUltimoSuceso().getNick() == pUsuario.getNickname()){
+				adoptadas.add(mascota);
+			}
+		}
 		return adoptadas;
 	}
-	///////////////////////////////////////////////////////////// ADDs y REMOVEs
-	public void addPerdida(Mascota pMascota) {
-		perdidas.add(pMascota);
-	}
-	
-	public Mascota removePerdida(Mascota pMascota) throws MascotaNoEncontradaException {
-		if (!perdidas.remove(pMascota)) {
-			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
-		}
-		return pMascota;
-	}
-
-	public void addEncontrada(Mascota pMascota) {
-		encontradas.add(pMascota);
-	}
-	
-	public Mascota removeEncontrada(Mascota pMascota) throws MascotaNoEncontradaException {
-		if (!encontradas.remove(pMascota)) {
-			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
-		}
-		return pMascota;
-	}
-	
-	public void addRefugiada(Mascota pMascota) {
-		refugiadas.add(pMascota);
-	}
-	
-	public Mascota removeRefugiada(Mascota pMascota) throws MascotaNoEncontradaException {
-		if (!refugiadas.remove(pMascota)) {
-			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
-		}
-		return pMascota;
-	}
-
-	public void addAdoptables(Mascota pMascota) {
-		adoptables.add(pMascota);
-	}
-	
-	public Mascota removeAdoptable(Mascota pMascota) throws MascotaNoEncontradaException {
-		if (!adoptables.remove(pMascota)) {
-			throw new MascotaNoEncontradaException("La mascota no está en la lista indicada.");
-		}
-		return pMascota;
-	}
-	
-	// Estado final, no debería tener remove
-	public void addAdoptada(Mascota pMascota) {
-		adoptadas.add(pMascota);
-	}
-	
-	// Estado final, no debería tener remove
-	public void addLocalizada(Mascota pMascota) {
-		localizadas.add(pMascota);
-	}
-		
 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.mail.*;
 import javax.swing.*;
 
+import dogslovers.modelo.ColeccionMascotas;
 import dogslovers.modelo.CondicionesRefugio;
 import dogslovers.modelo.Usuario;
 import dogslovers.modelo.Mascota;
@@ -33,14 +34,14 @@ public class Emparejador {
 		
 		switch (pUsuario.getLapsoEmparejamiento()){
 			case "diario" : {
-				for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+				for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 					emparejarAutomatico(mascota, pUsuario);
 				}
 			}
 			break;
 			case "semanal": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 7){
-					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+					for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -50,7 +51,7 @@ public class Emparejador {
 			break;
 			case "mensual": {
 				if (pUsuario.getDiasUltimoEmparejamiento() == 30){
-					for (Mascota mascota : pUsuario.getMascotas().getPerdidas()){
+					for (Mascota mascota : ColeccionMascotas.getPerdidas(pUsuario)){
 						emparejarAutomatico(mascota, pUsuario);
 					}
 				} else {
@@ -205,6 +206,3 @@ public class Emparejador {
 		return refugiantes;
 	}
 }
-
-
-

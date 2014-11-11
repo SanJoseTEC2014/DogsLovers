@@ -8,6 +8,8 @@ import dogslovers.control.Acceso;
 import dogslovers.control.Emparejador;
 import dogslovers.control.Principal;
 import dogslovers.control.excepciones.MascotaNoEncontradaException;
+import dogslovers.control.excepciones.UsuarioNoExisteException;
+import dogslovers.modelo.ColeccionMascotas;
 import dogslovers.modelo.Mascota;
 import dogslovers.modelo.ModeloTablaMascotas;
 import dogslovers.modelo.Usuario;
@@ -92,8 +94,10 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnPerdidas = new JRadioButton("Perdidas");
 		rdbtnPerdidas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getPerdidas()));
+
+				tablaMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getPerdidas(usuarioActivo)));
 				botonEmparejamiento.setVisible(true);
+
 			}
 		});
 		buttonGroup.add(rdbtnPerdidas);
@@ -102,8 +106,10 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnEncontradas = new JRadioButton("Encontradas");
 		rdbtnEncontradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getEncontradas()));
+				
+				tablaMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getEncontradas(usuarioActivo)));
 				botonEmparejamiento.setVisible(true);
+
 			}
 		});
 		buttonGroup.add(rdbtnEncontradas);
@@ -112,8 +118,10 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnAdoptables = new JRadioButton("Adoptables");
 		rdbtnAdoptables.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getAdoptables()));
+
+				tablaMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getAdoptables(usuarioActivo)));
 				botonEmparejamiento.setVisible(true);
+
 			}
 		});
 		buttonGroup.add(rdbtnAdoptables);
@@ -122,8 +130,10 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnRefugiadas = new JRadioButton("Refugiadas");
 		rdbtnRefugiadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getRefugiadas()));
+
+				tablaMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getAdoptadas(usuarioActivo)));
 				botonEmparejamiento.setVisible(true);
+
 			}
 		});
 		buttonGroup.add(rdbtnRefugiadas);
@@ -132,7 +142,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		rdbtnAdoptadas = new JRadioButton("Adoptadas");
 		rdbtnAdoptadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tablaMascotas.setModel(new ModeloTablaMascotas(usuarioActivo.getMascotas().getAdoptadas()));
+				tablaMascotas.setModel(new ModeloTablaMascotas(ColeccionMascotas.getRefugiadas(usuarioActivo)));
 				botonEmparejamiento.setVisible(false);
 			}
 		});
@@ -148,11 +158,11 @@ public class VentanaMascotasDeUsuario extends JFrame {
 		usuarioActivo = pUsuario;
 		if (pUsuario == Acceso.getUsuarioActivo()) botonDetalles.setText("Editar Detalles");
 		
-		rdbtnPerdidas.setVisible(pUsuario.getMascotas().getPerdidas().size() != 0);
-		rdbtnEncontradas.setVisible(pUsuario.getMascotas().getEncontradas().size() != 0);
-		rdbtnAdoptables.setVisible(pUsuario.getMascotas().getAdoptables().size() != 0);
-		rdbtnAdoptadas.setVisible(pUsuario.getMascotas().getAdoptadas().size() != 0);
-		rdbtnRefugiadas.setVisible(pUsuario.getMascotas().getRefugiadas().size() != 0); 
+		rdbtnPerdidas.setVisible(ColeccionMascotas.getPerdidas(pUsuario).size() != 0);
+		rdbtnEncontradas.setVisible(ColeccionMascotas.getEncontradas(pUsuario).size() != 0);
+		rdbtnAdoptables.setVisible(ColeccionMascotas.getAdoptables(pUsuario).size() != 0);
+		rdbtnAdoptadas.setVisible(ColeccionMascotas.getAdoptadas(pUsuario).size() != 0);
+		rdbtnRefugiadas.setVisible(ColeccionMascotas.getRefugiadas(pUsuario).size() != 0); 
 	}
 
 }

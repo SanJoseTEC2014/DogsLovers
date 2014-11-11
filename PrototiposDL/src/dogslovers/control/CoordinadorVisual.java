@@ -111,6 +111,7 @@ public class CoordinadorVisual {
 	}
 
 	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
+		
 		condicionesRefugio.setDatos(usuarioActual);
 		condicionesRefugio.setVisible(true);
 		condicionesRefugio.setModoEdicion(usuarioActual == Acceso.getUsuarioActivo());
