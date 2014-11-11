@@ -40,9 +40,7 @@ public class CoordinadorVisual {
 		detallesMascota = new VentanaDetallesMascota();
 		busqueda = new VentanaBusqueda();
 		condicionesRefugio = new VentanaCondicionesRefugio();
-		agregarComentario = new VentanaAgregarComentario();
 		mascotasAsociadas = new VentanaMascotasDeUsuario();
-		calificaciones = new VentanaCalificaciones();
 	}
 	
 	public synchronized void mostrarInicioSesion() {
@@ -96,7 +94,6 @@ public class CoordinadorVisual {
 		detallesUsuario.setVisible(false);
 		detallesMascota.setVisible(false);
 		busqueda.setVisible(false);
-		agregarComentario.setVisible(false);
 	}
 	
 	public synchronized void mostrarVentanas() {
@@ -105,7 +102,6 @@ public class CoordinadorVisual {
 		detallesUsuario.setVisible(true);
 		detallesMascota.setVisible(true);
 		busqueda.setVisible(true);
-		agregarComentario.setVisible(true);
 	}
 
 	public void mostrarCondicionesRefugio(Usuario usuarioActual) {
