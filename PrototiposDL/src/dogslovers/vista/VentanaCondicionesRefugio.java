@@ -36,9 +36,10 @@ import java.awt.CardLayout;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
+import javax.swing.JEditorPane;
 
 public class VentanaCondicionesRefugio extends JFrame {
-	private JTextField textDetalles;
+	private JEditorPane textDetalles;
 	private JButton botonGuardarCambios;
 	private JCheckBox checkSoloDesparacitada;
 	private JCheckBox checkSoloCastrada;
@@ -138,7 +139,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		textDetalles = new JTextField();
+		textDetalles = new JEditorPane();
 		panel_2.add(textDetalles);
 		textDetalles.setEditable(false);
 		textDetalles.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -159,7 +160,7 @@ public class VentanaCondicionesRefugio extends JFrame {
 		Acceso.getUsuarioActivo().getCondicionesRefugio().setSoloCastrada(checkSoloCastrada.isSelected());
 		Acceso.getUsuarioActivo().getCondicionesRefugio().setSoloVacunada(checkSoloVacunada.isSelected());
 		Acceso.getUsuarioActivo().getCondicionesRefugio().setNecesitaAlimentos(checkNecesitaAlimentos.isSelected());
-		
+		setVisible(false);
 	}
 	public void setDatos(Usuario pUsuarioSeleccionado) {
 		
@@ -183,16 +184,12 @@ public class VentanaCondicionesRefugio extends JFrame {
 		textDetalles.setEditable(opcion);
 		
 		checkSoloDesparacitada.setEnabled(opcion);
-		checkSoloDesparacitada.setVisible(opcion);
 
 		checkSoloCastrada.setEnabled(opcion);
-		checkSoloCastrada.setVisible(opcion);
 
 		checkSoloVacunada.setEnabled(opcion);
-		checkSoloVacunada.setVisible(opcion);
 
 		checkNecesitaAlimentos.setEnabled(opcion);
-		checkNecesitaAlimentos.setVisible(opcion);
 
 	}
 	

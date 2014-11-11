@@ -49,7 +49,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Registro de Usuarios");
-		setSize(443,525);
+		setSize(443,557);
 		
 		lblRegistrarse = new JLabel("Registrarse como Nuevo Usuario");
 		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,11 +64,11 @@ public class VentanaRegistroUsuarios extends JFrame {
 		btnValidarCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!correoValido()){}
-				if (ValidacionesRegistro.HayCamposVacios(arregloCamposAValidar()) && correoValido()){
+				if (ValidacionesRegistro.HayCamposVacios(arregloCamposAValidar()) || !correoValido()){
 					JOptionPane.showMessageDialog(getContentPane(), "Debe llenar correctamente todos los campos antes de continuar", "Faltan campos",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				else {botonLeerCondicionesUso.isEnabled();}
+				else {botonLeerCondicionesUso.setEnabled(true);}
 			}
 		});
 		btnValidarCampos.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -212,7 +212,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		
 		MaskFormatter formatoCedula = null;
 		try {
-			formatoCedula = new MaskFormatter("# #### ####");
+			formatoCedula = new MaskFormatter("#########");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -245,7 +245,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 		
 		MaskFormatter formatoTelefono = null;
 		try {
-			formatoTelefono = new MaskFormatter("#### ####");
+			formatoTelefono = new MaskFormatter("########");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -287,6 +287,7 @@ public class VentanaRegistroUsuarios extends JFrame {
 	protected boolean correoValido() {
 		if (!ValidacionesRegistro.validarCorreo(correoTextBox.getText()))
 			lblCorreo.setText("Direccion de correo invalida, favor corregir");
+		else {lblCorreo.setText("Correo");}
 		return ValidacionesRegistro.validarCorreo(correoTextBox.getText());
 	}
 	

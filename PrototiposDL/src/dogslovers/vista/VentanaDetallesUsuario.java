@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class VentanaDetallesUsuario extends JFrame {
 	
-	private JButton botonCondiciones;
+	private JButton botonCondicionesRefugio;
 	private JButton botonDetalles;
 	private JButton botonGuardarCambios;
 	private JButton botonSalir;
@@ -136,7 +136,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(labelCedula);
 						
 						try {
-							formatCedula = new JFormattedTextField(new MaskFormatter("#-####-####"));
+							formatCedula = new JFormattedTextField(new MaskFormatter("#########"));
 							formatCedula.setHorizontalAlignment(SwingConstants.CENTER);
 							marcoDetalles.add(formatCedula);
 						} catch (ParseException e) {
@@ -151,7 +151,7 @@ public class VentanaDetallesUsuario extends JFrame {
 						marcoDetalles.add(labelTelefono);
 						
 						try {
-							formatTelefono = new JFormattedTextField(new MaskFormatter("####-####"));
+							formatTelefono = new JFormattedTextField(new MaskFormatter("########"));
 							formatTelefono.setHorizontalAlignment(SwingConstants.CENTER);
 							marcoDetalles.add(formatTelefono);
 						} catch (ParseException e) {
@@ -212,19 +212,19 @@ public class VentanaDetallesUsuario extends JFrame {
 						Acceso.getUsuarioActivo().setNombre(textNombre.getText());
 						Acceso.getUsuarioActivo().setCorreo(textCorreo.getText());
 						Acceso.getUsuarioActivo().setCedula(Integer.parseInt(formatCedula.getText()));
-						Acceso.getUsuarioActivo().setApellidos(formatTelefono.getText());
+						Acceso.getUsuarioActivo().setTelefono(Integer.parseInt(formatTelefono.getText()));
 						Acceso.getUsuarioActivo().setLapsoEmparejamiento((String)comboLapsos.getSelectedItem());
 					}
 				});
 				marcoOperaciones.add(botonGuardarCambios);
 				
-				botonCondiciones = new JButton("Ver Condiciones de Refugio");
-				botonCondiciones.addActionListener(new ActionListener() {
+				botonCondicionesRefugio = new JButton("Ver Condiciones de Refugio");
+				botonCondicionesRefugio.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						Principal.coordinador.mostrarCondicionesRefugio(usuarioActual);
 					}
 				});
-				marcoOperaciones.add(botonCondiciones);
+				marcoOperaciones.add(botonCondicionesRefugio);
 				
 				botonDetalles = new JButton("Ver Detalles de Calificaciones");
 				botonDetalles.addActionListener(new ActionListener() {
@@ -257,7 +257,8 @@ public class VentanaDetallesUsuario extends JFrame {
 	
 	public void setDatosIniciales(Usuario pUsuario) {
 		
-		botonCondiciones.setVisible(pUsuario == Acceso.getUsuarioActivo());
+		botonCondicionesRefugio.setVisible(pUsuario.isRefugiante());
+		
 		usuarioActual = pUsuario;
 		textNickname.setText(usuarioActual.getNickname());
 		textNombre.setText(usuarioActual.getNombre());
@@ -272,7 +273,7 @@ public class VentanaDetallesUsuario extends JFrame {
 								   "Ponderado: " + usuarioActual.getPonderadoCalificacion());
 		}
 		comboLapsos.setSelectedIndex(Usuario.lapsos.indexOf(usuarioActual.getLapsoEmparejamiento()));
-		botonCondiciones.setVisible(usuarioActual.isRefugiante());
+		botonCondicionesRefugio.setVisible(usuarioActual.isRefugiante());
 	}
 	
 	public void setModoEdicion(boolean pModo){
@@ -286,6 +287,6 @@ public class VentanaDetallesUsuario extends JFrame {
 		comboLapsos.setEnabled(modoEdicion);
 		//botonGuardarCambios.setEnabled(modoEdicion);
 		botonGuardarCambios.setVisible(modoEdicion);
-		if (pModo) botonCondiciones.setText("Editar mis condiciones registro");
+		if (usuarioActual == Acceso.getUsuarioActivo()) {botonCondicionesRefugio.setText("Editar mis condiciones registro");}
 	}
 }
