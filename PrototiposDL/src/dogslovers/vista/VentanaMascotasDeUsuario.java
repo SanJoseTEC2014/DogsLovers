@@ -72,6 +72,7 @@ public class VentanaMascotasDeUsuario extends JFrame {
 						ArrayList<Mascota> resultadosMascota = Emparejador.emparejarBajoDemanda(Principal.getMascotaID(IDMascota));
 						VentanaListaTodasMascotas ventanaResultados = new VentanaListaTodasMascotas();
 						ventanaResultados.setDatosIniciales(resultadosMascota, true);
+						ventanaResultados.setVisible(true);
 					} catch (MascotaNoEncontradaException e1) {
 						JOptionPane.showMessageDialog(getContentPane(),
 						e1.getMessage(), "Error inesperado del sistema.", JOptionPane.ERROR_MESSAGE);
