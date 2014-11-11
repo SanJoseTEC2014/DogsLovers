@@ -166,6 +166,16 @@ public class VentanaMenuPrincipal extends JFrame {
 		mntmSolicitarSerCasa = new JMenuItem("Llenar solicitud refugiante");
 		mnCuenta.add(mntmSolicitarSerCasa);
 		
+		JMenuItem mntmCerrarSesin = new JMenuItem("Cerrar sesi\u00F3n");
+		mntmCerrarSesin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				close();
+				Principal.coordinador.mostrarInicioSesion();
+			}
+		});
+		mntmCerrarSesin.setBackground(Diseno.fondoMarcosVentanas);
+		mnCuenta.add(mntmCerrarSesin);
+		
 	
 		mntmCondicionesDeRefugio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -218,6 +228,10 @@ public class VentanaMenuPrincipal extends JFrame {
 		prueba = new JFlowPanel(configTest);
 		prueba.setOpaque(false);
 		getContentPane().add(prueba);
+	}
+
+	protected void close() {
+		this.dispose();
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {

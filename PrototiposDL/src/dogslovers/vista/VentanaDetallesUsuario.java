@@ -52,6 +52,7 @@ public class VentanaDetallesUsuario extends JFrame {
 	private JTextField textNickname;
 	private JTextField textNombre;
 	private Usuario usuarioActual;
+	private JButton btnAgregarCalificacion;
 
 	public VentanaDetallesUsuario(){
 		setSize(800,500);
@@ -216,6 +217,14 @@ public class VentanaDetallesUsuario extends JFrame {
 						Acceso.getUsuarioActivo().setLapsoEmparejamiento((String)comboLapsos.getSelectedItem());
 					}
 				});
+				
+				btnAgregarCalificacion = new JButton("Agregar Calificacion");
+				btnAgregarCalificacion.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Principal.coordinador.mostrarAgregarComentario(usuarioActual);
+					}
+				});
+				marcoOperaciones.add(btnAgregarCalificacion);
 				marcoOperaciones.add(botonGuardarCambios);
 				
 				botonCondicionesRefugio = new JButton("Ver Condiciones de Refugio");
@@ -274,6 +283,7 @@ public class VentanaDetallesUsuario extends JFrame {
 		}
 		comboLapsos.setSelectedIndex(Usuario.lapsos.indexOf(usuarioActual.getLapsoEmparejamiento()));
 		botonCondicionesRefugio.setVisible(usuarioActual.isRefugiante());
+		btnAgregarCalificacion.setVisible(usuarioActual != Acceso.getUsuarioActivo());
 	}
 	
 	public void setModoEdicion(boolean pModo){

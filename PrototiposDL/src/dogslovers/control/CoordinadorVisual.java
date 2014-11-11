@@ -22,7 +22,6 @@ import dogslovers.modelo.Usuario;
 import dogslovers.vista.*;
 
 public class CoordinadorVisual {
-	private VentanaInicioSesion inicioSesion;
 	private VentanaParametrosSistema parametrosSistema;
 	private VentanaMenuPrincipal menuPrincipal;
 	private VentanaDetallesUsuario detallesUsuario;
@@ -36,7 +35,6 @@ public class CoordinadorVisual {
 	private VentanaCalificaciones calificaciones;
 	
 	public CoordinadorVisual(){
-		inicioSesion = new VentanaInicioSesion();
 		parametrosSistema = new VentanaParametrosSistema();
 		menuPrincipal = new VentanaMenuPrincipal();
 		detallesUsuario = new VentanaDetallesUsuario();
@@ -50,6 +48,7 @@ public class CoordinadorVisual {
 	
 	public synchronized void mostrarInicioSesion() {
 		ocultarVentanas();
+		VentanaInicioSesion inicioSesion = new VentanaInicioSesion();
 		inicioSesion.setVisible(true);
 		ventanaActiva = inicioSesion;
 	}
@@ -92,7 +91,6 @@ public class CoordinadorVisual {
 	}
 	
 	private synchronized void ocultarVentanas() {
-		inicioSesion.setVisible(false);
 		parametrosSistema.setVisible(false);
 		menuPrincipal.setVisible(false);
 		detallesUsuario.setVisible(false);
@@ -102,7 +100,6 @@ public class CoordinadorVisual {
 	}
 	
 	public synchronized void mostrarVentanas() {
-		inicioSesion.setVisible(true);
 		parametrosSistema.setVisible(true);
 		menuPrincipal.setVisible(true);
 		detallesUsuario.setVisible(true);
