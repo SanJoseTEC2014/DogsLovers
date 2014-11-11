@@ -27,7 +27,6 @@ public class CoordinadorVisual {
 	private VentanaDetallesUsuario detallesUsuario;
 	private VentanaDetallesMascota detallesMascota;
 	private VentanaBusqueda busqueda;
-	private VentanaAgregarComentario agregarComentario;
 	
 	private JFrame ventanaActiva;
 	private VentanaCondicionesRefugio condicionesRefugio;
@@ -86,6 +85,7 @@ public class CoordinadorVisual {
 	}
 	
 	public synchronized void mostrarAgregarComentario(Usuario usuarioACalificar){
+		VentanaAgregarComentario agregarComentario = new VentanaAgregarComentario();
 		agregarComentario.setUsuarioACalificar(usuarioACalificar);
 		agregarComentario.setVisible(true);		
 	}

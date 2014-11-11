@@ -92,7 +92,7 @@ public class VentanaAgregarComentario extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				close();
 			}
 		});
 		panelBotones.add(btnCancelar);
@@ -102,10 +102,15 @@ public class VentanaAgregarComentario extends JFrame {
 		btnComentar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				usuarioACalificar.addCalificacion(new Calificacion(Acceso.getUsuarioActivo().getNickname(), (Integer) comboCalificacion.getSelectedItem(), textComentario.getText()));
+				close();
 			}
 		});
 		panelBotones.add(btnComentar);
 		btnComentar.setOpaque(false);
+	}
+	protected void close() {
+		this.dispose();
+		
 	}
 	public void setUsuarioACalificar(Usuario pUsuarioACalificar) {
 		usuarioACalificar = pUsuarioACalificar;
