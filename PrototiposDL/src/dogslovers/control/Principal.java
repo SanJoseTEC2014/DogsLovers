@@ -95,12 +95,13 @@ public class Principal {
 	
 	public static void inicializarUsuarios() {
 		Usuario.setCalificacionMinimaPermitidaUsuarios(3.0);
-		
+		/*
 		blanca.add(new Usuario("lizchavca", "Liza", "Chaves Carranza",
 				116070870, "wat", 89456736, "lizchavca@gmail.com", "sabanilla"));
 		blanca.get(0).addCalificacion(new Calificacion("Isaac", 4, "bakaa"));
 		blanca.get(0).setCondicionesRefugio(new CondicionesRefugio(true, false, true, true, "caca"));
 		blanca.get(0).setRefugiante(true);
+		*/
 	}
 	
 //	public static ArrayList<Mascota> ordenarMascotasExtravioReciente(LinkedList<Mascota> pLista){
@@ -135,6 +136,7 @@ public class Principal {
 		Diseno.inicializarFuentePaws();
 		Diseno.inicializarLookAndFeel();
 		CasosPrueba.cargarDocumentoUsuariosPrueba();
+		CasosPrueba.cargarDocumentoMascotasPrueba();
 		inicializarMascotas();
 		inicializarUsuarios();
 		

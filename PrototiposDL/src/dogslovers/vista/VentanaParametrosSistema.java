@@ -108,6 +108,11 @@ public class VentanaParametrosSistema extends JFrame {
 		panelGeneral.add(labelCasos2);
 		
 		botonCasos2 = new JButton("Cargar");
+		botonCasos2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CasosPrueba.cargarDocumentoMascotasPrueba();
+			}
+		});
 		panelGeneral.add(botonCasos2);
 		botonColorFondo = new JButton("Cambiar Color de Fondo de las Ventanas");
 		botonColorFondo.addActionListener(new ActionListener() {
