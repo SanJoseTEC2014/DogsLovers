@@ -29,6 +29,7 @@ public class VentanaListaTodasMascotas extends JFrame {
 	private JButton botonLocalizacion;
 	private JLabel espacioIzq;
 	public VentanaListaTodasMascotas() {
+		setSize(575,480);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		BorderLayout borderLayout = (BorderLayout) getContentPane().getLayout();

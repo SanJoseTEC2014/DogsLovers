@@ -82,12 +82,33 @@ public class VentanaMenuPrincipal extends JFrame {
 		mnMascotas.add(mntmMisMascotas);
 		
 		JMenuItem mntmVerEncontradas = new JMenuItem("Ver encontradas");
+		mntmVerEncontradas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaListaTodasMascotas window = new VentanaListaTodasMascotas();
+				window.setDatosIniciales(Principal.getCopiaMascotasEncontradas(), false);
+				window.setVisible(true);
+			}
+		});
 		mnMascotas.add(mntmVerEncontradas);
 		
 		JMenuItem mntmVerPerdidas = new JMenuItem("Ver perdidas");
+		mntmVerPerdidas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaListaTodasMascotas window = new VentanaListaTodasMascotas();
+				window.setDatosIniciales(Principal.getCopiaMascotasPerdidas(), false);
+				window.setVisible(true);
+			}
+		});
 		mnMascotas.add(mntmVerPerdidas);
 		
 		JMenuItem mntmVerEnAdopcin = new JMenuItem("Ver en adopci\u00F3n");
+		mntmVerEnAdopcin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaListaTodasMascotas window = new VentanaListaTodasMascotas();
+				window.setDatosIniciales(Principal.getCopiaMascotasEnAdopcion(), false);
+				window.setVisible(true);
+			}
+		});
 		mnMascotas.add(mntmVerEnAdopcin);
 		
 		JMenu mnBsqueda = new JMenu("B\u00FAsqueda");
@@ -170,6 +191,12 @@ public class VentanaMenuPrincipal extends JFrame {
 		mnAyuda.add(mntmManualDeUso);
 		
 		JMenuItem mntmContctenos = new JMenuItem("Cont\u00E1ctenos");
+		mntmContctenos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(getContentPane(),
+					"Puede enviarnos un correo con sus dudas a:\npawsconsultas@gmail.com");
+			}
+		});
 		mnAyuda.add(mntmContctenos);
 		
 		Configuration configTest = new Configuration();
