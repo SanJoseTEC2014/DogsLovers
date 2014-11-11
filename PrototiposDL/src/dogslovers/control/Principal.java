@@ -135,7 +135,8 @@ public class Principal {
 		Tiempo.setFechaInicioProduccion(Calendar.getInstance());
 		Diseno.inicializarFuentePaws();
 		Diseno.inicializarLookAndFeel();
-		// CasosPrueba.cargarDocumentoUsuariosPrueba();
+		CasosPrueba.cargarDocumentoUsuariosPrueba();
+		CasosPrueba.cargarDocumentoMascotasPrueba();
 		inicializarMascotas();
 		inicializarUsuarios();
 		
