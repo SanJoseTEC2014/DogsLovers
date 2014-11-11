@@ -1,18 +1,5 @@
 package dogslovers.control;
 
-/**	 Controlador Máquina de Estados: 
- * 	 Este controlador se encarga de manejar, reportar y cambiar el estado de las 
- *   mascotas registradas en el sistema, de acuerdo a una serie de eventos.
- * 
- *	 Fecha de creación: 2/11/2014
- * 
- *	@author Isaac Antonio Campos Mesén 2014004626
- *	@author Liza Elena Chaves Carranza 2013016573
- *	@author Melissa María Molina Corrales 2013006074
- *	@author Luis Andrés Peña Castillo 2014057250 
- *  
- */
-
 import javax.swing.JOptionPane;
 
 import dogslovers.control.excepciones.EventoNoExisteException;

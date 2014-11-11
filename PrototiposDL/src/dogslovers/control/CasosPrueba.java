@@ -1,7 +1,7 @@
 package dogslovers.control;
 
-/**	 Controlador CasosPrueba: 
- * 	 Este controlador implementa métodos para poder cargar
+/**	 Clase CasosPrueba: 
+ * 	 Esta clase implementa métodos para poder cargar
  * 	 los casos de prueba tanto de mascotas como de usuarios
  * 	 al sistema.
  * 
