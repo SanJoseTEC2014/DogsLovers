@@ -88,7 +88,7 @@ public class Acceso {
 	}
 	
 	public static boolean isAdministradorActivo(){
-		return modoAdministrador;
+		return usuarioActivo.isAdministrador();
 	}
 	
 	public static Usuario getUsuarioActivo(){
