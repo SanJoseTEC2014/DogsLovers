@@ -172,8 +172,12 @@ public class Mascota {
 		estados.add(MaquinaEstadosMascotas.estadoREFUGIADA);
 	}
 
+	public void addAdoptable(Suceso adopcion) {
+		sucesos.add(adopcion);
+		estados.add(MaquinaEstadosMascotas.estadoADOPTABLE);
+	}
 
-	public void addAdopcion(Suceso adopcion) {
+	public void addAdoptada(Suceso adopcion) {
 		sucesos.add(adopcion);
 		estados.add(MaquinaEstadosMascotas.estadoADOPTADA);
 	}
