@@ -345,11 +345,13 @@ public class VentanaRegistroMascotas extends JFrame {
 		panelOperaciones.add(botonRegistrar);
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				Mascota mascota = new Mascota(
 						campoNombre.getText(),
 						(String) comboBoxEspecie.getSelectedItem(),
 						(String)comboBoxRaza.getSelectedItem(),
 						Integer.getInteger(campoRecompensa.getText() == null ? "0" : campoRecompensa.getText()));
+				
 				mascota.setCastrada(checkBoxCastrada.isSelected());
 				mascota.setColor((String) comboBoxColor.getSelectedItem());
 				mascota.setDesparacitada(checkBoxDesparacitada.isSelected());
@@ -358,19 +360,23 @@ public class VentanaRegistroMascotas extends JFrame {
 				mascota.setTamanio((String) comboBoxTamanio.getSelectedItem());
 				mascota.setVacunada(checkBoxVacunada.isSelected());
 				
+				Suceso suceso = new Suceso(Acceso.getUsuarioActivo().getNickname(), editorDireccionSuceso.getText(), campoNotas.getText());
+				
 				if (radioButtonAdoptable.isSelected()){ 
 					Acceso.getUsuarioActivo().getMascotas().addAdoptables(mascota);
-					mascota.addAdopcion(new Suceso(Acceso.getUsuarioActivo().getNickname(), editorDireccionSuceso.getText(), campoNotas.getText()));
+					mascota.addAdopcion(suceso);
 					Principal.enAdopcion.add(mascota);
 				}
+				
 				if (radioButtonEncontrada.isSelected()){ 
 					Acceso.getUsuarioActivo().getMascotas().addEncontrada(mascota);
-					mascota.addEncuentro(new Suceso(Acceso.getUsuarioActivo().getNickname(), editorDireccionSuceso.getText(), campoNotas.getText()));
+					mascota.addEncuentro(suceso);
 					Principal.encontradas.add(mascota);
 				}
+				
 				if (radioButtonPerdida.isSelected()){
 					Acceso.getUsuarioActivo().getMascotas().addPerdida(mascota);
-					mascota.addPerdida(new Suceso(Acceso.getUsuarioActivo().getNickname(), editorDireccionSuceso.getText(), campoNotas.getText()));
+					mascota.addPerdida(suceso);
 					Principal.perdidas.add(mascota);
 				}
 				

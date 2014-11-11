@@ -19,9 +19,8 @@ import dogslovers.recursos.Diseno;
 public class VentanaBusqueda extends JFrame implements Runnable {
 
 	private static final Integer altoVentanaContraida = 395;
-	private static final Integer anchoVentana = 520;
+	private static final Integer anchoVentana = 577;
 	private JButton btnAyuda;
-
 	private JButton btnBuscar;
 	private JButton btnContraerVentana;
 	private JButton btnVerDetalles;
@@ -44,7 +43,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	private JCheckBox checkMascotasEnRefugio;
 	private JCheckBox checkMascotasPerdidas;
 	private JCheckBox checkNickName;
-	private JCheckBox checkNombre;
+	private JCheckBox checkNombreMascota;
 	private JCheckBox checkNombreUsuario;
 	private JCheckBox checkNumeroChip;
 	private JCheckBox checkNumeroTelefonico;
@@ -56,10 +55,8 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 	Thread hiloExpandirVentana;
 	private JLabel labelTitulo1;
 	private boolean[] listasSeleccionadas;
-	
 	private JPanel marcoCampos;
 	private JPanel marcoContenidoMascotas;
-	
 	private JPanel marcoContenidoUsuarios;
 	private JPanel marcoListas;
 	private JPanel marcoOperaciones;
@@ -92,7 +89,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		setName("barraCarga");
 
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(577, 395);	
+		setSize(anchoVentana, altoVentanaContraida);	
 
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		ventanaContraida = true;
@@ -130,7 +127,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent arg0) {
 
 				LinkedList<String> terminos = new LinkedList<String>();
-				if (checkNombre.isSelected()) {
+				if (checkNombreMascota.isSelected()) {
 					terminos.add(textNombre.getText());
 				} else {
 					terminos.add("");
@@ -170,7 +167,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 
 					modeloMascotas = new ModeloTablaMascotas(Busqueda.buscarMascotas(terminos, listasSeleccionadas));
 					tablaResultadosMascotas.setModel(modeloMascotas);
-					tablaResultadosMascotas.setAutoResizeMode(tablaResultadosMascotas.AUTO_RESIZE_ALL_COLUMNS);
+					tablaResultadosMascotas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 					tablaResultadosMascotas.setAutoCreateRowSorter(true);
 					tablaResultadosMascotas.setVisible(true);
 					progressBar.setMaximum(modeloMascotas.getCantidadDeResultados());
@@ -218,11 +215,11 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 		marcoCampos.setLayout(new GridLayout(5, 2, 0, 0));
 		marcoParametrosMascota.add(marcoCampos, BorderLayout.CENTER);
 
-		checkNombre = new JCheckBox("Nombre");
-		checkNombre.setOpaque(false);
-		checkNombre.addActionListener(new ActionListener() {
+		checkNombreMascota = new JCheckBox("Nombre");
+		checkNombreMascota.setOpaque(false);
+		checkNombreMascota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (checkNombre.isSelected()) {
+				if (checkNombreMascota.isSelected()) {
 					textNombre.setEnabled(true);
 				} else {
 					textNombre.setText("");
@@ -230,7 +227,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				}
 			}
 		});
-		marcoCampos.add(checkNombre);
+		marcoCampos.add(checkNombreMascota);
 
 		textNombre = new JTextField();
 		textNombre.setEnabled(false);
@@ -449,7 +446,6 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 
 		listasSeleccionadas = new boolean[] { false, false, false, false, false };
 		
-		//TODO Quitar estas dos lineas una vez que quede completada la clase
 		pestanias.addTab("Usuarios", null, pestaniaUsuarios, null);
 		
 		marcoTituloUsuarios = new JPanel();
@@ -466,15 +462,17 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				LinkedList<String> terminos = new LinkedList<String>();
 				
 				if (checkNickName.isSelected()) {
+					terminos.add(campoNickName.getText());
+				} else {
+					terminos.add("");
+				}
+				
+				if (checkNombreUsuario.isSelected()) {
 					terminos.add(campoNombreUsuario.getText());
 				} else {
 					terminos.add("");
 				}
-				if (checkNombre.isSelected()) {
-					terminos.add(campoNombreUsuario.getText());
-				} else {
-					terminos.add("");
-				}
+				
 				if (checkApellidos.isSelected()) {
 					terminos.add(campoApellidos.getText());
 				} else {
@@ -486,6 +484,7 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				} else {
 					terminos.add("");
 				}
+				
 				if (checkNumeroTelefonico.isSelected()) {
 					terminos.add(campoNumeroTelefonico.getText());
 				} else {
@@ -497,17 +496,13 @@ public class VentanaBusqueda extends JFrame implements Runnable {
 				} else {
 					terminos.add("");
 				}
-			
+
 				soloUsusariosRefugiantes = checkSoloUsuariosRefugiantes.isSelected();
-
-
-				//if (algunaListaSeleccionada(listasSeleccionadas)) {
-					//modelo = new Busqueda(terminos, listasSeleccionadas);
 
 				modeloUsuarios = new ModeloTablaUsuarios(Busqueda.buscarUsuarios(terminos, soloUsusariosRefugiantes));
 				tablaResultadosUsuarios.setModel(modeloUsuarios);
 				tablaResultadosUsuarios.setVisible(true);
-				tablaResultadosUsuarios.setAutoResizeMode(tablaResultadosMascotas.AUTO_RESIZE_ALL_COLUMNS);
+				tablaResultadosUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 				tablaResultadosUsuarios.setAutoCreateRowSorter(true);
 				progressBar_1.setMaximum(modeloUsuarios.getCantidadDeResultados());
 

@@ -26,6 +26,8 @@ public class ValidacionesRegistro {
 		return false;
 	}
 	
+	
+	
 	//TODO validarSoloNumeros
 	//TODO validarCorreo
 	//TODO validarNickDisponible

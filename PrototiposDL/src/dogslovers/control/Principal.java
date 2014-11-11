@@ -108,7 +108,6 @@ public class Principal {
 		
 		// Demostración del clonado
 		System.out.println(encontradas.get(0) == encontradas.get(0).clone() ? "Same" : "Different");
-		
 		*/
 		
 		Tiempo.setFechaInicioProduccion(Calendar.getInstance());
@@ -233,15 +232,15 @@ public class Principal {
 
 	public static ArrayList<Usuario> getCopiaUsuarios() {
 		ArrayList<Usuario> copia = new ArrayList<Usuario>();
-	    for(Usuario usuario : blanca) copia.add((Usuario) usuario.clone());
-	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
+	    for(Usuario usuario : blanca) {copia.add(usuario.clone());}
+	    for(Usuario usuario : negra) {copia.add(usuario.clone());}
 	    return copia;
 	}
 	
 	public static ArrayList<Usuario> getCopiaUsuariosRefugiantes() {
 		ArrayList<Usuario> copia = new ArrayList<Usuario>();
-	    for(Usuario usuario : blanca) if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());
-	    for(Usuario usuario : negra) copia.add((Usuario) usuario.clone());
+	    for(Usuario usuario : blanca) {if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());}
+	    for(Usuario usuario : negra)  {if(usuario.isRefugiante()) copia.add((Usuario) usuario.clone());}
 	    return copia;
 	}
 
@@ -251,6 +250,6 @@ public class Principal {
 		for (Mascota mascota : refugiadas) if (IDmascota == mascota.getID()) return mascota;
 		for (Mascota mascota : adoptadas) if (IDmascota == mascota.getID()) return mascota;
 		for (Mascota mascota : enAdopcion) if (IDmascota == mascota.getID()) return mascota;
-		throw new MascotaNoEncontradaException("Error inesperado no se pueden cargar los detalles de la mascota");
+		throw new MascotaNoEncontradaException("Error inesperado no se encuentra la mascota");
 	}
 }

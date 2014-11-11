@@ -93,7 +93,7 @@ public class Busqueda {
 	
 	private static boolean lugarPerdidaCoincide(Mascota pMascota, String pCriterio){
 		if (pMascota.getEstadoActual() == MaquinaEstadosMascotas.estadoPERDIDA) {
-			return pMascota.getPerdida().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
+			return pMascota.getUltimoSuceso().getLugar().toLowerCase().contains(pCriterio.toLowerCase());
 		}
 		return false;
 	}
@@ -124,7 +124,7 @@ public class Busqueda {
 
 		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		
-		
+
 		if (soloUsusariosRefugiantes) {
 			listaUsuarios.addAll(Principal.getCopiaUsuariosRefugiantes());
 		}else {

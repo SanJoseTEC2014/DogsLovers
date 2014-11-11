@@ -26,12 +26,14 @@ public class Acceso {
 	}
 	
 	public static void validarCredenciales(String pNickname, String pContrasenia) throws Exception{
+		
 		/*
 		JOptionPane.showMessageDialog(null, superUsuario.toString() +
 									"\npNickname: " + pNickname + "\npContraseña: " + pContrasenia +
 									"\nEstá accediendo el superusuario?: " +
 									(isSuperUsuario(pNickname, pContrasenia) ? "Sí" : "No"));
 		*/
+		
 		if (isSuperUsuario(pNickname, pContrasenia)){
 			usuarioActivo = getInstanciaSuperUsuario();
 			setModoAdministrador(true);
