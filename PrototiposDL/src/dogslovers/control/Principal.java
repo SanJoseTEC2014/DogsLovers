@@ -1,5 +1,19 @@
 package dogslovers.control;
 
+/**	Clase Principal: 
+ * 	 Esta clase permite inicializar las mascotas, asi como los usuarios,
+ *   cargar los casos de prueba para el sistema e invocar la ventana de
+ *   inicio de sesión de la aplicación, asimismo implementa algunos  
+ *   métodos para el funcionamiento de la aplicación.
+ * 
+ *	Fecha de creación: 28/10/2014
+ * 
+ *	@author Isaac Antonio Campos Mesén 2014004626
+ *	@author Liza Elena Chaves Carranza 2013016573
+ *	@author Melissa María Molina Corrales 2013006074
+ *	@author Luis Andrés Peña Castillo 2014057250 
+ *  
+ */
 import java.awt.*;
 import java.util.*;
 
@@ -27,6 +41,13 @@ public class Principal {
 	
 	public static Usuario getUsuarioListaBlanca(String pNickname) throws UsuarioNoExisteException{
 		for (Usuario x : blanca){
+			if (x.getNickname().equals(pNickname)) return x;
+		}
+		throw new UsuarioNoExisteException("El usuario no aparece registrado.");
+	}
+	
+	public static Usuario getUsuarioListaNegra(String pNickname) throws UsuarioNoExisteException{
+		for (Usuario x : negra){
 			if (x.getNickname().equals(pNickname)) return x;
 		}
 		throw new UsuarioNoExisteException("El usuario no aparece registrado.");

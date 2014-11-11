@@ -66,7 +66,7 @@ public class VentanaDetallesMascota extends JFrame {
 
 		marcoFoto = new JPanel();
 		marcoFoto.setBorder(new TitledBorder(null, "Detalles de Mascota", TitledBorder.CENTER, TitledBorder.TOP,
-											Diseno.fuenteTitulosVentanas.deriveFont(25f), null));
+		Diseno.fuenteTitulosVentanas.deriveFont(20f), null));
 		marcoFoto.setOpaque(false);
 		marcoCentro.add(marcoFoto, BorderLayout.CENTER);
 		marcoFoto.setLayout(new BorderLayout(10, 10));

@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 
+import dogslovers.control.excepciones.UsuarioNoExisteException;
+
 public class ValidacionesRegistro {
 
 	public static boolean validarCorreo(String email) {
@@ -25,11 +27,18 @@ public class ValidacionesRegistro {
 		}
 		return false;
 	}
-	
-	
-	
-	//TODO validarSoloNumeros
-	//TODO validarCorreo
-	//TODO validarNickDisponible
 
+	public static boolean isNicknameRepetido(String pNickname){
+		try {
+			Principal.getUsuarioListaBlanca(pNickname);
+			return true;
+		} catch (UsuarioNoExisteException e) {
+			try {
+				Principal.getUsuarioListaNegra(pNickname);
+				return true;
+			} catch (UsuarioNoExisteException e1) {
+				return false; // No se repite
+			}
+		}
+	}
 }

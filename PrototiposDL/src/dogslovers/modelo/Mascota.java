@@ -1,7 +1,10 @@
 package dogslovers.modelo;
 
-/**	Prototipo de la clase Mascota
- *	Fecha de creación: 03/10/2014
+/**	Clase Mascota: 
+ * 	Esta clase implementa cada uno de los atributos,
+ *  listas y métodos correspondientes a las mascotas.
+ * 
+ *	Fecha de creación: 24/10/2014
  * 
  *	@author Isaac Antonio Campos Mesén 2014004626
  *	@author Liza Elena Chaves Carranza 2013016573
@@ -196,8 +199,6 @@ public class Mascota {
 	public Suceso getUltimoSuceso() {
 		return sucesos.get((sucesos.size())-1);
 	}
-	
-	
 	
 	public void notificar(){
 		// MaquinaEstadosMascotas.getMaquina().capturarReporte();
