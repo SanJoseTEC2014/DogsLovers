@@ -21,6 +21,8 @@ public class CasosPrueba {
 						Integer.parseInt(registro.get(6)), registro.get(7), registro.get(8));
 				Principal.blanca.add(porRegistrar);
 			}
+			JOptionPane.showMessageDialog(null,
+					"Casos de prueba cargados satisfactoriamente.");
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,
 				e.getMessage(),

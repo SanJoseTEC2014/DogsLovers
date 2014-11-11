@@ -54,7 +54,7 @@ public class VentanaDetallesUsuario extends JFrame {
 	private Usuario usuarioActual;
 
 	public VentanaDetallesUsuario(){
-		setSize(730,500);
+		setSize(800,500);
 		getContentPane().setBackground(Diseno.fondoVentanas);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));

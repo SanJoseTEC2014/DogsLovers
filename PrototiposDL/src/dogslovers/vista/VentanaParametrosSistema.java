@@ -27,6 +27,8 @@ public class VentanaParametrosSistema extends JFrame {
 	private static String[] calificaciones = new String[]{"5.0",
 							"4.5", "4.0", "3.5", "3.0", "2.5",
 							"2.0", "1.5", "1.0", "0.5", "0.0"};
+	private static boolean fechaEstablecida;
+	
 	private JCalendar calendar;
 	private JPanel panelGeneral;
 	private JPanel marcoBotonesFecha;
@@ -42,7 +44,7 @@ public class VentanaParametrosSistema extends JFrame {
 	private JTextField textFecha;
 	private JPanel panelMensajeCorreo;
 	private JPanel mensajeNuevo;
-	private JTextField mensajeCorreoNuevo;
+	private JTextArea mensajeCorreoNuevo;
 	private JButton btnGuardarMensaje;
 	
 	public VentanaParametrosSistema() {
@@ -95,6 +97,11 @@ public class VentanaParametrosSistema extends JFrame {
 		panelGeneral.add(labelCasos1);
 		
 		botonCasos1 = new JButton("Cargar");
+		botonCasos1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CasosPrueba.cargarDocumentoUsuariosPrueba();
+			}
+		});
 		panelGeneral.add(botonCasos1);
 		
 		labelCasos2 = new JLabel("Casos de Prueba de Mascotas:");
@@ -145,7 +152,8 @@ public class VentanaParametrosSistema extends JFrame {
 		botonGuardarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Tiempo.setFechaInicioProduccion(calendar.getCalendar());
-				calendar.setEnabled(false);
+				fechaEstablecida = false;
+				calendar.setEnabled(fechaEstablecida);
 			}
 		});
 		botonGuardarFecha.setOpaque(false);
@@ -183,7 +191,8 @@ public class VentanaParametrosSistema extends JFrame {
 		panelMensajeCorreo.add(mensajeNuevo);
 		mensajeNuevo.setLayout(null);
 		
-		mensajeCorreoNuevo = new JTextField();
+		mensajeCorreoNuevo = new JTextArea();
+		mensajeCorreoNuevo.setLineWrap(true);
 		mensajeCorreoNuevo.setAlignmentY(0.0f);
 		mensajeCorreoNuevo.setBounds(10, 21, 509, 141);
 		mensajeNuevo.add(mensajeCorreoNuevo);
@@ -207,7 +216,8 @@ public class VentanaParametrosSistema extends JFrame {
 		marcoInferior.add(botonCerrar);
 	}
 	
-	public void setMensajeNuevo() {
+	public void setDatosIniciales() {
+		calendar.setEnabled(fechaEstablecida);
 		mensajeCorreoNuevo.setText(Correo.getMensaje());
 	}
 	
